@@ -1,0 +1,1566 @@
+/* ----------------------------------------
+   Media Queries for Responsive Design
+   ---------------------------------------- */
+@media (max-width: 900px) {
+    #runningTable, #upcomingTable, #endTable {
+        width: 360px !important;
+    }
+
+    #runningTable td, #endTable td {
+        padding: 0px 7px !important;
+    }
+    #upcomingTable td {
+        padding: 0px 5px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .conteiner {
+        width: 100% !important;
+    }
+    .header {
+        width: 100% !important;
+        padding: 10px 0px 0px;
+    }
+    .login-section {
+        width: 325px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 760px) {
+    .section-input-user > input,
+    .section-input-user > .user-icon,
+    .section-input-user > .dropdown-toggle-icon, #userCaret {
+        display: none;
+    }
+
+    #toggle-icon {
+        display: inline !important;
+        font-size: 24px;
+        cursor: pointer;
+        position: fixed;
+        z-index: 1000;
+    }
+
+    .section-wrap.show {
+        display: flex; 
+        transform: translate(-177px, 40px);
+        opacity: 1;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+    }
+
+    #td-poznamka, #td-firma, #th-poznamka, #th-firma, #td-objednano, #th-objednano {
+        display: none;
+    }
+
+    #th-odchod {
+        border-top-right-radius: 10px;
+    }
+
+    #td-odchod {
+        border-bottom-right-radius: 10px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .li-sidebar {
+        padding: 5px !important; 
+    }
+    .ul-sidebar {
+        padding-bottom: 3px !important;
+    }
+}
+
+/* ----------------------------------------
+   Table Styles
+   ---------------------------------------- */
+#upcomingTable_wrapper {
+    width: 100%;
+}
+
+table {
+    width: 100% !important;     /* Tabulka zabírá 100% šířky kontejneru */
+    table-layout: auto;         /* Automatické přizpůsobení šířky sloupců */
+    border-collapse: collapse;  /* Sloučení hranic buněk */
+}
+
+thead, tbody {
+    width: 100%;
+}
+
+th, td {
+    padding: 0px 16px 0px 6px !important; /* Padding pro buňky */
+    word-wrap: break-word;      /* Umožňuje zalomení textu v buňkách */
+    text-align: left;           /* Zarovnání textu do levé části */
+}
+
+th {
+    background-color: white !important; /* Pozadí pro hlavičky */
+    height: 40px;               /* Výška hlavičky */
+    text-align: left !important;
+}
+
+td {
+    height: 32px;               /* Výška buněk v těle tabulky */
+}
+
+thead th, tbody td {
+    width: 12%;                 /* Šířka sloupců, která bude stejná pro všechny buňky v daném sloupci */
+    white-space: nowrap;        /* Zabráni zalomení textu */
+}
+
+/* ----------------------------------------
+   Row Styles
+   ---------------------------------------- */
+.row-neprirazeno {
+    background-color: rgba(255, 166, 0, 0.521) !important;
+}
+.row-neprirazeno:hover {
+    background-color: rgba(255, 166, 0, 0.638) !important;
+}
+.row-cekajici {
+    background-color: rgba(255, 255, 0, 0.321) !important;
+}
+.row-cekajici:hover {
+    background-color: rgba(255, 255, 0, 0.453) !important;
+}
+.row-nedieslujese {
+    background-color: rgb(0 17 255 / 43%) !important;
+}
+.row-nedieslujese:hover {
+    background-color: rgba(0, 17, 255, 0.525) !important;
+}
+.row-aktivni {
+    background-color: rgba(0, 128, 0, 0.371) !important;
+}
+.row-aktivni:hover {
+    background-color: rgba(0, 128, 0, 0.514) !important;
+}
+.row-ukoncene {
+    background-color: rgba(255, 0, 0, 0.382) !important;
+}
+.row-ukoncene:hover {
+    background-color: rgba(255, 0, 0, 0.56) !important;
+}
+.row-standart {
+    background-color: #0055ff28 !important;
+}
+.row-standart:hover {
+    background-color: #0055ff49 !important;
+}
+.row-obsazeny {
+    background-color: rgba(255, 0, 0, 0.382) !important;
+}
+.row-volny {
+    background-color: rgba(0, 128, 0, 0.371) !important;
+}
+
+/* ----------------------------------------
+   Toggle Icon Styles
+   ---------------------------------------- */
+#toggle-icon {
+    display: none;
+}
+
+/* ----------------------------------------
+   Error Div Styles
+   ---------------------------------------- */
+.ErrorDiv {
+    position: absolute;
+    display: none;
+    top: 50px;
+    right: 5px;
+    width: 180px;
+    background-color: white;
+    border: solid 0.5px black;
+    height: 150px;
+    border-radius: 10px;
+}
+.buttonTest:active + .ErrorDiv {
+    display: block;
+}
+
+/* ----------------------------------------
+   Table Row Styles
+   ---------------------------------------- */
+.tables-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%; 
+}
+.tables-row.formRow {
+    gap: 20px;
+}
+
+/* ----------------------------------------
+   Section Styles
+   ---------------------------------------- */
+.section.big {
+    width: 97%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.section.small {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    min-width: 300px;
+}
+.section.small.FORMS.right {
+    flex: 3;
+    justify-content: space-between;
+}
+.section.small.FORMS.left {
+    flex: 7;
+    justify-content: space-between;
+}
+
+/* ----------------------------------------
+   Section Wrap Styles
+   ---------------------------------------- */
+.section-wrap {
+    display: none;
+    position: fixed;
+    background-color: #a9b5a9;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+
+/* ----------------------------------------
+   Body Styles
+   ---------------------------------------- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    font-size: 12px;
+    padding: 0;
+    color: #5f6368;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+/* ----------------------------------------
+   Content Styles
+   ---------------------------------------- */
+.Content {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh !important;
+}
+
+/* ----------------------------------------
+   Navigation Div Styles
+   ---------------------------------------- */
+.navdiv {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin: 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    cursor: pointer;
+}
+
+.a-username {
+    position: fixed;
+    top: -1px;
+    right: 8px;
+    font-size: x-small;
+}
+
+.navdiv i {
+    color: black;
+    padding: 5px;
+}
+
+.navdiv.add {
+    background-color: rgb(0, 17, 255);
+    color: white;
+    height: 32px;
+    font-size: 12px;
+}
+
+.navdiv.add i, .navdiv.add a {
+    color: white;
+    font-size: 12px;
+}
+
+.navdiv.signout {
+    background-color: yellow;
+    width: 33px;
+    justify-content: center;
+    display: flex;
+}
+
+.navdiv.settings {
+    width: 33px;
+    justify-content: center;
+    display: flex;
+}
+
+.navdiv a {
+    font-size: medium;
+    color: black;
+    padding: 3px;
+    text-decoration: none;
+}
+
+/* ----------------------------------------
+   Modal User Styles
+   ---------------------------------------- */
+.modal-user {
+    position: absolute;
+    display: none;
+    animation-duration: .3s;
+    top: 45px;
+    right: 5px;
+    width: 200px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.modal-user ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.modal-user ul li {
+    margin: 10px 0px 10px 0px;
+    padding: 5px;
+}
+
+.modal-user ul li p {
+    margin-right: 0px;
+    font-size: small;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.modal-user ul li:hover {
+    background-color: #bfc1c59c;
+    transition: 0.3s;
+}
+
+/* ----------------------------------------
+   Active Link Styles
+   ---------------------------------------- */
+.active-link {
+    text-decoration: underline;
+}
+
+/* ----------------------------------------
+   Navigation Styles
+   ---------------------------------------- */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+    position: relative;
+    display: inline-flex;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav ul li a.dark-mode {
+    color: #f0f0f0;
+}
+
+/* ----------------------------------------
+   Section Input User Styles
+   ---------------------------------------- */
+.section-input-user {
+    display: inline-flex;
+}
+
+.section-input-user input {
+    padding: 7px;
+    width: 350px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-input-user input.dark-mode {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+nav input {
+    padding: 5px;
+    width: 350px;
+    border-radius: 10px;
+    border-color: #8b000000;
+}
+
+/* ----------------------------------------
+   User Icon Styles
+   ---------------------------------------- */
+.user-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 33px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 4px;
+    transition: background-color 0.3s;
+}
+
+.user-icon i {
+    font-size: 18px;
+    color: #000;
+    padding: 5px;
+}
+
+/* ----------------------------------------
+   Overlay Styles
+   ---------------------------------------- */
+.overlay {
+    display: none;
+    background-color: #fffcfc;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    transform: translate(-205px, -25px);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    z-index: 200;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* ----------------------------------------
+   Header Styles
+   ---------------------------------------- */
+.header {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    height: 50px;
+    right: 0;
+    box-shadow: 0 2px 10px #00000042;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbarcontent {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ----------------------------------------
+   Badge Styles
+   ---------------------------------------- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2em 0.15em;
+}
+
+.badge-phoenix-success {
+    background-color: #28a745; /* zelená barva pro úspěch */
+    color: white;
+}
+
+.badge-label {
+    margin-right: 0.5em; /* mezera mezi textem a ikonou */
+}
+
+.feather {
+    height: 12.8px;
+    width: 12.8px;
+}
+
+header.dark-mode {
+    background-color: #3A3A3A;
+}
+
+/* ----------------------------------------
+   Content Styles
+   ---------------------------------------- */
+.Content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+/* ----------------------------------------
+   Sidebar Styles
+   ---------------------------------------- */
+.sidemenu {
+    display: none;
+    background: white;
+    color: #abafc6;
+    font-family: "Roboto", sans-serif;
+    z-index: 1000;
+    position: fixed;
+    top: 0; /* Ensures it starts at the top */
+    height: 100vh; /* Full height for vertical scrolling */
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #ddd;
+}
+
+.sidemenu.visible {
+    display: block !important;
+    width: 19%;
+    z-index: 1000;
+}
+
+.conteiner {
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    right: 0px; 
+    margin-top: 65px;
+    transition: 0.3s;
+}
+
+.conteiner.visible {
+    width: 81% !important;
+    transition: 0.3s;
+}
+
+/* ----------------------------------------
+   Sidebar Section Styles
+   ---------------------------------------- */
+.s1 {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+}
+
+.s2 {
+    margin-top: 10px;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.s3 {
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    border-top: 1px solid #e9ecef;
+}
+
+/* ----------------------------------------
+   Sidebar List Styles
+   ---------------------------------------- */
+.ul-sidebar {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    color: #5f6368;
+    align-items: baseline;
+    padding: 0px;
+    overflow: hidden;
+    list-style: none;
+}
+
+.li-sidebar {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.li-sidebar:hover {
+    background-color: #bfc1c59c;
+    transition: 0.3s;
+}
+
+.a-sidebar {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    color: #5f6368;
+    height: auto;
+    width: 100%;
+    align-items: baseline;
+    padding: 7px 10px 7px 16px;
+}
+
+.navA {
+    display: flex; 
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.navB {
+    margin-left: 10px;
+}
+
+.li-sidebar.active {
+    background-color: #0057ff;
+}
+
+.li-sidebar.active a {
+    color: inherit; /* Zachová barvu textu od rodiče */
+}
+
+/* ----------------------------------------
+   Container Styles
+   ---------------------------------------- */
+.container {
+    width: 100%;
+}
+
+.nav-footer {
+    padding: 10px;
+}
+
+.a-text {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    margin-right: 80px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.badge.badge-phoenix.fs-10.badge-phoenix-success:hover {
+    background-color: darkgreen !important;
+}
+
+.text-body-secondary {
+    color: #6c757d;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ----------------------------------------
+   Modal Styles
+   ---------------------------------------- */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+}
+
+.modal-content {
+    color: white;
+    padding: 25px 5px 10px 5px;
+    border-radius: 5px;
+    width: 380px;
+    height: 75px;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* ----------------------------------------
+   Modal Confirm Styles
+   ---------------------------------------- */
+.modal-confirm-modal {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 1px solid #cbd0dd;
+    box-shadow: 0px 0px 10px rgba
+}
+/* ----------------------------------------
+   Media Queries for Responsive Design
+   ---------------------------------------- */
+@media (max-width: 900px) {
+    #runningTable, #upcomingTable, #endTable {
+        width: 360px !important;
+    }
+
+    #runningTable td, #endTable td {
+        padding: 0px 7px !important;
+    }
+    #upcomingTable td {
+        padding: 0px 5px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .conteiner {
+        width: 100% !important;
+    }
+    .header {
+        width: 100% !important;
+        padding: 10px 0px 0px;
+    }
+    .login-section {
+        width: 325px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 760px) {
+    .section-input-user > input,
+    .section-input-user > .user-icon,
+    .section-input-user > .dropdown-toggle-icon, #userCaret {
+        display: none;
+    }
+
+    #toggle-icon {
+        display: inline !important;
+        font-size: 24px;
+        cursor: pointer;
+        position: fixed;
+        z-index: 1000;
+    }
+
+    .section-wrap.show {
+        display: flex; 
+        transform: translate(-177px, 40px);
+        opacity: 1;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+    }
+
+    #td-poznamka, #td-firma, #th-poznamka, #th-firma, #td-objednano, #th-objednano {
+        display: none;
+    }
+
+    #th-odchod {
+        border-top-right-radius: 10px;
+    }
+
+    #td-odchod {
+        border-bottom-right-radius: 10px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .li-sidebar {
+        padding: 5px !important; 
+    }
+    .ul-sidebar {
+        padding-bottom: 3px !important;
+    }
+}
+
+/* ----------------------------------------
+   Table Styles
+   ---------------------------------------- */
+#upcomingTable_wrapper {
+    width: 100%;
+}
+
+table {
+    width: 100% !important;     /* Tabulka zabírá 100% šířky kontejneru */
+    table-layout: auto;         /* Automatické přizpůsobení šířky sloupců */
+    border-collapse: collapse;  /* Sloučení hranic buněk */
+}
+
+thead, tbody {
+    width: 100%;
+}
+
+th, td {
+    padding: 0px 16px 0px 6px !important; /* Padding pro buňky */
+    word-wrap: break-word;      /* Umožňuje zalomení textu v buňkách */
+    text-align: left;           /* Zarovnání textu do levé části */
+}
+
+th {
+    background-color: white !important; /* Pozadí pro hlavičky */
+    height: 40px;               /* Výška hlavičky */
+    text-align: left !important;
+}
+
+td {
+    height: 32px;               /* Výška buněk v těle tabulky */
+}
+
+thead th, tbody td {
+    width: 12%;                 /* Šířka sloupců, která bude stejná pro všechny buňky v daném sloupci */
+    white-space: nowrap;        /* Zabráni zalomení textu */
+}
+
+/* ----------------------------------------
+   Row Styles
+   ---------------------------------------- */
+.row-neprirazeno {
+    background-color: rgba(255, 166, 0, 0.521) !important;
+}
+.row-neprirazeno:hover {
+    background-color: rgba(255, 166, 0, 0.638) !important;
+}
+.row-cekajici {
+    background-color: rgba(255, 255, 0, 0.321) !important;
+}
+.row-cekajici:hover {
+    background-color: rgba(255, 255, 0, 0.453) !important;
+}
+.row-nedieslujese {
+    background-color: rgb(0 17 255 / 43%) !important;
+}
+.row-nedieslujese:hover {
+    background-color: rgba(0, 17, 255, 0.525) !important;
+}
+.row-aktivni {
+    background-color: rgba(0, 128, 0, 0.371) !important;
+}
+.row-aktivni:hover {
+    background-color: rgba(0, 128, 0, 0.514) !important;
+}
+.row-ukoncene {
+    background-color: rgba(255, 0, 0, 0.382) !important;
+}
+.row-ukoncene:hover {
+    background-color: rgba(255, 0, 0, 0.56) !important;
+}
+.row-standart {
+    background-color: #0055ff28 !important;
+}
+.row-standart:hover {
+    background-color: #0055ff49 !important;
+}
+.row-obsazeny {
+    background-color: rgba(255, 0, 0, 0.382) !important;
+}
+.row-volny {
+    background-color: rgba(0, 128, 0, 0.371) !important;
+}
+
+/* ----------------------------------------
+   Toggle Icon Styles
+   ---------------------------------------- */
+#toggle-icon {
+    display: none;
+}
+
+/* ----------------------------------------
+   Error Div Styles
+   ---------------------------------------- */
+.ErrorDiv {
+    position: absolute;
+    display: none;
+    top: 50px;
+    right: 5px;
+    width: 180px;
+    background-color: white;
+    border: solid 0.5px black;
+    height: 150px;
+    border-radius: 10px;
+}
+.buttonTest:active + .ErrorDiv {
+    display: block;
+}
+
+/* ----------------------------------------
+   Table Row Styles
+   ---------------------------------------- */
+.tables-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%; 
+}
+.tables-row.formRow {
+    gap: 20px;
+}
+
+/* ----------------------------------------
+   Section Styles
+   ---------------------------------------- */
+.section.big {
+    width: 97%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.section.small {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    min-width: 300px;
+}
+.section.small.FORMS.right {
+    flex: 3;
+    justify-content: space-between;
+}
+.section.small.FORMS.left {
+    flex: 7;
+    justify-content: space-between;
+}
+
+/* ----------------------------------------
+   Section Wrap Styles
+   ---------------------------------------- */
+.section-wrap {
+    display: none;
+    position: fixed;
+    background-color: #a9b5a9;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+
+/* ----------------------------------------
+   Body Styles
+   ---------------------------------------- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    font-size: 12px;
+    padding: 0;
+    color: #5f6368;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+/* ----------------------------------------
+   Content Styles
+   ---------------------------------------- */
+.Content {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh !important;
+}
+
+/* ----------------------------------------
+   Navigation Div Styles
+   ---------------------------------------- */
+.navdiv {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin: 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    cursor: pointer;
+}
+
+.a-username {
+    position: fixed;
+    top: -1px;
+    right: 8px;
+    font-size: x-small;
+}
+
+.navdiv i {
+    color: black;
+    padding: 5px;
+}
+
+.navdiv.add {
+    background-color: rgb(0, 17, 255);
+    color: white;
+    height: 32px;
+    font-size: 12px;
+}
+
+.navdiv.add i, .navdiv.add a {
+    color: white;
+    font-size: 12px;
+}
+
+.navdiv.signout {
+    background-color: yellow;
+    width: 33px;
+    justify-content: center;
+    display: flex;
+}
+
+.navdiv.settings {
+    width: 33px;
+    justify-content: center;
+    display: flex;
+}
+
+.navdiv a {
+    font-size: medium;
+    color: black;
+    padding: 3px;
+    text-decoration: none;
+}
+
+/* ----------------------------------------
+   Modal User Styles
+   ---------------------------------------- */
+.modal-user {
+    position: absolute;
+    display: none;
+    animation-duration: .3s;
+    top: 45px;
+    right: 5px;
+    width: 200px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.modal-user ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.modal-user ul li {
+    margin: 10px 0px 10px 0px;
+    padding: 5px;
+}
+
+.modal-user ul li p {
+    margin-right: 0px;
+    font-size: small;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.modal-user ul li:hover {
+    background-color: #bfc1c59c;
+    transition: 0.3s;
+}
+
+/* ----------------------------------------
+   Active Link Styles
+   ---------------------------------------- */
+.active-link {
+    text-decoration: underline;
+}
+
+/* ----------------------------------------
+   Navigation Styles
+   ---------------------------------------- */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+    position: relative;
+    display: inline-flex;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav ul li a.dark-mode {
+    color: #f0f0f0;
+}
+
+/* ----------------------------------------
+   Section Input User Styles
+   ---------------------------------------- */
+.section-input-user {
+    display: inline-flex;
+}
+
+.section-input-user input {
+    padding: 7px;
+    width: 350px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-input-user input.dark-mode {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+nav input {
+    padding: 5px;
+    width: 350px;
+    border-radius: 10px;
+    border-color: #8b000000;
+}
+
+/* ----------------------------------------
+   User Icon Styles
+   ---------------------------------------- */
+.user-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 33px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 4px;
+    transition: background-color 0.3s;
+}
+
+.user-icon i {
+    font-size: 18px;
+    color: #000;
+    padding: 5px;
+}
+
+/* ----------------------------------------
+   Overlay Styles
+   ---------------------------------------- */
+.overlay {
+    display: none;
+    background-color: #fffcfc;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    transform: translate(-205px, -25px);
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    z-index: 200;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* ----------------------------------------
+   Header Styles
+   ---------------------------------------- */
+.header {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    height: 50px;
+    right: 0;
+    box-shadow: 0 2px 10px #00000042;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbarcontent {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ----------------------------------------
+   Badge Styles
+   ---------------------------------------- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2em 0.15em;
+}
+
+.badge-phoenix-success {
+    background-color: #28a745; /* zelená barva pro úspěch */
+    color: white;
+}
+
+.badge-label {
+    margin-right: 0.5em; /* mezera mezi textem a ikonou */
+}
+
+.feather {
+    height: 12.8px;
+    width: 12.8px;
+}
+
+header.dark-mode {
+    background-color: #3A3A3A;
+}
+
+/* ----------------------------------------
+   Content Styles
+   ---------------------------------------- */
+.Content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+/* ----------------------------------------
+   Sidebar Styles
+   ---------------------------------------- */
+.sidemenu {
+    display: none;
+    background: white;
+    color: #abafc6;
+    font-family: "Roboto", sans-serif;
+    z-index: 1000;
+    position: fixed;
+    top: 0; /* Ensures it starts at the top */
+    height: 100vh; /* Full height for vertical scrolling */
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #ddd;
+}
+
+.sidemenu.visible {
+    display: block !important;
+    width: 19%;
+    z-index: 1000;
+}
+
+.conteiner {
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    right: 0px; 
+    margin-top: 65px;
+    transition: 0.3s;
+}
+
+.conteiner.visible {
+    width: 81% !important;
+    transition: 0.3s;
+}
+
+/* ----------------------------------------
+   Sidebar Section Styles
+   ---------------------------------------- */
+.s1 {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+}
+
+.s2 {
+    margin-top: 10px;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.s3 {
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    border-top: 1px solid #e9ecef;
+}
+
+/* ----------------------------------------
+   Sidebar List Styles
+   ---------------------------------------- */
+.ul-sidebar {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    color: #5f6368;
+    align-items: baseline;
+    padding: 0px;
+    overflow: hidden;
+    list-style: none;
+}
+
+.li-sidebar {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.li-sidebar:hover {
+    background-color: #bfc1c59c;
+    transition: 0.3s;
+}
+
+.a-sidebar {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    color: #5f6368;
+    height: auto;
+    width: 100%;
+    align-items: baseline;
+    padding: 7px 10px 7px 16px;
+}
+
+.navA {
+    display: flex; 
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.navB {
+    margin-left: 10px;
+}
+
+.li-sidebar.active {
+    background-color: #0057ff;
+}
+
+.li-sidebar.active a {
+    color: inherit; /* Zachová barvu textu od rodiče */
+}
+
+/* ----------------------------------------
+   Container Styles
+   ---------------------------------------- */
+.container {
+    width: 100%;
+}
+
+.nav-footer {
+    padding: 10px;
+}
+
+.a-text {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    margin-right: 80px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.badge.badge-phoenix.fs-10.badge-phoenix-success:hover {
+    background-color: darkgreen !important;
+}
+
+.text-body-secondary {
+    color: #6c757d;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ----------------------------------------
+   Modal Styles
+   ---------------------------------------- */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+}
+
+.modal-content {
+    color: white;
+    padding: 25px 5px 10px 5px;
+    border-radius: 5px;
+    width: 380px;
+    height: 75px;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* ----------------------------------------
+   Modal Confirm Styles
+   ---------------------------------------- */
+.modal-confirm-modal {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 1px solid #cbd0dd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#confirmBtn, #cancelBtn {
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(0, 17, 255);
+}
+#confirmBtn{
+    background-color: darkblue !important;
+}
+#confirmModalText{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-content-confirm{
+    padding: 20px;
+    text-align: center;
+}
+.closeConfirm {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.infoconModal{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
+
+
+.success {
+   background-color: lightgreen;
+}
+
+.error {
+   background-color: lightcoral;
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.formINFO-D.Register{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 35px 10px 35px;
+
+}
+.infowrapper.user form{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.infowrapper.user form .c1{
+    padding: 10px;
+}
+
+.infowrapper.user form .c1 div{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.infowrapper.user form .c1 div p{
+    margin-left: 80px;
+    margin-right: 0px;
+}
+
+
+

@@ -1,0 +1,41 @@
+﻿@model ModularDieselApplication.Domain.Entities.LoginViewModel
+@{
+    ViewData["Title"] = "Přihlášení";
+}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="Content-Login">
+        <section class="login-section">
+            <form asp-action="Index" asp-controller="Login" method="post" class="login-form" >
+                @Html.AntiForgeryToken() <!-- Vygeneruje CSRF token -->
+                <div class="title-img">
+                    <i class="fa-solid fa-gas-pump fa-2xl"></i>
+                </div>
+                <div class="div-username">
+                    <input asp-for="Input.UserName" class="input-username" placeholder="Username" />
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="div-password">
+                    <input asp-for="Input.Password" class="input-password" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="input-button">
+                    <button id="login-button" type="submit">Login</button>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            </form>
+        </section>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
+ 

@@ -1,0 +1,207 @@
+
+
+
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 10px;
+}
+
+.table-home.dataTable.no-footer{
+    border-bottom: 0px;
+}
+h2 {
+    padding-bottom: 5px;
+    margin-bottom:7px;
+}
+
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    background-color: white;
+    padding: 3px;
+    border-collapse: collapse !important;
+}
+
+.main-container {
+	background: white;
+	color: black;
+	width: 95%;
+	height: 360px;
+    font-family: "Roboto", sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+
+.formINFO-D div{
+    margin: 5px;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;;
+    justify-content: flex-start;
+    align-items: center;
+}
+.formINFO-D div p{
+    margin: 2px;
+    padding: 5px;
+    display: flex;
+    margin-right: 80px;
+    align-items: center;
+ 
+}
+.Infowrapperspan{
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+    
+
+.detail {
+    width: 100%;
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.detail.User{
+    margin-top: 20px;
+}
+.detail.TASK{
+    margin-top: 20px;
+}
+.detail.Stav{
+    margin-top: 20px;
+}
+
+.formINFO-D.form{
+    display: flex;
+    width: 100%;
+}
+.formINFO-D.form.changepassword{
+    flex-direction: column;
+}
+.formINFO-D.info{
+    padding-bottom: 30px;
+    align-items: stretch;
+}
+
+
+.nav-FRG{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: white;
+}
+.nav-FRG p{ 
+    padding: 15px 25px 15px 25px;
+    border-bottom: 1px solid #ddd;
+    margin: 0px;
+    cursor: pointer;
+    font-weight: 700;
+    
+}
+.nav-FRG p.active {
+    font-weight: bold;
+    border-color: #005aa9;
+    transition: 0.3s;
+    border-width: 0 0 2px 0;
+}
+
+.infowrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.info{
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.formInfo div{
+    margin: 5px;
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid grey;
+    justify-content: flex-start;
+}
+.formInfo div p{
+    margin: 2px;
+    padding: 5px;
+    display: flex;
+    margin-right: 5px;
+    align-items: center;
+}
+.formInfo{
+    padding: 10px;
+}
+
+/*TABULKY*/
+/* Skrytí výchozích ikon DataTables */
+.dataTables_wrapper{
+    width: 100%; 
+}
+
+.dataTables_info{
+    display: none !important;
+}
+table.dataTable.no-footer{
+    border: 0px !important;
+    padding-top: 20px;
+}
+
+.table.dataTable{
+    border-collapse: separate;
+}
+
+.dataTables_filter {
+    padding: 4px 15px 0px 0px !important;
+    right: 5px;
+    top: 0px;
+    position: absolute;
+}
+.dataTables_wrapper{
+    background-color: white;
+    padding-bottom: 5px;
+    position: static !important;
+    overflow-x: auto;
+}
+.dataTables_paginate{
+    bottom: 1px;
+    right: 5px;
+    position: absolute;
+
+}
+
+.paginate_button.current :hover{
+    background-color: white;
+    border: none;
+
+}
+
+.userA{
+    text-decoration: none;
+    color: inherit;
+    font-weight:600; 
+}
+.userA:hover{
+    text-decoration: underline;
+    transition: 0.3s;
+}
+

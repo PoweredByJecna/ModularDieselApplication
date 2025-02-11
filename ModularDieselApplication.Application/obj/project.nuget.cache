@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "KqZfYIrN43LGmZHZvczCwjJSkc1N1wiqwBRke7K91fLY+y0t/njD+nYxCRwcTjle6oQRxPsouQ3sqycCMXN/xA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jirka\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\bouncycastle.cryptography\\2.5.0\\bouncycastle.cryptography.2.5.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\mailkit\\4.10.0\\mailkit.4.10.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.0.0\\microsoft.aspnetcore.cryptography.internal.3.0.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.0.0\\microsoft.aspnetcore.cryptography.keyderivation.3.0.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.1\\microsoft.extensions.configuration.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.1\\microsoft.extensions.primitives.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\mimekit\\4.10.0\\mimekit.4.10.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\system.formats.asn1\\8.0.1\\system.formats.asn1.8.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.1\\system.security.cryptography.pkcs.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

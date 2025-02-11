@@ -1,0 +1,267 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewData["Title"] - Diesel Modular Application</title>
+        <script src="https://kit.fontawesome.com/cd832cb986.js"></script>
+        <link rel="stylesheet" href="~/css/dieslovani.css"/>
+        <link rel="stylesheet" href="~/css/_layout.css"/>
+        <link rel="stylesheet" href="~/css/lokality.css">
+        <link rel="stylesheet" href="~/css/odstavky.css">
+        <link rel="stylesheet" href="~/css/pohotovosti.css">
+        <link rel="stylesheet" href="~/css/login.css"/>
+        
+
+        <link href="~/Images/CEZ-Logo.jpg">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+       
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    </head>
+
+    <body>
+        @if(User.Identity?.IsAuthenticated==true)   
+        {
+            
+            <div class="Content">
+                <div class="sidemenu" id="sidemenu">
+                    <div class="s1">
+                        
+                    </div>
+                    <div class="s2">
+                        <div style="display: flex; flex-direction: column;width: 97%;">
+                            <div class="sidebar">
+                                <li class="li-sidebar" style="list-style: none;">
+                                    <a asp-action="Index" asp-controller="Dieslovani" class="a-sidebar" style="padding-left: 0px;">
+                                        <i class="fa-solid fa-gas-pump fa-sm navA"></i>
+                                        <span class="sb">Dieslovaní</span>  
+                                    </a>
+                                </li>
+                                <ul class="ul-sidebar">
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="runningTable" class="a-sidebar">
+                                            <i class="fa-solid fa-person-running fa-sm navA"></i>
+                                            <span class="sb">Dnešní Aktuální</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="upcomingTable" class="a-sidebar">
+                                            <i class="fa-solid fa-hourglass-end fa-sm navA"></i>
+                                            <span class="sb">Dnešní nadcházející</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="endTable" class="a-sidebar">
+                                            <i class="fa-regular fa-circle-xmark fa-sm navA"></i>
+                                            <span class="sb">Dnešní ukončené</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="thrashTable" class="a-sidebar">
+                                            <i class="fa-solid fa-trash fa-sm navA"></i>
+                                            <span class="sb">Všechny nepřiřazené</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="allTable" class="a-sidebar">
+                                            <i class="fa-solid fa-globe fa-sm navA"></i>
+                                            <span class="sb">Všechna dieslovaní</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="sidebar">
+                                <li class="li-sidebar" style="list-style: none;">
+                                    <a asp-action="Index" asp-controller="Odstavky" class="a-sidebar" style="padding-left: 0px;"> 
+                                        <i class="fa-solid fa-bolt navA"></i>
+                                        <span class="sb">Odstávky</span>  
+                                    </a>
+                                </li>
+                                 <ul class="ul-sidebar">
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Odstavky" asp-fragment="OdstavkyTable" class="a-sidebar">
+                                            <i class="fa-solid fa-globe fa-sm navA"></i>
+                                            <span class="sb">Všechny Odstávky</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Odstavky" asp-fragment="handleOdstavka"  class="a-sidebar" style="text-decoration: none;display: flex; flex-direction: row;">
+                                            <i class="fa-regular fa-square-plus fa-sm navA"></i>
+                                            <span class="sb">Odstávka - ruční založení</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                                 
+                        
+                            <div class="sidebar">
+                                <li class="li-sidebar" style="list-style: none;">
+                                    <a asp-action="Index" asp-controller="Lokality" class="a-sidebar" style="padding-left: 0px;"> 
+                                        <i class="fa-solid fa-tower-broadcast navA"></i>
+                                        <span class="sb">Lokality</span>  
+                                    </a>
+                                </li>
+                                
+                                 <ul class="ul-sidebar">
+
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Lokality" asp-fragment="lokality" class="a-sidebar" >
+                                            <i class="fa-solid fa-globe fa-sm navA"></i>
+                                            <span class="sb">Všechny Lokality</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar">
+                                <li class="li-sidebar" style="list-style: none;">
+                                    <a asp-action="Index" asp-controller="Pohotovosti" class="a-sidebar" style="padding-left: 0px;"> 
+                                        <i class="fa-solid fa-table fa-sm navA"></i>
+                                        <span class="sb">Pohotovosti</span>  
+                                    </a>
+                                </li>
+                                 <ul class="ul-sidebar">
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Pohotovosti" asp-fragment="tablepohotovosti"class="a-sidebar"  style="text-decoration: none;display: flex; flex-direction: row;">
+                                            <i class="fa-solid fa-table fa-sm navA"></i>
+                                            <span class="sb">Tabulka pohotovostí</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar">
+                                <li class="li-sidebar" style="list-style: none;">
+                                    <a asp-action="Index" asp-controller="Regiony" class="a-sidebar" style="padding-left: 0px;"> 
+                                        <i class="fa-solid fa-map-location navA"></i>
+                                        <span class="sb">Regiony</span>  
+                                    </a>
+                                </li>
+                                
+                                <ul class="ul-sidebar">
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="PrahaStredniCehy" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Praha+ Střední Čechy</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="JizniMorava" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Jižní Morava</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="SeverniMorava" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Severní Morava</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="JizniCechy" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Jižní Čechy</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="SeverniCehy" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Severní Čechy</span> 
+                                        </a>
+                                    </li>
+                                    <li class="li-sidebar">
+                                        <a asp-action="Index" asp-controller="Regiony" asp-fragment="ZapadniCechy" class="a-sidebar" >
+                                            <i class="fa-solid fa-earth-asia navA"></i>
+                                            <span class="sb">Západní Čechy</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>                                                        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="main">
+
+                    <div class="header">
+                        <div class="navbarcontent" style="margin-left: 15px;">
+                            <div class="navdiv bar" id="menu-toggle" style="border:none; box-shadow: none;">
+                                <i class="fa-solid fa-bars fa-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="navbarcontent">  
+                            <div class="navdiv" style="width: 30px; justify-content: center; position: relative;" id="user-modal">
+                                <i class="fa-solid fa-user"></i>
+                                <div class="modal-user" id="modal-user">
+                                    <ul style="list-style: none;">
+                                        <li><p><i class="fa-regular fa-id-card"></i> Profil</p></li>
+                                        <li><p><i class="fa-solid fa-lock"></i> Změnit heslo</p></li>
+                                        @if(User.IsInRole("Admin"))
+                                        {
+                                            <li><p id="testButton"><i class="fa-solid fa-vial-virus"></i> Test</p></li>
+                                            <li><p><i class="fa-solid fa-user-plus"></i> Přidat uživatele</p></li>
+                                            <li><p onclick="sendEmail()"><i class="fa-solid fa-paper-plane"></i> Odeslat-test</p></li>
+                                        }
+                                        <li style="border-top: 1px solid #ddd; padding-top: 5px;"><p><i class="fa-solid fa-right-from-bracket"></i><a asp-action="Logout" asp-controller="Logout"> Odhlásit se</a></p></li>
+                                    </ul>
+                                </div>
+                            </div> 
+
+                        </div>
+                    </div> 
+
+                 
+                <div id="messageModal" class="modal">
+                    <div id="modalContent" class="modal-content">
+                        <span id="closeModal" class="close">&times;</span>
+                        <p id="modalText"></p>
+                    </div>
+                </div>
+
+                  
+                <div id="confirmModal" class="modal-confirm-modal">
+                    <div id="confirmModalContent" class="modal-content-confirm">
+                        <span id="closeConfirmModal" class="closeConfirm">&times;</span>
+                        <span id="infoConfirmModal" class="infoconModal"><i class="fa-solid fa-circle-info"></i></span>
+                        <p id="confirmModalText"></p>
+                        <button id="confirmBtn">Ano</button>
+                        <button id="cancelBtn">Ne</button>
+                    </div>
+                </div>        
+                @if(User.Identity?.IsAuthenticated==true)
+                {
+                    @RenderBody()
+                }
+                </div>
+            </div> 
+        }  
+             @RenderBody()
+            
+            @await RenderSectionAsync("Scripts", required: false)
+            <script src="~/js/Home.js"></script>
+            <script src="~/js/log.js"></script>
+            <script src="~/js/DataTablesJs/upcomingTable.js"></script>
+            <script src="~/js/DataTablesJs/endTable.js"></script>
+            <script src="~/js/DataTablesJs/thrashTable.js"></script>
+            <script src="~/js/DataTablesJs/pohotovostiTable.js"></script>
+            <script src="~/js/DataTablesJs/lokalityTable.js"></script>
+            <script src="~/js/DataTablesJs/OdTable.js"></script>
+             <script src="~/js/DataTablesJs/dieselDetailTable.js"></script>
+            <script src="~/js/DataTablesJs/runningTable.js"></script>
+            <script src="~/js/DataTablesJs/odDetailTable.js"></script>
+            <script src="~/js/DataTablesJs/allTable.js"></script>
+            <script src="~/js/RegionyJs/regionPraha.js"></script>
+            <script src="~/js/RegionyJs/regionJizniMorava.js"></script>
+            <script src="~/js/RegionyJs/regionSeverniMorava.js"></script>
+            <script src="~/js/RegionyJs/regionZapadniCechy.js"></script>
+            <script src="~/js/RegionyJs/regionSeverniCechy.js"></script>
+            <script src="~/js/RegionyJs/regionJizniCechy.js"></script>
+            <script src="~/js/detailViewsJs/detailDieslovaniView.js"></script>
+            <script src="~/js/detailViewsJs/detailUserView.js"></script>
+            <script src="~/js/detailViewsJs/detailOdstavkyView.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+     
+    </body>
+        
+</html>

@@ -1,0 +1,11 @@
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\bin\Debug\net8.0\ModularDieselApplication.Contracts.deps.json
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\bin\Debug\net8.0\ModularDieselApplication.Contracts.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\bin\Debug\net8.0\ModularDieselApplication.Contracts.pdb
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.AssemblyInfoInputs.cache
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.AssemblyInfo.cs
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\refint\ModularDieselApplication.Contracts.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ModularDieselApplication.Contracts.pdb
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Contracts\obj\Debug\net8.0\ref\ModularDieselApplication.Contracts.dll
