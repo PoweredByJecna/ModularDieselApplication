@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Application", "ModularDieselApplication.Application\ModularDieselApplication.Application.csproj", "{76386A32-49CD-4060-B5E9-F0E90E58B8AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Contracts", "ModularDieselApplication.Contracts\ModularDieselApplication.Contracts.csproj", "{52F5CDC7-61BE-41DE-AAE0-C1EDF97F2B63}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Domain", "ModularDieselApplication.Domain\ModularDieselApplication.Domain.csproj", "{835EE4B0-8DE9-49EC-8CB4-B40BA5D1B62B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Infrastructure", "ModularDieselApplication.Infrastructure\ModularDieselApplication.Infrastructure.csproj", "{CCE7F5AD-4368-4CAE-AFFD-9A3F55AC0A74}"

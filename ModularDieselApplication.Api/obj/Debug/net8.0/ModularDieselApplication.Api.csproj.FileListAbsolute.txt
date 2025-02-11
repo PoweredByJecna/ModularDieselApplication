@@ -171,10 +171,8 @@ C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\n
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Contracts.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Domain.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Infrastructure.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Contracts.pdb
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Application.pdb
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Infrastructure.pdb
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\ModularDieselApplication.Domain.pdb
@@ -196,3 +194,4 @@ C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\n
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\scopedcss\projectbundle\ModularDieselApplication.Api.bundle.scp.css
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\PagedList.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\PagedList.Mvc.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.sourcelink.json

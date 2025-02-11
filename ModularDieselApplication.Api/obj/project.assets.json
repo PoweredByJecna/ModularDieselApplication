@@ -2059,16 +2059,6 @@
           "bin/placeholder/ModularDieselApplication.Application.dll": {}
         }
       },
-      "ModularDieselApplication.Contracts/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/ModularDieselApplication.Contracts.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ModularDieselApplication.Contracts.dll": {}
-        }
-      },
       "ModularDieselApplication.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -5985,11 +5975,6 @@
       "path": "../ModularDieselApplication.Application/ModularDieselApplication.Application.csproj",
       "msbuildProject": "../ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
     },
-    "ModularDieselApplication.Contracts/1.0.0": {
-      "type": "project",
-      "path": "../ModularDieselApplication.Contracts/ModularDieselApplication.Contracts.csproj",
-      "msbuildProject": "../ModularDieselApplication.Contracts/ModularDieselApplication.Contracts.csproj"
-    },
     "ModularDieselApplication.Domain/1.0.0": {
       "type": "project",
       "path": "../ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
@@ -6008,7 +5993,6 @@
       "Microsoft.AspNetCore.OpenApi >= 8.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.1",
       "ModularDieselApplication.Application >= 1.0.0",
-      "ModularDieselApplication.Contracts >= 1.0.0",
       "ModularDieselApplication.Infrastructure >= 1.0.0",
       "PagedList.Mvc >= 4.5.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
@@ -6043,9 +6027,6 @@
           "projectReferences": {
             "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
               "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
-            },
-            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Contracts\\ModularDieselApplication.Contracts.csproj": {
-              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Contracts\\ModularDieselApplication.Contracts.csproj"
             },
             "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"

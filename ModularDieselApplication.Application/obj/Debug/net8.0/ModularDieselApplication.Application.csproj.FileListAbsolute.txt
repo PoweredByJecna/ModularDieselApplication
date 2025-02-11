@@ -13,3 +13,4 @@ C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Application\obj
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\refint\ModularDieselApplication.Application.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.pdb
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ref\ModularDieselApplication.Application.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.sourcelink.json

@@ -13,7 +13,6 @@
           "Microsoft.AspNetCore.OpenApi": "8.0.2",
           "Microsoft.EntityFrameworkCore.Design": "9.0.1",
           "ModularDieselApplication.Application": "1.0.0",
-          "ModularDieselApplication.Contracts": "1.0.0",
           "ModularDieselApplication.Infrastructure": "1.0.0",
           "PagedList.Mvc": "4.5.0",
           "Swashbuckle.AspNetCore": "6.4.0"
@@ -1307,11 +1306,6 @@
           "ModularDieselApplication.Application.dll": {}
         }
       },
-      "ModularDieselApplication.Contracts/1.0.0": {
-        "runtime": {
-          "ModularDieselApplication.Contracts.dll": {}
-        }
-      },
       "ModularDieselApplication.Domain/1.0.0": {
         "runtime": {
           "ModularDieselApplication.Domain.dll": {}
@@ -2068,11 +2062,6 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "ModularDieselApplication.Application/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ModularDieselApplication.Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
