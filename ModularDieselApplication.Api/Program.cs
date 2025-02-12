@@ -75,6 +75,11 @@ builder.Services.AddScoped<DieslovaniRules>();
 builder.Services.AddScoped<DieslovaniActionService>();
 builder.Services.AddScoped<DieslovaniAssignmentService>();
 builder.Services.AddScoped<DieslovaniQueryService>();
+builder.Services.AddScoped<OdstavkaAssignmentService>();
+builder.Services.AddScoped<OdstavkyActionService>();
+builder.Services.AddScoped<OdstavkyQueryService>();
+builder.Services.AddScoped<OdstavkyRules>();
+
 
 var app = builder.Build();
 

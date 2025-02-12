@@ -13,7 +13,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         private readonly IDieslovaniRepository _dieslovaniRepository; 
         private readonly ITechnikService _technikService;
         private readonly IPohotovostiService _pohotovostiService;
-
         private readonly IEmailService _emailService;
         private readonly DieslovaniRules _dieslovaniRules;
 
