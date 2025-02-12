@@ -39,12 +39,9 @@ function getDieslovaniIdFromUrl() {
 }
 
 // Automatické obnovení stránky každých 5 minut
-setInterval(function () {
-    location.reload();
-}, 300000); // 300000 milisekund = 5 minut
-
-
-
+    setInterval(function () {
+        location.reload();
+    }, 300000); // 300000 milisekund = 5 minut
 function sendEmail() {
     fetch('http://localhost:5025/api/email/send', {
         method: 'POST'
@@ -332,21 +329,11 @@ menuToggle.addEventListener('click', () => {
         }
     }
 
-    /* ----------------------------------------
-        Funkce pro vytvoření odstávky
-    ---------------------------------------- */
-    /**
-     * Vytvoří novou odstávku na základě hodnot z formuláře a odešle je na server.
-     * 
-     * @function CreateOdstavku
-     * @returns {void}
-     */
     function CreateOdstavku() {
         var lokalita = document.getElementById('lokalita').value;
         var od = document.getElementById('od').value;
         var DO = document.getElementById('do').value;
         var popis = document.getElementById('popis').value;
-        var daOption = document.getElementById('daOption').value;
     
         const daOption = document.getElementById('daOption').value;  // "default" / "now" / "later"
         const objednatNa = document.getElementById('objednatNA').value;
