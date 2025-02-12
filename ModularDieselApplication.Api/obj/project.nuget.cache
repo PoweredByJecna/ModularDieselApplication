@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ghusfwz5n4xfoNefZQsDMfb17BxLYi0DDaPUJvBckW4klh2MOj24vamygJpE9dHbW929PJr1eY1wDvx5c8rWtQ==",
+  "dgSpecHash": "AWMktWUc74p6iLxWLKazwBaJtt712mB/SD3EhQtnMJFOsysp7tZSz6ed6+Sy3Nd+ORMnEELb9kjWojIktxE5bg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jirka\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -114,7 +114,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček PagedList 1.17.0 se místo cílové verze rozhraní .NET Framework projektu net8.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Package 'PagedList 1.17.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "PagedList",
       "targetGraphs": [
         "net8.0"
@@ -124,7 +124,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček PagedList.Mvc 4.5.0 se místo cílové verze rozhraní .NET Framework projektu net8.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Package 'PagedList.Mvc 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "PagedList.Mvc",
       "targetGraphs": [
         "net8.0"

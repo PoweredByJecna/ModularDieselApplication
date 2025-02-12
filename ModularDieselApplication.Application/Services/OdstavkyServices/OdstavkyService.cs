@@ -4,6 +4,9 @@ using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Interfaces;
+using ModularDieselApplication.Domain.Objects;
+using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
+
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -13,30 +16,29 @@ namespace ModularDieselApplication.Application.Services
         private readonly IDieslovaniService _dieslovaniService;
         private readonly ILogService _logService;
         private readonly ITechnikService _technikService;
+        private readonly DieslovaniAssignmentService _dieslovaniAssignmentService;
 
-        public OdstavkyService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ILogService logService, ITechnikService technikService)
+        public OdstavkyService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ILogService logService, ITechnikService technikService, DieslovaniAssignmentService dieslovaniAssignmentService)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniService = dieslovaniService;
             _logService = logService;
             _technikService = technikService;
-        }
+            _dieslovaniAssignmentService = dieslovaniAssignmentService;
 
+        }
         public async Task<List<string>> SuggestLokalitaAsync(string query)
         {
             var lokalities = await _odstavkaRepository.GetAllAsync();
             
-            return lokalities
+            return [.. lokalities
                 .Where(l => l.Lokality.Nazev.Contains(query))
                 .Select(l => l.Lokality.Nazev)
-                .Take(10)
-                .ToList();
+                .Take(10)];
         }
-
-        public async Task<HandleOdstavkyDieslovaniResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis)
+        public async Task<HandleOdstavkyDieslovaniResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option)
         {
             var result = new HandleOdstavkyDieslovaniResult();
-
             try
             {
                 // Najdeme danou lokalitu
@@ -60,6 +62,20 @@ namespace ModularDieselApplication.Application.Services
                 // Vytvoříme novou odstávku
                 var newOdstavka = CreateNewOdstavka(lokalitaSearch, distrib, od, @do, popis);
 
+                if(option=="hned")
+                {
+                    var technik = await _dieslovaniAssignmentService.AssignTechnikAsync(newOdstavka);
+                    if (technik == null)
+                    {
+                        result.Success = false;
+                        result.Message = "Něco se pokazilo";
+                        return result;
+                    }
+                    var dieslovani = await _dieslovaniAssignmentService.CreateNewDieslovaniAsync(newOdstavka, technik);
+                    result.Odstavka = newOdstavka;
+                    result.Message = "Odstávka a dieslování byly úspěšně vytvořeny.";
+                    return result;
+                }
                 try
                 {
                     await _odstavkaRepository.AddAsync(newOdstavka);
@@ -335,18 +351,6 @@ namespace ModularDieselApplication.Application.Services
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Represents the result of handling an odstávka (outage) and its associated dieslování (dieseling).
-        /// Contains information about the success of the operation, messages, and related entities.
-        /// </summary>
-        public class HandleOdstavkyDieslovaniResult
-        {
-            public bool Success { get; set; }
-            public string Message { get; set; } = "";
-            public Odstavka? Odstavka { get; set; }
-            public string EmailResult { get; set; } = "";
-            public string Duvod { get; set; } = "";
-        }
+       
     }
 }

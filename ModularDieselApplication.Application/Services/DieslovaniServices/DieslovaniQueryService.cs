@@ -1,75 +1,77 @@
 
+using ModularDieselApplication.Application.Interfaces.Services;
+using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Application.Interfaces.Repositories;
+using ModularDieselApplication.Domain.Rules;
+using static ModularDieselApplication.Application.Services.OdstavkyService;
 
+namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService
+{
+    public class DieslovaniQueryService
+    {
 
-          /* ----------------------------------------
+        private readonly IDieslovaniRepository _dieslovaniRepository;  
+        private readonly IRegionyService _regionyService;
+        private readonly ITechnikService _technikService;
+
+        /* ----------------------------------------
+           Kontrostruktor
+        ---------------------------------------- */
+        public DieslovaniQueryService(IDieslovaniRepository dieslovaniRepository, IRegionyService regionyService, ITechnikService technikService)
+        {
+            _dieslovaniRepository = dieslovaniRepository;
+            _regionyService = regionyService;
+            _technikService = technikService;
+        }
+        /* ----------------------------------------
            GetTableDataRunningTableAsync
-           ---------------------------------------- */
-           
-       //public async Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
-        /*
+        ---------------------------------------- */
+        public async Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery();
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = query.Count();
+            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
-        */
-
         /* ----------------------------------------
            GetTableDataRunningTableAsync
-           ---------------------------------------- */
-
-        /*
+        ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(i => i.Vstup !=null);
-            query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = query.Count();
+            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
-        */
-
         /* ----------------------------------------
            GetTableDataUpcomingTableAsync
-           ---------------------------------------- */
-
-        /*   
+        ---------------------------------------- */     
         public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(i => i.Vstup !=null && i.Odstavka.Od.Date==DateTime.Today);
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = query.Count();
+            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
-        */
-
         /* ----------------------------------------
            GetTableDataEndTableAsync
-           ---------------------------------------- */
-
-        /*
+        ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.Odchod !=null && o.Vstup == null);
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = query.Count();
+            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
-        */
-
-
         /* ----------------------------------------
            GetTableDatathrashTableAsync
-           ---------------------------------------- */
-
-        /*   
+        ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
         {
             if (currentUser == null)
@@ -93,19 +95,14 @@
                 query = query.Where(d => validRegions.Contains(d.Odstavka.Lokality.Region.ID));
             }
 
-            int totalRecords =  query.Count(); // Správné asynchronní počítání
+            int totalRecords = await _dieslovaniRepository.CountAsync(query);
 
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
-        */
-
-        
         /* ----------------------------------------
            GetTableDataOdDetailOdstavkyAsync
-           ---------------------------------------- */
-
-        /*  
+        ---------------------------------------- */
         public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -113,7 +110,24 @@
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        */
+        /* ----------------------------------------
+           Filtrace dat
+        ---------------------------------------- */
+        private static IQueryable<Dieslovani> FilteredData(IQueryable<Dieslovani> query, User? currentUser, bool isEngineer)
+        {
+            if (currentUser == null)
+                return query;
+
+            if (isEngineer)
+            {
+                var userId = currentUser.Id;
+                query = query.Where(d => d.Technik.User.Id == userId);
+            }
+            return query;
+        }
+        
+    }
+}
 
 
 

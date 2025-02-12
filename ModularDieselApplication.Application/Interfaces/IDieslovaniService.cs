@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ModularDieselApplication.Domain.Entities;
 using static ModularDieselApplication.Application.Services.OdstavkyService;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
 {

@@ -38,6 +38,12 @@ function getDieslovaniIdFromUrl() {
     return urlParts[urlParts.length - 1]; 
 }
 
+// Automatické obnovení stránky každých 5 minut
+setInterval(function () {
+    location.reload();
+}, 300000); // 300000 milisekund = 5 minut
+
+
 
 function sendEmail() {
     fetch('http://localhost:5025/api/email/send', {
@@ -433,7 +439,23 @@ menuToggle.addEventListener('click', () => {
         });
     }
 
-   
+    // Funkce pro zobrazení modálního okna pro změnu hesla
+      function showModalHeslo() {
+        document.getElementById('modalHeslo').style.display = 'block';
+    }
+
+    // Funkce pro zavření modálního okna pro změnu hesla
+    function closeModalHeslo() {
+        document.getElementById('modalHeslo').style.display = 'none';
+    }
+
+    // Zavření modálního okna při kliknutí mimo něj
+    window.onclick = function(event) {
+        var modal = document.getElementById('modalHeslo');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
 
 
     function showConfirmModal(message, onConfirm) {

@@ -196,7 +196,7 @@
                                 <div class="modal-user" id="modal-user">
                                     <ul style="list-style: none;">
                                         <li><p><i class="fa-regular fa-id-card"></i> Profil</p></li>
-                                        <li><p><i class="fa-solid fa-lock"></i> Změnit heslo</p></li>
+                                        <li><p onclick="showModalHeslo()"><i class="fa-solid fa-lock"></i> Změnit heslo</p></li>
                                         @if(User.IsInRole("Admin"))
                                         {
                                             <li><p id="testButton"><i class="fa-solid fa-vial-virus"></i> Test</p></li>
@@ -217,6 +217,27 @@
                         <span id="closeModal" class="close">&times;</span>
                         <p id="modalText"></p>
                     </div>
+                </div>
+
+                <div class="modalHeslo" id="modalHESLO">
+                    <div class="logoForm">
+                        <h2 class="h2-div">Změna hesla <i class="fa-solid fa-lock"></i></h2>
+                    </div>
+                    <div class="formINFO-D form changepassword">
+                        <div>
+                            <input type="password" placeholder="aktuální heslo..">
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Nové heslo..">
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Potvrzení nového hesla..">
+                        </div>
+                        <div style="border:none">
+                            <button id="confirmBtn">Ano</button>
+                            <button id="cancelBtn">Ne</button>
+                        </div>
+                    </div>                    
                 </div>
 
                   

@@ -9,9 +9,6 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
 namespace ModularDieselApplication.Api.Controllers
 {
-    
-    
-
     [Authorize]
     public class DieslovaniController : Controller
     {

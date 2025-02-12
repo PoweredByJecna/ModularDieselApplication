@@ -5999,19 +5999,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jirka\\.nuget\\packages\\": {}
+    "C:\\Users\\jirka\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+      "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
       "projectName": "ModularDieselApplication.Api",
-      "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+      "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
       "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Api\\obj\\",
+      "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Api\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6025,11 +6030,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
-              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
+            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
             },
-            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
+            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
             }
           }
         }
@@ -6104,7 +6109,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček PagedList 1.17.0 se místo cílové verze rozhraní .NET Framework projektu net8.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Package 'PagedList 1.17.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "PagedList",
       "targetGraphs": [
         "net8.0"
@@ -6114,7 +6119,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček PagedList.Mvc 4.5.0 se místo cílové verze rozhraní .NET Framework projektu net8.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Package 'PagedList.Mvc 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "PagedList.Mvc",
       "targetGraphs": [
         "net8.0"

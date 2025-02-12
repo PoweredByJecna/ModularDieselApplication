@@ -187,5 +187,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<Dieslovani>(entity);
         }
+
+        public async Task<int> CountAsync(IQueryable<Dieslovani> query)
+        {
+            return await query.CountAsync();
+        }
     }
 }

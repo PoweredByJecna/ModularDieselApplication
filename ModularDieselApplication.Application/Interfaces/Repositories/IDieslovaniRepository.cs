@@ -19,6 +19,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<Dieslovani?> GetTechnikByIdAsync(string technikId);
         Task UpdateDieslovaniAsync(Dieslovani dieslovani);
         Task <Dieslovani> GetDAbyOdstavkaAsync(int idOdstavky);
+        Task<int> CountAsync(IQueryable<Dieslovani> query);
 
 
     }

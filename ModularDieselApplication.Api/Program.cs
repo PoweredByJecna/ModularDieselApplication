@@ -12,7 +12,12 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Infrastructure.Persistence.Repositories;
 using ModularDieselApplication.Infrastructure.Identity;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService;
+using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
+using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
 using AutoMapper;
+using ModularDieselApplication.Domain.Rules;
+using ModularDieselApplication.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +71,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<DieslovaniRules>();
+builder.Services.AddScoped<DieslovaniActionService>();
+builder.Services.AddScoped<DieslovaniAssignmentService>();
+builder.Services.AddScoped<DieslovaniQueryService>();
 
 var app = builder.Build();
 

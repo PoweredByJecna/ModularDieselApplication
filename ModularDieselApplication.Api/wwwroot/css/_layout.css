@@ -1561,6 +1561,19 @@ p {
     margin-left: 80px;
     margin-right: 0px;
 }
+/* ----------------------------------------
+   Modal Confirm Styles
+   ---------------------------------------- */
+.modalHeslo{
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 1px solid #cbd0dd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 
 
