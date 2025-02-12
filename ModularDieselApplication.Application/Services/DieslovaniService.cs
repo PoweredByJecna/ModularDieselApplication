@@ -32,6 +32,9 @@ namespace ModularDieselApplication.Application.Services
             _userService = userService;
         }
 
+        /* ----------------------------------------
+           GetTableDataAllTableAsync
+           ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery();
@@ -41,6 +44,9 @@ namespace ModularDieselApplication.Application.Services
             return (totalRecords, data);
         }
 
+        /* ----------------------------------------
+           GetTableDataRunningTableAsync
+           ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -51,6 +57,9 @@ namespace ModularDieselApplication.Application.Services
             return (totalRecords, data);
         }
 
+        /* ----------------------------------------
+           GetTableDataUpcomingTableAsync
+           ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -60,6 +69,10 @@ namespace ModularDieselApplication.Application.Services
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
+
+        /* ----------------------------------------
+           GetTableDataEndTableAsync
+           ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -69,6 +82,10 @@ namespace ModularDieselApplication.Application.Services
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
+
+        /* ----------------------------------------
+           GetTableDatathrashTableAsync
+           ---------------------------------------- */
         public async Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
         {
             if (currentUser == null)
@@ -97,6 +114,10 @@ namespace ModularDieselApplication.Application.Services
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
         }
+
+        /* ----------------------------------------
+           GetTableDataOdDetailOdstavkyAsync
+           ---------------------------------------- */
         public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -105,6 +126,9 @@ namespace ModularDieselApplication.Application.Services
             return data;
         }
 
+        /* ----------------------------------------
+           HandleOdstavkyDieslovani
+           ---------------------------------------- */
         public async Task<HandleOdstavkyDieslovaniResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleOdstavkyDieslovaniResult result)
         {
             if (newOdstavka?.Lokality?.DA == true)
@@ -151,6 +175,10 @@ namespace ModularDieselApplication.Application.Services
             result.Success = true;
             return result;
         }
+
+        /* ----------------------------------------
+           IsDieselRequired
+           ---------------------------------------- */
         private bool IsDieselRequired(string? klasifikace, DateTime Od, DateTime Do, int baterie)
         {
             var casVypadku = klasifikace.ZiskejCasVypadku();
@@ -172,6 +200,10 @@ namespace ModularDieselApplication.Application.Services
                 }
             }
         }
+
+        /* ----------------------------------------
+           Battery
+           ---------------------------------------- */
         private bool Battery(DateTime od, DateTime do_, int baterie)
         {
             var rozdil = (do_ - od).TotalMinutes;
@@ -180,7 +212,10 @@ namespace ModularDieselApplication.Application.Services
 
             return rozdil <= baterieMinuty;
         }
-        
+
+        /* ----------------------------------------
+           AssignTechnikAsync
+           ---------------------------------------- */
         private async Task<Technik?> AssignTechnikAsync(Odstavka newOdstavka)
         {
             var firmaVRegionu = await GetFirmaVRegionuAsync(newOdstavka.Lokality.Region.ID);
@@ -213,10 +248,18 @@ namespace ModularDieselApplication.Application.Services
                 return null;
             }
         }
+
+        /* ----------------------------------------
+           GetFirmaVRegionuAsync
+           ---------------------------------------- */
         private async Task<Firma?> GetFirmaVRegionuAsync(int regionId)
         {
             return await _technikService.GetFirmaVRegionuAsync(regionId);
         }
+
+        /* ----------------------------------------
+           CheckTechnikReplacementAsync
+           ---------------------------------------- */
         private async Task<Technik?> CheckTechnikReplacementAsync(Odstavka newOdstavka)
         {
             var technik = await GetHigherPriorityAsync(newOdstavka);
@@ -229,6 +272,10 @@ namespace ModularDieselApplication.Application.Services
                 return technik;
             }
         }
+
+        /* ----------------------------------------
+           GetHigherPriorityAsync
+           ---------------------------------------- */
         private async Task<Technik?> GetHigherPriorityAsync(Odstavka newOdstavka)
         {
             var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(newOdstavka.Lokality.Region.Firma.ID);
@@ -267,7 +314,9 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
-
+        /* ----------------------------------------
+           VstupAsync
+           ---------------------------------------- */
         public async Task<(bool Success, string Message)> VstupAsync(int idDieslovani)
         {
             try
@@ -293,6 +342,9 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
+        /* ----------------------------------------
+           OdchodAsync
+           ---------------------------------------- */
         public async Task<(bool Success, string Message)> OdchodAsync(int idDieslovani)
         {
             try
@@ -326,6 +378,9 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
+        /* ----------------------------------------
+           TemporaryLeaveAsync
+           ---------------------------------------- */
         public async Task<(bool Success, string Message)> TemporaryLeaveAsync(int idDieslovani)
         {
             try
@@ -343,6 +398,9 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
+        /* ----------------------------------------
+           TakeAsync
+           ---------------------------------------- */
         public async Task<(bool Success, string Message, string? TempMessage)> TakeAsync(int idDieslovani, User currentUser)
         {
             try
@@ -382,11 +440,17 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
+        /* ----------------------------------------
+           DetailDieslovaniAsync
+           ---------------------------------------- */
         public async Task<Dieslovani?> DetailDieslovaniAsync(int id)
         {
             return await _dieslovaniRepository.GetByIdAsync(id);
         }
 
+        /* ----------------------------------------
+           DetailDieslovaniJsonAsync
+           ---------------------------------------- */
         public async Task<object> DetailDieslovaniJsonAsync(int id)
         {
             var detailDieslovani = await _dieslovaniRepository.GetByIdAsync(id);
@@ -450,11 +514,9 @@ namespace ModularDieselApplication.Application.Services
         return newDieslovani;
         }
 
-        /// <summary>
-        /// Deletes a Dieslovani record by its ID.
-        /// </summary>
-        /// <param name="idDieslovani">The ID of the Dieslovani record to delete.</param>
-        /// <returns>A tuple containing a success flag and a message.</returns>
+        /* ----------------------------------------
+           DeleteDieslovaniJsonAsync
+           ---------------------------------------- */
        public async Task<(bool Success, string Message)> DeleteDieslovaniAsync(int idDieslovani)
     {
             try
@@ -480,7 +542,9 @@ namespace ModularDieselApplication.Application.Services
         }
 
       
-
+        /* ----------------------------------------
+           FilteredData
+           ---------------------------------------- */
         private static IQueryable<Dieslovani> FilteredData(
             IQueryable<Dieslovani> query,
             User? currentUser,
