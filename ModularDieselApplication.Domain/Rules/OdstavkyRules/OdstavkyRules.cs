@@ -1,5 +1,6 @@
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Entities;
+using System.Runtime.CompilerServices;
 
 namespace ModularDieselApplication.Domain.Rules
 {

@@ -8,8 +8,18 @@ namespace ModularDieselApplication.Infrastructure.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<TableDieslovani, Dieslovani>().ReverseMap();
-            CreateMap<TableOdstavky, Odstavka>().ReverseMap();
+            CreateMap<Dieslovani, TableDieslovani>()
+            .ForMember(dest => dest.IDodstavky, opt => opt.MapFrom(src => src.Odstavka.ID))
+            .ForMember(dest => dest.IdTechnik, opt => opt.MapFrom(src => src.Technik.ID))
+            .ForMember(dest => dest.Odstavka, opt => opt.Ignore())
+            .ForMember(dest => dest.Technik, opt => opt.Ignore())
+            .ReverseMap();
+            CreateMap<Odstavka, TableOdstavky>()
+            .ForMember(dest => dest.ID, opt => opt.Ignore())
+            .ForMember(dest => dest.LokalitaID, opt => opt.MapFrom(src => src.Lokality.ID))
+            .ForMember(dest => dest.Lokality, opt => opt.Ignore())
+            .ForMember(dest => dest.DieslovaniList, opt => opt.Ignore())
+            .ReverseMap();
             CreateMap<TableFirma, Firma>().ReverseMap();
             CreateMap<TableTechnici, Technik>().ReverseMap();
             CreateMap<TableLokality, Lokalita>().ReverseMap();

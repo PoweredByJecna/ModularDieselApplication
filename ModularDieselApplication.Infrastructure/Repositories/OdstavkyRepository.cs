@@ -7,6 +7,7 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
@@ -25,9 +26,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get count of Odstavka
         // ----------------------------------------
-        public async Task<int> GetOdstavkaCountAsync()
+        public async Task<int> GetLokalitaCountAsync()
         {
-            return await _context.PohotovostiS.CountAsync();
+            return await _context.LokalityS.CountAsync();
         }
 
         // ----------------------------------------
@@ -37,7 +38,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
-                .Include(o => o.DieslovaniList)
+                .ThenInclude(l => l.Region)
                 .FirstOrDefaultAsync(o => o.ID == id);
 
             return _mapper.Map<Odstavka?>(entity);
@@ -46,14 +47,13 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get all Odstavka
         // ----------------------------------------
-        public async Task<List<Odstavka>> GetAllAsync()
+        public async Task<List<Lokalita>> GetAllAsync()
         {
-            var entities = await _context.OdstavkyS
-                .Include(o => o.Lokality)
-                .Include(o => o.DieslovaniList)
+            var entities = await _context.LokalityS
+                .Include(l => l.Region)
                 .ToListAsync();
 
-            return _mapper.Map<List<Odstavka>>(entities);
+            return _mapper.Map<List<Lokalita>>(entities);
         }
 
         // ----------------------------------------
@@ -61,9 +61,23 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task AddAsync(Odstavka odstavka)
         {
-            var entity = _mapper.Map<TableOdstavky>(odstavka);
-            _context.OdstavkyS.Add(entity);
+            // Mapování doménového objektu Odstavka na EF entitu TableOdstavky
+            var efEntity = _mapper.Map<TableOdstavky>(odstavka);
+
+            // Na základě namapovaného LokalitaID získáme již existující instanci TableLokality
+            var existingLokalita = await _context.LokalityS.FindAsync(efEntity.LokalitaID);
+            if (existingLokalita == null)
+            {
+                throw new Exception($"Lokalita s ID {efEntity.LokalitaID} nebyla nalezena.");
+            }
+            // Nastavíme navigační vlastnost na existující entitu, abychom se vyhnuli duplicitnímu trackování
+            efEntity.Lokality = existingLokalita;
+
+            // Přidáme novou entitu do kontextu a uložíme změny
+            await _context.OdstavkyS.AddAsync(efEntity);
             await _context.SaveChangesAsync();
+
+            odstavka.ID = efEntity.ID;
         }
 
         // ----------------------------------------
@@ -114,25 +128,29 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Lokalita by name
         // ----------------------------------------
-        public Task<Lokalita?> GetByNameAsync(string name)
+        public async Task<Lokalita?> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            var lokalita = await _context.LokalityS
+                .Include(l=>l.Region)
+                .FirstOrDefaultAsync(l => l.Nazev == name);
+            return lokalita != null ? _mapper.Map<Lokalita>(lokalita) : null;
         }
 
-        // ----------------------------------------
-        // Get Odstavka by Lokalita name
-        // ----------------------------------------
-        public Task<List<Odstavka>> GetByLokalitaAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
 
         // ----------------------------------------
         // Get Lokality by ID
         // ----------------------------------------
-        public Task<Lokalita> GetLokalityByIdAsync(int id)
+        public async Task<Lokalita> GetLokalityByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var lokalitaEntity = await _context.LokalityS
+                .Include(l => l.Region)
+                .FirstOrDefaultAsync(l => l.ID == id);
+
+            if (lokalitaEntity == null)
+            {
+                throw new Exception($"Lokalita with ID {id} not found.");
+            }
+            return _mapper.Map<Lokalita>(lokalitaEntity);
         }
 
         // ----------------------------------------
@@ -142,7 +160,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entities = _context.OdstavkyS
                 .Include(o => o.Lokality)
-                .Include(o => o.DieslovaniList)
                 .AsQueryable();
 
             return _mapper.ProjectTo<Odstavka>(entities);
@@ -153,27 +170,49 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query)
         {
-            var odstavkaList = await query
+            var odstavkaList = await _context.OdstavkyS
+                .Include(l => l.Lokality)
                 .Select(l => new
                 {
-                    l.ID,
-                    l.Distributor,
+                    ID = l.ID,
+                    Distributor = l.Distributor,
                     NazevLokality = l.Lokality.Nazev,
                     Klasifikace = l.Lokality.Klasifikace,
-                    l.Od,
-                    l.Do,
+                    ZacatekOdstavky = l.Od,
+                    KonecOdstavky = l.Do,
                     Adresa = l.Lokality.Adresa,
-                    Baterie = l.Lokality.Baterie,
-                    l.Popis,
+                    VydrzBaterie = l.Lokality.Baterie,
+                    Popis = l.Popis,
                     Zasuvka = l.Lokality.Zasuvka,
-                    IdTechnika = _context.DieslovaniS
-                        .Where(d => d.IDodstavky == l.ID)
-                        .Select(d => d.Technik.ID)
-                        .FirstOrDefault()
+                    Dieslovani = _context.DieslovaniS.FirstOrDefault(d => d.IDodstavky == l.ID)
                 })
                 .ToListAsync();
 
-            return _mapper.Map<List<object>>(odstavkaList);
+            var result = odstavkaList.Select(l => new
+            {
+                l.ID,
+                l.Distributor,
+                l.NazevLokality,
+                l.Klasifikace,
+                l.ZacatekOdstavky,
+                l.KonecOdstavky,
+                l.Adresa,
+                l.VydrzBaterie,
+                l.Popis,
+                l.Zasuvka,
+                IdTechnika = l.Dieslovani?.Technik?.ID,
+                ZadanVstup = l.Dieslovani?.Vstup,
+                ZadanOdchod = l.Dieslovani?.Odchod
+            }).ToList();
+
+            return _mapper.Map<List<object>>(result);
         }
+        private async Task<Dieslovani?> GetDieslovanis(int idodstavky)
+        {
+            var dieslovani = await _context.DieslovaniS
+                .Where(d => d.IDodstavky == idodstavky)
+                .FirstOrDefaultAsync();
+                return dieslovani != null ? _mapper.Map<Dieslovani>(dieslovani) : null;
+        }        
     }
 }

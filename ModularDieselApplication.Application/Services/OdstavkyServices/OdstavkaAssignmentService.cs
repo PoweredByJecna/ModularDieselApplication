@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
@@ -42,7 +43,7 @@ namespace ModularDieselApplication.Application.Services
 
                 
                 // Kontrola termínů a existence odstávky
-                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, @do, result, ExistingOdstavka(lokalitaSearch.ID, od));
+                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, @do, result, await ExistingOdstavka(lokalitaSearch.ID, od));
                 if (!result.Success)
                     return result;
 
@@ -50,9 +51,9 @@ namespace ModularDieselApplication.Application.Services
                 string distrib = DetermineDistributor(lokalitaSearch.Region.Nazev);
 
                 // Vytvoříme novou odstávku
-                var newOdstavka = CreateNewOdstavka(lokalitaSearch, distrib, od, @do, popis);
+                var newOdstavka = await CreateNewOdstavka(lokalitaSearch, distrib, od, @do, popis);
 
-                if(option=="hned")
+                if(option=="now")
                 {
                     var technik = await _dieslovaniAssignmentService.AssignTechnikAsync(newOdstavka);
                     if (technik == null)
@@ -66,38 +67,28 @@ namespace ModularDieselApplication.Application.Services
                     result.Message = "Odstávka a dieslování byly úspěšně vytvořeny.";
                     return result;
                 }
-                try
+                else
                 {
-                    await _odstavkaRepository.AddAsync(newOdstavka);
-                    result.Odstavka = newOdstavka;
-                    result.Message = "Odstávka byla úspěšně vytvořena.";
-                }
-                catch (Exception)
-                {
-                    result.Success = false;
-                    result.Message = "Chyba při ukládání do databáze";
+                    result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
                     return result;
                 }
-
-                // Zavoláme dieslování (pokud je potřeba)
-                result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
-                return result;
+              
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = $"Neočekávaná chyba: {ex.Message}";
+                result.Message = $"Neočekávaná chyba: {ex.Message}, {result.Message}, {result.Duvod}";
                 return result;
             }
         }
-        private bool ExistingOdstavka(int lokalitaSearchId, DateTime od)
+        private async Task<bool> ExistingOdstavka(int lokalitaSearchId, DateTime od)
         {
  
-            var existingOdstavka =  _odstavkaRepository.AnotherOdsatvkaAsync(lokalitaSearchId,od);
+            var existingOdstavka =  await _odstavkaRepository.AnotherOdsatvkaAsync(lokalitaSearchId,od);
 
             if (existingOdstavka == null)
             {
-                return true;
+                return  true;
             }
             else
             {
@@ -120,7 +111,7 @@ namespace ModularDieselApplication.Application.Services
 
             try
             {
-                var number = await _odstavkaRepository.GetOdstavkaCountAsync();
+                var number = await _odstavkaRepository.GetLokalitaCountAsync();
                 if (number == 0)
                 {
                     result.Success = false;
@@ -146,12 +137,12 @@ namespace ModularDieselApplication.Application.Services
                 string popis = $"Odstávka od {distrib}, od: {od}, do: {do_}";
 
                 // Kontrola
-                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, do_, result, ExistingOdstavka(lokalitaSearch.ID, od));
+                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, do_, result, await ExistingOdstavka(lokalitaSearch.ID, od));
                 if (!result.Success)
                     return result;
 
                 // Vytvoříme novou odstávku
-                var newOdstavka = CreateNewOdstavka(lokalitaSearch, distrib, od, do_, popis);
+                var newOdstavka = await CreateNewOdstavka(lokalitaSearch, distrib, od, do_, popis);
 
                 try
                 {
@@ -192,8 +183,10 @@ namespace ModularDieselApplication.Application.Services
             }
         }
 
-        private Odstavka CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis)
+        private async Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis)
         {
+            var result = new HandleOdstavkyDieslovaniResult();
+            
             var newOdstavka = new Odstavka
             {
                 Distributor = distrib,
@@ -202,6 +195,17 @@ namespace ModularDieselApplication.Application.Services
                 Popis = popis,
                 Lokality = lokalitaSearch
             };
+                try
+                {
+                    await _odstavkaRepository.AddAsync(newOdstavka);
+                    result.Odstavka = newOdstavka;
+                    result.Message = "Odstávka byla úspěšně vytvořena.";
+                }
+                catch (Exception)
+                {
+                    result.Success = false;
+                    result.Message = "Chyba při ukládání do databáze";
+                }
             return newOdstavka;
         }
 

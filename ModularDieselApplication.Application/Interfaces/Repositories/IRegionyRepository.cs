@@ -8,6 +8,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<List<object>> GetData(int regionId);
         Task<bool> TechnikHasPohotovost(string idTechnik);
         Task<List<object>> GetRegion(int firmaId);
+        Task<Firma> GetFirmaAsync(int idReg);
    
 
 

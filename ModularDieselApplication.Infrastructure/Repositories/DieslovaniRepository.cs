@@ -50,9 +50,24 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task AddAsync(Dieslovani dieslovani)
         {
-            var entity = _mapper.Map<TableDieslovani>(dieslovani);
-            _context.DieslovaniS.Add(entity);
+            var efEntity = _mapper.Map<TableDieslovani>(dieslovani);
+            var existingOdstavka = await _context.OdstavkyS.FindAsync(efEntity.IDodstavky);
+            if (existingOdstavka == null)
+            {
+                throw new Exception($"Odstavka s ID {efEntity.IDodstavky} nebyla nalezena.");
+            }
+            efEntity.Odstavka = existingOdstavka;
+
+            var existingTechnik = await _context.TechnikS.FindAsync(efEntity.IdTechnik);
+            if (existingTechnik == null)
+            {
+                throw new Exception($"Technik s ID {efEntity.IdTechnik} nebyl nalezen.");
+            }
+            efEntity.Technik = existingTechnik;
+            _context.DieslovaniS.Add(efEntity);
             await _context.SaveChangesAsync();
+
+            dieslovani.ID = efEntity.ID;
         }
 
         // ----------------------------------------
@@ -71,8 +86,15 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task UpdateAsync(Dieslovani dieslovani)
         {
-            var entity = _mapper.Map<TableDieslovani>(dieslovani);
-            _context.DieslovaniS.Update(entity);
+            var existingEntity = await _context.DieslovaniS.FindAsync(dieslovani.ID);
+            if (existingEntity == null)
+            {
+            throw new Exception($"Záznam s ID {dieslovani.ID} neexistuje.");
+            }
+
+            _mapper.Map(dieslovani, existingEntity);
+
+
             await _context.SaveChangesAsync();
         }
 

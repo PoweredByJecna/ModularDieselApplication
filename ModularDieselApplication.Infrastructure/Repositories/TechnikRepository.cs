@@ -75,21 +75,18 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task UpdateAsync(Technik technik)
         {
-            var entity = _mapper.Map<TableTechnici>(technik);
-            _context.TechnikS.Update(entity);
+            var existingEntity = await _context.TechnikS.FindAsync(technik.ID);
+            if (existingEntity == null)
+            {
+            throw new Exception($"Technik s ID {technik.ID} nebyl nalezen.");
+            }
+
+            // Namapujte změny z doménového modelu do existující (trackované) entity.
+            _mapper.Map(technik, existingEntity);
+
+            // Uložte změny.
             await _context.SaveChangesAsync();
         }
-
-        // ----------------------------------------
-        // Add new Technik
-        // ----------------------------------------
-        public async Task AddAsync(Technik technik)
-        {
-            var entity = _mapper.Map<TableTechnici>(technik);
-            _context.TechnikS.Add(entity);
-            await _context.SaveChangesAsync();
-        }
-
         // ----------------------------------------
         // Delete Technik by ID
         // ----------------------------------------

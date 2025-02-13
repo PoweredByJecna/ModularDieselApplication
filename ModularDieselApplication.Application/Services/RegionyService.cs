@@ -61,5 +61,11 @@ namespace ModularDieselApplication.Application.Services
             var resultList = await _regionyRepository.GetData(_IdRegionu);
             return resultList;
         }
+
+        public async Task<Firma> GetFirmaVRegionuAsync(int idReg)
+        {
+            var firma = await _regionyRepository.GetFirmaAsync(idReg);
+            return firma;
+        }
     }
 }

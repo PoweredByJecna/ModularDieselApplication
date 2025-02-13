@@ -15,14 +15,16 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         private readonly IPohotovostiService _pohotovostiService;
         private readonly IEmailService _emailService;
         private readonly DieslovaniRules _dieslovaniRules;
+        private readonly IRegionyService _regionyService;
 
-        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, IPohotovostiService pohotovostiService, IEmailService emailService, DieslovaniRules dieslovaniRules)
+        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, IPohotovostiService pohotovostiService, IEmailService emailService, DieslovaniRules dieslovaniRules, IRegionyService regionyService)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _technikService = technikService;
             _pohotovostiService = pohotovostiService;
             _emailService = emailService;
             _dieslovaniRules = dieslovaniRules;
+            _regionyService = regionyService;
         }
         
        
@@ -65,6 +67,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
            ---------------------------------------- */
         public async Task<Technik?> AssignTechnikAsync(Odstavka newOdstavka)
         {
+            var result = new HandleOdstavkyDieslovaniResult();
+
             var firmaVRegionu = await GetFirmaVRegionuAsync(newOdstavka.Lokality.Region.ID);
 
             if (firmaVRegionu != null)
@@ -74,8 +78,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                 if (technikSearch == null)
                 {
+                    result.Duvod = "Není technik v pohotovosti";
                     bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID);
-
                     if (nejakyTechnikMaPohotovost)
                     {
                         technikSearch = await CheckTechnikReplacementAsync(newOdstavka);
@@ -85,6 +89,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                         }
                     }
                     await _technikService.GetTechnikByIdAsync("606794494");
+                    result.Message="Přiřazen technik id: 606794494";
                 }
 
                 return technikSearch;
@@ -99,7 +104,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         ---------------------------------------- */
         private async Task<Firma?> GetFirmaVRegionuAsync(int regionId)
         {
-            return await _technikService.GetFirmaVRegionuAsync(regionId);
+            return await _regionyService.GetFirmaVRegionuAsync(regionId);
         }
         /* ----------------------------------------
            CheckTechnikReplacementAsync

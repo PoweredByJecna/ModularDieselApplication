@@ -17,8 +17,8 @@ namespace ModularDieselApplication.Application.Services
             var lokalities = await _odstavkaRepository.GetAllAsync();
             
             return [.. lokalities
-                .Where(l => l.Lokality.Nazev.Contains(query))
-                .Select(l => l.Lokality.Nazev)
+                .Where(l => l.Nazev.Contains(query))
+                .Select(l => l.Nazev)
                 .Take(10)];
         }
         /* ----------------------------------------

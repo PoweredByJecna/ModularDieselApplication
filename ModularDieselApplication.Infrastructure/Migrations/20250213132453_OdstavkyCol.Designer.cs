@@ -12,8 +12,8 @@ using ModularDieselApplication.Infrastructure.Persistence;
 namespace ModularDieselApplication.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250211143322_Zdroj")]
-    partial class Zdroj
+    [Migration("20250213132453_OdstavkyCol")]
+    partial class OdstavkyCol
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -375,19 +375,16 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.Property<string>("IdUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Taken")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("FirmaId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("TableTechnici", "Data");
                 });
@@ -618,7 +615,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Firma");
 

@@ -25,7 +25,7 @@ $('#upcomingTable').DataTable({
                 data: null,
                 render: function (data, type, row) {
                     return `       
-                    <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="Vstup(${row.idDieslovani})">
+                    <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="Vstup(${row.id})">
                         <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Vstup</span>
                         <i class="fa-solid fa-person-walking-arrow-right fa-flip-horizontal"></i>
                     </span>  
@@ -77,12 +77,12 @@ $('#upcomingTable').DataTable({
                 </a>`;}
 
             },
-            { data: 'date', 
+            { data: 'odstavkaZacatek', 
                 render: function(data) {
                     return formatDate(data);
                 } }, //objednano(odstavky od)
             {data:'popis'},
-            {data: 'baterie'},    
+            {data: 'vydrzBaterie'},    
             {
                 data: 'zasuvka',
                 render: function (data, type, row) {

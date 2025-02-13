@@ -20,7 +20,7 @@ $('#odTable').DataTable({
         `;
         }
         },
-        { data: 'idOdstavky',
+        { data: 'id',
             render: function(data)
             {
                 return `
@@ -45,7 +45,7 @@ $('#odTable').DataTable({
                 }
         },
         {
-            data: 'lokalita',
+            data: 'nazevLokality',
             render: function (data, type, row) {
                 return `<span style="font-weight: 700;">${data}</span>`;
             }
@@ -56,16 +56,16 @@ $('#odTable').DataTable({
                 return `<span style="font-weight: 700;">${data}</span>`;
             }
         },
-        { data: 'od', 
+        { data: 'zacatekOdstavky', 
             render: function(data) {
                 return formatDate(data);
             }  },
-        { data: 'do', 
+        { data: 'konecOdstavky', 
             render: function(data) {
                 return formatDate(data);
             }  },
         { data: 'adresa' },
-        { data: 'baterie' },
+        { data: 'vydrzBaterie' },
         { data: 'popis' },
         {
             data: 'zasuvka',

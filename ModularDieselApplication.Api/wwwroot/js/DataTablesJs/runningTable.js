@@ -26,7 +26,7 @@ $('#runningTable').DataTable({
             data: null,
             render: function (data, type, row) {
                 return `       
-                <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: green; border-radius: 5px; cursor: pointer" onclick="Odchod(${row.idDieslovani})">
+                <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: green; border-radius: 5px; cursor: pointer" onclick="Odchod(${row.id})">
                     <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Odchod</span>
                     <i class="fa-solid fa-person-walking-arrow-right"></i>
                 </span>  

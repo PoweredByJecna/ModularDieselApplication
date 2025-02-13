@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
+    
     public class TableOdstavky
     {
         [Key]

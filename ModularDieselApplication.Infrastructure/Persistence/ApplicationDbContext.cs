@@ -36,6 +36,25 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");
 
 
+            builder.Entity<TableOdstavky>()
+                .HasOne(o => o.Lokality) // Navigační vlastnost v Odstavky
+                .WithMany(l => l.OdstavkyList) // Kolekce odstávek v Lokality
+                .HasForeignKey(o => o.LokalitaID) // Cizí klíč v Odstavky
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TableDieslovani>()
+                .HasOne(o=>o.Odstavka)
+                .WithMany(I=>I.DieslovaniList)
+                .HasForeignKey(o=>o.IDodstavky)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TableDieslovani>()
+                .HasOne(o=>o.Technik)
+                .WithMany(i=>i.DieslovaniList)
+                .HasForeignKey(o=>o.IdTechnik);
+                
+
+
             
         }
 

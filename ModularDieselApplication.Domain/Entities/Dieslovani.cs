@@ -11,9 +11,9 @@ namespace ModularDieselApplication.Domain.Entities
         public DateTime? Vstup { get; set; }
         public DateTime? Odchod { get; set; }
 
-        public bool ZadanVstup => Vstup.HasValue;
-        public bool ZadanOdchod => Odchod.HasValue;
+        public bool ZadanVstup => Vstup.HasValue && Vstup.Value.Date != DateTime.MinValue;
+        public bool ZadanOdchod => Odchod.HasValue && Odchod.Value.Date != DateTime.MinValue;
 
-        // Other properties and methods...
+ 
     }
 }

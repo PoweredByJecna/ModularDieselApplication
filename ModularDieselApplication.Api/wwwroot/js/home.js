@@ -1,5 +1,5 @@
 ﻿
- // Přidej event listener na všechny inputy s třídou 'InputSearching'
+// Přidej event listener na všechny inputy s třídou 'InputSearching'
 document.querySelectorAll('.InputSearching').forEach(input => {
     input.addEventListener('input', function () {
         let query = this.value; // Získej hodnotu z aktuálního inputu
@@ -33,15 +33,24 @@ document.querySelectorAll('.InputSearching').forEach(input => {
     });
 });
 
+/*--------------------------------------------
+ * Získá ID dieslování z URL
+ */
 function getDieslovaniIdFromUrl() {
     const urlParts = window.location.pathname.split('/'); 
     return urlParts[urlParts.length - 1]; 
 }
 
-// Automatické obnovení stránky každých 5 minut
-    setInterval(function () {
-        location.reload();
-    }, 300000); // 300000 milisekund = 5 minut
+/*--------------------------------------------
+ * Automatické obnovení stránky každých 5 minut
+ */
+setInterval(function () {
+    location.reload();
+}, 600000);
+
+/*--------------------------------------------
+ * Odešle email
+ */
 function sendEmail() {
     fetch('http://localhost:5025/api/email/send', {
         method: 'POST'
@@ -51,8 +60,9 @@ function sendEmail() {
     .catch(error => alert('Chyba: ' + error));
 }
 
-
-
+/*--------------------------------------------
+ * Formátuje datum do českého formátu
+ */
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -77,6 +87,9 @@ data.forEach(item => {
     // Zde vložte `formattedDate` do tabulky
 });
 
+/*--------------------------------------------
+ * Zpracuje data regionu a vloží je do kontejnerů
+ */
 function processRegionData(region, containerIds) {
     $(containerIds.distributor).append(region.distributor);
     $(containerIds.firma).append(region.firma);
@@ -101,8 +114,10 @@ function processRegionData(region, containerIds) {
     }
 }
 
-
-  document.addEventListener('DOMContentLoaded', function () {
+/*--------------------------------------------
+ * Nastavení výchozího zobrazení a přepínání mezi LOG a VAZBY
+ */
+document.addEventListener('DOMContentLoaded', function () {
     // Výchozí nastavení:
     // 1) Přidáme "active" na LOG
     document.getElementById("log").classList.add("active");
@@ -134,10 +149,11 @@ function processRegionData(region, containerIds) {
       document.getElementById("content-log").style.display = "none";
       document.getElementById("content-vazby").style.display = "block";
     });
-  });
+});
 
-
-
+/*--------------------------------------------
+ * Přepínání zobrazení modálního okna uživatele
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const userModal = document.getElementById("user-modal");
     const modalUser = document.getElementById("modal-user");
@@ -158,9 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-
+/*--------------------------------------------
+ * Přepínání zobrazení postranního menu a ukládání stavu do localStorage
+ */
 const menuToggle = document.getElementById('menu-toggle');
 const sideMenu = document.getElementById('sidemenu');
 const con = document.getElementById('con');
@@ -176,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Přidání event listeneru pro kliknutí na tlačítko
 menuToggle.addEventListener('click', () => {
-
     sideMenu.classList.toggle('visible');
     con.classList.toggle('visible');
 
@@ -185,51 +200,57 @@ menuToggle.addEventListener('click', () => {
     localStorage.setItem('sidebarVisible', isVisible);
 });
 
-
-    function ajaxAction(url, data, successTables) {
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                if (response.success) {
-                    showModal(response.message, true);
-                    reloadTables(successTables);
-                } else {
-                    showModal(response.message || 'Akce se nezdařila.', false);
-                }
-            },
-            error: function () {
-                showModal('Došlo k chybě při komunikaci se serverem.', false);
+/*--------------------------------------------
+ * Provádí AJAX akci a aktualizuje tabulky po úspěchu
+ */
+function ajaxAction(url, data, successTables) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+                reloadTables(successTables);
+            } else {
+                showModal(response.message || 'Akce se nezdařila.', false);
             }
-        });
-    }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
 
-
-    function deleteRecord(element, idOdstavky) {
-        const row = $(element).closest('tr');
-        const offset = row.offset();
-        var cislo1 = 50;
-        var cislo2=100;
-    
-        $('#confirmModal').css({
-            top: cislo1 + offset.top + row.height() + 'px', 
-            left: cislo2 + offset.left + 'px',
-            position: 'absolute'
-        });
-        showConfirmModal('Opravdu chcete smazat tento záznam?', function() {
-
-        console.log("Mazání záznamu s ID:", idOdstavky);
-        ajaxAction('/Odstavky/Delete', { idOdstavky: idOdstavky }, ['#odTable']);
-        reloadTables();
-        });
-    }
-    
-   function deleteRecordDieslovani(element, idDieslovani) {
+/*--------------------------------------------
+ * Smaže záznam odstávky
+ */
+function deleteRecord(element, idOdstavky) {
     const row = $(element).closest('tr');
     const offset = row.offset();
     var cislo1 = 50;
-    var cislo2=100;
+    var cislo2 = 100;
+
+    $('#confirmModal').css({
+        top: cislo1 + offset.top + row.height() + 'px', 
+        left: cislo2 + offset.left + 'px',
+        position: 'absolute'
+    });
+    showConfirmModal('Opravdu chcete smazat tento záznam?', function() {
+        console.log("Mazání záznamu s ID:", idOdstavky);
+        ajaxAction('/Odstavky/Delete', { idOdstavky: idOdstavky }, ['#odTable']);
+        reloadTables();
+    });
+}
+
+/*--------------------------------------------
+ * Smaže záznam dieslování
+ */
+function deleteRecordDieslovani(element, id) {
+    const row = $(element).closest('tr');
+    const offset = row.offset();
+    var cislo1 = 50;
+    var cislo2 = 100;
 
     $('#confirmModal').css({
         top: cislo1 + offset.top + row.height() + 'px',  // Umístění pod řádek
@@ -238,262 +259,273 @@ menuToggle.addEventListener('click', () => {
     });
 
     showConfirmModal('Opravdu chcete smazat tento záznam?', function() {
-    console.log("Mazání záznamu s ID:", idDieslovani);
-    ajaxAction('/Dieslovani/Delete', { idDieslovani: idDieslovani }, [
+        console.log("Mazání záznamu s ID:", id);
+        ajaxAction('/Dieslovani/Delete', { id: id }, [
+            '#allTable',
+            '#upcomingTable',
+            '#endTable',
+            '#runningTable',
+            '#thrashTable'
+        ]);
+    });
+}
+
+/*--------------------------------------------
+ * Zaznamená vstup dieslování
+ */
+function Vstup(idDieslovani) {
+    console.log("Vstup z lokality ID:", idDieslovani);      
+    ajaxAction('/Dieslovani/Vstup', { idDieslovani: idDieslovani }, [
         '#allTable',
         '#upcomingTable',
         '#endTable',
         '#runningTable',
         '#thrashTable'
     ]);
-});
+}
 
-    }
-    
-    function Vstup(idDieslovani) {
-        console.log("Vstup z lokality ID:", idDieslovani);      
-        ajaxAction('/Dieslovani/Vstup', { idDieslovani: idDieslovani }, [
-            '#allTable',
-            '#upcomingTable',
-            '#endTable',
-            '#runningTable',
-            '#thrashTable'
-        ]);
-    }
-    
-    function Odchod(idDieslovani) {
-        console.log("Odchod z lokality ID:", idDieslovani);
-        ajaxAction('/Dieslovani/Odchod', { idDieslovani: idDieslovani }, [
-            '#allTable',
-            '#upcomingTable',
-            '#endTable',
-            '#runningTable',
-            '#thrashTable'
-            
-        ]);
-    }
-    function Take(idDieslovani) {
-        console.log("Převzetí dieslování ID:", idDieslovani); // Ladicí výstup
+/*--------------------------------------------
+ * Zaznamená odchod dieslování
+ */
+function Odchod(idDieslovani) {
+    console.log("Odchod z lokality ID:", idDieslovani);
+    ajaxAction('/Dieslovani/Odchod', { idDieslovani: idDieslovani }, [
+        '#allTable',
+        '#upcomingTable',
+        '#endTable',
+        '#runningTable',
+        '#thrashTable'
+    ]);
+}
+
+/*--------------------------------------------
+ * Převzetí dieslování
+ */
+function Take(idDieslovani) {
+    console.log("Převzetí dieslování ID:", idDieslovani); // Ladicí výstup
+    $.ajax({
+        url: '/Dieslovani/Take',
+        type: 'POST',
+        data: { idDieslovani: idDieslovani },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.tempMessage, true);
+                reloadTables();
+            } else {
+                showModal('Převzetí se nezdařilo: ' + response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
+
+/*--------------------------------------------
+ * Testovací AJAX akce
+ */
+$(document).ready(function () {
+    $('#testButton').on('click', function () {
         $.ajax({
-            url: '/Dieslovani/Take',
-            type: 'POST',
-            data: { idDieslovani: idDieslovani },
+            url: '/Odstavky/Test', // URL akce v kontroleru
+            type: 'POST', // Typ HTTP požadavku
             success: function (response) {
                 if (response.success) {
-                    showModal(response.tempMessage, true);
-                    reloadTables();
+                    showModal(response.message, true); // Úspěšná hláška
+                    reloadTables(); 
                 } else {
-                    showModal('Převzetí se nezdařilo: ' + response.message, false);
+                    showModal(response.message, false); // Chybová hláška
                 }
             },
             error: function () {
-                showModal('Došlo k chybě při komunikaci se serverem.', false);
+                showModal('Neočekávaná chyba při komunikaci se serverem.', false);
             }
-        });
-    }
-
-
-    
-
-
-
-
-    $(document).ready(function () {
-        $('#testButton').on('click', function () {
-            $.ajax({
-                url: '/Odstavky/Test', // URL akce v kontroleru
-                type: 'POST', // Typ HTTP požadavku
-                success: function (response) {
-                    if (response.success) {
-                        showModal(response.message, true); // Úspěšná hláška
-                        reloadTables(); 
-                    } else {
-                        showModal(response.message, false); // Chybová hláška
-                    }
-                },
-                error: function () {
-                    showModal('Neočekávaná chyba při komunikaci se serverem.', false);
-                }
-            });
         });
     });
+});
 
-    function toggleObjednatNa() {
-        const daOption = document.getElementById('daOption').value;
-        const objednatNaInput = document.getElementById('objednatNA');
+/*--------------------------------------------
+ * Přepíná zobrazení inputu pro objednání na konkrétní datum
+ */
+function toggleObjednatNa() {
+    const daOption = document.getElementById('daOption').value;
+}
 
-        if (daOption === "later") {
-            objednatNaInput.style.display = "block";
-        } else {
-            objednatNaInput.style.display = "none";
-        }
-    }
+/*--------------------------------------------
+ * Vytvoří novou odstávku
+ */
+function CreateOdstavku() {
+    var lokalita = document.getElementById('lokalita').value;
+    var od = document.getElementById('od').value;
+    var DO = document.getElementById('do').value;
+    var popis = document.getElementById('popis').value;
+    var daOption = document.getElementById('daOption').value; 
 
-    function CreateOdstavku() {
-        var lokalita = document.getElementById('lokalita').value;
-        var od = document.getElementById('od').value;
-        var DO = document.getElementById('do').value;
-        var popis = document.getElementById('popis').value;
-    
-        const daOption = document.getElementById('daOption').value;  // "default" / "now" / "later"
-        const objednatNa = document.getElementById('objednatNA').value;
-    
-        console.log("Vytvoření odstávky:", {
+    console.log("Vytvoření odstávky:", {
+        lokalita: lokalita,
+        od: od,
+        DO: DO,
+        popis: popis,
+        daOption: daOption
+    });
+
+    $.ajax({
+        url: '/Odstavky/Create',
+        type: 'POST',
+        data: {
             lokalita: lokalita,
             od: od,
-            DO: DO,
+            do: DO,
             popis: popis,
-            daOption: daOption,
-            objednatNa: objednatNa
-        });
-    
-        $.ajax({
-            url: '/Odstavky/Create',
-            type: 'POST',
-            data: {
-                lokalita: lokalita,
-                od: od,
-                do: DO,
-                popis: popis,
-                daOption: daOption,
-                objednatNa: objednatNa
-            },
-            success: function (response) {
-                if (response.success) {
-                    showModal(response.message, true);
-                    reloadTables();
-                } else {
-                    showModal(response.message, false);
-                }
-            },
-            error: function () {
-                showModal('Došlo k chybě při komunikaci se serverem.', false);
+            daOption: daOption
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+                reloadTables();
+            } else {
+                showModal(response.message, false);
             }
-        });
-    }
-    
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
 
-    function SuggestLokalita() {
-        var lokalita = document.getElementById('lokalita').value;
-        if (lokalita.length <= 1) {
-            document.getElementById('lokality-suggestions').style.display = 'none';
-            return;
-        }
-    
-        $.ajax({
-            url: '/Odstavky/SuggestLokalita',
-            type: 'GET',
-            data: { query: lokalita },
-            success: function (data) {
-                var suggestions = document.getElementById('lokality-suggestions');
-                suggestions.innerHTML = '';
-                if (data.length > 0) {
-                    data.forEach(function (item) {
-                        var div = document.createElement('div');
-                        div.innerHTML = item;
-                        div.classList.add('suggestion-item');
-                        div.onclick = function () {
-                            document.getElementById('lokalita').value = item;
-                            suggestions.style.display = 'none';
-                        };
-                        suggestions.appendChild(div);
-                    });
-                    suggestions.style.display = 'block';
-                } else {
-                    suggestions.style.display = 'none';
-                }
-            }
-        });
+/*--------------------------------------------
+ * Navrhuje lokalitu na základě vstupu uživatele
+ */
+function SuggestLokalita() {
+    var lokalita = document.getElementById('lokalita').value;
+    if (lokalita.length <= 1) {
+        document.getElementById('lokality-suggestions').style.display = 'none';
+        return;
     }
-    
-    
-    
-    
-    function showModal(message, isSuccess) {
-        const modal = $('#messageModal');
-        const modalContent = $('#modalContent');
-        const modalText = $('#modalText');
-    
-        modalText.text(message);
-        modalContent.removeClass('success error');
-    
-        if (isSuccess) {
-            modalContent.addClass('success');
-        } else {
-            modalContent.addClass('error');
+
+    $.ajax({
+        url: '/Odstavky/SuggestLokalita',
+        type: 'GET',
+        data: { query: lokalita },
+        success: function (data) {
+            var suggestions = document.getElementById('lokality-suggestions');
+            suggestions.innerHTML = '';
+            if (data.length > 0) {
+                data.forEach(function (item) {
+                    var div = document.createElement('div');
+                    div.innerHTML = item;
+                    div.classList.add('suggestion-item');
+                    div.onclick = function () {
+                        document.getElementById('lokalita').value = item;
+                        suggestions.style.display = 'none';
+                    };
+                    suggestions.appendChild(div);
+                });
+                suggestions.style.display = 'block';
+            } else {
+                suggestions.style.display = 'none';
+            }
         }
-    
-        modal.fadeIn();
-    
-        $('#closeModal').on('click', function () {
+    });
+}
+
+/*--------------------------------------------
+ * Zobrazuje modální okno s danou zprávou
+ */
+function showModal(message, isSuccess) {
+    const modal = $('#messageModal');
+    const modalContent = $('#modalContent');
+    const modalText = $('#modalText');
+
+    modalText.text(message);
+    modalContent.removeClass('success error');
+
+    if (isSuccess) {
+        modalContent.addClass('success');
+    } else {
+        modalContent.addClass('error');
+    }
+
+    modal.fadeIn();
+
+    $('#closeModal').on('click', function () {
+        modal.fadeOut();
+    });
+
+    $(window).on('click', function (event) {
+        if ($(event.target).is(modal)) {
             modal.fadeOut();
-        });
-    
-        $(window).on('click', function (event) {
-            if ($(event.target).is(modal)) {
-                modal.fadeOut();
-            }
-        });
-    }
-
-    // Funkce pro zobrazení modálního okna pro změnu hesla
-      function showModalHeslo() {
-        document.getElementById('modalHeslo').style.display = 'block';
-    }
-
-    // Funkce pro zavření modálního okna pro změnu hesla
-    function closeModalHeslo() {
-        document.getElementById('modalHeslo').style.display = 'none';
-    }
-
-    // Zavření modálního okna při kliknutí mimo něj
-    window.onclick = function(event) {
-        var modal = document.getElementById('modalHeslo');
-        if (event.target == modal) {
-            modal.style.display = 'none';
         }
+    });
+}
+
+/*--------------------------------------------
+ * Zobrazuje modální okno pro změnu hesla
+ */
+function showModalHeslo() {
+    document.getElementById('modalHeslo').style.display = 'block';
+}
+
+/*--------------------------------------------
+ * Zavře modální okno pro změnu hesla
+ */
+function closeModalHeslo() {
+    document.getElementById('modalHeslo').style.display = 'none';
+}
+
+/*--------------------------------------------
+ * Zavře modální okno při kliknutí mimo něj
+ */
+window.onclick = function(event) {
+    var modal = document.getElementById('modalHeslo');
+    if (event.target == modal) {
+        modal.style.display = 'none';
     }
+}
 
-
-    function showConfirmModal(message, onConfirm) {
-        const confirmModal = $('#confirmModal');
-        const confirmModalText = $('#confirmModalText');
-        
-        confirmModalText.text(message);
-        confirmModal.fadeIn();
-        
-        $('#confirmBtn').off('click').on('click', function () {
-            confirmModal.fadeOut();
-            if (onConfirm && typeof onConfirm === 'function') {
-                onConfirm();
-            }
-        });
-        
-        $('#cancelBtn').off('click').on('click', function () {
-            confirmModal.fadeOut();
-        });
-        
-        $('#closeConfirmModal').on('click', function () {
-            confirmModal.fadeOut();
-        });
+/*--------------------------------------------
+ * Zobrazuje potvrzovací modální okno s danou zprávou
+ */
+function showConfirmModal(message, onConfirm) {
+    const confirmModal = $('#confirmModal');
+    const confirmModalText = $('#confirmModalText');
     
-        $(window).on('click', function (event) {
-            if ($(event.target).is(confirmModal)) {
-                confirmModal.fadeOut();
-            }
-        });
-    }
+    confirmModalText.text(message);
+    confirmModal.fadeIn();
     
-    function reloadTables() {
-        $('#upcomingTable').DataTable().ajax.reload();
-        $('#allTable').DataTable().ajax.reload();
-        $('#endTable').DataTable().ajax.reload();
-        $('#runningTable').DataTable().ajax.reload();
-        $('#thrashTable').DataTable().ajax.reload();
-        $('#odTable').DataTable().ajax.reload();
-        
+    $('#confirmBtn').off('click').on('click', function () {
+        confirmModal.fadeOut();
+        if (onConfirm && typeof onConfirm === 'function') {
+            onConfirm();
+        }
+    });
+    
+    $('#cancelBtn').off('click').on('click', function () {
+        confirmModal.fadeOut();
+    });
+    
+    $('#closeConfirmModal').on('click', function () {
+        confirmModal.fadeOut();
+    });
 
-    }
+    $(window).on('click', function (event) {
+        if ($(event.target).is(confirmModal)) {
+            confirmModal.fadeOut();
+        }
+    });
+}
+
+/*--------------------------------------------
+ * Aktualizuje všechny tabulky
+ */
+function reloadTables() {
+    $('#upcomingTable').DataTable().ajax.reload();
+    $('#allTable').DataTable().ajax.reload();
+    $('#endTable').DataTable().ajax.reload();
+    $('#runningTable').DataTable().ajax.reload();
+    $('#thrashTable').DataTable().ajax.reload();
+    $('#odTable').DataTable().ajax.reload();
+}
     
 
     $(document).ready(function() 

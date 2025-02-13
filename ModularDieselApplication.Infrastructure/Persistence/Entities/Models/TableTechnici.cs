@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
+   
     public class TableTechnici
     {
         [Key]

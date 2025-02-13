@@ -19,7 +19,6 @@ namespace ModularDieselApplication.Application.Services
             _pohotovostiRepository = pohotovostiRepository;
             _userService = userService;
             _technikRepository = technikRepository;
-
         }
 
         public async Task<List<Pohotovosti>> GetAllPohotovostiAsync()

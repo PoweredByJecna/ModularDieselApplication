@@ -115,7 +115,6 @@ namespace ModularDieselApplication.Api.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-
             var domainUser = _mapper.Map<User>(currentUser);
 
             var (totalRecords, data) = await _dieslovaniService.GetTableDataRunningTableAsync(domainUser, isEngineer);
@@ -216,9 +215,9 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int iDdieslovani)
+        public async Task<IActionResult> Delete(int id)
         {
-            var (Success, Message) = await _dieslovaniService.DeleteDieslovaniAsync(iDdieslovani);
+            var (Success, Message) = await _dieslovaniService.DeleteDieslovaniAsync(id);
             if (!Success)
             {
                 return Json(new { success = false, message = Message });

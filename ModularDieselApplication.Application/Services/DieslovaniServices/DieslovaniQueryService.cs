@@ -40,7 +40,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(i => i.Vstup !=null);
+                .Where(i => i.Vstup != DateTime.MinValue && i.Odchod == DateTime.MinValue);
             int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return (totalRecords, data);
@@ -51,7 +51,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(i => i.Vstup !=null && i.Odstavka.Od.Date==DateTime.Today);
+                .Where(i => i.Vstup ==DateTime.MinValue.Date && i.Odstavka.Od.Date==DateTime.Today);
             query = FilteredData(query, currentUser, isEngineer);
             int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
@@ -63,7 +63,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(o => o.Odchod !=null && o.Vstup == null);
+                .Where(o => o.Odchod != DateTime.MinValue.Date);
             query = FilteredData(query, currentUser, isEngineer);
             int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
@@ -88,7 +88,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
             var validRegions = await _regionyService.GetRegionByIdFirmy(firmaId);
 
-            var query = _dieslovaniRepository.GetDieslovaniQuery();
+            var query = _dieslovaniRepository.GetDieslovaniQuery()
+                .Where(o=>o.Technik.ID=="606794494");
 
             if (isEngineer && validRegions.Any())
             {

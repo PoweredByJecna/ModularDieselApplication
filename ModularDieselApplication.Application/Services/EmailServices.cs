@@ -85,7 +85,7 @@ namespace ModularDieselApplication.Application.Services
             {
                 await client.ConnectAsync(
                     emailSettings["SmtpServer"],
-                    int.Parse(emailSettings["SmtpPort"]),
+                    int.TryParse(emailSettings["SmtpPort"], out var smtpPort) ? smtpPort : throw new InvalidOperationException("Invalid SMTP port"),
                     SecureSocketOptions.StartTls
                 );
 

@@ -24,16 +24,16 @@ namespace ModularDieselApplication.Api.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> SuggestLokalita(string query)
         {
             var lokalities = await _odstavkyService.SuggestLokalitaAsync(query);
             return Json(lokalities);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(string lokalita, DateTime od, DateTime DO, string popis, string option)
+        public async Task<IActionResult> Create(string lokalita, DateTime od, DateTime DO, string popis, string daOption)
         {
-            var result = await _odstavkyService.CreateOdstavkaAsync(lokalita, od, DO, popis, option);
+            var result = await _odstavkyService.CreateOdstavkaAsync(lokalita, od, DO, popis, daOption);
             if (!result.Success)
             {
                 return Json(new { success = false, message = result.Message });
@@ -106,6 +106,32 @@ namespace ModularDieselApplication.Api.Controllers
                 data = odstavkaList
             });
         }
+         [HttpGet]
+        public async Task<IActionResult> DetailOdstavkyJson(int id)
+        {
+            var detailOdstavky = await _odstavkyService.DetailOdstavkyJsonAsync(id);
+            if(detailOdstavky==null)
+            {
+                return Json(new{
+                    error="null"
+                });
+                
+            }
+    
+            return Json(
+            new
+            {
+                data=detailOdstavky
+            });
+        }
+        public async Task<IActionResult> DetailOdstavky(int id)
+        {
+            var detail = await _odstavkyService.DetailOdstavkyAsync(id);
+            if (detail == null)
+                return NotFound();
+            return View(detail);
+        }
 
     }
+    
 }

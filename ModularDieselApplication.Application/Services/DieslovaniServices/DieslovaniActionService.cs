@@ -141,17 +141,17 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /*----------------------------------------
            DeleteDieslovaniJsonAsync
         ---------------------------------------- */
-        public async Task<(bool Success, string Message)> DeleteDieslovaniAsync(int idDieslovani)
+        public async Task<(bool Success, string Message)> DeleteDieslovaniAsync(int id)
         {
             try
             {
-                var dieslovani = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
+                var dieslovani = await _dieslovaniRepository.GetByIdAsync(id);
                 if (dieslovani == null)
                 {
                     return (false, "Dieslovani nebylo nalezeno.");
                 }
 
-                bool deleted = await _dieslovaniRepository.DeleteAsync(idDieslovani);
+                bool deleted = await _dieslovaniRepository.DeleteAsync(id);
                 if (!deleted)
                 {
                     return (false, "Dieslovani se nepodařilo smazat.");
