@@ -39,11 +39,6 @@ namespace ModularDieselApplication.Application.Services
             await _techniciRepository.UpdateAsync(technik);
         }
 
-        public async Task<Firma?> GetFirmaVRegionuAsync(int regionId)
-        {
-            throw new NotImplementedException();
-        }
-
         // Other method implementations...
     }
 }

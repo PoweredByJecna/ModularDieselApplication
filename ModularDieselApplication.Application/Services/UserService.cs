@@ -20,11 +20,8 @@ namespace ModularDieselApplication.Application.Services
             var userDetail = await _userRepository.GetByIdAsync(userId);
             if (userDetail == null)
             {
-                // Můžete místo anonymního objektu vracet i nějaký DTO 
-                // nebo throw-nout výjimku, záleží na vašem stylu
                 return new { error = "Uživatel nenalezen" };
             }
-
             // 2) Role
             var role = await _userRepository.GetUserPrimaryRoleAsync(userId);
 

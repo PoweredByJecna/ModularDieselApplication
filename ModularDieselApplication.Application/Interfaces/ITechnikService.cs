@@ -10,10 +10,5 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<Technik?> GetTechnikByUserIdAsync(string idUser);
         Task<bool> IsTechnikOnDutyAsync(string idTechnika);
         Task UpdateTechnikAsync(Technik technik);
-
-        Task<Firma?> GetFirmaVRegionuAsync(int regionId);
-
-    
-        // Other method signatures...
     }
 }

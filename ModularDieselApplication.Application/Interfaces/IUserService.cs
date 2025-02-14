@@ -5,11 +5,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
 {
     public interface IUserService
     {
-        
         Task<object> DetailUserJsonAsync(string userId);
-
         Task<bool> IsUserInRoleAsync(string userId, string roleName);
-
-        
     }
 }
