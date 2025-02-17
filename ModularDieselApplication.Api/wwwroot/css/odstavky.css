@@ -107,6 +107,7 @@ input{
     display: flex;
     top: 0;
     left:5px;
+    flex-wrap: wrap;
 }
 .legenda{
     margin-left: 5px;

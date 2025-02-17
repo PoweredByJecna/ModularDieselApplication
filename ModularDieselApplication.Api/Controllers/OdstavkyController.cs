@@ -69,9 +69,9 @@ namespace ModularDieselApplication.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int idodstavky)
+        public async Task<IActionResult> Delete(int id)
         {
-            var result = await _odstavkyService.DeleteOdstavkaAsync(idodstavky);
+            var result = await _odstavkyService.DeleteOdstavkaAsync(id);
             if (!result.Success)
             {
                 return Json(new { success = false, message = result.Message });

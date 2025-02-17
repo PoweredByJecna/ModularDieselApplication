@@ -24,7 +24,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
-            // MAPPING TABULEK
             builder.Entity<TableLokality>().ToTable("LokalityTable", schema: "Data");
             builder.Entity<TableOdstavky>().ToTable("OdstavkyTable", schema: "Data");
             builder.Entity<TableDieslovani>().ToTable("TableDieslovani", schema: "Data");
@@ -53,12 +52,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence
                 .WithMany(i=>i.DieslovaniList)
                 .HasForeignKey(o=>o.IdTechnik);
                 
-
-
-            
         }
-
-   
         public DbSet<TableLokality> LokalityS { get; set; }
         public DbSet<TableOdstavky> OdstavkyS { get; set; }
         public DbSet<TableDieslovani> DieslovaniS { get; set; }

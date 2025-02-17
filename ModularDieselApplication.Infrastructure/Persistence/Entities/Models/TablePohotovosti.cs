@@ -13,7 +13,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public DateTime Zacatek {get;set;}
         public DateTime Konec {get;set;}
 
-        [ForeignKey("user")]
+        [ForeignKey("User")]
         public string IdUser{get;set;}
         public virtual TableUser User {get;set;}
 

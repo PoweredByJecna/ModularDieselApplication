@@ -16,13 +16,13 @@ namespace ModularDieselApplication.Domain.Rules
             if (newOdstavka?.Lokality?.DA == true)
             {
                 result.Success = false;
-                result.Message = "Na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
+                result.Duvod = "Na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
                 return false;
             }
             if (newOdstavka?.Lokality?.Zasuvka == false)
             {
                 result.Success = false;
-                result.Message = "Na lokalitě se nedá dieslovat, protože tam není zásuvka.";
+                result.Duvod = "Na lokalitě se nedá dieslovat, protože tam není zásuvka.";
                 return false;
             }     
 

@@ -19,7 +19,6 @@ namespace ModularDieselApplication.Domain.Rules
             return klasifikaceVaha.TryGetValue(Klasifikace,out int vaha) ? vaha:1; //pokud se nenajde žádná klasifikace, vrátí default hodnotu 0
         }
 
-
         public static int ZiskejCasVypadku(this string Klasifikace)
         {
             var klasifikaceVaha =  new Dictionary<string,int>

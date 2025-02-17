@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z+QznaGRnpowQXhTIcnC6KrI5Hs3aCSR6mmLFckW18pmI2rpPPQIpiaGR9wpmCW89tlmDafZbTCOY6ZtgWt7XQ==",
+  "dgSpecHash": "pkmVOGv5k9xagJpp/d6wwYVKqASzQeQUKP6adasAWW0Wgtbc7lxD7biN0pm3zHvy7qTQjxkd2ytJo7joKwv6Xg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-1\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-1\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

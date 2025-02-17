@@ -12,6 +12,11 @@
     #upcomingTable td {
         padding: 0px 5px !important;
     }
+    .dataTables_wrapper .dataTables_filter{
+        display: none;
+    }
+
+
 }
 
 @media (max-width: 1200px) {

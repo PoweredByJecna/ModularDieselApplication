@@ -106,14 +106,16 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Delete Odstavka by ID
         // ----------------------------------------
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var entity = await _context.OdstavkyS.FindAsync(id);
             if (entity != null)
             {
                 _context.OdstavkyS.Remove(entity);
                 await _context.SaveChangesAsync();
+                return true;
             }
+            return false;
         }
 
         // ----------------------------------------
@@ -174,7 +176,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Include(l => l.Lokality)
                 .Select(l => new
                 {
-                    ID = l.ID,
+                    id = l.ID,
                     Distributor = l.Distributor,
                     NazevLokality = l.Lokality.Nazev,
                     Klasifikace = l.Lokality.Klasifikace,
@@ -190,7 +192,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             var result = odstavkaList.Select(l => new
             {
-                l.ID,
+                l.id,
                 l.Distributor,
                 l.NazevLokality,
                 l.Klasifikace,

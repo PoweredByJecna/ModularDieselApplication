@@ -225,7 +225,7 @@ function ajaxAction(url, data, successTables) {
 /*--------------------------------------------
  * Smaže záznam odstávky
  */
-function deleteRecord(element, idOdstavky) {
+function deleteRecord(element, id) {
     const row = $(element).closest('tr');
     const offset = row.offset();
     var cislo1 = 50;
@@ -237,8 +237,8 @@ function deleteRecord(element, idOdstavky) {
         position: 'absolute'
     });
     showConfirmModal('Opravdu chcete smazat tento záznam?', function() {
-        console.log("Mazání záznamu s ID:", idOdstavky);
-        ajaxAction('/Odstavky/Delete', { idOdstavky: idOdstavky }, ['#odTable']);
+        console.log("Mazání záznamu s ID:", id);
+        ajaxAction('/Odstavky/Delete', { id: id }, ['#odTable']);
         reloadTables();
     });
 }

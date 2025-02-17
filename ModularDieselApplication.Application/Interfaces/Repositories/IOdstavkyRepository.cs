@@ -14,7 +14,7 @@ namespace ModularDieselApplication.Application.Interfaces
         Task<int> GetLokalitaCountAsync();
         Task AddAsync(Odstavka odstavka);
         Task UpdateAsync(Odstavka odstavka);
-        Task DeleteAsync(int id);
+        Task <bool>DeleteAsync(int id);
         IQueryable<Odstavka> GetOdstavkaQuery();
         Task<Odstavka?> AnotherOdsatvkaAsync(int LokalitaId, DateTime od);
 
