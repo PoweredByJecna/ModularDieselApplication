@@ -2,7 +2,7 @@ using ModularDieselApplication.Domain.Entities;
 
 namespace ModularDieselApplication.Domain.Objects
 {
-    public class HandleOdstavkyDieslovaniResult
+    public class HandleResult
     {
         public bool Success { get; set; }
         public string Message { get; set; } = "";

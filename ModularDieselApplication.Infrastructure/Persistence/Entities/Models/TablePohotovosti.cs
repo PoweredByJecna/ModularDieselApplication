@@ -14,12 +14,12 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public DateTime Konec {get;set;}
 
         [ForeignKey("User")]
-        public string IdUser{get;set;}
-        public virtual TableUser User {get;set;}
+        public required string IdUser{get;set;}
+        public virtual required TableUser User {get;set;}
 
         [ForeignKey("Technik")]
-        public string? IdTechnik {get;set;}
-        public virtual TableTechnici? Technik {get;set;}       
+        public required string IdTechnik {get;set;}
+        public virtual required TableTechnici Technik {get;set;}       
 
 
 

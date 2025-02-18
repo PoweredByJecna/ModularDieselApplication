@@ -7,10 +7,10 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     {   
         [Key]
         public int ID{get;set;}
-        public string Nazev{get;set;}
+        public required string Nazev{get;set;}
         
         [ForeignKey("Firma")]
         public int  FirmaID {get;set;}
-        public virtual TableFirma Firma {get;set;}
+        public virtual required TableFirma Firma {get;set;}
     }
 }

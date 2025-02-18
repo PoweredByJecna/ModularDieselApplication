@@ -12,11 +12,11 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         
         [ForeignKey("Odstavka")]
         public int IDodstavky {get;set;}
-        public virtual TableOdstavky Odstavka {get;set;}
+        public virtual required TableOdstavky Odstavka {get;set;}
         
         [ForeignKey("Technik")]
-        public string IdTechnik {get;set;}
-        public virtual TableTechnici Technik {get;set;}
+        public required string IdTechnik {get;set;}
+        public virtual required TableTechnici Technik {get;set;}
      
     }
 }

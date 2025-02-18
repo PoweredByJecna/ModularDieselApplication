@@ -7,17 +7,10 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(ApplicationDbContext context, IMapper mapper) : IUserRepository
     {
-        private readonly UserManager<TableUser> _userManager;
-        private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public UserRepository(ApplicationDbContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
-        }
+        private readonly ApplicationDbContext _context = context;
+        private readonly IMapper _mapper = mapper;
 
         // ----------------------------------------
         // Get User by ID

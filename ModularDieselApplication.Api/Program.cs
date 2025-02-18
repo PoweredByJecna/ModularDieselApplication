@@ -17,8 +17,7 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
 using AutoMapper;
 using ModularDieselApplication.Domain.Rules;
-using ModularDieselApplication.Domain.Entities;
-
+using ModularDieselApplication.Infrastructure.CleaningDatabase;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -80,6 +79,9 @@ builder.Services.AddScoped<OdstavkyActionService>();
 builder.Services.AddScoped<OdstavkyQueryService>();
 builder.Services.AddScoped<OdstavkyRules>();
 
+builder.Services.AddScoped<IDatabaseCleaner, DatabaseCleaner>();
+builder.Services.AddHostedService<CleaningDatabaseService>();
+
 
 var app = builder.Build();
 
@@ -89,10 +91,7 @@ using (var scope = app.Services.CreateScope())
     mapper.ConfigurationProvider.AssertConfigurationIsValid();
 }
 app.UseRouting();
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

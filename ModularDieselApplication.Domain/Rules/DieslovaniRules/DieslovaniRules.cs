@@ -9,43 +9,43 @@ namespace ModularDieselApplication.Domain.Rules
         /* ----------------------------------------
            IsDieselRequired
            ---------------------------------------- */
-        public async Task<bool> IsDieselRequired(string? klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka)
+        public static async Task<HandleResult> IsDieselRequired(string? klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
         {
-            var result = new HandleOdstavkyDieslovaniResult();
     
             if (newOdstavka?.Lokality?.DA == true)
             {
                 result.Success = false;
                 result.Duvod = "Na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
-                return false;
+                return result;
             }
             if (newOdstavka?.Lokality?.Zasuvka == false)
             {
                 result.Success = false;
                 result.Duvod = "Na lokalitě se nedá dieslovat, protože tam není zásuvka.";
-                return false;
-            }     
-
-            if (klasifikace == null)
-            {
-                throw new ArgumentNullException(nameof(klasifikace));
+                return result;
             }
+
+            ArgumentNullException.ThrowIfNull(klasifikace);
+            
             var casVypadku = await Task.Run(() => klasifikace.ZiskejCasVypadku());
             var rozdil = (Do - Od).TotalMinutes;
 
             if (casVypadku * 60 > rozdil)
             {
-                return false;
+                result.Success = false;
+                return result;
             }
             else
             {
                 if (await BatteryAsync(Od, Do, baterie))
                 {
-                    return false;
+                    result.Success = false;
+                    return result;
                 }
                 else
                 {
-                    return true;
+                    result.Success = true;
+                    return result;
                 }
             }
         }

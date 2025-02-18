@@ -87,10 +87,17 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             {
                 var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
 
-                dis.Technik.Taken = !dis.Technik.Taken;
+                if (dis != null && dis.Technik != null)
+                {
+                    dis.Technik.Taken = !dis.Technik.Taken;
 
-                await _dieslovaniRepository.UpdateAsync(dis);
-                return (true, $"Změněn stav technika (Taken = {!dis.Technik.Taken}).");
+                    await _dieslovaniRepository.UpdateAsync(dis);
+                    return (true, $"Změněn stav technika (Taken = {!dis.Technik.Taken}).");
+                }
+                else
+                {
+                    return (false, "Záznam dieslování nebo technik nebyl nalezen.");
+                }
             }
             catch (Exception ex)
             {
@@ -111,6 +118,11 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 if (dieslovaniTaken == null)
                 {
                     return (false, "Záznam dieslování nebyl nalezen.", null);
+                }
+
+                if (technik == null)
+                {
+                    return (false, "Technik nebyl nalezen.", null);
                 }
 
                 var pohotovostTechnik = await _technikService.IsTechnikOnDutyAsync(technik.ID);

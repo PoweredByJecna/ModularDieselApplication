@@ -4,14 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ModularDieselApplication.Infrastructure.Persistence;
-
-namespace Diesel_modular_application.Infrastructure
+using ModularDieselApplication.Application.Interfaces;
+namespace ModularDieselApplication.Infrastructure.CleaningDatabase
 {
-    public interface IDatabaseCleaner
-    {
-        Task CleanOutdatedRecords();
-    }
-
     public class DatabaseCleaner : IDatabaseCleaner
     {
         private readonly IServiceScopeFactory _scopeFactory;

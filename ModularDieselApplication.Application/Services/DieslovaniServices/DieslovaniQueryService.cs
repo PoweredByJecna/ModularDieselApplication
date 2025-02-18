@@ -2,8 +2,7 @@
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
-using ModularDieselApplication.Domain.Rules;
-using static ModularDieselApplication.Application.Services.OdstavkyService;
+
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService
 {

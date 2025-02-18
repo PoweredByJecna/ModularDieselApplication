@@ -7,6 +7,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     {
         [Key]
         public int ID{get;set;}
-        public string Nazev{get;set;}       
+        public required string Nazev{get;set;}       
     }
 }

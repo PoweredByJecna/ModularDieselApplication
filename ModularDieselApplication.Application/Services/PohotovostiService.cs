@@ -47,7 +47,12 @@ namespace ModularDieselApplication.Application.Services
 
             if (isEngineer)
             {
-                var technikSearch= await _pohotovostiRepository.GetPohotovostTechnikIdsAsync(currentUser.Id);
+                if (currentUser == null)
+                {
+                    return (false, "Aktuální uživatel je null.");
+                }
+
+                var technikSearch = await _pohotovostiRepository.GetPohotovostTechnikIdsAsync(currentUser.Id);
 
                 if (technikSearch == null)
                 {

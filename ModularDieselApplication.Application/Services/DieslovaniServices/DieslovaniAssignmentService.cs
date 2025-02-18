@@ -3,7 +3,6 @@ using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Domain.Objects;
-using static ModularDieselApplication.Application.Services.OdstavkyService;
 
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService
@@ -26,12 +25,18 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             _dieslovaniRules = dieslovaniRules;
             _regionyService = regionyService;
         }
-        
-       
-        public async Task<HandleOdstavkyDieslovaniResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleOdstavkyDieslovaniResult result)
+        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
         {
            
-            if (newOdstavka != null && newOdstavka.Lokality != null && await _dieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka))
+            if (newOdstavka == null)
+            {
+                result.Success = false;
+                result.Duvod = "Odstavka is null.";
+                return result;
+            }
+
+            await DieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka, result);
+            if (result.Success)
             {
                 var technikSearch = await AssignTechnikAsync(newOdstavka);
 
@@ -56,7 +61,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             else
             {
                 result.Success = false;
-                result.Message = "Dieslování není potřeba z důvodu" + result.Duvod;
+                result.Message = "Dieslování není potřeba z důvodu: " + result.Duvod;
                 return result;
             }
             result.Success = true;
@@ -67,7 +72,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
            ---------------------------------------- */
         public async Task<Technik?> AssignTechnikAsync(Odstavka newOdstavka)
         {
-            var result = new HandleOdstavkyDieslovaniResult();
+            var result = new HandleResult();
 
             var firmaVRegionu = await GetFirmaVRegionuAsync(newOdstavka.Lokality.Region.ID);
 
@@ -89,9 +94,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                         }
                     }
                     await _technikService.GetTechnikByIdAsync("606794494");
-                    result.Message="Přiřazen technik id: 606794494";
                 }
-
                 return technikSearch;
             }
             else

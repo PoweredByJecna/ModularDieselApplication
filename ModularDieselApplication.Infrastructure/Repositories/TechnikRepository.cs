@@ -50,7 +50,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Technik by Firma ID
         // ----------------------------------------
-        public async Task<Technik?> GetByFirmaIdAsync(int idFirmy)
+        public async Task<Technik> GetByFirmaIdAsync(int idFirmy)
         {
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
@@ -58,7 +58,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Where(t => t.Taken == false)
                 .FirstOrDefaultAsync(t => t.FirmaId == idFirmy);
 
-            return _mapper.Map<Technik?>(entity);
+            return _mapper.Map<Technik>(entity);
         }
 
         // ----------------------------------------

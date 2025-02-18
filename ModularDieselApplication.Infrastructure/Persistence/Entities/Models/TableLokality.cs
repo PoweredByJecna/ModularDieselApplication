@@ -19,8 +19,8 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 
 
         [ForeignKey("Region")]
-        public int RegionID {get;set;}
-        public TableRegiony Region {get;set;}
+        public int? RegionID {get;set;}
+        public required TableRegiony Region {get;set;}
         public virtual ICollection<TableOdstavky>? OdstavkyList { get; set; }
         
         [ForeignKey("Zdroj")]

@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Rules;
+
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -26,9 +26,9 @@ namespace ModularDieselApplication.Application.Services
             _odstavkyRules = odstavkyRules;
         }
 
-        public async Task<HandleOdstavkyDieslovaniResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option)
+        public async Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option)
         {
-            var result = new HandleOdstavkyDieslovaniResult();
+            var result = new HandleResult();
             try
             {
                 // Najdeme danou lokalitu
@@ -43,7 +43,7 @@ namespace ModularDieselApplication.Application.Services
 
                 
                 // Kontrola termínů a existence odstávky
-                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, @do, result, await ExistingOdstavka(lokalitaSearch.ID, od));
+                result = await OdstavkyRules.OdstavkyCheck(od, @do, result, await ExistingOdstavka(lokalitaSearch.ID, od));
                 if (!result.Success)
                     return result;
 
@@ -105,9 +105,9 @@ namespace ModularDieselApplication.Application.Services
                 _ => ""
             };
         }
-        public async Task<HandleOdstavkyDieslovaniResult> TestOdstavkaAsync()
+        public async Task<HandleResult> TestOdstavkaAsync()
         {
-            var result = new HandleOdstavkyDieslovaniResult();
+            var result = new HandleResult();
 
             try
             {
@@ -137,25 +137,13 @@ namespace ModularDieselApplication.Application.Services
                 string popis = $"Odstávka od {distrib}, od: {od}, do: {do_}";
 
                 // Kontrola
-                result = _odstavkyRules.OdstavkyCheck(lokalitaSearch, od, do_, result, await ExistingOdstavka(lokalitaSearch.ID, od));
+                result = await OdstavkyRules.OdstavkyCheck(od, do_, result, await ExistingOdstavka(lokalitaSearch.ID, od));
                 if (!result.Success)
                     return result;
 
                 // Vytvoříme novou odstávku
                 var newOdstavka = await CreateNewOdstavka(lokalitaSearch, distrib, od, do_, popis);
 
-                try
-                {
-                    await _odstavkaRepository.AddAsync(newOdstavka);
-                    result.Odstavka = newOdstavka;
-                    result.Message = "Odstávka byla úspěšně vytvořena.";
-                }
-                catch (Exception)
-                {
-                    result.Success = false;
-                    result.Message = "Chyba při ukládání do databáze";
-                    return result;
-                }
                 if (newOdstavka != null && newOdstavka.Lokality != null && newOdstavka.Lokality.Region != null)
                 {
                     var id = newOdstavka.ID;
@@ -165,11 +153,17 @@ namespace ModularDieselApplication.Application.Services
                     result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
                     if (!result.Success)
                     {
-                        await _logService.ZapisDoLogu(DateTime.Now.Date, "odstávka", newOdstavka.ID, result.Message);
+                        if (newOdstavka != null)
+                        {
+                            await _logService.ZapisDoLogu(DateTime.Now.Date, "odstávka", newOdstavka.ID, result.Message);
+                        }
                     }
                     else
                     {
-                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, result.Message);
+                        if (result.Message != null && newOdstavka != null)
+                        {
+                            await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, result.Message);
+                        }
                     }
                 }
 
@@ -185,7 +179,7 @@ namespace ModularDieselApplication.Application.Services
 
         private async Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis)
         {
-            var result = new HandleOdstavkyDieslovaniResult();
+            var result = new HandleResult();
             
             var newOdstavka = new Odstavka
             {

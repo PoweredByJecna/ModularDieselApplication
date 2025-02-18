@@ -1,12 +1,13 @@
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Entities;
 using System.Runtime.CompilerServices;
+using System.Formats.Asn1;
 
 namespace ModularDieselApplication.Domain.Rules
 {
     public class OdstavkyRules
     {
-        public HandleOdstavkyDieslovaniResult OdstavkyCheck(Lokalita lokalitaSearch, DateTime od, DateTime do_, HandleOdstavkyDieslovaniResult result, bool ExistingOdstavka)
+        public static async Task<HandleResult> OdstavkyCheck(DateTime od, DateTime do_, HandleResult result, bool ExistingOdstavka)
         {
             if (!ExistingOdstavka)
             {
@@ -15,7 +16,7 @@ namespace ModularDieselApplication.Domain.Rules
                 return result;
             }
 
-            if (!IsValidDateRange(od, do_))
+            if (! await IsValidDateRange(od, do_))
             {
                 result.Success = false;
                 result.Message = "Špatně zadané datum.";
@@ -27,9 +28,9 @@ namespace ModularDieselApplication.Domain.Rules
                 return result;
             }
         }
-        private static bool IsValidDateRange(DateTime od, DateTime Do)
+        private static Task<bool> IsValidDateRange(DateTime od, DateTime Do)
         {
-            return od.Date >= DateTime.Today && od < Do;
+            return Task.FromResult(od.Date >= DateTime.Today && od < Do);
         }
 
     }

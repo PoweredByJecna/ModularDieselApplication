@@ -38,9 +38,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<bool> GetPohotovostiRegionAsync(int id)
         {
             var tablePohotovosti = await _context.PohotovostiS
-                 .Include(o => o.Technik)
+                .Include(o => o.Technik)
                 .ThenInclude(o => o.Firma)
-                .Where(o => o.Technik.Firma.ID == id)
+                .Where(o => o.Technik != null && o.Technik.Firma != null && o.Technik.Firma.ID == id)
                 .FirstOrDefaultAsync();
             return tablePohotovosti != null;
         }
