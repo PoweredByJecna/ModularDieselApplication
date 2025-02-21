@@ -75,7 +75,7 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            HandleOdstavkyDieslovani
            ---------------------------------------- */
-        public async Task<HandleOdstavkyDieslovaniResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleOdstavkyDieslovaniResult result)
+        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
         {
             await _dieslovaniAssignmentService.HandleOdstavkyDieslovani(newOdstavka, result);
             return result;
@@ -83,14 +83,14 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            VstupAsync
         ---------------------------------------- */
-        public async Task<(bool Success, string Message)> VstupAsync(int idDieslovani)
+        public async Task<HandleResult> VstupAsync(int idDieslovani)
         {
             return await _dieslovaniActionService.VstupAsync(idDieslovani);
         }
         /* ----------------------------------------
            OdchodAsync
            ---------------------------------------- */
-        public async Task<(bool Success, string Message)> OdchodAsync(int idDieslovani)
+        public async Task<HandleResult> OdchodAsync(int idDieslovani)
         {
             return await _dieslovaniActionService.OdchodAsync(idDieslovani);
         }
@@ -104,7 +104,7 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            TakeAsync
            ---------------------------------------- */
-        public async Task<(bool Success, string Message, string? TempMessage)> TakeAsync(int idDieslovani, User currentUser)
+        public async Task<HandleResult> TakeAsync(int idDieslovani, User currentUser)
         {
             return await _dieslovaniActionService.TakeAsync(idDieslovani, currentUser);
         }

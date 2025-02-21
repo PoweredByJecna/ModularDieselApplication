@@ -25,19 +25,24 @@ namespace ModularDieselApplication.Application.Services
         {
            return await _odstavkyQueryService.SuggestLokalitaAsync(query);
         }
-        public async Task<HandleOdstavkyDieslovaniResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option)
+        public async Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option)
         {
             return await _odstavkaAssignmentService.CreateOdstavkaAsync(lokalita, od, @do, popis, option);
         }
 
-        public async Task<HandleOdstavkyDieslovaniResult> TestOdstavkaAsync()
+        public async Task<HandleResult> TestOdstavkaAsync()
         {
             return await _odstavkaAssignmentService.TestOdstavkaAsync();
         }
 
-        public async Task<Odstavka?> DetailOdstavkyAsync(int id)
+        public async Task<Odstavka> DetailOdstavkyAsync(int id)
         {
-            return await _odstavkaRepository.GetByIdAsync(id);
+            var odstavka = await _odstavkaRepository.GetByIdAsync(id);
+            if (odstavka == null)
+            {
+                throw new InvalidOperationException($"Odstavka with id {id} not found.");
+            }
+            return odstavka;
         }
 
         public async Task<object> DetailOdstavkyJsonAsync(int id)
@@ -45,7 +50,7 @@ namespace ModularDieselApplication.Application.Services
             return await _odstavkyQueryService.DetailOdstavkyJsonAsync(id);
         }
 
-        public async Task<HandleOdstavkyDieslovaniResult> DeleteOdstavkaAsync(int idodstavky)
+        public async Task<HandleResult> DeleteOdstavkaAsync(int idodstavky)
         {
             return await _odstavkyActionService.DeleteOdstavkaAsync(idodstavky);
         }
@@ -59,7 +64,7 @@ namespace ModularDieselApplication.Application.Services
             return await _odstavkyQueryService.GetTableDataOdDetailAsync(idodstavky);
         }
 
-        public Task<HandleOdstavkyDieslovaniResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis)
+        public Task<HandleResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis)
         {
             throw new NotImplementedException();
         }

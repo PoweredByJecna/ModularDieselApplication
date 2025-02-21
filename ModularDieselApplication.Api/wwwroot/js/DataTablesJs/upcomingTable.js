@@ -72,8 +72,8 @@ $('#upcomingTable').DataTable({
             { 
                 data: null, 
                     render: function(data, type, row) {
-                    return `<a class="userA" href="/User/Index?id=${data.User}">
-                    ${data.jmeno} ${data.prijmeni}
+                    return `<a class="userA" href="/User/Index?id=${data.user}">
+                    ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;}
 
             },

@@ -19,9 +19,9 @@ namespace ModularDieselApplication.Application.Services
 
         }
 
-        public async Task<HandleOdstavkyDieslovaniResult> DeleteOdstavkaAsync(int idodstavky)
+        public async Task<HandleResult> DeleteOdstavkaAsync(int idodstavky)
         {
-            var result = new HandleOdstavkyDieslovaniResult();
+            var result = new HandleResult();
             try
             {
                 var odstavka = await _odstavkaRepository.GetByIdAsync(idodstavky);

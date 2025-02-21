@@ -1,3 +1,4 @@
+using System.Xml.XPath;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -74,18 +75,18 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Vstup(int IdDieslovani)
         {
-            var (Success, Message) = await _dieslovaniService.VstupAsync(IdDieslovani);
+            var result = await _dieslovaniService.VstupAsync(IdDieslovani);
 
-            if (!Success)
+            if (!result.Success)
             {
-                return Json(new { success = false, message = Message });
+                return Json(new { success = false, message = result.Message });
             }
             else
             {
                 return Json(new
                 {
                     success = true,
-                    message = Message,
+                    message = result.Message,
                     tempMessage = TempData["Zprava"] // např. pro modal
                 });
             }
@@ -96,15 +97,15 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Odchod(int IdDieslovani)
         {
-            var (Success, Message) = await _dieslovaniService.OdchodAsync(IdDieslovani);
+            var result = await _dieslovaniService.OdchodAsync(IdDieslovani);
 
-            if (!Success)
+            if (!result.Success)
             {
-                return Json(new { success = false, message = Message });
+                return Json(new { success = false, message = result.Message });
             }
             else
             {
-                return Json(new { success = true, message = Message });
+                return Json(new { success = true, message = result.Message });
             }
         }
         // ----------------------------------------

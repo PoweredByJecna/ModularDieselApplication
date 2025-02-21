@@ -15,10 +15,10 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User currentUser, bool isEngineer);
         Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky);
         Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result);
-        Task<(bool Success, string Message)> VstupAsync(int idDieslovani);
-        Task<(bool Success, string Message)> OdchodAsync(int idDieslovani);
+        Task<HandleResult> VstupAsync(int idDieslovani);
+        Task<HandleResult> OdchodAsync(int idDieslovani);
         Task<(bool Success, string Message)> TemporaryLeaveAsync(int idDieslovani);
-        Task<(bool Success, string Message, string? TempMessage)> TakeAsync(int idDieslovani, User user);
+        Task<HandleResult> TakeAsync(int idDieslovani, User user);
         Task<Dieslovani?> DetailDieslovaniAsync(int id);
         Task<object> DetailDieslovaniJsonAsync(int id);
         Task<Dieslovani>GetDieslovaniByOdstavkaId(int id);

@@ -12,11 +12,11 @@ namespace ModularDieselApplication.Domain.Entities
     public class LoginInputModel
     {
         [Required(ErrorMessage = "Uživatelské jméno je povinné")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Required(ErrorMessage = "Heslo je povinné")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         public bool RememberMe { get; set; }
     }

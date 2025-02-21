@@ -3,6 +3,7 @@ using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Rules;
 using static ModularDieselApplication.Application.Services.OdstavkyService;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService
 {
@@ -19,8 +20,9 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
             VstupAsync
         ---------------------------------------- */
-        public async Task<(bool Success, string Message)> VstupAsync(int idDieslovani)
+        public async Task<HandleResult> VstupAsync(int idDieslovani)
         {
+            var result = new HandleResult();
             try
             {
                 var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
@@ -31,23 +33,31 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     dis.Technik.Taken = true;
     
                     await _dieslovaniRepository.UpdateAsync(dis);
-                    return (true, "Byl zadán vstup na lokalitu.");
+                    result.Success=true;
+                    result.Message="Byl zadán vstup na lokalitu.";
+                    return result;
                 }
                 else
                 {
-                    return (false, "Záznam dieslování nebyl nalezen.");
+                    result.Success=false;
+                    result.Message="Záznam dieslování nebyl nalezen.";
+                    return result;
                 }
             }
             catch (Exception ex)
             {
-                return (false, "Chyba při zadávání vstupu " + ex.Message);
+                result.Success=false;
+                result.Message="Chyba při zadávání vstupu " + ex.Message;
+                return result;
             }
         }
         /*----------------------------------------
             OdchodAsync
         ----------------------------------------*/
-        public async Task<(bool Success, string Message)> OdchodAsync(int idDieslovani)
+        public async Task<HandleResult> OdchodAsync(int idDieslovani)
         {
+            var result = new HandleResult();
+
             try
             {
                 var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
@@ -65,17 +75,22 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                     dis.Odchod = DateTime.Now;
                     await _dieslovaniRepository.UpdateAsync(dis);
-
-                    return (true, "Byl zadán odchod z lokality.");
+                    result.Success = true;
+                    result.Message = "Byl zadán odchod z lokality.";
+                    return result;
                 }
                 else
                 {
-                    return (false, "Záznam dieslování nebyl nalezen.");
+                    result.Success = false;
+                    result.Message = "Záznam dieslování nebyl nalezen.";
+                    return result;
                 }
             }
             catch (Exception ex)
             {
-                return (false, "Chyba při zadávání odchodu " + ex.Message);
+                result.Success = false;
+                result.Message = "Chyba při zadávání odchodu " + ex.Message;
+                return result;
             }
         }
         /* ----------------------------------------
@@ -107,8 +122,9 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            TakeAsync
         ---------------------------------------- */
-        public async Task<(bool Success, string Message, string? TempMessage)> TakeAsync(int idDieslovani, User currentUser)
+        public async Task<HandleResult> TakeAsync(int idDieslovani, User currentUser)
         {
+            var result = new HandleResult();
             try
             {
                 var technik = await _technikService.GetTechnikByIdAsync(currentUser.Id);
@@ -117,24 +133,32 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                 if (dieslovaniTaken == null)
                 {
-                    return (false, "Záznam dieslování nebyl nalezen.", null);
+                    result.Success = false;
+                    result.Message = "Záznam dieslování nebyl nalezen.";
+                    return result;
                 }
 
                 if (technik == null)
                 {
-                    return (false, "Technik nebyl nalezen.", null);
+                    result.Success = false;
+                    result.Message = "Technik nebyl nalezen.";
+                    return result;
                 }
 
                 var pohotovostTechnik = await _technikService.IsTechnikOnDutyAsync(technik.ID);
 
                 if (!pohotovostTechnik)
                 {
-                    return (false, "Nejste zapsán v pohotovosti.", null);
+                    result.Success = false;
+                    result.Message = "Nejste zapsán v pohotovosti.";
+                    return result;
                 }
 
                 if (technik.Taken)
                 {
-                    return (false, "Již máte převzaté jiné dieslování.", null);
+                    result.Success = false;
+                    result.Message = "Již máte převzaté jiné dieslování.";
+                    return result;
                 }
 
                 dieslovaniTaken.Technik = technik;
@@ -142,12 +166,15 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 await _technikService.UpdateTechnikAsync(technik);
                 await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
 
-                return (true, $"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Jmeno}", 
-                             "Dieslování bylo úspěšně zadáno.");
+                result.Success = true;
+                result.Message = $"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Jmeno}";
+                return result;
             }
             catch (Exception ex)
             {
-                return (false, $"Chyba při převzetí: {ex.Message}", null);
+                result.Success = false;
+                result.Message = $"Chyba při převzetí: {ex.Message}";
+                return result;
             }
         }
         /*----------------------------------------

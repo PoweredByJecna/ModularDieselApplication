@@ -61,19 +61,15 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task AddAsync(Odstavka odstavka)
         {
-            // Mapování doménového objektu Odstavka na EF entitu TableOdstavky
             var efEntity = _mapper.Map<TableOdstavky>(odstavka);
 
-            // Na základě namapovaného LokalitaID získáme již existující instanci TableLokality
             var existingLokalita = await _context.LokalityS.FindAsync(efEntity.LokalitaID);
             if (existingLokalita == null)
             {
                 throw new Exception($"Lokalita s ID {efEntity.LokalitaID} nebyla nalezena.");
             }
-            // Nastavíme navigační vlastnost na existující entitu, abychom se vyhnuli duplicitnímu trackování
             efEntity.Lokality = existingLokalita;
 
-            // Přidáme novou entitu do kontextu a uložíme změny
             await _context.OdstavkyS.AddAsync(efEntity);
             await _context.SaveChangesAsync();
 

@@ -9,23 +9,21 @@ namespace ModularDieselApplication.Domain.Rules
         /* ----------------------------------------
            IsDieselRequired
            ---------------------------------------- */
-        public static async Task<HandleResult> IsDieselRequired(string? klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
+        public static async Task<HandleResult> IsDieselRequired(string klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
         {
     
             if (newOdstavka?.Lokality?.DA == true)
             {
                 result.Success = false;
-                result.Duvod = "Na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
+                result.Duvod = "na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
                 return result;
             }
             if (newOdstavka?.Lokality?.Zasuvka == false)
             {
                 result.Success = false;
-                result.Duvod = "Na lokalitě se nedá dieslovat, protože tam není zásuvka.";
+                result.Duvod = "na lokalitě se nedá dieslovat, protože tam není zásuvka.";
                 return result;
             }
-
-            ArgumentNullException.ThrowIfNull(klasifikace);
             
             var casVypadku = await Task.Run(() => klasifikace.ZiskejCasVypadku());
             var rozdil = (Do - Od).TotalMinutes;
@@ -33,6 +31,7 @@ namespace ModularDieselApplication.Domain.Rules
             if (casVypadku * 60 > rozdil)
             {
                 result.Success = false;
+                result.Duvod = "lokalita může být vypnuta delší dobu než je délka výpadku";
                 return result;
             }
             else
@@ -40,6 +39,7 @@ namespace ModularDieselApplication.Domain.Rules
                 if (await BatteryAsync(Od, Do, baterie))
                 {
                     result.Success = false;
+                    result.Duvod = "lokalita vydrží na baterie";
                     return result;
                 }
                 else

@@ -42,7 +42,11 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(o => o.Firma)
                 .Where(o => o.Technik != null && o.Technik.Firma != null && o.Technik.Firma.ID == id)
                 .FirstOrDefaultAsync();
-            return tablePohotovosti != null;
+                if (tablePohotovosti == null)
+                {
+                    return false;
+                }
+                else return true;
         }
 
         // ----------------------------------------

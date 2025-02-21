@@ -10,5 +10,6 @@ namespace ModularDieselApplication.Domain.Objects
         public Odstavka? Odstavka { get; set; }
         public string EmailResult { get; set; } = "";
         public string Duvod { get; set; } = "";
+        public string Color { get; set; } = "";
     }
 }

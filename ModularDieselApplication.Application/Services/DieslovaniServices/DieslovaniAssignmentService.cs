@@ -15,8 +15,9 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         private readonly IEmailService _emailService;
         private readonly DieslovaniRules _dieslovaniRules;
         private readonly IRegionyService _regionyService;
+        private readonly ILogService _logService;
 
-        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, IPohotovostiService pohotovostiService, IEmailService emailService, DieslovaniRules dieslovaniRules, IRegionyService regionyService)
+        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, IPohotovostiService pohotovostiService, IEmailService emailService, DieslovaniRules dieslovaniRules, IRegionyService regionyService, ILogService logService)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _technikService = technikService;
@@ -24,31 +25,57 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             _emailService = emailService;
             _dieslovaniRules = dieslovaniRules;
             _regionyService = regionyService;
+            _logService = logService;
         }
         public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
         {
-           
             if (newOdstavka == null)
             {
                 result.Success = false;
-                result.Duvod = "Odstavka is null.";
+                result.Message = "Odstavka is null.";
                 return result;
             }
 
             await DieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka, result);
-            if (result.Success)
+           
+            if(!result.Success)
             {
-                var technikSearch = await AssignTechnikAsync(newOdstavka);
+                result.Success = false;
+
+                result.Message = $"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování není potřeba z důvodu: {result.Duvod}";
+
+                result.Color="Orange";
+
+                return result;
+            }
+
+            var technik = await _technikService.GetTechnikByIdAsync("606794494");
+
+            if (technik == null)
+            {
+                result.Success = false;
+
+                result.Message = "Technik se nanašel.";
+
+                return result;
+            }
+
+            else 
+            {
+                var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
+
+                var technikSearch = await AssignTechnikAsync(dieslovani);
 
                 if (technikSearch == null)
                 {
                     result.Success = false;
+
                     result.Message = "Nepodařilo se přiřadit technika.";
+
                     return result;
                 }
                 else
                 {
-                    var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technikSearch);
                     result.Success = true;
 
                     var EmailResult = "DA-ok";
@@ -56,49 +83,47 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     await _emailService.SendDieslovaniEmailAsync(dieslovani, EmailResult);
 
                     result.Message = $"Dieslování č. {dieslovani.ID} bylo úspěšně vytvořeno.";
+
+                    return result;
                 }
             }
-            else
-            {
-                result.Success = false;
-                result.Message = "Dieslování není potřeba z důvodu: " + result.Duvod;
-                return result;
-            }
-            result.Success = true;
-            return result;
         }
         /* ----------------------------------------
            AssignTechnikAsync
            ---------------------------------------- */
-        public async Task<Technik?> AssignTechnikAsync(Odstavka newOdstavka)
+        public async Task<Technik?> AssignTechnikAsync(Dieslovani dieslovani)
         {
-            var result = new HandleResult();
-
-            var firmaVRegionu = await GetFirmaVRegionuAsync(newOdstavka.Lokality.Region.ID);
-
+            var firmaVRegionu = await GetFirmaVRegionuAsync(dieslovani.Odstavka.Lokality.Region.ID);
+            
             if (firmaVRegionu != null)
             {
-                // vratí technika, který je v zapsán v pohotovosti, a mám status taken = false
                 var technikSearch = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID);
 
                 if (technikSearch == null)
                 {
-                    result.Duvod = "Není technik v pohotovosti";
+                    
                     bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID);
+                    
                     if (nejakyTechnikMaPohotovost)
                     {
-                        technikSearch = await CheckTechnikReplacementAsync(newOdstavka);
+                        technikSearch = await CheckTechnikReplacementAsync(dieslovani.Odstavka);
                         if (technikSearch != null)
                         {
                             return technikSearch;
                         }
+                        return technikSearch;
                     }
-                    await _technikService.GetTechnikByIdAsync("606794494");
+                    return technikSearch;
                 }
-                return technikSearch;
+                else
+                {
+                    return technikSearch;
+                }
             }
             else
             {
+                await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Chyba při přiřzení technika");
+
                 return null;
             }
         }
@@ -124,7 +149,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return technik;
             }
         }
-
         /* ----------------------------------------
            GetHigherPriorityAsync
            ---------------------------------------- */
