@@ -73,7 +73,7 @@ $('#runningTable').DataTable({
             data: null, 
                     render: function(data, type, row) {
                     return `<a class="userA" href="/User/Index?id=${data.idtechnika}">
-                    ${data.jmeno} ${data.prijmeni}
+                    ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;}
         },
         { data: 'zadanVstup', 

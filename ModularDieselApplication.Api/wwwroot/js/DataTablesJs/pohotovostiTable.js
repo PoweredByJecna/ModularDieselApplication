@@ -11,13 +11,14 @@ $('#pohotovostTable').DataTable({ajax: {
         { 
             data: null, 
             render: function(data, type, row) {
-                return data.jmeno + ' ' + data.prijmeni; // Combine the two variables into one cell
+                return data.jmenoTechnika
+                + ' ' + data.prijmeniTechnika; // Combine the two variables into one cell
             }
         },
-    {   data: 'phoneNumber'},
-    {   data: 'firma'},
-    {   data: 'zacatek'},
-    {   data: 'konec'},
+    {   data: 'telTechnika'},
+    {   data: 'firmaTechnika'},
+    {   data: 'zacetekPohotovosti'},
+    {   data: 'konecPohotovosti'},
     {
         data: 'lokalita', // Toto je vaše nová hodnota pro Lokalitu
         render: function (data, type, row) {
@@ -27,10 +28,10 @@ $('#pohotovostTable').DataTable({ajax: {
     }
 ],
 rowCallback: function(row, data, index) {
-    if(data.firma =='Fiktivni') {
+    if(data.firmaTechnika =='Fiktivni') {
         $(row).addClass('row-neprirazeno');
     }
-    else if (data.taken == true) {
+    else if (data.technikStatus == true) {
         $(row).addClass('row-obsazeny');
     }else {
         $(row).addClass('row-volny');

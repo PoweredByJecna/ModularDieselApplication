@@ -109,7 +109,7 @@ $('#allTable').DataTable({
         data: null, 
                     render: function(data, type, row) {
                     return `<a class="userA" href="/User/Index?id=${data.idUser}">
-                    ${data.jmeno} ${data.prijmeni}
+                    ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;}
     },    
     {data: 'nazevRegionu'},

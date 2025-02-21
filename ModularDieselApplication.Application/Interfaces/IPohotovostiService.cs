@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
 {
@@ -8,7 +9,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         Task<List<Pohotovosti>> GetAllPohotovostiAsync();
         Task<bool> PohovostiVRegionuAsync(int firmy);
-        Task<(bool Success, string Message)> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser);
+        Task<HandleResult> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser);
         Task<Technik> GetTechnikActivTechnikByIdFirmaAsync(int idFirmy);
         Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length);
     }

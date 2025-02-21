@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Diagnostics.Metrics;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -30,33 +33,42 @@ namespace ModularDieselApplication.Application.Services
             return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu);
         }
 
-        public async Task<(bool Success, string Message)> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser)
+        public async Task<HandleResult> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser)
         {
+            var result  =  new HandleResult();
             bool isEngineer = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Engineer");
             bool isAdmin = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Admin");
 
             if (!isEngineer && !isAdmin)
             {
-                return (false, "Nemáte oprávnění zapsat pohotovost.");
+                result.Success = false;
+                result.Message = "Nemáte oprávnění zapsat pohotovost.";
+                return result;
             }
 
             if (pohotovosti.Zacatek <= pohotovosti.Zacatek || pohotovosti.Zacatek < DateTime.Today)
             {
-                return (false, "Neplatný interval pohotovosti.");
+                result.Success = false;
+                result.Message = "Neplatný interval pohotovosti.";
+                return result;
             }
 
             if (isEngineer)
             {
                 if (currentUser == null)
                 {
-                    return (false, "Aktuální uživatel je null.");
+                    result.Success = false;
+                    result.Message = "Aktuální uživatel je null.";
+                    return result;
                 }
 
                 var technikSearch = await _pohotovostiRepository.GetPohotovostTechnikIdsAsync(currentUser.Id);
 
                 if (technikSearch == null)
                 {
-                    return (false, "Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli.");
+                    result.Success = false;
+                    result.Message = "Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli.";	
+                    return result;
                 }
 
                 var zapis = new Pohotovosti
@@ -69,7 +81,9 @@ namespace ModularDieselApplication.Application.Services
 
                 await _pohotovostiRepository.AddPohotovostAsync(zapis);
 
-                return (true, "Pohotovost byla úspěšně zapsána (engineer).");
+                result.Success = true;
+                result.Message = "Pohotovost byla úspěšně zapsána.";
+                return result;
             }
 
             if (isAdmin)
@@ -78,7 +92,9 @@ namespace ModularDieselApplication.Application.Services
 
                 if (technikSearch == null)
                 {
-                    return (false, "Nepodařilo se najít technika podle zadaného IdTechnika.");
+                    result.Success = false;
+                    result.Message = "Nepodařilo se najít technika podle zadaného IdTechnika.";
+                    return result;
                 }
 
                 var zapis = new Pohotovosti
@@ -91,10 +107,14 @@ namespace ModularDieselApplication.Application.Services
 
                 await _pohotovostiRepository.AddPohotovostAsync(zapis);
 
-                return (true, "Pohotovost byla úspěšně zapsána (admin).");
+                result.Success = true;
+                result.Message = "Pohotovost byla úspěšně zapsána.";
+                return result;
             }
 
-            return (false, "Nepodařilo se provést zápis pohotovosti.");
+            result.Success = false;
+            result.Message = "Nepodařilo se provést zápis pohotovosti.";
+            return result;
         }
 
         public async Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length)

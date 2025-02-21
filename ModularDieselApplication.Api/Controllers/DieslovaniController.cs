@@ -15,7 +15,6 @@ namespace ModularDieselApplication.Api.Controllers
     {
         private readonly IDieslovaniService _dieslovaniService;
         private readonly IMapper _mapper;
-
         private readonly UserManager<TableUser> _userManager;
 
         
@@ -87,7 +86,6 @@ namespace ModularDieselApplication.Api.Controllers
                 {
                     success = true,
                     message = result.Message,
-                    tempMessage = TempData["Zprava"] // např. pro modal
                 });
             }
         }
