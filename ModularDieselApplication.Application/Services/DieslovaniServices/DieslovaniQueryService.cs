@@ -50,7 +50,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(i => i.Vstup ==DateTime.MinValue.Date && i.Odstavka.Od.Date==DateTime.Today);
+                .Where(i => i.Vstup ==DateTime.MinValue.Date && i.Odstavka.Od.Date==DateTime.Today && i.Technik.ID != "606794494");
             query = FilteredData(query, currentUser, isEngineer);
             int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);

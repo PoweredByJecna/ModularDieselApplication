@@ -13,7 +13,6 @@ namespace ModularDieselApplication.Api.Controllers
         {
             _lokalityService=lokalityService;
         }
-      
 
         [Authorize]
         public  IActionResult Index()
@@ -25,16 +24,11 @@ namespace ModularDieselApplication.Api.Controllers
         {
             var lokality = await _lokalityService.GetAllLokalityAsync();   
 
-            // Vrácení dat ve formátu očekávaném DataTables
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(), // Unikátní ID požadavku
                 data = lokality
             });
         }
-
-       
-    
-
     }
 }

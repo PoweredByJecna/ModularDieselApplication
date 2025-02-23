@@ -58,11 +58,13 @@ builder.Services.AddScoped<IPohotovostiRepository, PohotovostiRepository>();
 builder.Services.AddScoped<IRegionyRepository, RegionyRepository>();
 builder.Services.AddScoped<ITechniciRepository, TechniciRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILokalityRepository, LokalityRepository>();
 builder.Services.AddScoped<ILogServiceRepository, LogRepository>();
 
 // Register services
 builder.Services.AddScoped<IDieslovaniService, DieslovaniService>();
 builder.Services.AddScoped<IOdstavkyService, OdstavkyService>();
+builder.Services.AddScoped<ILokalityService, LokalityService>();
 builder.Services.AddScoped<IPohotovostiService, PohotovostiService>();
 builder.Services.AddScoped<IRegionyService, RegionyService>();
 builder.Services.AddScoped<ITechnikService, TechnikService>();

@@ -74,6 +74,7 @@ namespace ModularDieselApplication.Application.Services
                 var zapis = new Pohotovosti
                 {
                     IdUser = technikSearch.User.Id,
+                    User = technikSearch.User,
                     Zacatek = pohotovosti.Zacatek,
                     Konec = pohotovosti.Konec,
                     IdTechnik = technikSearch.ID

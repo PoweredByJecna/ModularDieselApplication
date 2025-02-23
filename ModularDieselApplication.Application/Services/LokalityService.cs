@@ -1,5 +1,6 @@
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
+using ModularDieselApplication.Domain.Entities;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -10,7 +11,7 @@ namespace ModularDieselApplication.Application.Services
         {
             _lokalityRepository = lokalityRepository;
         }
-        public async Task<List<Lokalita>> GetAllLokalityAsync()
+        public async Task<List<object>> GetAllLokalityAsync()
         {
             return await _lokalityRepository.GetAllLokalityAsync();
         }

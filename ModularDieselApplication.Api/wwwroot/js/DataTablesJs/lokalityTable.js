@@ -10,7 +10,7 @@ $('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povole
     },  
     columns: [
         
-{ data: 'lokalita',
+{ data: 'nazev',
     render: function (data, type, row) {
         return `<span style="font-weight: 700;">${data}</span>`;
     } },
@@ -21,7 +21,7 @@ $('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povole
     }
 },
 { data: 'adresa' },
-{ data: 'nazevRegionu' },
+{ data: 'region' },
 { data: 'baterie' },
 {
     data: 'zasuvka',
@@ -41,6 +41,9 @@ $('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povole
         }
         return '<i class="fa-solid fa-ban" style="color: #ea0606;"></i>';
     }
+},
+{
+    data:'zdroj'
 }
 ],
 pageLength: 20,

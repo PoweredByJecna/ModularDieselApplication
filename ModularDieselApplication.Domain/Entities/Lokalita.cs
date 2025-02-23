@@ -1,12 +1,15 @@
-public class Lokalita
+namespace ModularDieselApplication.Domain.Entities 
 {
-    public int ID {get; private set;}
-    public string Nazev {get; private set;}
-    public string Klasifikace {get; private set;}
-    public string Adresa {get; private set;}
-    public int Baterie{get; private set;}
-    public bool DA{get; private set;}
-    public bool Zasuvka{get; private set;}
-    public Region Region {get; private set;}
-    public Zdroj? Zdroj {get; private set;}
+    public class Lokalita
+    {
+        public int ID {get; set;}
+        public string? Nazev {get; set;}
+        public string? Klasifikace {get; set;}
+        public string? Adresa {get; set;}
+        public int Baterie{get; set;}
+        public bool DA{get; set;}
+        public bool Zasuvka{get; set;}
+        public Region Region {get; set;}
+        public Zdroj? Zdroj {get; set;}
+    }
 }

@@ -1,6 +1,7 @@
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using AutoMapper;
+using ModularDieselApplication.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
@@ -14,12 +15,23 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<Lokalita>> GetAllLokalityAsync()
+        public async Task<List<object>> GetAllLokalityAsync()
         {
             var entities = await _context.LokalityS
                 .Include(l => l.Region)
+                .Select(l => new 
+                {
+                    nazev = l.Nazev,
+                    klasifikace = l.Klasifikace,
+                    adresa = l.Adresa,
+                    Baterie = l.Baterie,
+                    Zasuvka = l.Zasuvka,
+                    region = l.Region.Nazev,
+                    zdroj = l.Zdroj != null ? l.Zdroj.Nazev : "N/A"
+              
+                })
                 .ToListAsync();
-            return _mapper.Map<List<Lokalita>>(entities);
+            return _mapper.Map<List<object>>(entities);
         }
     }
 }
