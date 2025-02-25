@@ -27,7 +27,7 @@ namespace ModularDieselApplication.Api.Controllers
             _mapper = mapper;
         }
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -40,7 +40,6 @@ namespace ModularDieselApplication.Api.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var domainUser = _mapper.Map<User>(currentUser);
-
 
             var result  = await _pohotovostiService.ZapisPohotovostAsync(pohotovosti, domainUser);
 

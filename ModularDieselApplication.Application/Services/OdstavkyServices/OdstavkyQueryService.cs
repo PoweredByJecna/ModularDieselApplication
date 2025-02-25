@@ -17,7 +17,7 @@ namespace ModularDieselApplication.Application.Services
             var lokalities = await _odstavkaRepository.GetAllAsync();
             
             return [.. lokalities
-                .Where(l => l.Nazev.Contains(query))
+                .Where(l => l.Nazev != null && l.Nazev.Contains(query))
                 .Select(l => l.Nazev)
                 .Take(10)];
         }
@@ -66,6 +66,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0)
         {
             var query = _odstavkaRepository.GetOdstavkaQuery();
+            
             int totalRecords = query.Count();
 
             if (length == 0)

@@ -270,6 +270,9 @@ function deleteRecordDieslovani(element, id) {
     });
 }
 
+
+
+
 /*--------------------------------------------
  * Zaznamená vstup dieslování
  */
@@ -352,6 +355,34 @@ function toggleObjednatNa() {
 }
 
 /*--------------------------------------------
+    * Zapis pohotovosti
+*/
+function Zapis() {
+    var od = document.getElementById('odZapis').value
+    var DO = document.getElementById('doZapis').value
+
+    $.ajax({
+        url: '/Odstavky/Create',
+        type: 'POST',
+        data: {
+            od: od,
+            do: DO,
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+                reloadTables();
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
+
+/*--------------------------------------------
  * Vytvoří novou odstávku
  */
 function CreateOdstavku() {
@@ -394,7 +425,7 @@ function CreateOdstavku() {
 }
 
 /*--------------------------------------------
- * Navrhuje lokalitu na základě vstupu uživatele
+ * Navrhuje lokalitu na základě zadaného textu
  */
 function SuggestLokalita() {
     var lokalita = document.getElementById('lokalita').value;

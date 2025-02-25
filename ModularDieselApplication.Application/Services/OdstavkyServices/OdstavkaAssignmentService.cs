@@ -163,9 +163,9 @@ namespace ModularDieselApplication.Application.Services
                 {
                     var id = newOdstavka.ID;
                     
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "odstávka", id, $"Vytvřáření odstávky s parametry: Lokalita: {newOdstavka.Lokality.Nazev}, Klasifikace: {newOdstavka.Lokality?.Klasifikace}, Od: {newOdstavka?.Od}, Do: {newOdstavka?.Do}");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", id, $"Vytvřáření odstávky s parametry: Lokalita: {newOdstavka.Lokality.Nazev}, Klasifikace: {newOdstavka.Lokality?.Klasifikace}, Od: {newOdstavka?.Od}, Do: {newOdstavka?.Do}");
                     
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", id, $"Baterie: {newOdstavka?.Lokality?.Baterie} min");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", id, $"Baterie: {newOdstavka?.Lokality?.Baterie} min");
 
                     result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
                     

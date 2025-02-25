@@ -7,7 +7,7 @@ $(document).ready(function () {
     
     if (id) {
         $.ajax({
-            url: '/Log/GetLogByEntity',
+            url: '/LogApi/GetLogByEntity',
             type: 'GET',
             data: {
                 entityId: id

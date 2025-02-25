@@ -86,15 +86,15 @@ $('#odTable').DataTable({
         var today = new Date().setHours(0, 0, 0, 0); 
         var startDate = new Date(data.od).setHours(0, 0, 0, 0); 
 
-        if (data.zadanOdchod == true && data.zadanVstup==false) {
-            $(row).addClass('row-ukoncene');
-        } else if (data.zadanVstup == true && data.zadanOdchod==false) {
+     //   if (data.zadanOdchod != Datetime.MinValue.Date) {
+       //     $(row).addClass('row-ukoncene');
+         if (data.zadanVstup == true && data.zadanOdchod==false) {
             $(row).addClass('row-aktivni');
         } else if(data.zadanOdchod == false && data.zadanVstup ==false && today==startDate && data.idTechnika !="606794494" && data.idTechnika!=null) {
             $(row).addClass('row-cekajici');
         } else if(data.idTechnika==null) {
             $(row).addClass('row-nedieslujese');  
-        } else if(data.idTechnika==="606794494") {
+        } else if(data.idTechnika=="606794494") {
             $(row).addClass('row-neprirazeno');  
         }else {
             $(row).addClass('row-standart');

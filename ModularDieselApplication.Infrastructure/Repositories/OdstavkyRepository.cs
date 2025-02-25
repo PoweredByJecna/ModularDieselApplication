@@ -198,9 +198,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 l.VydrzBaterie,
                 l.Popis,
                 l.Zasuvka,
-                IdTechnika = l.Dieslovani?.Technik?.ID,
-                ZadanVstup = l.Dieslovani?.Vstup,
-                ZadanOdchod = l.Dieslovani?.Odchod
+                idTechnika = l.Dieslovani?.Technik?.ID,
+                zadanVstup = l.Dieslovani?.Vstup,
+                zadanOdchod = l.Dieslovani?.Odchod 
             }).ToList();
 
             return _mapper.Map<List<object>>(result);
