@@ -10,7 +10,6 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<bool> AnotherDieselRequest(string idTechnika);
         IQueryable<Dieslovani> GetDieslovaniQuery();       
         Task<List<object>> GetDieslovaniDataAsync(IQueryable<Dieslovani> query);
-        Task<List<Dieslovani>> GetAllAsync();
         Task AddAsync(Dieslovani dieslovani);
         Task UpdateAsync(Dieslovani dieslovani);
         Task<int> GetCountAsync();

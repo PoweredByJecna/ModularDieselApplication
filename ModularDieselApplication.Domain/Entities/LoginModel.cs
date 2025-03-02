@@ -5,18 +5,22 @@ namespace ModularDieselApplication.Domain.Entities
    // Tento model slouží jako view model pro přihlašovací stránku
     public class LoginViewModel
     {
-        public LoginInputModel Input { get; set; } = new LoginInputModel();
+        public LoginInputModel Input { get; set; } = new LoginInputModel
+        {
+            UserName = string.Empty,
+            Password = string.Empty
+        };
     }
 
     // Model obsahující přihlašovací údaje
     public class LoginInputModel
     {
         [Required(ErrorMessage = "Uživatelské jméno je povinné")]
-        public string? UserName { get; set; }
+        public required string UserName { get; set; }
 
         [Required(ErrorMessage = "Heslo je povinné")]
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        public required string Password { get; set; }
 
         public bool RememberMe { get; set; }
     }

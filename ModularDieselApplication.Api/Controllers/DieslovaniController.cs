@@ -61,7 +61,12 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailDieslovaniJson(int id)
         {
             var detailDieslovani = await _dieslovaniService.DetailDieslovaniJsonAsync(id);
-            
+            if (detailDieslovani == null)
+            {
+                return Json(new{
+                    error="null"
+                });
+            }
             return Json(
             new
             {

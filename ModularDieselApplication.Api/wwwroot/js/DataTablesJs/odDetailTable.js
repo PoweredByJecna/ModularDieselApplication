@@ -31,7 +31,7 @@ $(document).ready(function () {
                     </span>`;
                 }
             },
-            { data: 'idOdstavky' },
+            { data: 'id' },
             {
                 data: 'distributor',
                 render: function (data, type, row) {
@@ -62,7 +62,7 @@ $(document).ready(function () {
             { data: 'od', render: data => formatDate(data) },
             { data: 'do_', render: data => formatDate(data) },
             { data: 'adresa' },
-            { data: 'baterie' },
+            { data: 'vydrzBaterie' },
             { data: 'popis' },
             {
                 data: 'zasuvka',

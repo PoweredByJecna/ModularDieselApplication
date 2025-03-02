@@ -120,54 +120,7 @@ namespace ModularDieselApplication.Application.Services
            ---------------------------------------- */
         public async Task<object> DetailDieslovaniJsonAsync(int id)
         {
-            var detailDieslovani = await _dieslovaniRepository.GetByIdAsync(id);
-            if (detailDieslovani == null)
-            {
-            return new { error = "Dieslovani nenalezena" };
-            }
-
-            var odstavka = detailDieslovani.Odstavka;
-            var lokalita = odstavka.Lokality;
-            var region = lokalita.Region;
-            var technik = detailDieslovani.Technik;
-            var firma = technik.Firma;
-            var user = technik.User;
-
-            return new
-            {
-            dieslovaniId = detailDieslovani.ID,
-            vstup = detailDieslovani.Vstup,
-            odchod = detailDieslovani.Odchod,
-            odstavka = new
-            {
-                odstavka.ID,
-                odstavka.Od,
-                odstavka.Do,
-                odstavka.Popis,
-                odstavka.Distributor,
-                lokalita = new
-                {
-                lokalita.Nazev,
-                lokalita.Adresa,
-                lokalita.Klasifikace,
-                lokalita.Baterie,
-                region = new
-                {
-                    region.Nazev
-                }
-                }
-            },
-            firma = new
-            {
-                firma.Nazev
-            },
-            technik = new
-            {
-                user.Jmeno,
-                user.Prijmeni,
-                user.Email
-            }
-            };
+            return await _dieslovaniQueryService.DetailDieslovaniJsonAsync(id);
         }
         /* ----------------------------------------
            DeleteDieslovaniJsonAsync

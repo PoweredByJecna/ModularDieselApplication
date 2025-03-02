@@ -125,6 +125,48 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             }
             return query;
         }
+        public async Task<object> DetailDieslovaniJsonAsync(int id)
+        {
+            var detail = await _dieslovaniRepository.GetByIdAsync(id);
+            if (detail == null)
+            {
+                return new
+                {
+                    error = "Dieslovani nenalezeno"
+                };
+            }
+            else if (detail.Odstavka == null)
+            {
+                return new
+                {
+                    error = "Dieslovani nenalezeno"
+                };
+            }
+            else if (detail.Odstavka.Lokality == null)
+            {
+                return new
+                {
+                    error = "Dieslovani nenalezeno"
+                };
+            }
+            else if (detail.Odstavka.Lokality.Region == null)
+            {
+                return new
+                {
+                    error = "Dieslovani nenalezeno"
+                };
+            }
+            return new 
+            {
+                dieslovaniId = detail.ID,
+                lokalita = detail.Odstavka.Lokality.Nazev,
+                adresa = detail.Odstavka.Lokality.Adresa,
+                klasifikace = detail.Odstavka.Lokality.Klasifikace,
+                baterie = detail.Odstavka.Lokality.Baterie,
+                region = detail.Odstavka.Lokality.Region.Nazev,
+                popis = detail.Odstavka.Popis,
+            };
+        }
         
     }
 }

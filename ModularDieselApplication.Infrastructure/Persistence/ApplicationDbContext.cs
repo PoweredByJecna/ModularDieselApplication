@@ -61,6 +61,5 @@ namespace ModularDieselApplication.Infrastructure.Persistence
         public DbSet<TablePohotovosti> PohotovostiS { get; set; }
         public DbSet<TableTechnici> TechnikS { get; set; }
         public DbSet<DebugLogModel> LogS { get; set; }
-    
     }
 }

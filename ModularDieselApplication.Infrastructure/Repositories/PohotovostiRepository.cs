@@ -123,6 +123,18 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 );
         }
 
+        public async Task<Technik> GetTechnikVPohotovostiAsnyc(int firmaid)
+        {
+            var technik = await _context.PohotovostiS
+                .Include(o => o.Technik)
+                .ThenInclude(o=> o.User)
+                .Include(o => o.Technik)
+                .ThenInclude(o => o.Firma)
+                .Where(o => o.Technik.Firma.ID == firmaid)
+                .FirstOrDefaultAsync();
+            return _mapper.Map<Technik>(technik);
+        }
+
         // ----------------------------------------
         // Get Pohotovost table data
         // ----------------------------------------

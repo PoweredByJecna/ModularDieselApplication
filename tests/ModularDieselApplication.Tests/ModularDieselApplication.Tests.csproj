@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ModularDieselApplication.Domain\ModularDieselApplication.Domain.csproj" />
+    <ProjectReference Include="..\..\ModularDieselApplication.Application\ModularDieselApplication.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

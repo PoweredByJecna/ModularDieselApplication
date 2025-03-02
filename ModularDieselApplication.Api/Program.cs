@@ -10,7 +10,6 @@ using ModularDieselApplication.Application.MIddleware;
 using Microsoft.AspNetCore.Identity;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Infrastructure.Persistence.Repositories;
-using ModularDieselApplication.Infrastructure.Identity;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
@@ -20,7 +19,8 @@ using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Infrastructure.CleaningDatabase;
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+ ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -71,7 +71,7 @@ builder.Services.AddScoped<ITechnikService, TechnikService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ILogService, LogService>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 builder.Services.AddScoped<DieslovaniRules>();
 builder.Services.AddScoped<DieslovaniActionService>();
 builder.Services.AddScoped<DieslovaniAssignmentService>();
@@ -103,6 +103,5 @@ app.UseMiddleware<RedirectToLoginMiddleware>();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dieslovani}/{action=Index}/{id?}");
-    
 app.Run();
 

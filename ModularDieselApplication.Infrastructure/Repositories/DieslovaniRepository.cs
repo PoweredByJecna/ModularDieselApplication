@@ -26,6 +26,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.DieslovaniS
                 .Include(d => d.Odstavka)
+                .ThenInclude(d=>d.Lokality)
+                .ThenInclude(d=>d.Region)
                 .Include(d => d.Technik)
                 .FirstOrDefaultAsync(d => d.ID == id);
 
@@ -33,21 +35,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get all Dieslovani
-        // ----------------------------------------
-        public async Task<List<Dieslovani>> GetAllAsync()
-        {
-            var entities = await _context.DieslovaniS
-                .Include(d => d.Odstavka)
-                .Include(d => d.Technik)
-                .ToListAsync();
-
-            return _mapper.Map<List<Dieslovani>>(entities);
-        }
-
-        // ----------------------------------------
         // Add new Dieslovani
         // ----------------------------------------
+        
+
         public async Task AddAsync(Dieslovani dieslovani)
         {
             var efEntity = _mapper.Map<TableDieslovani>(dieslovani);

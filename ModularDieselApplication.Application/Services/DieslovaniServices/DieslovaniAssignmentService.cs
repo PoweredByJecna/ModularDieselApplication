@@ -106,20 +106,26 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     {
                         await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Nějaký technik má pohotovost.");
                         technikSearch = await CheckTechnikReplacementAsync(dieslovani.Odstavka);
-
                         return technikSearch;
                     }
-                    return technikSearch;
+                    else
+                    {
+                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Žádný technik v regionu nemá pohotovost.");
+                        //await _emailService.SendEmailAsync("Dieslování", "Žádný technik v regionu nemá pohotovost.");
+                        technikSearch = await _technikService.GetTechnikByIdAsync("606794494");
+                        return technikSearch;
+                    }
+                    
                 }
                 else
                 {
+                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, $"Technik: {technikSearch.User.Jmeno} {technikSearch.User.Prijmeni} byl přiřazen k dieslování.");
                     return technikSearch;
                 }
             }
             else
             {
                 await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Chyba při přiřzení technika");
-
                 return null;
             }
         }

@@ -13,7 +13,7 @@ $(document).ready(function () {
                 const data = response.data;
                 console.log(response.data);
                 if (data) {
-                    $('#iDOdstavky').append(data.odstavkaId);
+                    $('#iDOdstavky').append(data.ID);
                     $('#lokalita').append(data.lokalita);
                     $('#adresa').append(data.adresa);
                     $('#klasifikace').append(data.klasifikace);
