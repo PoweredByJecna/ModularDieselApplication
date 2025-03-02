@@ -29,7 +29,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
                 .Include(t => t.User)
-                .FirstOrDefaultAsync(t => t.ID == idTechnika);
+                .FirstOrDefaultAsync(t => t.ID == idTechnika);    
 
             return _mapper.Map<Technik?>(entity);
         }

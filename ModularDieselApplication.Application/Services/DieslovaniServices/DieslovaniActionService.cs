@@ -11,12 +11,15 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
     {
         private readonly IDieslovaniRepository _dieslovaniRepository; 
         private readonly ITechnikService _technikService;
+        private readonly ILogService    _logService;
 
-        public DieslovaniActionService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService)
+        public DieslovaniActionService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, ILogService logService)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _technikService = technikService;
+            _logService = logService;
         }
+    
         /* ----------------------------------------
             VstupAsync
         ---------------------------------------- */
@@ -31,8 +34,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 {
                     dis.Vstup = DateTime.Now;
                     dis.Technik.Taken = true;
-    
+                    
                     await _dieslovaniRepository.UpdateAsync(dis);
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " vstoupil na lokalitu.");
+
                     result.Success=true;
                     result.Message="Byl zadán vstup na lokalitu.";
                     return result;
@@ -76,6 +81,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     dis.Odchod = DateTime.Now;
                     await _dieslovaniRepository.UpdateAsync(dis);
                     result.Success = true;
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " zadal odchod z lokality.");
+
                     result.Message = "Byl zadán odchod z lokality.";
                     return result;
                 }

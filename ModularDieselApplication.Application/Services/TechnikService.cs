@@ -17,7 +17,13 @@ namespace ModularDieselApplication.Application.Services
 
         public async Task<Technik?> GetTechnikByIdAsync(string idtechnika)
         {
-            return await _techniciRepository.GetByIdAsync(idtechnika);
+            var technik =  await _techniciRepository.GetByIdAsync(idtechnika);
+            if (technik != null)
+            {
+                await _techniciRepository.UpdateAsync(technik);
+            }
+            return technik;
+
         }
         public async Task<Technik> GetTechnikByIdFrimy(int idFirmy)
         {

@@ -11,7 +11,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<List<string>> GetPohotovostTechnikIdListAsync();
         Task<bool> GetPohotovostiRegionAsync(int idRegionu);
         Task<int> GetPohotovostCountAsync();
-        Task<Technik> GetTechnikVPohotovostiAsnyc(int firmaid);
+        Task<string> GetTechnikVPohotovostiAsnyc(int firmaid);
         Task<Technik> GetPohotovostTechnikIdsAsync(string id);
         Task<Dictionary<string, string>> GetTechnikLokalitaMapAsync(List<string> technikIds);
         Task<List<object>> GetPohotovostTableDataAsync(int start, int length, Dictionary<string, string> technikLokalitaMap);

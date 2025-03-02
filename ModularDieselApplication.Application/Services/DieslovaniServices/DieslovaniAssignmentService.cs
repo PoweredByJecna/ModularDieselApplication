@@ -78,7 +78,16 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                     return result;
                 }
-                return result;
+                else
+                {
+                    dieslovani.Technik = technikSearch;
+                    await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);
+                    result.Message = "Vytvořeno nové dieslování.";
+                    result.Success = true;
+                    return result;
+
+                }
+                
             }
         }
         /* ----------------------------------------
@@ -91,26 +100,28 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             if (firmaVRegionu != null)
             {
 
-                await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, $"Firma která bude zajišťovat dieslování: {firmaVRegionu.Nazev}");
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Firma která bude zajišťovat dieslování: {firmaVRegionu.Nazev}");
 
-                var technikSearch = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID);
+                var technikId = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID);
 
-                await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Hledání technika který bude zajišťovat dieslování.");
+                var technikSearch = await _technikService.GetTechnikByIdAsync(technikId);
 
-                if (technikSearch == null)
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Hledání technika který bude zajišťovat dieslování.");
+
+                if (technikId == "0")
                 {
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Nebyl nalezen aktivní technik, který by byl volný");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Nebyl nalezen aktivní technik, který by byl volný");
                     bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID);
                     
                     if (nejakyTechnikMaPohotovost)
                     {
-                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Nějaký technik má pohotovost.");
+                        await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Nějaký technik má pohotovost.");
                         technikSearch = await CheckTechnikReplacementAsync(dieslovani.Odstavka);
                         return technikSearch;
                     }
                     else
                     {
-                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Žádný technik v regionu nemá pohotovost.");
+                        await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Žádný technik v regionu nemá pohotovost.");
                         //await _emailService.SendEmailAsync("Dieslování", "Žádný technik v regionu nemá pohotovost.");
                         technikSearch = await _technikService.GetTechnikByIdAsync("606794494");
                         return technikSearch;
@@ -119,13 +130,13 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 }
                 else
                 {
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, $"Technik: {technikSearch.User.Jmeno} {technikSearch.User.Prijmeni} byl přiřazen k dieslování.");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Technik: {technikSearch.User.Jmeno} {technikSearch.User.Prijmeni} byl přiřazen k dieslování.");
                     return technikSearch;
                 }
             }
             else
             {
-                await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", dieslovani.ID, "Chyba při přiřzení technika");
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Chyba při přiřzení technika");
                 return null;
             }
         }
@@ -141,7 +152,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
            ---------------------------------------- */
         private async Task<Technik?> CheckTechnikReplacementAsync(Odstavka newOdstavka)
         {
-            await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", newOdstavka.ID, "Hledání technika, který má dieslovaní s nižšší prioritou.");
+            await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", newOdstavka.ID, "Hledání technika, který má dieslovaní s nižšší prioritou.");
             var technik = await GetHigherPriorityAsync(newOdstavka);
             if (technik == null)
             {
@@ -209,7 +220,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             await _dieslovaniRepository.AddAsync(newDieslovani);
             technik.Taken = true;
             await _technikService.UpdateTechnikAsync(technik);
-            await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovani", newDieslovani.ID, $"Nové dieslování č.{newDieslovani.ID} bylo vytvořeno.");
+            await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", newDieslovani.ID, $"Nové dieslování č.{newDieslovani.ID} bylo vytvořeno.");
 
             return newDieslovani;
         }

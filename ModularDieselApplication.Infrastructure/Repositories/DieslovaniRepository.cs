@@ -29,6 +29,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(d=>d.Lokality)
                 .ThenInclude(d=>d.Region)
                 .Include(d => d.Technik)
+                .ThenInclude(d=>d.User)
                 .FirstOrDefaultAsync(d => d.ID == id);
 
             return entity == null ? null : _mapper.Map<Dieslovani>(entity);
@@ -183,8 +184,16 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task UpdateDieslovaniAsync(Dieslovani dieslovani)
         {
-            var entity = _mapper.Map<TableDieslovani>(dieslovani);
-            _context.DieslovaniS.Update(entity);
+            var existingEntity = await _context.DieslovaniS.FindAsync(dieslovani.ID);
+            if (existingEntity == null)
+            {
+            throw new Exception($"Technik s ID {dieslovani.ID} nebyl nalezen.");
+            }
+
+            // Namapujte změny z doménového modelu do existující (trackované) entity.
+            _mapper.Map(dieslovani, existingEntity);
+
+            // Uložte změny.
             await _context.SaveChangesAsync();
         }
 

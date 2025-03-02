@@ -123,7 +123,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 );
         }
 
-        public async Task<Technik> GetTechnikVPohotovostiAsnyc(int firmaid)
+        public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid)
         {
             var technik = await _context.PohotovostiS
                 .Include(o => o.Technik)
@@ -132,7 +132,11 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(o => o.Firma)
                 .Where(o => o.Technik.Firma.ID == firmaid)
                 .FirstOrDefaultAsync();
-            return _mapper.Map<Technik>(technik);
+                if (technik == null)
+                {
+                    return "0";
+                }
+            return technik.Technik.ID;
         }
 
         // ----------------------------------------

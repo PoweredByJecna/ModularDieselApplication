@@ -133,7 +133,7 @@ namespace ModularDieselApplication.Application.Services
 
             return (totalRecords, pohotovostList);
         }
-        public async Task<Technik> GetTechnikActivTechnikByIdFirmaAsync(int idFirma)
+        public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirma)
         {
             var technik = await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma);
             return technik;
