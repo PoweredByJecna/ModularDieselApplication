@@ -357,30 +357,33 @@ function toggleObjednatNa() {
 /*--------------------------------------------
     * Zapis pohotovosti
 */
-function Zapis() {
-    var od = document.getElementById('odZapis').value
-    var DO = document.getElementById('doZapis').value
+$(document).ready(function() {
+    $("#zapisButt").click(function() {
+        var pohotovost = {
+            Technik: $("#TechnikJmeno").val(),
+            Od: $("#odZapis").val(),
+            Do: $("#doZapis").val()
+        };
 
-    $.ajax({
-        url: '/Odstavky/Create',
-        type: 'POST',
-        data: {
-            od: od,
-            do: DO,
-        },
-        success: function (response) {
-            if (response.success) {
-                showModal(response.message, true);
-                reloadTables();
-            } else {
-                showModal(response.message, false);
+        // AJAX volání na server
+        $.ajax({
+            url: '/Pohotovosti/Zapis', // Změňte "ControllerName" na název vašeho controlleru
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(pohotovost),
+            success: function(response) {
+                if (response.success) {
+                    alert('Pohotovost zapsána: ' + response.message);
+                } else {
+                    alert('Chyba: ' + response.message);
+                }
+            },
+            error: function() {
+                alert('Došlo k chybě při komunikaci se serverem.');
             }
-        },
-        error: function () {
-            showModal('Došlo k chybě při komunikaci se serverem.', false);
-        }
+        });
     });
-}
+});
 
 /*--------------------------------------------
  * Vytvoří novou odstávku

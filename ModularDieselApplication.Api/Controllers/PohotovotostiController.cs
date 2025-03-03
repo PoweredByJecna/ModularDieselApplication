@@ -34,7 +34,6 @@ namespace ModularDieselApplication.Api.Controllers
         // ------------------------
         // Zapis
         // ------------------------
-        [Authorize(Roles = "Engineer,Admin")]
         [HttpPost]
         public async Task<IActionResult> Zapis(Pohotovosti pohotovosti)
         {
