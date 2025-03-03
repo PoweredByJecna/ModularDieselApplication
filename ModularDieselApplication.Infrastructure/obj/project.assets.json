@@ -6274,11 +6274,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
       "projectName": "ModularDieselApplication.Infrastructure",
-      "projectPath": "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-3\\ModularDieselApplication.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

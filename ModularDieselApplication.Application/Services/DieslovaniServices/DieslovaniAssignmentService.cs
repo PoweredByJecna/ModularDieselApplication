@@ -81,6 +81,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 else
                 {
                     dieslovani.Technik = technikSearch;
+                    await _technikService.UpdateTechnikAsync(technikSearch);
                     await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);
                     result.Message = "Vytvořeno nové dieslování.";
                     result.Success = true;

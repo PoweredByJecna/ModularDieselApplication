@@ -6,20 +6,13 @@
 
         public async Task InvokeAsync(HttpContext context)
         {
-            
             bool isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
-            
             bool isLoginPath = context.Request.Path.StartsWithSegments("/Login", StringComparison.OrdinalIgnoreCase);
-
-            
             if (!isAuthenticated && !isLoginPath)
             {
-                // Pro ostatní požadavky (např. web) provedeme redirect na login stránku
                 context.Response.Redirect("/Login/Index");
                 return;
-                
             }
-
             await _next(context);
         }
     }

@@ -62,7 +62,7 @@ namespace ModularDieselApplication.Application.Services
                     return result;
                 }
 
-                var technikSearch = await _pohotovostiRepository.GetPohotovostTechnikIdsAsync(currentUser.Id);
+                var technikSearch = await _technikRepository.GetTechnikByUserIdAsync(currentUser.Id);
 
                 if (technikSearch == null)
                 {

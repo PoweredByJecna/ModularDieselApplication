@@ -83,7 +83,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             // Namapujte změny z doménového modelu do existující (trackované) entity.
             _mapper.Map(technik, existingEntity);
-
+            
             // Uložte změny.
             await _context.SaveChangesAsync();
         }
