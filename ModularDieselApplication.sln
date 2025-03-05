@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Infrastructure", "ModularDieselApplication.Infrastructure\ModularDieselApplication.Infrastructure.csproj", "{CCE7F5AD-4368-4CAE-AFFD-9A3F55AC0A74}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8EE6A465-8ABA-4056-863C-E40786429CA2}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularDieselApplication.Tests", "tests\ModularDieselApplication.Tests\ModularDieselApplication.Tests.csproj", "{024CA84D-1403-42C0-B6B2-01B31A6740D5}"
 EndProject
 Global

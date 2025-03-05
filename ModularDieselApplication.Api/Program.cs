@@ -17,6 +17,7 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using AutoMapper;
 using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Infrastructure.CleaningDatabase;
+using ModularDieselApplication.Domain.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -76,6 +77,8 @@ builder.Services.AddScoped<DieslovaniRules>();
 builder.Services.AddScoped<DieslovaniActionService>();
 builder.Services.AddScoped<DieslovaniAssignmentService>();
 builder.Services.AddScoped<DieslovaniQueryService>();
+builder.Services.AddScoped<SignInManager<TableUser>>();
+builder.Services.AddScoped<UserManager<TableUser>>();
 builder.Services.AddScoped<OdstavkaAssignmentService>();
 builder.Services.AddScoped<OdstavkyActionService>();
 builder.Services.AddScoped<OdstavkyQueryService>();

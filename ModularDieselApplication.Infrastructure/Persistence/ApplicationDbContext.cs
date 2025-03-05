@@ -5,7 +5,7 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
 namespace ModularDieselApplication.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext<TableUser>
+    public class ApplicationDbContext : IdentityDbContext<TableUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
