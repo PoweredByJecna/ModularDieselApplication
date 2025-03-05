@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {}
+    "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+    "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
         "projectName": "ModularDieselApplication.Application",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+        "projectPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
+              "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+                "projectPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
               }
             }
           }
@@ -65,6 +65,10 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[9.0.2, )"
@@ -94,14 +98,14 @@
         }
       }
     },
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+    "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
         "projectName": "ModularDieselApplication.Domain",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+        "projectPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Domain\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -154,14 +158,14 @@
         }
       }
     },
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
+    "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
         "projectName": "ModularDieselApplication.Infrastructure",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -178,8 +182,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-4\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
+              "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+                "projectPath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
               }
             }
           }
@@ -206,6 +210,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",

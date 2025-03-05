@@ -12,8 +12,9 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly UserManager<TableUser>_userManager;
         private readonly SignInManager<TableUser> _signInManager;
+
+        private readonly UserManager<TableUser>_userManager;
 
         public UserRepository (ApplicationDbContext context, IMapper mapper, UserManager<TableUser> userManager, SignInManager<TableUser> signInManager)
         {
@@ -21,8 +22,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
-            
-
         }
         public async Task<SignInResult> LoginAsync(string username, string password, bool rememberMe)
         {

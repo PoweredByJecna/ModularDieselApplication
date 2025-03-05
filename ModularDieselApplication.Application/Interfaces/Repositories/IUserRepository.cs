@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using ModularDieselApplication.Domain.Entities;
 
 namespace ModularDieselApplication.Application.Interfaces.Repositories
@@ -10,5 +11,8 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<Pohotovosti?> GetUserPohotovostAsync(string userId);
         Task<Technik?> GetUserTechnikAsync(string userId);
         Task<Region?> GetUserRegionForFirmaAsync(int firmaId);
+        Task<SignInResult> LoginAsync(string username, string password, bool rememberMe);
+        Task<User?> GetUserByUsernameAsync(string username);
+
     }
 }

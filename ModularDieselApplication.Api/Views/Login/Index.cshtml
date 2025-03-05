@@ -12,7 +12,7 @@
 <body>
     <div class="Content-Login">
         <section class="login-section">
-            <form asp-action="Index" asp-controller="Login" method="post" class="login-form" >
+            <form asp-action="Login" asp-controller="Login" method="post" class="login-form" >
                 @Html.AntiForgeryToken() <!-- Vygeneruje CSRF token -->
                 <div class="title-img">
                     <i class="fa-solid fa-gas-pump fa-2xl"></i>

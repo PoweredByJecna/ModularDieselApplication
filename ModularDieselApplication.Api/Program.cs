@@ -73,10 +73,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ILogService, LogService>();
 
+
 builder.Services.AddScoped<DieslovaniRules>();
 builder.Services.AddScoped<DieslovaniActionService>();
 builder.Services.AddScoped<DieslovaniAssignmentService>();
 builder.Services.AddScoped<DieslovaniQueryService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<SignInManager<TableUser>>();
 builder.Services.AddScoped<UserManager<TableUser>>();
 builder.Services.AddScoped<OdstavkaAssignmentService>();

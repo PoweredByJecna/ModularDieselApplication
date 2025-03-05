@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models; // Např. vaše uživatelská entita
 using System.Threading.Tasks;
+using ModularDieselApplication.Application.Interfaces;
 
 namespace ModularDieselApplication.Api.Controllers
 {
@@ -11,12 +12,14 @@ namespace ModularDieselApplication.Api.Controllers
     public class LoginController : Controller
     {
         private readonly SignInManager<TableUser> _signInManager;
+        private readonly IAuthService _authService;
 
-        public LoginController(SignInManager<TableUser> signInManager)
+        public LoginController(SignInManager<TableUser> signInManager,  IAuthService authService)
         {
             _signInManager = signInManager;
+            _authService = authService;
         }
-
+    
         // ----------------------------------------
         // GET: /Login/Index
         // ----------------------------------------
@@ -32,32 +35,23 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            // Kontrola validace formuláře
             if (!ModelState.IsValid)
             {
-                // Pokud data nesplňují validační pravidla, vrátíme formulář s chybami
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(
-                model.Input.UserName,
-                model.Input.Password,
-                model.Input.RememberMe,
-                lockoutOnFailure: false);
+                var result = await _authService.LoginAsync(model.Input.UserName, model.Input.Password, model.Input.RememberMe);
 
             if (!result.Succeeded)
             {
-                // Pokud se přihlášení nezdařilo, přidáme chybovou hlášku
                 ModelState.AddModelError(string.Empty, "Špatné uživatelské jméno nebo heslo.");
                 return View(model);
             }
 
-            // Přihlášení bylo úspěšné – přesměrujeme na výchozí stránku (např. Dieslovani/Index)
             return RedirectToAction("Index", "Dieslovani");
         }
-
         // ----------------------------------------
         // POST: /Login/Logout
         // ----------------------------------------
