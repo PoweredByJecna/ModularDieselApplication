@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8UsQfaDVK3aUVnrd7qyc369zMG38nH0aUodWOPtjfVrZAS9ttHxz/RbO7JEmMfcS1blqIiMqP0NMAHbj84XCTQ==",
+  "dgSpecHash": "Z7arzDuF814jRFs0Ogt4JETRsTruwHJIYiV1F24+CRjtEpBbnZWOz5vWQmE13amGsjpVincRTTfkFwl8VaLDEw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jirka\\Nová složka\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-5\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

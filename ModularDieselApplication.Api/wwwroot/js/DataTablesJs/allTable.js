@@ -10,7 +10,7 @@ $('#allTable').DataTable({
     },  
     columns: [
     {
-        data: null,
+        
         render: function (data, type, row) {
             let badgeClass = "badge-phoenix-success";
             let badgeStyle = "background-color: yellow; border-radius: 5px;";
@@ -19,8 +19,13 @@ $('#allTable').DataTable({
             let iconClass = "fa-clock-rotate-left";
             let iconColor = "black";
 
+            let minDateString = "0001-01-01T00:00:00"; 
+
+            let zadanVstup = row.zadanVstup && row.zadanVstup !== minDateString;
+            let zadanOdchod = row.zadanOdchod && row.zadanOdchod !== minDateString;
+
             // Pokud je zadán ZadanOdchod, nastav "Ukončené"
-            if (row.zadanOdchod == true && row.zadanVstup == false) {
+            if (zadanOdchod == true) {
                 badgeClass = "badge-phoenix-danger";
                 badgeStyle = "background-color: red; border-radius: 5px;";
                 labelStyle = "color: white; padding: 1px; font-size: small;";
@@ -29,7 +34,7 @@ $('#allTable').DataTable({
                 iconColor = "black";
             }
             // Pokud je zadán ZadanVstup, nastav "Aktivní"
-            else if (row.zadanVstup ==true && row.zadanOdchod==false)  {
+            else if (zadanVstup ==true && zadanOdchod==false)  {
                 badgeClass = "badge-phoenix-primary";
                 badgeStyle = "background-color: green; border-radius: 5px;";
                 labelStyle = "color: white; padding: 1px; font-size: small;";
@@ -38,7 +43,7 @@ $('#allTable').DataTable({
                 iconColor = "black";
             }
             // Pokud je technik "606794494" a stav je "Nepřiřazeno"
-            else if (row.zadanVstup == false && row.zadanOdchod == false && row.idTechnika == "606794494")  {
+            else if (row.idtechnika == "606794494")  {
                 badgeClass = "badge-phoenix-warning";
                 badgeStyle = "background-color: orange; border-radius: 5px;"; // Oranžová barva pro "Nepřiřazeno"
                 labelText = "Nepřiřazeno";
