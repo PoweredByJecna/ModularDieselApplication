@@ -13,6 +13,8 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<Region?> GetUserRegionForFirmaAsync(int firmaId);
         Task<SignInResult> LoginAsync(string username, string password, bool rememberMe);
         Task<User?> GetUserByUsernameAsync(string username);
+        Task LogoutAsync();
+
 
     }
 }

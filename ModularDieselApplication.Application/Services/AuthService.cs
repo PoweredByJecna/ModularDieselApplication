@@ -14,5 +14,9 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _userRepository.LoginAsync(username, password, rememberMe);
         }
+        public async Task LogoutAsync()
+        {
+            await _userRepository.LogoutAsync();
+        }
     }
 }

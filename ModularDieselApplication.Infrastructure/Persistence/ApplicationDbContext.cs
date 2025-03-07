@@ -34,11 +34,10 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<DebugLogModel>().ToTable("DebugModel", schema: "Data");
             builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");
 
-
             builder.Entity<TableOdstavky>()
-                .HasOne(o => o.Lokality) // Navigační vlastnost v Odstavky
-                .WithMany(l => l.OdstavkyList) // Kolekce odstávek v Lokality
-                .HasForeignKey(o => o.LokalitaID) // Cizí klíč v Odstavky
+                .HasOne(o => o.Lokality) 
+                .WithMany(l => l.OdstavkyList) 
+                .HasForeignKey(o => o.LokalitaID) 
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<TableDieslovani>()

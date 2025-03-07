@@ -13,9 +13,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<TableUser> _signInManager;
-
         private readonly UserManager<TableUser>_userManager;
-
         public UserRepository (ApplicationDbContext context, IMapper mapper, UserManager<TableUser> userManager, SignInManager<TableUser> signInManager)
         {
             _context = context;
@@ -23,21 +21,29 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        // ----------------------------------------
+        // LogIn User
+        // ----------------------------------------
         public async Task<SignInResult> LoginAsync(string username, string password, bool rememberMe)
         {
             // Tady už signInManager nebude null
             return await _signInManager.PasswordSignInAsync(username, password, rememberMe, false);
         }
-
+        // ----------------------------------------
+        // GetUserByUsernameAsync
+        // ----------------------------------------
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             var tableUser = await _userManager.FindByNameAsync(username);
             return tableUser is null ? null : _mapper.Map<User>(tableUser);
         }
         // ----------------------------------------
-        // Register User
+        // Logout User
         // ----------------------------------------
-   
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
         // ----------------------------------------
         // Get User by ID
         // ----------------------------------------

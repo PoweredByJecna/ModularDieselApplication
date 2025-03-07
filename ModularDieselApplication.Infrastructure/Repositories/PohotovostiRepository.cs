@@ -122,7 +122,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                         .FirstOrDefault() ?? string.Empty
                 );
         }
-
+ 
         public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid)
         {
             var technik = await _context.PohotovostiS

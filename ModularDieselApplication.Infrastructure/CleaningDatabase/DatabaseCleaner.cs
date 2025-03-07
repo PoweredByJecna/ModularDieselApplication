@@ -10,12 +10,10 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
     public class DatabaseCleaner : IDatabaseCleaner
     {
         private readonly IServiceScopeFactory _scopeFactory;
-
         public DatabaseCleaner(IServiceScopeFactory scopeFactory)
         {
             _scopeFactory = scopeFactory;
         }
-
         public async Task CleanOutdatedRecords()
         {
             using (var scope = _scopeFactory.CreateScope())
@@ -36,7 +34,6 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                     _context.OdstavkyS.RemoveRange(outdatedRecordsOdstavky);
                     await _context.SaveChangesAsync();
                 }
-
                 foreach (var dieslovani in outdatedRecordsDieslovani)
                 {
                     if (dieslovani.Technik != null)
@@ -46,7 +43,6 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                         await _context.SaveChangesAsync();
                     }
                 }
-
                 if (outdatedRecordPohotovosti.Any())
                 {
                     _context.PohotovostiS.RemoveRange(outdatedRecordPohotovosti);

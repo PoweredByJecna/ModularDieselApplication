@@ -15,8 +15,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 schema: "Data",
                 table: "LokalityTable",
                 newName: "Nazev");
-
-          
         }
 
         /// <inheritdoc />

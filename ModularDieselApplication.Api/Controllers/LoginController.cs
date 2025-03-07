@@ -42,14 +42,13 @@ namespace ModularDieselApplication.Api.Controllers
                 return View(model);
             }
 
-                var result = await _authService.LoginAsync(model.Input.UserName, model.Input.Password, model.Input.RememberMe);
+            var result = await _authService.LoginAsync(model.Input.UserName, model.Input.Password, model.Input.RememberMe);
 
             if (!result.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Špatné uživatelské jméno nebo heslo.");
                 return View(model);
             }
-
             return RedirectToAction("Index", "Dieslovani");
         }
         // ----------------------------------------
@@ -59,7 +58,7 @@ namespace ModularDieselApplication.Api.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _authService.LogoutAsync();
             return RedirectToAction("Index", "Dieslovani");
         }
     }
