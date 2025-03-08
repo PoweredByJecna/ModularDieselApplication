@@ -182,7 +182,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     VydrzBaterie = l.Lokality.Baterie,
                     Popis = l.Popis,
                     Zasuvka = l.Lokality.Zasuvka,
-                    Dieslovani = _context.DieslovaniS.FirstOrDefault(d => d.IDodstavky == l.ID)
+                    Dieslovani = _context.DieslovaniS.Include(o=>o.Technik).FirstOrDefault(d => d.IDodstavky == l.ID)
                 })
                 .ToListAsync();
 

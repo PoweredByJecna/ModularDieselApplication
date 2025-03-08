@@ -84,13 +84,16 @@ $('#odTable').DataTable({
     ],
     rowCallback: function(row, data, index) {
         var today = new Date().setHours(0, 0, 0, 0); 
-        var startDate = new Date(data.od).setHours(0, 0, 0, 0); 
+        var startDate = new Date(data.odstavkaZacatek).setHours(0, 0, 0, 0); 
+        var minDateString = "0001-01-01T00:00:00"; 
+        var zadanVstup = data.zadanVstup && data.zadanVstup !== minDateString;
+        var zadanOdchod = data.zadanOdchod && data.zadanOdchod !== minDateString;
 
      //   if (data.zadanOdchod != Datetime.MinValue.Date) {
        //     $(row).addClass('row-ukoncene');
-         if (data.zadanVstup == true && data.zadanOdchod==false) {
+         if (zadanVstup == true && zadanOdchod==false) {
             $(row).addClass('row-aktivni');
-        } else if(data.zadanOdchod == false && data.zadanVstup ==false && today==startDate && data.idTechnika !="606794494" && data.idTechnika!=null) {
+        } else if(zadanOdchod == false && zadanVstup ==false && today==startDate && data.idTechnika !="606794494" && data.idTechnika!=null) {
             $(row).addClass('row-cekajici');
         } else if(data.idTechnika==null) {
             $(row).addClass('row-nedieslujese');  
