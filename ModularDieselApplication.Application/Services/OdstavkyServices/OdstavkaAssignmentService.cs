@@ -66,7 +66,7 @@ namespace ModularDieselApplication.Application.Services
 
                     var dieslovani = await _dieslovaniAssignmentService.CreateNewDieslovaniAsync(newOdstavka, technik);
 
-                    await _dieslovaniAssignmentService.AssignTechnikAsync(dieslovani);
+                    await _dieslovaniAssignmentService.AssignTechnikAsync(dieslovani, newOdstavka);
 
                     result.Odstavka = newOdstavka;
 

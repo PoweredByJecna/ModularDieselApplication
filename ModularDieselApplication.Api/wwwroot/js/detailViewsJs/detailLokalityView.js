@@ -6,14 +6,15 @@ $(document).ready(function () {
 
     if (id) {
         $.ajax({
-            url: `/Odstavky/DetailOdstavkyJson?id=${id}`,
+            url: `/Lokality/DetailLokalityJson?id=${id}`,
             type: 'GET',
             
             success: function (response) {
                 const data = response.data;
                 console.log(response.data);
                 if (data) {
-                    $('#odstavkaId').append(data.odstavkaId);
+                    $('#iDOdstavky').append(data.IDodstavka);
+                    $('#iDdieslovani').append(data.IDdislovani);
                     $('#lokalita').append(data.lokalita);
                     $('#adresa').append(data.adresa);
                     $('#klasifikace').append(data.klasifikace);

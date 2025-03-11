@@ -114,42 +114,6 @@ function processRegionData(region, containerIds) {
     }
 }
 
-/*--------------------------------------------
- * Nastavení výchozího zobrazení a přepínání mezi LOG a VAZBY
- */
-document.addEventListener('DOMContentLoaded', function () {
-    // Výchozí nastavení:
-    // 1) Přidáme "active" na LOG
-    document.getElementById("log").classList.add("active");
-    
-    // 2) Zobrazíme content-log, schováme content-vazby
-    document.getElementById("content-log").style.display = "block";
-    document.getElementById("content-vazby").style.display = "none";
-
-    // Kliknutí na "LOG"
-    document.getElementById("log").addEventListener("click", function () {
-      // LOG je aktivní
-      this.classList.add("active");
-      // VAZBY přestane být aktivní
-      document.getElementById("vazby").classList.remove("active");
-      
-      // Zobrazit content-log, schovat content-vazby
-      document.getElementById("content-log").style.display = "block";
-      document.getElementById("content-vazby").style.display = "none";
-    });
-
-    // Kliknutí na "VAZBY"
-    document.getElementById("vazby").addEventListener("click", function () {
-      // VAZBY je aktivní
-      this.classList.add("active");
-      // LOG přestane být aktivní
-      document.getElementById("log").classList.remove("active");
-      
-      // Zobrazit content-vazby, schovat content-log
-      document.getElementById("content-log").style.display = "none";
-      document.getElementById("content-vazby").style.display = "block";
-    });
-});
 
 /*--------------------------------------------
  * Přepínání zobrazení modálního okna uživatele

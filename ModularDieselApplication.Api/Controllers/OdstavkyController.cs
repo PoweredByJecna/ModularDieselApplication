@@ -117,7 +117,6 @@ namespace ModularDieselApplication.Api.Controllers
                 });
                 
             }
-    
             return Json(
             new
             {

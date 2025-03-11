@@ -4,7 +4,7 @@
             <div class="section small FORMS left" style="flex:7">
                 <div class="detail energy">
                     <div class="logoForm">
-                        <h2 class="h2-div">Detail Odstávky <i class="fa-solid fa-circle-info fa-lg"></i></h2>
+                        <h2 class="h2-div">Detail Lokality <i class="fa-solid fa-circle-info fa-lg"></i></h2>
                     </div>
                     <div class="infowrapper">
                         
@@ -65,7 +65,7 @@
                 </div>
                 <div class="detail User">
                     <div class="logoForm">
-                        <h2 class="h2-div">Technik <i class="fa-regular fa-circle-user fa-lg"></i></h2>
+                        <h2 class="h2-div">Správce <i class="fa-regular fa-circle-user fa-lg"></i></h2>
                     </div>
                     <div class="formINFO-D form">
                         <div style="border: none;">
@@ -91,9 +91,6 @@
                     </div>
                     <div class="formINFO-D info">
                         <div>
-                            <span class="Infowrapperspan"><i class="fa-solid fa-info fa-lg fa-sm navA"></i> ID odstávky: </span><p id="odstavkaId"> </p>
-                        </div>
-                        <div>
                             <span class="Infowrapperspan"><i class="fa-solid fa-tower-broadcast fa-lg fa-sm navA"></i> Lokalita: </span><p id="lokalita"> </p>
                         </div>
                         <div>
@@ -116,9 +113,8 @@
                     </div>
                     <div class="formINFO-D form stav">
                         <div style="border: none;">
-                            <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: yellow; border-radius: 5px;">
-                                <span class="badge-label" style="color: black; padding: 1px; font-size: small;">Čekající</span>
-                                <i class="fa-solid fa-clock-rotate-left" style="color: Black;"></i>
+                            <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: rgb(0, 255, 34); border-radius: 5px;">
+                                <span class="badge-label" style="color: black; padding: 1px; font-size: small;">Provoz </span>
                             </span>
                         </div>
                     </div>     
@@ -132,13 +128,54 @@
         <div class="section big">
             <div class="section small"> 
                 <div class="nav-FRG">
-                        <p id="log">LOG</p>
-                        <p id="vazby">VAZBY</p>
+                        <p id="odstavky">ODSTAVKY</p>
+                        <p id="dieslovani">DIESLOVANI</p>
                 </div>
-                <div class="table-div odstavkyTable" id="content-log">
-                    <div id="logsContainer">
-
+                <div class="table-div odstavkyTable" id="content-vazby">
+                    <div class="name">
+                        <h2  style="padding-right:20px; color: black;">Odstavky<i class="fa-solid fa-bolt"></i></h2>    
+                        <div>
+                            <span class="legenda">
+                                Aktivní :
+                                <i class="fa-solid fa-square" style="color: rgba(0, 128, 0, 0.371)"></i>
+                            </span>
+                            <span class="legenda">
+                                Ukončené :
+                                <i class="fa-solid fa-square" style="color: rgba(255, 0, 0, 0.382)"></i>
+                            </span>
+                            <span class="legenda">
+                                Nekativni :
+                                <i class="fa-solid fa-square" style="color: #0055ff28"></i>
+                            </span>
+                            <span class="legenda">
+                                Nepřižazeno :
+                                <i class="fa-solid fa-square" style="color:  rgba(255, 166, 0, 0.521"></i> 
+                            </span>
+                            <span class="legenda">
+                                Čekající :
+                                <i class="fa-solid fa-square" style="color: rgba(255, 255, 0, 0.321"></i>
+                            </span>  
+                        </div>
                     </div>
+                    <table id="DieselDetail" style="margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Akce</th>
+                                <th>Id</th>
+                                <th>Distributor</th>
+                                <th>Lokalita</th>
+                                <th>Klasifikace</th>
+                                <th>Od</th>
+                                <th>Do</th>
+                                <th>Adresa</th>
+                                <th>Baterie<a> [min]</a></th>
+                                <th>Popis</th>
+                                <th>Zásuvka</th>
+                            </tr>
+                        </thead>
+                        <tbody >     
+                        </tbody>          
+                    </table>   
                 </div>
                 <div class="table-div odstavkyTable" id="content-vazby">
                     <div class="name">

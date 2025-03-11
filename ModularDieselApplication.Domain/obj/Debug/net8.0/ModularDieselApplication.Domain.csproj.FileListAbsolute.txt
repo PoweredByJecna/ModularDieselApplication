@@ -130,3 +130,15 @@ C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-5\ModularDiesel
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\refint\ModularDieselApplication.Domain.dll
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.pdb
 C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ref\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.deps.json
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.pdb
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.AssemblyInfoInputs.cache
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.AssemblyInfo.cs
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.csproj.CoreCompileInputs.cache
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.sourcelink.json
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\refint\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.pdb
+C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-5\ModularDieselApplication.Domain\obj\Debug\net8.0\ref\ModularDieselApplication.Domain.dll

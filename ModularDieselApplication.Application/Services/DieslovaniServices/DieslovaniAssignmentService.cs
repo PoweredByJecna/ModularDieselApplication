@@ -66,7 +66,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             {
                 var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
 
-                var technikSearch = await AssignTechnikAsync(dieslovani);
+                var technikSearch = await AssignTechnikAsync(dieslovani, newOdstavka);
 
                 if (technikSearch == null)
                 {
@@ -81,6 +81,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 else
                 {
                     dieslovani.Technik = technikSearch;
+                    technikSearch.Taken = true;
                     await _technikService.UpdateTechnikAsync(technikSearch);
                     await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);
                     result.Message = "Vytvořeno nové dieslování.";
@@ -94,7 +95,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            AssignTechnikAsync
            ---------------------------------------- */
-        public async Task<Technik?> AssignTechnikAsync(Dieslovani dieslovani)
+        public async Task<Technik?> AssignTechnikAsync(Dieslovani dieslovani, Odstavka newOdstavka)
         {
             var firmaVRegionu = await GetFirmaVRegionuAsync(dieslovani.Odstavka.Lokality.Region.ID);
 
@@ -137,7 +138,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             }
             else
             {
-                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Chyba při přiřzení technika");
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Chyba při přiřazení technika");
                 return null;
             }
         }
@@ -153,7 +154,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
            ---------------------------------------- */
         private async Task<Technik?> CheckTechnikReplacementAsync(Odstavka newOdstavka)
         {
-            await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", newOdstavka.ID, "Hledání technika, který má dieslovaní s nižšší prioritou.");
+            await _logService.ZapisDoLogu(DateTime.Now, "Odstavka", newOdstavka.ID, "Hledání technika, který má dieslovaní s nižšší prioritou.");
             var technik = await GetHigherPriorityAsync(newOdstavka);
             if (technik == null)
             {
@@ -171,22 +172,28 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         {
             if (newOdstavka.Lokality.Region.Firma == null)
             {
+                await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, "Nebyla nalezena žádná firma.");
                 return null;
+
             }
             var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(newOdstavka.Lokality.Region.Firma.ID);
 
             if (dieslovani == null)
             {
+                await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, "Nebylo nalezeno žádné dieslovaní.");
                 return null;
             }
+            await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Technik je již přiřezen k jinému dieslovaní s č.:{dieslovani.ID}");
+
 
             if (dieslovani.Odstavka.Do < newOdstavka.Od.AddHours(3) || newOdstavka.Do < dieslovani.Odstavka.Od.AddHours(4))
             {
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, "Technika lze přiřadit protože již přiřazené dieslovaní má v jiném časovém horizontu.");
                 return dieslovani.Technik;
             }
 
-            int staraVaha = dieslovani.Odstavka.Lokality.Klasifikace.ZiskejVahu();
-            int novaVaha = newOdstavka.Lokality.Klasifikace.ZiskejVahu();
+            int staraVaha = dieslovani.Odstavka.Lokality.Klasifikace?.ZiskejVahu() ?? 0;
+            int novaVaha = newOdstavka.Lokality.Klasifikace?.ZiskejVahu() ?? 0;
             bool maVyssiPrioritu = novaVaha > staraVaha;
             bool casovyLimit = dieslovani.Odstavka.Od.Date.AddHours(3) < DateTime.Now;
             bool daPodminka = dieslovani.Odstavka.Lokality.DA == false;
@@ -198,6 +205,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 {
                     await CreateNewDieslovaniAsync(newOdstavka, dieslovani.Technik);
                     dieslovani.Technik = novyTechnik;
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Technik: {novyTechnik.User.Jmeno} {novyTechnik.User.Prijmeni}");
                     await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);
                 }
                 return novyTechnik;

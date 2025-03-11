@@ -21,6 +21,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Include(l => l.Region)
                 .Select(l => new 
                 {
+                    id= l.ID,
                     nazev = l.Nazev,
                     klasifikace = l.Klasifikace,
                     adresa = l.Adresa,
@@ -32,6 +33,23 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 })
                 .ToListAsync();
             return _mapper.Map<List<object>>(entities);
+        }
+        public async Task<Lokalita> GeLokalitaByID(int id)
+        {
+            var entity = await _context.LokalityS
+                .Include(l => l.Region)
+                .Include(l => l.Zdroj)
+                .FirstOrDefaultAsync(l => l.ID == id);
+            return _mapper.Map<Lokalita>(entity);
+        }
+        public async Task<Lokalita> DetailLokalityAsync(int id)
+        {
+            var entity = await _context.LokalityS
+                .Include(l => l.Region)
+                .Include(l => l.Zdroj)
+                .Where(l => l.ID == id)
+                .FirstOrDefaultAsync();
+            return _mapper.Map<Lokalita>(entity);
         }
     }
 }

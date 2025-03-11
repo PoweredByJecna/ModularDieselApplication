@@ -122,7 +122,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                         .FirstOrDefault() ?? string.Empty
                 );
         }
- 
         public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid)
         {
             var technik = await _context.PohotovostiS
@@ -130,7 +129,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(o=> o.User)
                 .Include(o => o.Technik)
                 .ThenInclude(o => o.Firma)
-                .Where(o => o.Technik.Firma.ID == firmaid)
+                .Where(o => o.Technik.Firma.ID == firmaid && o.Technik.Taken==false)
                 .FirstOrDefaultAsync();
                 if (technik == null)
                 {
@@ -138,7 +137,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 }
             return technik.Technik.ID;
         }
-
         // ----------------------------------------
         // Get Pohotovost table data
         // ----------------------------------------

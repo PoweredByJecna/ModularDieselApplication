@@ -30,5 +30,26 @@ namespace ModularDieselApplication.Api.Controllers
                 data = lokality
             });
         }
+        [HttpGet]
+        public async Task<IActionResult> DetailLokalityJson(int id)
+        {
+            var lokality = await _lokalityService.DetailLokalityJsonAsync(id);
+            return Json(
+            new
+            {
+                data=lokality
+            });
+        }
+        public async Task<IActionResult> DetailLokality(int id)
+        {
+            var lokality = await _lokalityService.DetailLokalityAsync(id);
+            if(lokality==null)
+            {
+                return NotFound();
+            }
+            return View(lokality);
+          
+        }
+    
     }
 }

@@ -171,8 +171,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<Dieslovani?> GetDieslovaniWithTechnikAsync(int firmaId)
         {
             var entity = await _context.DieslovaniS
-                .Include(o => o.Odstavka).ThenInclude(o => o.Lokality)
-                .Include(o => o.Technik).ThenInclude(o => o.Firma)
+                .Include(p => p.Technik)
                 .Where(p => p.Technik.Firma.ID == firmaId && p.Technik.Taken == true)
                 .FirstOrDefaultAsync();
 

@@ -10,10 +10,12 @@ $('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povole
     },  
     columns: [
         
-{ data: 'nazev',
+{ data: null,
     render: function (data, type, row) {
-        return `<span style="font-weight: 700;">${data}</span>`;
-    } },
+        return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?id=${data.id}">
+        ${data.nazev}</a>`;
+    } 
+},
 {
     data: 'klasifikace',
     render: function (data, type, row) {

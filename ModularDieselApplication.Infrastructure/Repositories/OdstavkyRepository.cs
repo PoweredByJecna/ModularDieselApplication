@@ -39,7 +39,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
                 .ThenInclude(l => l.Region)
-                .FirstOrDefaultAsync(o => o.ID == id);
+                .FirstOrDefaultAsync(o => o.ID == id);    
 
             return _mapper.Map<Odstavka?>(entity);
         }
@@ -75,6 +75,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             odstavka.ID = efEntity.ID;
         }
+        
 
         // ----------------------------------------
         // Update Odstavka
@@ -204,13 +205,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             }).ToList();
 
             return _mapper.Map<List<object>>(result);
-        }
-        private async Task<Dieslovani?> GetDieslovanis(int idodstavky)
-        {
-            var dieslovani = await _context.DieslovaniS
-                .Where(d => d.IDodstavky == idodstavky)
-                .FirstOrDefaultAsync();
-                return dieslovani != null ? _mapper.Map<Dieslovani>(dieslovani) : null;
-        }        
+        }      
     }
 }
