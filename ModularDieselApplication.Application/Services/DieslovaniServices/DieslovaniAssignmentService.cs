@@ -118,7 +118,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     if (nejakyTechnikMaPohotovost)
                     {
                         await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, "Nějaký technik má pohotovost.");
-                        technikSearch = await CheckTechnikReplacementAsync(dieslovani.Odstavka);
+                        technikSearch = await CheckTechnikReplacementAsync(dieslovani.Odstavka, firmaVRegionu.ID);
                         return technikSearch;
                     }
                     else
@@ -152,10 +152,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            CheckTechnikReplacementAsync
            ---------------------------------------- */
-        private async Task<Technik?> CheckTechnikReplacementAsync(Odstavka newOdstavka)
+        private async Task<Technik?> CheckTechnikReplacementAsync(Odstavka newOdstavka, int idFirma)
         {
             await _logService.ZapisDoLogu(DateTime.Now, "Odstavka", newOdstavka.ID, "Hledání technika, který má dieslovaní s nižšší prioritou.");
-            var technik = await GetHigherPriorityAsync(newOdstavka);
+            var technik = await GetHigherPriorityAsync(newOdstavka, idFirma);
             if (technik == null)
             {
                 return null;
@@ -168,15 +168,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            GetHigherPriorityAsync
            ---------------------------------------- */
-        private async Task<Technik?> GetHigherPriorityAsync(Odstavka newOdstavka)
+        private async Task<Technik?> GetHigherPriorityAsync(Odstavka newOdstavka, int idFirma)
         {
-            if (newOdstavka.Lokality.Region.Firma == null)
-            {
-                await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, "Nebyla nalezena žádná firma.");
-                return null;
-
-            }
-            var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(newOdstavka.Lokality.Region.Firma.ID);
+          
+            var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(idFirma);
 
             if (dieslovani == null)
             {
@@ -205,7 +200,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 {
                     await CreateNewDieslovaniAsync(newOdstavka, dieslovani.Technik);
                     dieslovani.Technik = novyTechnik;
-                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Technik: {novyTechnik.User.Jmeno} {novyTechnik.User.Prijmeni}");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Technik: {novyTechnik.ID}");
                     await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);
                 }
                 return novyTechnik;
