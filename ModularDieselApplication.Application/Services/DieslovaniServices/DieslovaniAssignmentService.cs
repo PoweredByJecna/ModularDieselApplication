@@ -198,7 +198,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 var novyTechnik = await _technikService.GetTechnikByIdAsync("606794494");
                 if (novyTechnik != null)
                 {
-                    await CreateNewDieslovaniAsync(newOdstavka, dieslovani.Technik);
                     dieslovani.Technik = novyTechnik;
                     await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Technik: {novyTechnik.ID}");
                     await _dieslovaniRepository.UpdateDieslovaniAsync(dieslovani);

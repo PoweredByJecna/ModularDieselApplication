@@ -77,10 +77,20 @@ $('#upcomingTable').DataTable({
                 </a>`;}
 
             },
-            { data: 'odstavkaZacatek', 
-                render: function(data) {
-                    return formatDate(data);
-                } }, //objednano(odstavky od)
+            {
+                data: 'odstavkaZacatek',
+                render: function (data) {
+                    let odstavkaDate = new Date(data);
+                    let now = new Date();
+                    let warningIcon = '';
+    
+                    if (odstavkaDate < now) {
+                        warningIcon = ' <i class="fa-solid fa-exclamation fa-lg" style="color: #e31b0d;"></i>';
+                    }
+    
+                    return formatDate(data) + warningIcon;
+                }
+            }, 
             {data:'popis'},
             {data: 'vydrzBaterie'},    
             {

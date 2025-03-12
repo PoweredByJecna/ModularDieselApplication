@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oHyvt4P1YH1iGoWTQoMgorwnrspr5PWrZCzvO/X+kR3Xa7gJi9MPaA1HmMKIZI4kr925nwQBvuvZuOtgA8WqiA==",
+  "dgSpecHash": "Wr/jfnEzBaMqbjjfhT3eo6azFf5oh54QyHvFXI3oRjbRhhYmNcPMlJXGCkXHEwUQoCBkjhpRsi8Qz17Ulb/KsA==",
   "success": true,
-  "projectFilePath": "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jirka\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -72,5 +72,16 @@
     "C:\\Users\\jirka\\.nuget\\packages\\system.text.encodings.web\\9.0.2\\system.text.encodings.web.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\system.text.json\\9.0.2\\system.text.json.9.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNetCore.Identity' 2.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-2865-hh9g-w894",
+      "libraryId": "Microsoft.AspNetCore.Identity",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
