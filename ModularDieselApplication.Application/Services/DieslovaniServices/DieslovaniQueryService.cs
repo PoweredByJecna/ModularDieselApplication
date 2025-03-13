@@ -71,7 +71,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            GetTableDatathrashTableAsync
         ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
         {
             if (currentUser == null)
             {
@@ -92,13 +92,9 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
             if (isEngineer && validRegions.Any())
             {
-                query = query.Where(d => validRegions.Contains(d.Odstavka.Lokality.Region.ID));
             }
-
-            int totalRecords = await _dieslovaniRepository.CountAsync(query);
-
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return (totalRecords, data);
+            return data;
         }
         /* ----------------------------------------
            GetTableDataOdDetailOdstavkyAsync
@@ -139,32 +135,36 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             {
                 return new
                 {
-                    error = "Dieslovani nenalezeno"
+                    error = "Odstavka přiřazena k dieslovani nenalezena"
                 };
             }
             else if (detail.Odstavka.Lokality == null)
             {
                 return new
                 {
-                    error = "Dieslovani nenalezeno"
+                    error = "Lokalita přiřazena k dieslovani nenalezeno"
                 };
             }
             else if (detail.Odstavka.Lokality.Region == null)
             {
                 return new
                 {
-                    error = "Dieslovani nenalezeno"
+                    error = "Region přiřazen k dieslovani nenalezeno"
                 };
             }
             return new 
             {
                 dieslovaniId = detail.ID,
+                odstavkaId = detail.Odstavka.ID,
                 lokalita = detail.Odstavka.Lokality.Nazev,
                 adresa = detail.Odstavka.Lokality.Adresa,
                 klasifikace = detail.Odstavka.Lokality.Klasifikace,
                 baterie = detail.Odstavka.Lokality.Baterie,
                 region = detail.Odstavka.Lokality.Region.Nazev,
                 popis = detail.Odstavka.Popis,
+                Technik = detail.Technik?.User?.Id ?? "Unknown",
+                jmenoTechnika = detail.Technik?.User?.Jmeno ?? "Unknown",
+                prijmeniTechnika = detail.Technik?.User?.Prijmeni ?? "Unknown",
             };
         }
         

@@ -1,13 +1,17 @@
 using ModularDieselApplication.Application.Interfaces;
+using ModularDieselApplication.Application.Interfaces.Services;
 
 namespace ModularDieselApplication.Application.Services
 {
     public class OdstavkyQueryService
     {
         private readonly IOdstavkyRepository _odstavkaRepository;
-        public OdstavkyQueryService(IOdstavkyRepository odstavkaRepository)
+        private readonly IDieslovaniService _dieslovaniService;
+        public OdstavkyQueryService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService)
         {
             _odstavkaRepository = odstavkaRepository;
+            _dieslovaniService = dieslovaniService;
+            
         }
         /* ----------------------------------------
             SuggestLokalitaAsync
@@ -80,10 +84,11 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
             GetTableDataOdDetailAsync
         ---------------------------------------- */
-        public async Task<List<object>> GetTableDataOdDetailAsync(int idodstavky)
+        public async Task<List<object>> GetTableDataOdDetailAsync(int IDdieslovani)
         {
+            var findodstavka = await _dieslovaniService.GetOdstavkaIDbyDieselId(IDdieslovani);
             var query = _odstavkaRepository.GetOdstavkaQuery()
-                .Where(o => o.ID == idodstavky);
+                .Where(o => o.ID == findodstavka);
             var data = await _odstavkaRepository.GetOdstavkaDataAsync(query);
             return data;
         }

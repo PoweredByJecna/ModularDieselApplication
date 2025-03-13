@@ -61,7 +61,9 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         {
             var userRoleEntity = await _context.UserRoles
                 .FirstOrDefaultAsync(ur => ur.UserId == userId);
-            return userRoleEntity?.RoleId;
+            var  rolename = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == userRoleEntity.RoleId);    
+            return rolename?.Name;
         }
 
         // ----------------------------------------
@@ -72,7 +74,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             var pohotovost = await _context.PohotovostiS
                 .Include(o => o.Technik)
                     .ThenInclude(t => t.User)
-                .Where(o => o.User.Id == userId)
+                .Where(o => o.Technik.IdUser == userId)
                 .FirstOrDefaultAsync();
 
             return _mapper.Map<Pohotovosti?>(pohotovost);

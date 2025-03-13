@@ -169,8 +169,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query)
         {
-            var odstavkaList = await _context.OdstavkyS
-                .Include(l => l.Lokality)
+            var odstavkaList = await query
                 .Select(l => new
                 {
                     id = l.ID,

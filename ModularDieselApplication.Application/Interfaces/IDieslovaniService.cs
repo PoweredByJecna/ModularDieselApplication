@@ -12,7 +12,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User currentUser, bool isEngineer);
         Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User currentUser, bool isEngineer);
         Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User currentUser, bool isEngineer);
-        Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User currentUser, bool isEngineer);
+        Task<List<object>> GetTableDatathrashTableAsync(User currentUser, bool isEngineer);
         Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky);
         Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result);
         Task<HandleResult> VstupAsync(int idDieslovani);
@@ -23,5 +23,6 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<object> DetailDieslovaniJsonAsync(int id);
         Task<Dieslovani>GetDieslovaniByOdstavkaId(int id);
         Task<(bool Success, string Message)> DeleteDieslovaniAsync(int iDdieslovani);
+        Task<int> GetOdstavkaIDbyDieselId(int idDieslovani);
     }
 }

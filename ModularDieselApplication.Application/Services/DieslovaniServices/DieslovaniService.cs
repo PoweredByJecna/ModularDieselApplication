@@ -61,7 +61,7 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            GetTableDatathrashTableAsync
            ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
         {
             return await _dieslovaniQueryService.GetTableDatathrashTableAsync(currentUser, isEngineer);
         }
@@ -135,6 +135,10 @@ namespace ModularDieselApplication.Application.Services
         public async Task<Dieslovani> GetDieslovaniByOdstavkaId(int id)
         {
             return await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
+        }
+        public async Task<int> GetOdstavkaIDbyDieselId(int idDieslovani)
+        {
+            return await _dieslovaniRepository.GetIDbyDieselId(idDieslovani);
         }
 
       

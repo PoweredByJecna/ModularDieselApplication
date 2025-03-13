@@ -94,6 +94,27 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> Take(int IdDieslovani)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var domainUser = _mapper.Map<User>(currentUser);
+
+            var result = await _dieslovaniService.TakeAsync(IdDieslovani, domainUser);
+
+            if (!result.Success)
+            {
+                return Json(new { success = false, message = result.Message });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = result.Message,
+                });
+            }
+        }
         // ----------------------------------------
         // Odchod - volá metodu ze servisu
         // ----------------------------------------
@@ -199,18 +220,16 @@ namespace ModularDieselApplication.Api.Controllers
         // Načtení dat GetTableThrashEndTable 
         // ----------------------------------------   
         [HttpGet]
-        public async Task<IActionResult> GetTableDatathrashTable(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableDatathrashTable()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
-            var (totalRecords, data) = await _dieslovaniService.GetTableDatathrashTableAsync(domainUser, isEngineer);
+            var data = await _dieslovaniService.GetTableDatathrashTableAsync(domainUser, isEngineer);
 
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
                 data = data
             });
         }

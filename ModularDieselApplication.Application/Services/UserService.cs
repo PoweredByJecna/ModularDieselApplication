@@ -24,21 +24,23 @@ namespace ModularDieselApplication.Application.Services
             var role = await _userRepository.GetUserPrimaryRoleAsync(userId);
             var pohotovost = await _userRepository.GetUserPohotovostAsync(userId);
             var technik = await _userRepository.GetUserTechnikAsync(userId);
-            var firma = technik?.Firma; // Pokud TableTechnik.Firma existuje
+            var firma = technik?.Firma;
             var region = firma != null
                 ? await _userRepository.GetUserRegionForFirmaAsync(firma.ID)
                 : null;
             return new 
             {
                 uzivatelskeJmeno = userDetail.UserName,
-                stav = (pohotovost != null),
+                stav = technik?.Taken,
                 nadrizeny = "Neznámý", // Původní kód takto vracel
                 firma = firma?.Nazev ?? "Neznámá",
                 region = region?.Nazev ?? "Neznámý",
                 jmeno = pohotovost?.Technik?.User.Jmeno,
                 prijmeni = pohotovost?.Technik?.User.Prijmeni,
                 tel = userDetail.PhoneNumber,
-                role = role
+                Role = role,
+                PohotovostZacatek = pohotovost?.Zacatek,
+                PohotovostKonec = pohotovost?.Konec,
             };
         }
 

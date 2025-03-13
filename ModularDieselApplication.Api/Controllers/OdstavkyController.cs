@@ -106,7 +106,8 @@ namespace ModularDieselApplication.Api.Controllers
                 data = odstavkaList
             });
         }
-         [HttpGet]
+
+        [HttpGet]
         public async Task<IActionResult> DetailOdstavkyJson(int id)
         {
             var detailOdstavky = await _odstavkyService.DetailOdstavkyJsonAsync(id);

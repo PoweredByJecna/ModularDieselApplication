@@ -21,16 +21,7 @@ $(document).ready(function () {
         },
       
         columns: [
-            {
-                data: null,
-                render: function (data, type, row) {
-                    return `
-                    <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="deleteRecord(this, ${row.idOdstavky})">
-                        <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Uzavřít</span>
-                        <i class="fa-solid fa-xmark"></i>
-                    </span>`;
-                }
-            },
+            
             { data: 'id' },
             {
                 data: 'distributor',
@@ -59,8 +50,8 @@ $(document).ready(function () {
                     return `<span style="font-weight: 700;">${data}</span>`;
                 }   
             },
-            { data: 'od', render: data => formatDate(data) },
-            { data: 'do_', render: data => formatDate(data) },
+            { data: 'zacatekOdstavky', render: data => formatDate(data) },
+            { data: 'konecOdstavky', render: data => formatDate(data) },
             { data: 'adresa' },
             { data: 'vydrzBaterie' },
             { data: 'popis' },

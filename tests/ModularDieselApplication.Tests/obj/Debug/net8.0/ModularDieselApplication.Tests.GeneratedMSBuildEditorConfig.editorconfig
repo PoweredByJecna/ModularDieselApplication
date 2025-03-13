@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ModularDieselApplication.Tests
-build_property.ProjectDir = c:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-6\tests\ModularDieselApplication.Tests\
+build_property.ProjectDir = C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-6\tests\ModularDieselApplication.Tests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

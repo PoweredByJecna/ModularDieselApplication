@@ -59,9 +59,9 @@ namespace ModularDieselApplication.Application.Services
            return await _odstavkyQueryService.GetTableDataAsync(start, length);
         }
 
-        public async Task<List<object>> GetTableDataOdDetailAsync(int idodstavky)
+        public async Task<List<object>> GetTableDataOdDetailAsync(int idDieslovani)
         {
-            return await _odstavkyQueryService.GetTableDataOdDetailAsync(idodstavky);
+            return await _odstavkyQueryService.GetTableDataOdDetailAsync(idDieslovani);
         }
 
         public Task<HandleResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis)

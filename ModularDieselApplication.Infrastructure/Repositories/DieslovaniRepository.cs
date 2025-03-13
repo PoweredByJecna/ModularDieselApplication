@@ -213,5 +213,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             return await query.CountAsync();
         }
+        public async Task<int> GetIDbyDieselId(int idDieslovani)
+        {
+            var entity = await _context.DieslovaniS
+                .Include(d => d.Odstavka)
+                .FirstOrDefaultAsync(d => d.ID == idDieslovani);
+            return entity.Odstavka.ID;
+        }
     }
 }

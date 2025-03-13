@@ -134,6 +134,13 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var result = new HandleResult();
             try
             {
+                if (string.IsNullOrEmpty(currentUser.Id))
+                {
+                    result.Success = false;
+                    result.Message = "ID aktuálního uživatele není platné.";
+                    return result;
+                }
+
                 var technik = await _technikService.GetTechnikByIdAsync(currentUser.Id);
 
                 var dieslovaniTaken = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
@@ -161,12 +168,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     return result;
                 }
 
-                if (technik.Taken)
-                {
-                    result.Success = false;
-                    result.Message = "Již máte převzaté jiné dieslování.";
-                    return result;
-                }
 
                 dieslovaniTaken.Technik = technik;
                 technik.Taken = true;
@@ -174,7 +175,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
 
                 result.Success = true;
-                result.Message = $"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Jmeno}";
+                result.Message = $"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni}";
                 return result;
             }
             catch (Exception ex)

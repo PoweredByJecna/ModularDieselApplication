@@ -29,19 +29,23 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                 var outdatedRecordPohotovosti = await _context.PohotovostiS
                     .Where(d => d.Konec.Date < DateTime.Today).ToListAsync();
 
-                if (outdatedRecordsOdstavky.Any())
-                {
-                    _context.OdstavkyS.RemoveRange(outdatedRecordsOdstavky);
-                    await _context.SaveChangesAsync();
-                }
                 foreach (var dieslovani in outdatedRecordsDieslovani)
                 {
                     if (dieslovani.Technik != null)
                     {
-                        dieslovani.Technik.Taken = false;
-                        _context.TechnikS.Update(dieslovani.Technik);
-                        await _context.SaveChangesAsync();
+                        var AnotherDieselRequest= await _context.DieslovaniS.AnyAsync(d => d.Technik.ID == dieslovani.Technik.ID);
+                        if (!AnotherDieselRequest)
+                        {
+                            dieslovani.Technik.Taken = false;
+                            _context.TechnikS.Update(dieslovani.Technik);
+                            await _context.SaveChangesAsync();
+                        }
                     }
+                }
+                if (outdatedRecordsOdstavky.Any())
+                {
+                    _context.OdstavkyS.RemoveRange(outdatedRecordsOdstavky);
+                    await _context.SaveChangesAsync();
                 }
                 if (outdatedRecordPohotovosti.Any())
                 {

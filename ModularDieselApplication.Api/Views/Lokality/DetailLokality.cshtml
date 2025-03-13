@@ -1,11 +1,12 @@
-<div class="conteiner" id="con">
+<div class="conteiner DETAIL" id="con">
     <div class="tables-row formRow">
+        <div class="logoForm DETAIL">
+            <h2 class="h2-div">Detail Lokality <i class="fa-solid fa-circle-info fa-lg"></i>  <a id="lokalita"> </a> </h2>
+            <button onclick="window.history.back();" class="backbutton"><a style="color: #5f6368;"><i class="fa-solid fa-arrow-left"></i> Zpět</a></button>
+        </div>
         <div class="section big">
             <div class="section small FORMS left" style="flex:7">
                 <div class="detail energy">
-                    <div class="logoForm">
-                        <h2 class="h2-div">Detail Lokality <i class="fa-solid fa-circle-info fa-lg"></i></h2>
-                    </div>
                     <div class="infowrapper">
                         
                         <div class="info battery">
@@ -86,13 +87,7 @@
             </div>
             <div class="section small FORMS right" style="flex:3" >
                 <div class="detail diesel">
-                    <div class="logoForm">
-                        <h2 class="h2-div">Detail Odstávky <i class="fa-solid fa-circle-info fa-lg"></i></h2>
-                    </div>
                     <div class="formINFO-D info">
-                        <div>
-                            <span class="Infowrapperspan"><i class="fa-solid fa-tower-broadcast fa-lg fa-sm navA"></i> Lokalita: </span><p id="lokalita"> </p>
-                        </div>
                         <div>
                             <span class="Infowrapperspan"><i class="fa-solid fa-location-dot fa-lg fa-sm navA"></i>Adresa: </span><p id="adresa"> </p>
                         </div>
@@ -124,14 +119,14 @@
         </div>   
     </div>
 
-    <div class="tables-row">
+    <div class="tables-row" style="margin-top: 0px;">
         <div class="section big">
             <div class="section small"> 
                 <div class="nav-FRG">
-                        <p id="odstavky">ODSTAVKY</p>
-                        <p id="dieslovani">DIESLOVANI</p>
+                        <p id="log">ODSTAVKY</p>
+                        <p id="vazby">DIESLOVANI</p>
                 </div>
-                <div class="table-div odstavkyTable" id="content-vazby">
+                <div class="table-div odstavkyTable" id="content-log">
                     <div class="name">
                         <h2  style="padding-right:20px; color: black;">Odstavky<i class="fa-solid fa-bolt"></i></h2>    
                         <div>
@@ -160,16 +155,21 @@
                     <table id="DieselDetail" style="margin-bottom: 15px;">
                         <thead>
                             <tr>
+                                <th>Stav</th>
                                 <th>Akce</th>
                                 <th>Id</th>
                                 <th>Distributor</th>
                                 <th>Lokalita</th>
                                 <th>Klasifikace</th>
+                                <th>Adresa</th>
+                                <th>Firma</th>
+                                <th>Region</th>
                                 <th>Od</th>
                                 <th>Do</th>
-                                <th>Adresa</th>
-                                <th>Baterie<a> [min]</a></th>
+                                <th>Vstup</th>
+                                <th>Odchod</th>
                                 <th>Popis</th>
+                                <th>Baterie<a> [min]</a></th>
                                 <th>Zásuvka</th>
                             </tr>
                         </thead>
@@ -177,7 +177,7 @@
                         </tbody>          
                     </table>   
                 </div>
-                <div class="table-div odstavkyTable" id="content-vazby">
+                <div class="table-div odstavkyTable" id="content-vazby  ">
                     <div class="name">
                         <h2  style="padding-right:20px; color: black;">Dieslovani<i class="fa-solid fa-bolt"></i></h2>    
                         <div>
@@ -205,17 +205,22 @@
                     </div>
                     <table id="DieselDetail" style="margin-bottom: 15px;">
                         <thead>
-                            <tr>
+                           <tr>
+                                <th>Stav</th>
                                 <th>Akce</th>
                                 <th>Id</th>
                                 <th>Distributor</th>
                                 <th>Lokalita</th>
                                 <th>Klasifikace</th>
+                                <th>Adresa</th>
+                                <th>Firma</th>
+                                <th>Region</th>
                                 <th>Od</th>
                                 <th>Do</th>
-                                <th>Adresa</th>
-                                <th>Baterie<a> [min]</a></th>
+                                <th>Vstup</th>
+                                <th>Odchod</th>
                                 <th>Popis</th>
+                                <th>Baterie<a> [min]</a></th>
                                 <th>Zásuvka</th>
                             </tr>
                         </thead>
