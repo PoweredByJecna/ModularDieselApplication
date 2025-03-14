@@ -27,5 +27,14 @@ namespace ModularDieselApplication.Api.Controllers
                 data=detailUser
             });
         }
+
+        public async Task<IActionResult> VazbyJson(string id)
+        {
+            var vazby = await _service.VazbyJsonAsync(id);
+            return Json(new
+            {
+                data=vazby
+            });
+        }
     }
 }

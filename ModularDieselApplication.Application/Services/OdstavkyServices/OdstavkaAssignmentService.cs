@@ -53,6 +53,8 @@ namespace ModularDieselApplication.Application.Services
 
                 if(option=="now")
                 {
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Dieslování objednáno bez kontroli");
+                   
                     var technik = await _technikService.GetTechnikByIdAsync("606794494");
 
                     if (technik == null)
@@ -64,7 +66,7 @@ namespace ModularDieselApplication.Application.Services
                         return result;
                     }
 
-                    var dieslovani = await _dieslovaniAssignmentService.CreateNewDieslovaniAsync(newOdstavka, technik);
+                    var dieslovani = await _dieslovaniAssignmentService.CreateNewDieslovaniAsync(newOdstavka, technik); 
 
                     await _dieslovaniAssignmentService.AssignTechnikAsync(dieslovani, newOdstavka);
 
@@ -77,7 +79,10 @@ namespace ModularDieselApplication.Application.Services
 
                 else
                 {
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Kontrola, zda je dieslovaní potřeba.");
+
                     result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
+
 
                     return result;
                 }
@@ -116,85 +121,28 @@ namespace ModularDieselApplication.Application.Services
         }
         public async Task<HandleResult> TestOdstavkaAsync()
         {
-            
             var result = new HandleResult();
+            var number = await _odstavkaRepository.GetLokalitaCountAsync();
 
-            try
-            {
-                var number = await _odstavkaRepository.GetLokalitaCountAsync();
+            var IdNumber = RandomNumberGenerator.GetInt32(1, number);
 
-                if (number == 0)
-                {
-                    result.Success = false;
+            var lokalitaSearch = await _odstavkaRepository.GetLokalityByIdAsync(IdNumber);
 
-                    result.Message = "Žádné lokality v DB.";
+            var hours = RandomNumberGenerator.GetInt32(1, 100);
 
-                    return result;
-                }
-                var IdNumber = RandomNumberGenerator.GetInt32(1, number);
+            string distrib = DetermineDistributor(lokalitaSearch.Region.Nazev);
 
-                var lokalitaSearch = await _odstavkaRepository.GetLokalityByIdAsync(IdNumber);
+            var od = DateTime.Today.AddHours(hours + 2);
 
-                if (lokalitaSearch == null)
-                {
-                    result.Success = false;
+            var do_ = DateTime.Today.AddHours(hours + 8);
 
-                    result.Message = "Lokalita nenalezena.";
+            string popis = $"Odstávka od {distrib}, od: {od}, do: {do_}";
 
-                    return result;
-                }
-                var hours = RandomNumberGenerator.GetInt32(1, 100);
+            string option = "Default";
 
-                string distrib = DetermineDistributor(lokalitaSearch.Region.Nazev);
-
-                var od = DateTime.Today.AddHours(hours + 2);
-
-                var do_ = DateTime.Today.AddHours(hours + 8);
-
-                string popis = $"Odstávka od {distrib}, od: {od}, do: {do_}";
-
-                result = await OdstavkyRules.OdstavkyCheck(od, do_, result, await ExistingOdstavka(lokalitaSearch.ID, od));
-                if (!result.Success)
-                    return result;
-
-                var newOdstavka = await CreateNewOdstavka(lokalitaSearch, distrib, od, do_, popis);
-
-                if (newOdstavka != null && newOdstavka.Lokality != null && newOdstavka.Lokality.Region != null)
-                {
-                    var id = newOdstavka.ID;
-                    
-                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", id, $"Vytvřáření odstávky s parametry: Lokalita: {newOdstavka.Lokality.Nazev}, Klasifikace: {newOdstavka.Lokality?.Klasifikace}, Od: {newOdstavka?.Od}, Do: {newOdstavka?.Do}");
-                    
-                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", id, $"Baterie: {newOdstavka?.Lokality?.Baterie} min");
-
-                    result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
-                    
-                    if (!result.Success)
-                    {
-                        if (newOdstavka != null)
-                        {
-                            await _logService.ZapisDoLogu(DateTime.Now.Date, "odstávka", newOdstavka.ID, result.Message);
-                        }
-                    }
-                    else
-                    {
-                        if (result.Message != null && newOdstavka != null)
-                        {
-                            await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, result.Message);
-                        }
-                    }
-                }
-
-                return result;
-            }
-            catch
-            {
-                result.Success = false;
-                
-                result.Message = $"Neočekávaná chyba: {result.Message}";
-                
-                return result;
-            }
+            result = await CreateOdstavkaAsync(lokalitaSearch.Nazev, od, do_, popis, option);
+        
+            return result;
         }
 
         private async Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis)
@@ -214,12 +162,21 @@ namespace ModularDieselApplication.Application.Services
                     await _odstavkaRepository.AddAsync(newOdstavka);
                     result.Odstavka = newOdstavka;
                     result.Message = "Odstávka byla úspěšně vytvořena.";
+
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Nová odstávka č.{newOdstavka.ID} bylo vytvořeno.");
+
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Vytvřáření odstávky s parametry: Lokalita: {newOdstavka.Lokality.Nazev}, Klasifikace: {newOdstavka.Lokality.Klasifikace}, Od: {newOdstavka.Od}, Do: {newOdstavka.Do}");
+                    
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Baterie: {newOdstavka.Lokality.Baterie} min");
+
                 }
                 catch (Exception)
                 {
                     result.Success = false;
                     result.Message = "Chyba při ukládání do databáze";
                 }
+
+
             return newOdstavka;
         }
 

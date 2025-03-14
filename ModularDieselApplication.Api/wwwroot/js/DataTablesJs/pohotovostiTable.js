@@ -20,11 +20,11 @@ $('#pohotovostTable').DataTable({ajax: {
     {   data: 'zacetekPohotovosti'},
     {   data: 'konecPohotovosti'},
     {
-        data: 'lokalita', // Toto je vaše nová hodnota pro Lokalitu
-        render: function (data, type, row) {
-            // Zobrazení lokalitu nebo výchozí text
-            return data || 'Není přiřazeno';
-        }
+        data: null, 
+        render: function(data, type, row) {
+        return `<a class="userA" href="/User/Index?id=${data.idUser}">
+        Obsazenost <i class="fa-solid fa-eye"></i>
+        </a>`;}
     }
 ],
 rowCallback: function(row, data, index) {

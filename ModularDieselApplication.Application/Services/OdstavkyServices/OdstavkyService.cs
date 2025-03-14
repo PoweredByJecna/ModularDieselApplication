@@ -32,7 +32,8 @@ namespace ModularDieselApplication.Application.Services
 
         public async Task<HandleResult> TestOdstavkaAsync()
         {
-            return await _odstavkaAssignmentService.TestOdstavkaAsync();
+            var result = await _odstavkaAssignmentService.TestOdstavkaAsync();
+            return result;
         }
 
         public async Task<Odstavka> DetailOdstavkyAsync(int id)

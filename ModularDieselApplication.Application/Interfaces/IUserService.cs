@@ -7,5 +7,6 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         Task<object> DetailUserJsonAsync(string userId);
         Task<bool> IsUserInRoleAsync(string userId, string roleName);
+        Task<List<object>> VazbyJsonAsync(string userId);
     }
 }

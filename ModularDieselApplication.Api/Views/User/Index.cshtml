@@ -64,8 +64,7 @@
                         <div style="border: none;">
                             <p id="role" style="font-weight: 800;"></p>
                         </div>
-                    </div>    
-                                       
+                    </div>                    
                 </div>
             </div>                
         </div>   
@@ -73,17 +72,60 @@
 
     <div class="tables-row" style="margin-top: 0px;">
         <div class="section big">
-            <div class="section small"> 
-                <div class="nav-FRG">
-                        <p id="vazby">VAZBY</p>
-                    </div>
-                <div style="display: none;" id="content-log"></div>
+            <div class="section small">  
                 <div class="table-div odstavkyTable" id="content-vazby">
-                    
+                    <div class="name">
+                        <h2  style="padding-right:20px; color: black;">Dieslovaní<i class="fa-solid fa-bolt"></i></h2>    
+                        <div>
+                            <span class="legenda">
+                                Aktivní :
+                                <i class="fa-solid fa-square" style="color: rgba(0, 128, 0, 0.371)"></i>
+                            </span>
+                            <span class="legenda">
+                                Ukončené :
+                                <i class="fa-solid fa-square" style="color: rgba(255, 0, 0, 0.382)"></i>
+                            </span>
+                            <span class="legenda">
+                                Nekativni :
+                                <i class="fa-solid fa-square" style="color: #0055ff28"></i>
+                            </span>
+                            <span class="legenda">
+                                Nepřižazeno :
+                                <i class="fa-solid fa-square" style="color:  rgba(255, 166, 0, 0.521"></i> 
+                            </span>
+                            <span class="legenda">
+                                Čekající :
+                                <i class="fa-solid fa-square" style="color: rgba(255, 255, 0, 0.321"></i>
+                            </span>  
+                        </div>
+                    </div>
+                    <table id="technikDieslovaniTable" style="margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Stav</th>
+                                <th>Akce</th>
+                                <th>Id</th>
+                                <th>Distributor</th>
+                                <th>Lokalita</th>
+                                <th>Klasifikace</th>
+                                <th>Adresa</th>
+                                <th>Firma</th>
+                                <th>Technik</th>
+                                <th>Region</th>
+                                <th>Objednáno</th>
+                                <th>Konec Odstávky</th>
+                                <th>Vstup</th>
+                                <th>Odchod</th>
+                                <th>Popis</th>
+                                <th>Baterie<a> [min]</a></th>
+                                <th>Zásuvka</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">     
+                        </tbody>          
+                    </table>   
                 </div>
             </div>
-        </div>
-            
-        
+        </div
     </div>
 </div>

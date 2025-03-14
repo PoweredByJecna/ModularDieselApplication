@@ -21,10 +21,10 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                 var _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                 var outdatedRecordsOdstavky = await _context.OdstavkyS
-                    .Where(d => d.Do.Date < DateTime.Today).ToListAsync();
+                    .Where(d => d.Do.Date.AddDays(15) < DateTime.Today.AddDays(15)).ToListAsync();
 
                 var outdatedRecordsDieslovani = await _context.DieslovaniS.Include(d => d.Technik)
-                    .Where(d => d.Odstavka.Do.Date < DateTime.Today).ToListAsync();
+                    .Where(d => d.Odstavka.Do.Date.AddDays(15) < DateTime.Today).ToListAsync();
 
                 var outdatedRecordPohotovosti = await _context.PohotovostiS
                     .Where(d => d.Konec.Date < DateTime.Today).ToListAsync();

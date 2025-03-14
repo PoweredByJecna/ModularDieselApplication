@@ -172,6 +172,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.DieslovaniS
                 .Include(p => p.Technik)
+                .ThenInclude(P=>P.User)
+                .Include(p => p.Odstavka)
+                .ThenInclude(p => p.Lokality)
                 .Where(p => p.Technik.Firma.ID == firmaId && p.Technik.Taken == true)
                 .FirstOrDefaultAsync();
 

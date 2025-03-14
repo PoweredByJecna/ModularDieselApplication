@@ -157,9 +157,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     ZacetekPohotovosti = l.Zacatek,
                     KonecPohotovosti = l.Konec,
                     TechnikStatus = l.Technik.Taken,
-                    Lokalita = technikLokalitaMap.ContainsKey(l.Technik.ID)
-                        ? technikLokalitaMap[l.Technik.ID]
-                        : "Nemá přiřazenou lokalitu"
+                    idUser =l.Technik.User.Id,
                 })
                 .ToListAsync();
         }

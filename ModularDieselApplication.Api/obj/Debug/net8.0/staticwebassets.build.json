@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gY6TeeSMyOaSAFVJnzLzbYA+rwsIYyIKPrPI/RbpdVU=",
+  "Hash": "qYrCyd0bnacJfC9OpW+s8KaNB0NAvz/s+vKMywyjWe8=",
   "Source": "ModularDieselApplication.Api",
   "BasePath": "_content/ModularDieselApplication.Api",
   "Mode": "Default",
@@ -414,6 +414,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\DataTablesJs\\runningTable.js"
+    },
+    {
+      "Identity": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\technikDieslovaniTable.js",
+      "SourceId": "ModularDieselApplication.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\wwwroot\\",
+      "BasePath": "_content/ModularDieselApplication.Api",
+      "RelativePath": "js/DataTablesJs/technikDieslovaniTable.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\DataTablesJs\\technikDieslovaniTable.js"
     },
     {
       "Identity": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\thrashTable.js",

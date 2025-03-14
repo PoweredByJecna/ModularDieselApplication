@@ -13,6 +13,11 @@ namespace ModularDieselApplication.Application.Services
         {
             _userRepository = userRepository;
         }
+        public async Task<List<object>> VazbyJsonAsync(string userId)
+        {
+            var userDieslovaniList = await _userRepository.GetUserDieslovaniAsync(userId);
+            return userDieslovaniList;
+        } 
 
         public async Task<object> DetailUserJsonAsync(string userId)
         {

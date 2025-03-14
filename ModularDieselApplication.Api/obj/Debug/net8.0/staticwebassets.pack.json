@@ -81,6 +81,10 @@
       "PackagePath": "staticwebassets\\js\\DataTablesJs\\runningTable.js"
     },
     {
+      "Id": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\technikDieslovaniTable.js",
+      "PackagePath": "staticwebassets\\js\\DataTablesJs\\technikDieslovaniTable.js"
+    },
+    {
       "Id": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\thrashTable.js",
       "PackagePath": "staticwebassets\\js\\DataTablesJs\\thrashTable.js"
     },

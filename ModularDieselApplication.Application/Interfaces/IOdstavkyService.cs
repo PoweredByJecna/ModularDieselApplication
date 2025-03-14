@@ -11,7 +11,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         Task<List<string>> SuggestLokalitaAsync(string query);
         Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option);
-        Task<HandleResult> TestOdstavkaAsync();
+        Task<HandleResult>TestOdstavkaAsync();
         Task<Odstavka> DetailOdstavkyAsync(int id);
         Task<object> DetailOdstavkyJsonAsync(int id);
         Task<HandleResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis);

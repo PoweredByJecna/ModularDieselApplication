@@ -105,6 +105,15 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
 
             return _mapper.Map<Region?>(regionEntity);
         }
+        public async Task<List<object>> GetUserDieslovaniAsync(string userId)
+        {
+            var userDieslovani = await _context.DieslovaniS
+                .Include(d => d.Technik)
+                    .ThenInclude(t => t.User)
+                .Where(d => d.Technik.User.Id == userId)
+                .ToListAsync();
+            return _mapper.Map<List<object>>(userDieslovani);
+        }
     }
 
 
