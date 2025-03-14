@@ -22,6 +22,13 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             _regionyService = regionyService;
             _technikService = technikService;
         }
+        public async Task<List<object>>GetDieslovaniByUserId (string UserID)
+        {
+            var query = _dieslovaniRepository.GetDieslovaniQuery()
+                .Where(i => i.Technik.User.Id == UserID);
+            var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
+            return data;
+        }
         /* ----------------------------------------
            GetTableDataRunningTableAsync
         ---------------------------------------- */

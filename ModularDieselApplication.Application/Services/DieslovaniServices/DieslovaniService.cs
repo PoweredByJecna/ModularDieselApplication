@@ -140,6 +140,10 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniRepository.GetIDbyDieselId(idDieslovani);
         }
+        public async Task<List<object>> GetDieslovaniByUserId(string idUser)
+        {
+            return await _dieslovaniQueryService.GetDieslovaniByUserId(idUser);
+        }
 
       
     }    

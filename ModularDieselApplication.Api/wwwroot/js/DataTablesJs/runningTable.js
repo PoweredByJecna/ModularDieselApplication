@@ -72,7 +72,7 @@ $('#runningTable').DataTable({
         { 
             data: null, 
                     render: function(data, type, row) {
-                    return `<a class="userA" href="/User/Index?id=${data.idtechnika}">
+                    return `<a class="userA" href="/User/Index?id=${data.user}">
                     ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;}
         },

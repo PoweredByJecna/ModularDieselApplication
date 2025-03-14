@@ -14,7 +14,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<SignInResult> LoginAsync(string username, string password, bool rememberMe);
         Task<User?> GetUserByUsernameAsync(string username);
         Task LogoutAsync();
-        Task<List<object>> GetUserDieslovaniAsync(string userId);
+        Task<List<object>> GetDieslovaniByUserId(string userId);
 
 
     }

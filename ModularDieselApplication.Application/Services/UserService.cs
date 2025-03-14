@@ -15,7 +15,7 @@ namespace ModularDieselApplication.Application.Services
         }
         public async Task<List<object>> VazbyJsonAsync(string userId)
         {
-            var userDieslovaniList = await _userRepository.GetUserDieslovaniAsync(userId);
+            var userDieslovaniList = await _userRepository.GetDieslovaniByUserId(userId);
             return userDieslovaniList;
         } 
 

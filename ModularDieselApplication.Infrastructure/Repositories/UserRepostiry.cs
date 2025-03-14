@@ -105,12 +105,33 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
 
             return _mapper.Map<Region?>(regionEntity);
         }
-        public async Task<List<object>> GetUserDieslovaniAsync(string userId)
+        public async Task<List<object>> GetDieslovaniByUserId(string userId)
         {
             var userDieslovani = await _context.DieslovaniS
                 .Include(d => d.Technik)
                     .ThenInclude(t => t.User)
                 .Where(d => d.Technik.User.Id == userId)
+                .Select(l=>new
+                {
+                    id = l.ID,
+                    distributor = l.Odstavka.Distributor,
+                    lokalitaNazev = l.Odstavka.Lokality.Nazev,
+                    klasifikace = l.Odstavka.Lokality.Klasifikace,
+                    adresa = l.Odstavka.Lokality.Adresa,
+                    technikFirma = l.Technik.Firma.Nazev,
+                    jmenoTechnika = l.Technik.User.Jmeno,
+                    prijmeniTechnika = l.Technik.User.Prijmeni,
+                    zadanVstup = l.Vstup,
+                    zadanOdchod = l.Odchod,
+                    Idtechnika = l.Technik.ID,
+                    NazevRegionu = l.Odstavka.Lokality.Region.Nazev,
+                    OdstavkaZacatek = l.Odstavka.Od,
+                    OdstavkaKonec = l.Odstavka.Do,
+                    Popis = l.Odstavka.Popis,
+                    VydrzBaterie = l.Odstavka.Lokality.Baterie,
+                    Zasuvka = l.Odstavka.Lokality.Zasuvka,
+                    User = l.Technik.User.Id
+                })
                 .ToListAsync();
             return _mapper.Map<List<object>>(userDieslovani);
         }

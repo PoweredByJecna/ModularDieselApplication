@@ -121,6 +121,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return _context.DieslovaniS
                 .Include(d => d.Odstavka)
                 .Include(d => d.Technik)
+                .ThenInclude(d=>d.User)
                 .ProjectTo<Dieslovani>(_mapper.ConfigurationProvider);
         }
 
