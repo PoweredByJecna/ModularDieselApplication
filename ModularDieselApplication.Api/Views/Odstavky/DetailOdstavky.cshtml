@@ -6,63 +6,45 @@
         </div>
         <div class="section big">
             <div class="section small FORMS left" style="flex:7">
-                <div class="detail energy">
-                    <div class="infowrapper">
-                        
-                        <div class="info battery">
-                            <h1>Battery info</h1>
-                            <div style="padding: 10px">
-                                <i class="fa-solid fa-battery-full fa-2xl"></i>
-                            </div>
-                            <div class="formInfo">
-                                <div>
-                                    <p>battery float charge: </p>
-                                </div>
-                                <div>
-                                    <p>Time remains: </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info dc">
-                            <h1>DC info</h1>
-                            <div style="padding: 10px">
-                                <i class="fa-solid fa-power-off fa-2xl"></i>
-                            </div>
-                            <div class="formInfo">  
-                                <div>
-                                    <p>L1: NA</p>
-                                </div>
-                                <div>    
-                                    <p>L2: NA</p>
-                                </div>
-                                <div>
-                                    <p>L3: NA</p>
-                                </div>
-                                <div>
-                                    <p>Product model: HigPower 100</p>
-                                </div>
-                            </div>
-                        
-                        </div>
-                        <div class="info DA ">
-                            <h1>DA info</h1>
-                            <div style="padding: 10px"> 
-                                <i class="fa-solid fa-gas-pump fa-2xl"></i>
-                            </div>
-                            <div class="formInfo"> 
-                                <div>
-                                    <p>DA-IS-RUNINNG </p>
-                                </div>
-                                <div>
-                                    <p>DA-model: </p>
-                                </div>
-                                <div>
-                                    <p>Spotřeba: </p>
-                                </div>
-                            </div>
-                        
-                        </div>
+                <div class="detail TASK" style="margin-top: 0px;">
+                    <div class="logoForm">
+                        <h2 class="h2-div">Akce <i class="fa-regular fa-hand-spock"></i></h2>
                     </div>
+                    <div class="formINFO-D form">
+                        <div style="border: none;">
+                        </div>
+                    </div>                    
+                </div>
+                <div class="detail TASK" style="margin-top: 0px;">
+                    <div class="logoForm">
+                        <h2 class="h2-div">Akce <i class="fa-regular fa-hand-spock"></i></h2>
+                    </div>
+                    <div class="formINFO-D form">
+                        <div style="border: none;">
+                        </div>
+                    </div>                    
+                </div>
+                <div class="detail TASK">
+                    <div class="logoForm">
+                        <h2 class="h2-div">Upravit začátek odstávky <i class="fa-solid fa-pen"></i></i></h2>
+                    </div>
+                    <div class="formINFO-D form">
+                        <div style="border: none;">
+                            <label class="lableFormConteiner"> Začátek: </label>
+                            <input id="od" type="datetime-local"  class="input-FormConteiner"> 
+                        </div>
+                    </div>                    
+                </div>
+                <div class="detail TASK">
+                    <div class="logoForm">
+                        <h2 class="h2-div">Upravit konec odstávky <i class="fa-solid fa-pen"></i></h2>
+                    </div>
+                    <div class="formINFO-D form">
+                        <div style="border: none;">
+                            <label class="lableFormConteiner"> Konec: </label>
+                            <input id="od" type="datetime-local"  class="input-FormConteiner"> 
+                        </div>
+                    </div>                    
                 </div>
                 <div class="detail TASK">
                     <div class="logoForm">
@@ -83,7 +65,13 @@
                             <span class="Infowrapperspan"><i class="fa-solid fa-info fa-lg fa-sm navA"></i> ID odstávky: </span><p id="odstavkaId"> </p>
                         </div>
                         <div>
-                            <span class="Infowrapperspan"><i class="fa-solid fa-location-dot fa-lg fa-sm navA"></i>Adresa: </span><p id="adresa"> </p>
+                            <span class="Infowrapperspan" style="font-weight: 900;"> <i class="fa-regular fa-calendar-days fa-lg fa-sm navA"></i> Začátek odstávky: </span><p id="zacatekOdstavky"> </p>
+                        </div>  
+                        <div>
+                            <span class="Infowrapperspan" style="font-weight: 900;"> <i class="fa-regular fa-calendar-days fa-lg fa-sm navA"></i> Konec odstávky:</span><p id="konecOdstavky">  </p>
+                        </div>
+                        <div>
+                            <span class="Infowrapperspan"><i class="fa-solid fa-location-dot fa-lg fa-sm navA"></i> Adresa: </span><p id="adresa"> </p>
                         </div>
                         <div>
                             <span class="Infowrapperspan"><i class="fa-solid fa-info fa-lg fa-sm navA"></i> Klasifikace:</span><p id="klasifikace">  </p>
@@ -120,15 +108,17 @@
                 <div class="nav-FRG">
                         <p id="log">LOG</p>
                         <p id="vazby">VAZBY</p>
-                </div>
+                    </div>
+              
                 <div class="table-div odstavkyTable" id="content-log">
                     <div id="logsContainer">
 
                     </div>
+                    
                 </div>
                 <div class="table-div odstavkyTable" id="content-vazby">
                     <div class="name">
-                        <h2  style="padding-right:20px; color: black;">Dieslovani<i class="fa-solid fa-bolt"></i></h2>    
+                        <h2  style="padding-right:20px; color: black;">Dieslování<i class="fa-solid fa-bolt"></i></h2>    
                         <div>
                             <span class="legenda">
                                 Aktivní :
@@ -152,24 +142,21 @@
                             </span>  
                         </div>
                     </div>
-                    <table id="DieselDetail" style="margin-bottom: 15px;">
+                    <table id="DieselDetailTable" style="margin-bottom: 15px;">
                         <thead>
                             <tr>
-                                <th>Akce</th>
                                 <th>Id</th>
                                 <th>Distributor</th>
                                 <th>Lokalita</th>
                                 <th>Klasifikace</th>
-                                <th>Od</th>
-                                <th>Do</th>
+                                <th>Technik</th>
+                                <th>Vstup</th>
+                                <th>Odchod</th>
                                 <th>Adresa</th>
-                                <th>Baterie<a> [min]</a></th>
-                                <th>Popis</th>
-                                <th>Zásuvka</th>
                             </tr>
                         </thead>
                         <tbody id="table-body">     
-                        </tbody>        
+                        </tbody>          
                     </table>   
                 </div>
             </div>

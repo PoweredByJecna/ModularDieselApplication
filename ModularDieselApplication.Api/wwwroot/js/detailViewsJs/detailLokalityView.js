@@ -1,12 +1,11 @@
 $(document).ready(function () {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+    const nazev = params.get("nazev");
     console.log(data);
-    console.log(id);
 
-    if (id) {
+    if (nazev) {
         $.ajax({
-            url: `/Lokality/DetailLokalityJson?id=${id}`,
+            url: `/Lokality/DetailLokalityJson?nazev=${nazev}`,
             type: 'GET',
             
             success: function (response) {

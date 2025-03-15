@@ -96,11 +96,11 @@ $('#allTable').DataTable({
                 return logo;
             }
     },
-    {
-        data: 'lokalitaNazev',
+    { data: null,
         render: function (data, type, row) {
-            return `<span style="font-weight: 700;">${data}</span>`;
-        }
+            return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.lokalitaNazev}">
+            ${data.lokalitaNazev}</a>`;
+        } 
     },
     {
         data: 'klasifikace',
@@ -113,7 +113,7 @@ $('#allTable').DataTable({
     { 
         data: null, 
                     render: function(data, type, row) {
-                    return `<a class="userA" href="/User/Index?id=${data.idUser}">
+                    return `<a class="userA" href="/User/Index?id=${data.user}">
                     ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;}
     },    

@@ -188,27 +188,37 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /*----------------------------------------
            DeleteDieslovaniJsonAsync
         ---------------------------------------- */
-        public async Task<(bool Success, string Message)> DeleteDieslovaniAsync(int id)
+        public async Task<HandleResult> DeleteDieslovaniAsync(int id)
         {
+             var result = new HandleResult();
             try
             {
                 var dieslovani = await _dieslovaniRepository.GetByIdAsync(id);
                 if (dieslovani == null)
                 {
-                    return (false, "Dieslovani nebylo nalezeno.");
+                    result.Success = false;
+                    result.Message = "Dieslovani nebyla nalezena.";
+                    return result;
                 }
 
                 bool deleted = await _dieslovaniRepository.DeleteAsync(id);
                 if (!deleted)
                 {
-                    return (false, "Dieslovani se nepodařilo smazat.");
+                    result.Success = false;
+                    result.Message = "Dieslovani se nepodařilo smazat.";
+                    return result;
+                    
                 }
-
-                return (true, "Dieslovani byla úspěšně smazána.");
+                result.Success = true;
+                result.Message = "Dieslovani byla úspěšně smazána.";
+                return result;
+                
             }
             catch (Exception ex)
             {
-                return (false, $"Chyba při mazání dieslovani: {ex.Message}");
+                result.Success = false;
+                result.Message = $"Chyba při mazání dieslovani: {ex.Message}";
+                return result;
             }
         }
 

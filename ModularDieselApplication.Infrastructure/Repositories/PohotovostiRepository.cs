@@ -35,12 +35,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Check if Pohotovosti exists in a region
         // ----------------------------------------
-        public async Task<bool> GetPohotovostiRegionAsync(int id)
+        public async Task<bool> GetPohotovostiRegionAsync(int id, DateTime OD, DateTime DO)
         {
             var tablePohotovosti = await _context.PohotovostiS
                 .Include(o => o.Technik)
                 .ThenInclude(o => o.Firma)
-                .Where(o => o.Technik != null && o.Technik.Firma != null && o.Technik.Firma.ID == id)
+                .Where(o => o.Technik != null && o.Technik.Firma != null && o.Technik.Firma.ID == id && o.Zacatek <= OD && o.Konec >= DO)
                 .FirstOrDefaultAsync();
                 if (tablePohotovosti == null)
                 {
@@ -66,6 +66,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task AddPohotovostAsync(Pohotovosti pohotovosti)
         {
             var tablePohotovosti = _mapper.Map<TablePohotovosti>(pohotovosti);
+            var existingTechnik = await _context.TechnikS.FindAsync(pohotovosti.IdTechnik);
+            if (existingTechnik == null)
+            {
+                throw new Exception($"Technik with ID {pohotovosti.IdTechnik} not found.");
+            }
+            tablePohotovosti.Technik= existingTechnik;
             await _context.PohotovostiS.AddAsync(tablePohotovosti);
             await _context.SaveChangesAsync();
         }
@@ -122,14 +128,14 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                         .FirstOrDefault() ?? string.Empty
                 );
         }
-        public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid)
+        public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid, DateTime OD, DateTime DO)
         {
             var technik = await _context.PohotovostiS
                 .Include(o => o.Technik)
                 .ThenInclude(o=> o.User)
                 .Include(o => o.Technik)
                 .ThenInclude(o => o.Firma)
-                .Where(o => o.Technik.Firma.ID == firmaid && o.Technik.Taken==false)
+                .Where(o => o.Technik.Firma.ID == firmaid && o.Technik.Taken==false && o.Zacatek <= OD && o.Konec >= DO)
                 .FirstOrDefaultAsync();
                 if (technik == null)
                 {

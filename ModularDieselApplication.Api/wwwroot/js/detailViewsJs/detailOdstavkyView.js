@@ -20,6 +20,8 @@ $(document).ready(function () {
                     $('#baterie').append(data.baterie);
                     $('#region').append(data.region);
                     $('#popis').append(data.popis);
+                    $('#zacatekOdstavky').append(formatDate(data.zacatekOdstavky));
+                    $('#konecOdstavky').append(formatDate(data.konecOdstavky));
                 } else {
                 }
             },

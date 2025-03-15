@@ -23,7 +23,11 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             CreateMap<TableFirma, Firma>().ReverseMap();
             CreateMap<TableTechnici, Technik>().ReverseMap();
             CreateMap<TableLokality, Lokalita>().ReverseMap();
-            CreateMap<TablePohotovosti, Pohotovosti>().ReverseMap();
+            CreateMap<Pohotovosti, TablePohotovosti>()
+            .ForMember(dest => dest.User, opt => opt.Ignore())
+            .ForMember(dest => dest.Technik, opt => opt.Ignore())
+            .ForMember(dest => dest.IdTechnik, opt => opt.MapFrom(src => src.IdTechnik))
+            .ReverseMap();
             CreateMap<DebugLogModel, Log>().ReverseMap();
             CreateMap<TableRegiony, Region>().ReverseMap();
             CreateMap<TableUser, User>().ReverseMap();

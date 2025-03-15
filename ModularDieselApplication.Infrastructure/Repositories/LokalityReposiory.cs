@@ -34,22 +34,69 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ToListAsync();
             return _mapper.Map<List<object>>(entities);
         }
-        public async Task<Lokalita> GeLokalitaByID(int id)
+        public async Task<Lokalita> GetLokalitaByName(string nazev)
         {
             var entity = await _context.LokalityS
                 .Include(l => l.Region)
                 .Include(l => l.Zdroj)
-                .FirstOrDefaultAsync(l => l.ID == id);
+                .FirstOrDefaultAsync(l => l.Nazev == nazev);
             return _mapper.Map<Lokalita>(entity);
         }
-        public async Task<Lokalita> DetailLokalityAsync(int id)
+        public async Task<Lokalita> DetailLokalityAsync(string nazev)
         {
             var entity = await _context.LokalityS
                 .Include(l => l.Region)
                 .Include(l => l.Zdroj)
-                .Where(l => l.ID == id)
+                .Where(l => l.Nazev == nazev)
                 .FirstOrDefaultAsync();
             return _mapper.Map<Lokalita>(entity);
+        }
+        public async Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev)
+        {
+            var entities = await _context.DieslovaniS
+                .Include(d => d.Odstavka)
+                .ThenInclude(d => d.Lokality)
+                .ThenInclude(d => d.Region)
+                .Include(d=>d.Technik)
+                .ThenInclude(d=>d.User)
+                .Where(d => d.Odstavka.Lokality.Nazev == nazev)
+                .Select(l=>new
+                {
+                    IDdieslovani = l.ID,
+                    lokalitaNazev = l.Odstavka.Lokality.Nazev,
+                    adresaLokality = l.Odstavka.Lokality.Adresa,
+                    distrib = l.Odstavka.Distributor,
+                    klasifikaceLokality = l.Odstavka.Lokality.Klasifikace,
+                    vstupnaLokalitu = l.Vstup,
+                    odchodzLokality = l.Odchod,
+                    userId = l.Technik.User.Id ?? "Unknown",
+                    jmenoTechnikaDA = l.Technik.User.Jmeno ?? "Unknown",
+                    prijmeniTechnikaDA = l.Technik.User.Prijmeni ?? "Unknown",
+                })
+                .ToListAsync();
+            return _mapper.Map<List<object>>(entities);
+        }
+        public async Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev)
+        {
+            var entities = await _context.OdstavkyS
+                .Include(o => o.Lokality)
+                .ThenInclude(o => o.Region)
+                .Where(o => o.Lokality.Nazev == nazev)
+                .Select(l=>new
+                {
+                    odstavkaId= l.ID,
+                    distributor = l.Distributor,
+                    lokalita = l.Lokality.Nazev,
+                    klasifikace = l.Lokality.Klasifikace,
+                    adresa = l.Lokality.Adresa,
+                    region = l.Lokality.Region.Nazev,
+                    popis = l.Popis,
+                    zacatekOdstavky = l.Od,
+                    konecOdstavky = l.Do
+                })
+                .ToListAsync();
+
+            return _mapper.Map<List<object>>(entities);
         }
     }
 }

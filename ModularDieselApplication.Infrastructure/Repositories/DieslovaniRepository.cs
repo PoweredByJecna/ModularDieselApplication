@@ -98,6 +98,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var dieslovani = await _context.DieslovaniS.FindAsync(id);
             if (dieslovani != null)
             {
+                var anotherDieselRequest = await AnotherDieselRequest(dieslovani.Technik.ID);
+                if (!anotherDieselRequest)
+                {
+                    dieslovani.Technik.Taken = false;
+                    await _context.SaveChangesAsync();
+                }
                 _context.DieslovaniS.Remove(dieslovani);
                 await _context.SaveChangesAsync();
                 return true;
@@ -207,7 +213,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.DieslovaniS
                 .Include(o => o.Odstavka)
+                .ThenInclude(o => o.Lokality)
+                .ThenInclude(o => o.Region)
                 .Include(o => o.Technik)
+                .ThenInclude(o => o.User)
                 .FirstOrDefaultAsync(o => o.Odstavka.ID == idOdstavky);
 
             return _mapper.Map<Dieslovani>(entity);

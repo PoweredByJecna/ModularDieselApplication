@@ -16,13 +16,24 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _lokalityRepository.GetAllLokalityAsync();
         }
-        public async Task<Lokalita> DetailLokalityAsync(int id)
+        public async Task<Lokalita> DetailLokalityAsync(string nazev)
         {
-            return await _lokalityRepository.GeLokalitaByID(id);
+            return await _lokalityRepository.GetLokalitaByName(nazev);
         }
-        public async Task<object> DetailLokalityJsonAsync(int id)
+        public async Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev)
         {
-            var detialLokality =  await _lokalityRepository.DetailLokalityAsync(id);
+            var detail = _lokalityRepository.GetDieslovaniNaLokaliteAsync(nazev);
+            return await detail;
+        }
+
+        public async Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev)
+        {
+            return await _lokalityRepository.GetOdstavkynaLokaliteAsync(nazev);
+        }
+
+        public async Task<object> DetailLokalityJsonAsync(string nazev)
+        {
+            var detialLokality =  await _lokalityRepository.DetailLokalityAsync(nazev);
             return new 
             {
                 Id = detialLokality.ID,

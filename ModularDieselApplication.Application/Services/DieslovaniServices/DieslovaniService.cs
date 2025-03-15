@@ -30,6 +30,10 @@ namespace ModularDieselApplication.Application.Services
             _dieslovaniActionService = dieslovaniActionService;
             _dieslovaniAssignmentService = dieslovaniAssignmentService;
         }
+        public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
+        {
+            return await _dieslovaniQueryService.GetTableDataDetailJsonAsync(id);
+        }
         /* ----------------------------------------
            GetTableDataAllTableAsync
            ---------------------------------------- */
@@ -125,7 +129,7 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            DeleteDieslovaniJsonAsync
            ---------------------------------------- */
-        public async Task<(bool Success, string Message)> DeleteDieslovaniAsync(int idDieslovani)
+        public async Task<HandleResult> DeleteDieslovaniAsync(int idDieslovani)
         {
            return await _dieslovaniActionService.DeleteDieslovaniAsync(idDieslovani);
         }

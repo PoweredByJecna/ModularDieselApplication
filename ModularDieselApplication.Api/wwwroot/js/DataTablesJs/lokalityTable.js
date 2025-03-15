@@ -12,7 +12,7 @@ $('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povole
         
 { data: null,
     render: function (data, type, row) {
-        return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?id=${data.id}">
+        return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.nazev}">
         ${data.nazev}</a>`;
     } 
 },

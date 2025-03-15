@@ -43,6 +43,23 @@ namespace ModularDieselApplication.Api.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> GetTableDataDetailDieslovani(int id)
+        {
+           var detailDieslovani = await _dieslovaniService.GetTableDataDetailJsonAsync(id);
+            if (detailDieslovani == null)
+            {
+                return Json(new{
+                    error="nenalezeno žádné dieslovaní"
+                });
+            }
+            return Json(
+            new
+            {
+                data=detailDieslovani 
+            });
+        
+        }
         // -------------------------------
         // Zobrazení detailu Dieslovani
         // -------------------------------
@@ -240,14 +257,14 @@ namespace ModularDieselApplication.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var (Success, Message) = await _dieslovaniService.DeleteDieslovaniAsync(id);
-            if (!Success)
+            var result = await _dieslovaniService.DeleteDieslovaniAsync(id);
+            if (!result.Success)
             {
-                return Json(new { success = false, message = Message });
+                return Json(new { success = false, message = result.Message });
             }
             else
             {
-                return Json(new { success = true, message = Message });
+                return Json(new { success = true, message = result.Message });
             }
         }
     }

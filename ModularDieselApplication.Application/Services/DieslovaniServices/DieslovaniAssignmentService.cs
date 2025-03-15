@@ -100,7 +100,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                 await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, $"Firma která bude zajišťovat dieslování: {firmaVRegionu.Nazev}");
 
-                var technikId = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID);
+                var technikId = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID, newOdstavka.Od, newOdstavka.Do);   
 
                 var technikSearch = await _technikService.GetTechnikByIdAsync(technikId);
 
@@ -109,7 +109,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 if (technikId == "0")
                 {
                     await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, "Nebyl nalezen aktivní technik, který by byl volný");
-                    bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID);
+                    bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID, newOdstavka.Od, newOdstavka.Do );
                     
                     if (nejakyTechnikMaPohotovost)
                     {
@@ -119,7 +119,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     }
                     else
                     {
-                        await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, "Žádný technik v regionu nemá pohotovost.");
+                        await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, "Žádný technik v regionu nemá pohotovost v požadovaném čase.");
                         //await _emailService.SendEmailAsync("Dieslování", "Žádný technik v regionu nemá pohotovost.");
                         technikSearch = await _technikService.GetTechnikByIdAsync("606794494");
                         return technikSearch;

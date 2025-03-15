@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ketGg3kHuHSHLQ9o5bD4L8rUk+syCE16ZMwdaL2CrWq+y622cnEWKCa49FMv6+mi/Ox1iScWUA0zDr3/N4StSA==",
+  "dgSpecHash": "G9U3Hwk4u5RUintTRuIKbJpRHisrgpLafbc/OF2IHsj9XNcGQTnbaAqpKT+urDSjNv0R+yd6bDeQA4j1phnPXg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jirka\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

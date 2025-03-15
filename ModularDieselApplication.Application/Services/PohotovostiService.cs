@@ -28,9 +28,9 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _pohotovostiRepository.GetAllPohotovostiAsync();
         }
-        public async Task<bool> PohovostiVRegionuAsync(int idRegionu)
+        public async Task<bool> PohovostiVRegionuAsync(int idRegionu, DateTime OD, DateTime DO)
         {
-            return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu);
+            return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu, OD, DO);
         }
 
         public async Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser)
@@ -133,9 +133,9 @@ namespace ModularDieselApplication.Application.Services
 
             return (totalRecords, pohotovostList);
         }
-        public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirma)
+        public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirma, DateTime OD, DateTime DO)
         {
-            var technik = await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma);
+            var technik = await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma, OD, DO);
             return technik;
         }
         

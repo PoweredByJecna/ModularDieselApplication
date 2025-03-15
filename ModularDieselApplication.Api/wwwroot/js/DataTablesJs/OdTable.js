@@ -6,6 +6,8 @@ $('#odTable').DataTable({
             // Zkontrolujte, co se vrací z API
             console.log(json);
             return json.data;
+           
+        
         }
     },  
     columns: [
@@ -44,11 +46,11 @@ $('#odTable').DataTable({
                     return logo;
                 }
         },
-        {
-            data: 'nazevLokality',
+        { data: null,
             render: function (data, type, row) {
-                return `<span style="font-weight: 700;">${data}</span>`;
-            }
+                return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.nazevLokality}">
+                ${data.nazevLokality}</a>`;
+            } 
         },
         {
             data: 'klasifikace',
@@ -84,22 +86,32 @@ $('#odTable').DataTable({
     ],
     rowCallback: function(row, data, index) {
         var today = new Date().setHours(0, 0, 0, 0); 
-        var startDate = new Date(data.odstavkaZacatek).setHours(0, 0, 0, 0); 
+        var startDate = new Date(data.zacatekOdstavky).setHours(0, 0, 0, 0); 
         var minDateString = "0001-01-01T00:00:00"; 
-        var zadanVstup = data.zadanVstup && data.zadanVstup !== minDateString;
-        var zadanOdchod = data.zadanOdchod && data.zadanOdchod !== minDateString;
+        var vstup = data.zadanVstup
+        var odchod = data.zadanOdchod
+        var zadanVstup = vstup != minDateString;
+        var zadanOdchod = odchod != minDateString;
 
-     //   if (data.zadanOdchod != Datetime.MinValue.Date) {
-       //     $(row).addClass('row-ukoncene');
-         if (zadanVstup == true && zadanOdchod==false) {
+     
+    
+        if (zadanVstup == true && zadanOdchod==false) 
+        {
             $(row).addClass('row-aktivni');
-        } else if(zadanOdchod == false && zadanVstup ==false && today==startDate && data.idTechnika !="606794494" && data.idTechnika!=null) {
+        } 
+        else if(zadanOdchod == false && zadanVstup ==false && today==startDate && data.idTechnika !="606794494" && data.idTechnika!=null) 
+        {
             $(row).addClass('row-cekajici');
-        } else if(data.idTechnika==null) {
+        } 
+        else if(data.idTechnika==null) 
+        {
             $(row).addClass('row-nedieslujese');  
-        } else if(data.idTechnika=="606794494") {
+        }
+        else if(data.idTechnika=="606794494")
+        {
             $(row).addClass('row-neprirazeno');  
-        }else {
+        }
+        else {
             $(row).addClass('row-standart');
         }
     },

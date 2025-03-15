@@ -8,9 +8,9 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     public interface IPohotovostiService
     {
         Task<List<Pohotovosti>> GetAllPohotovostiAsync();
-        Task<bool> PohovostiVRegionuAsync(int firmy);
+        Task<bool> PohovostiVRegionuAsync(int firmy, DateTime OD, DateTime DO);
         Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser);
-        Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirmy);
+        Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirmy, DateTime OD, DateTime DO);
         Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length);
     }
 }

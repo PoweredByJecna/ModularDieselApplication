@@ -6,7 +6,10 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     public interface ILokalityService
     {
         Task<List<object>> GetAllLokalityAsync();
-        Task<Lokalita> DetailLokalityAsync(int id);
-        Task<object> DetailLokalityJsonAsync(int id);
+        Task<Lokalita> DetailLokalityAsync(string nazev);
+        Task<object> DetailLokalityJsonAsync(string nazev);
+        Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev);
+        Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev);
+
     }
 }

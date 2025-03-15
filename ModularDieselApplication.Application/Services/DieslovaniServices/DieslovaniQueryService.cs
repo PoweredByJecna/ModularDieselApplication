@@ -69,7 +69,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(o => o.Odchod != DateTime.MinValue.Date);
+                .Where(o => o.Odchod != DateTime.MinValue.Date && o.Odstavka.Do.Date <= DateTime.Today);
             query = FilteredData(query, currentUser, isEngineer);
             int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
@@ -95,7 +95,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var validRegions = await _regionyService.GetRegionByIdFirmy(firmaId);
 
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(o=>o.Technik.ID=="606794494");
+                .Where(o=>o.Technik.ID=="606794494" && o.Odstavka.Od.Date<=DateTime.Today);
 
             if (isEngineer && validRegions.Any())
             {
@@ -127,6 +127,30 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 query = query.Where(d => d.Technik.User.Id == userId);
             }
             return query;
+        }
+        public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
+        {
+            var detail = await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
+            if (detail == null || detail.Odstavka == null || detail.Odstavka.Lokality == null || detail.Odstavka.Lokality.Region == null)
+            {
+                return new List<object>();
+            }
+            return new List<object>
+            {
+                new
+                {
+                    IDdieslovani = detail.ID,
+                    lokalitaNazev = detail.Odstavka.Lokality.Nazev,
+                    adresaLokality = detail.Odstavka.Lokality.Adresa,
+                    distrib = detail.Odstavka.Distributor,
+                    klasifikaceLokality = detail.Odstavka.Lokality.Klasifikace,
+                    vstupnaLokalitu = detail.Vstup,
+                    odchodzLokality = detail.Odchod,
+                    userId = detail.Technik?.User?.Id ?? "Unknown",
+                    jmenoTechnikaDA = detail.Technik?.User?.Jmeno ?? "Unknown",
+                    prijmeniTechnikaDA = detail.Technik?.User?.Prijmeni ?? "Unknown",
+                }
+            };
         }
         public async Task<object> DetailDieslovaniJsonAsync(int id)
         {

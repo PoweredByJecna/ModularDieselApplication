@@ -67,7 +67,14 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<bool> IsTechnikOnDutyAsync(string idTechnika)
         {
             var technik = await GetByIdAsync(idTechnika);
-            return technik != null && technik.Taken;
+            if (technik == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         // ----------------------------------------

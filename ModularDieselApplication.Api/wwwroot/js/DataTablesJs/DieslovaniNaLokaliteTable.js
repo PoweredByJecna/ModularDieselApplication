@@ -2,17 +2,17 @@ $(document).ready(function () {
     // Získání ID z URL
     function getDieslovaniIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        return params.get("id"); // Vrátí hodnotu parametru 'id'
+        return params.get("nazev"); 
     }
 
-    $('#DieselDetailTable').DataTable({
+    $('#DieslovaniNaLokaliteTable').DataTable({
         ajax: {
-            url: '/Dieslovani/GetTableDataDetailDieslovani',
+            url: '/Lokality/GetDieslovaniNaLokalite',
             type: 'GET',
             data: function (d) {
-                const id = getDieslovaniIdFromUrl();
-                console.log("ID odesláno na server:", id); // Pro ladění
-                d.id = id; // Přidání ID do dotazu
+                const nazev = getDieslovaniIdFromUrl();
+                console.log("ID odesláno na server:", nazev); // Pro ladění
+                d.nazev = nazev; // Přidání ID do dotazu
             },
             dataSrc: function (json) {
                 console.log("Data vrácená serverem:", json); // Pro ladění
@@ -112,6 +112,6 @@ $(document).ready(function () {
         searching: false,
         ordering: false,
         lengthChange: false,
-        pageLength: 1 // Počet řádků na stránku
+        pageLength: 1
     });
 });

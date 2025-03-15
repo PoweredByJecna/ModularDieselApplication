@@ -22,7 +22,8 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<Dieslovani?> DetailDieslovaniAsync(int id);
         Task<object> DetailDieslovaniJsonAsync(int id);
         Task<Dieslovani>GetDieslovaniByOdstavkaId(int id);
-        Task<(bool Success, string Message)> DeleteDieslovaniAsync(int iDdieslovani);
+        Task<HandleResult> DeleteDieslovaniAsync(int iDdieslovani);
         Task<int> GetOdstavkaIDbyDieselId(int idDieslovani);
+        Task<List<object>> GetTableDataDetailJsonAsync(int id);
     }
 }

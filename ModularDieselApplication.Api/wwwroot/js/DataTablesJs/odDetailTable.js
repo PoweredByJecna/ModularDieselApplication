@@ -22,7 +22,16 @@ $(document).ready(function () {
       
         columns: [
             
-            { data: 'id' },
+            { data: 'id',
+                render: function(data)
+                {
+                    return `
+                        <a href="/Odstavky/DetailOdstavky?id=${data}">
+                        ${data}
+                        </a>
+                     `;
+                }
+            },
             {
                 data: 'distributor',
                 render: function (data, type, row) {
@@ -43,7 +52,12 @@ $(document).ready(function () {
                     return logo;
                 }
             },
-            { data: 'lokalita', render: data => `<span style="font-weight: 700;">${data}</span>` },
+            { data: null,
+                render: function (data, type, row) {
+                    return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.nazevLokality}">
+                    ${data.nazevLokality}</a>`;
+                } 
+            },
             {
                 data: 'klasifikace',
                 render: function (data, type, row) {

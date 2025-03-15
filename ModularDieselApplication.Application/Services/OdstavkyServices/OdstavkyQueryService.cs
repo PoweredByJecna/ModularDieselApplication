@@ -62,6 +62,9 @@ namespace ModularDieselApplication.Application.Services
                 baterie = detailOdstavky.Lokality.Baterie,
                 region = detailOdstavky.Lokality.Region.Nazev,
                 popis = detailOdstavky.Popis,
+                zacatekOdstavky = detailOdstavky.Od,
+                konecOdstavky = detailOdstavky.Do
+
             };
         }
         /* ----------------------------------------
