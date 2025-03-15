@@ -35,12 +35,12 @@ namespace ModularDieselApplication.Api.Controllers
         // Zapis
         // ------------------------
         [HttpPost]
-        public async Task<IActionResult> Zapis(Pohotovosti pohotovosti)
+        public async Task<IActionResult> Zapis(DateTime zacatek, DateTime Konec)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var result  = await _pohotovostiService.ZapisPohotovostAsync(pohotovosti, domainUser);
+            var result  = await _pohotovostiService.ZapisPohotovostAsync(zacatek, Konec, domainUser);
 
             if (!result.Success)
             {

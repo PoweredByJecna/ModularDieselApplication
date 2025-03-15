@@ -61,12 +61,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Add new Pohotovost
+        // Add new Pohotovost 
         // ----------------------------------------
         public async Task AddPohotovostAsync(Pohotovosti pohotovosti)
         {
             var tablePohotovosti = _mapper.Map<TablePohotovosti>(pohotovosti);
-            _context.PohotovostiS.Add(tablePohotovosti);
+            await _context.PohotovostiS.AddAsync(tablePohotovosti);
             await _context.SaveChangesAsync();
         }
 

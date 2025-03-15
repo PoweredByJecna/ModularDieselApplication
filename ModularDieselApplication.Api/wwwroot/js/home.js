@@ -349,33 +349,37 @@ function toggleObjednatNa() {
 /*--------------------------------------------
     * Zapis pohotovosti
 */
-$(document).ready(function() {
-    $("#zapisButt").click(function() {
-        var pohotovost = {
-            Technik: $("#TechnikJmeno").val(),
-            Od: $("#odZapis").val(),
-            Do: $("#doZapis").val()
-        };
 
-        // AJAX volání na server
-        $.ajax({
-            url: '/Pohotovosti/Zapis', // Změňte "ControllerName" na název vašeho controlleru
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(pohotovost),
-            success: function(response) {
-                if (response.success) {
-                    alert('Pohotovost zapsána: ' + response.message);
-                } else {
-                    alert('Chyba: ' + response.message);
-                }
-            },
-            error: function() {
-                alert('Došlo k chybě při komunikaci se serverem.');
-            }
-        });
+
+function Zapis() {
+    var Zacatek = document.getElementById('zacatek').value;
+    var Konec = document.getElementById('konec').value;
+    console.log("Zapis:", {
+        Zacatek: Zacatek,
+        Konec: Konec
     });
-});
+    // AJAX volání na server
+    $.ajax({
+        url: '/Pohotovosti/Zapis', // Změňte "ControllerName" na název vašeho controlleru
+        type: 'POST',
+        data: {
+            Zacatek: Zacatek,
+            Konec: Konec
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+                reloadTables();
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
+
 
 /*--------------------------------------------
  * Vytvoří novou odstávku

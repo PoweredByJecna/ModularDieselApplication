@@ -33,7 +33,7 @@ namespace ModularDieselApplication.Application.Services
             return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu);
         }
 
-        public async Task<HandleResult> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser)
+        public async Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser)
         {
             var result  =  new HandleResult();
             bool isEngineer = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Engineer");
@@ -46,7 +46,7 @@ namespace ModularDieselApplication.Application.Services
                 return result;
             }
 
-            if (pohotovosti.Zacatek <= pohotovosti.Zacatek || pohotovosti.Zacatek < DateTime.Today)
+            if (zacatek.Date > konec.Date)
             {
                 result.Success = false;
                 result.Message = "Neplatný interval pohotovosti.";
@@ -75,8 +75,8 @@ namespace ModularDieselApplication.Application.Services
                 {
                     IdUser = technikSearch.User.Id,
                     User = technikSearch.User,
-                    Zacatek = pohotovosti.Zacatek,
-                    Konec = pohotovosti.Konec,
+                    Zacatek = zacatek,
+                    Konec =konec,
                     IdTechnik = technikSearch.ID
                 };
 
@@ -89,7 +89,7 @@ namespace ModularDieselApplication.Application.Services
 
             if (isAdmin)
             {
-                var technikSearch = await _pohotovostiRepository.GetPohotovostTechnikIdsAsync(pohotovosti.Technik.ID);
+                var technikSearch = await _technikRepository.GetTechnikByUserIdAsync(currentUser.Id);
 
                 if (technikSearch == null)
                 {
@@ -101,8 +101,8 @@ namespace ModularDieselApplication.Application.Services
                 var zapis = new Pohotovosti
                 {
                     IdUser = technikSearch.User.Id,
-                    Zacatek = pohotovosti.Zacatek,
-                    Konec = pohotovosti.Konec,
+                    Zacatek = zacatek,
+                    Konec =konec,
                     IdTechnik = technikSearch.ID
                 };
 

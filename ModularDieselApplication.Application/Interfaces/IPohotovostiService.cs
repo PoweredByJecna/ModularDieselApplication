@@ -9,7 +9,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         Task<List<Pohotovosti>> GetAllPohotovostiAsync();
         Task<bool> PohovostiVRegionuAsync(int firmy);
-        Task<HandleResult> ZapisPohotovostAsync(Pohotovosti pohotovosti, User currentUser);
+        Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser);
         Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirmy);
         Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length);
     }

@@ -141,7 +141,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     return result;
                 }
 
-                var technik = await _technikService.GetTechnikByIdAsync(currentUser.Id);
+                var technik = await _technikService.GetTechnikByUserIdAsync(currentUser.Id);
 
                 var dieslovaniTaken = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
 
@@ -170,8 +170,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
 
                 dieslovaniTaken.Technik = technik;
-                technik.Taken = true;
-                await _technikService.UpdateTechnikAsync(technik);
+                dieslovaniTaken.Technik.Taken = true;
+                await _technikService.UpdateTechnikAsync(dieslovaniTaken.Technik);
                 await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
 
                 result.Success = true;

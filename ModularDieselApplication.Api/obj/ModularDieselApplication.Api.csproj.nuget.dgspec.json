@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {}
+    "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {
+    "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
         "projectName": "ModularDieselApplication.Api",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+        "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Api\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +32,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
+              "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+                "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
               },
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
+              "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
               }
             }
           }
@@ -110,17 +114,21 @@
         }
       }
     },
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+    "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
         "projectName": "ModularDieselApplication.Application",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+        "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -134,8 +142,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
+              "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+                "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
               }
             }
           }
@@ -204,17 +212,21 @@
         }
       }
     },
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+    "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
         "projectName": "ModularDieselApplication.Domain",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+        "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Domain\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -264,17 +276,21 @@
         }
       }
     },
-    "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
+    "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
         "projectName": "ModularDieselApplication.Infrastructure",
-        "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -288,8 +304,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
-                "projectPath": "C:\\Users\\jirka\\ModularDieselApp-Github\\ModularDieselApplication-6\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
+              "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+                "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-8\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
               }
             }
           }
