@@ -221,7 +221,7 @@ thead th, tbody td {
    Section Styles
    ---------------------------------------- */
 .section.big {
-    width: 97%;
+width: 97%;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;

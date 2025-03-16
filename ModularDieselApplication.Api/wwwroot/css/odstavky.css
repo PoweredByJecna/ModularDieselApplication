@@ -134,6 +134,10 @@ table.dataTable tbody tr{
     max-height: 750px;
 
 }
+.table-div.odstavkyTable.LOG{
+    padding-top: 3px;
+}
+
 .buttondiv{
     display: flex;
     justify-content: space-around;

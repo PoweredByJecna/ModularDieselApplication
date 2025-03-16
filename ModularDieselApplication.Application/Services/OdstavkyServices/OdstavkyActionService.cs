@@ -36,12 +36,14 @@ namespace ModularDieselApplication.Application.Services
                 var dieslovani = await _dieslovaniService.GetDieslovaniByOdstavkaId(idodstavky);
                 if (dieslovani != null)
                 {
-                    var technik = await _technikService.GetTechnikByIdAsync(dieslovani.Technik.ID);
-                    if (technik != null)
+                    
+                    var antoherDa= await _dieslovaniService.AnotherDieselRequestAsync(dieslovani.Technik.ID);
+                    if(antoherDa)
                     {
-                        technik.Taken = false;
-                        await _technikService.UpdateTechnikAsync(technik);
+                        dieslovani.Technik.Taken = false;
+                        await _technikService.UpdateTechnikAsync(dieslovani.Technik);
                     }
+                    
                 }
 
                 await _odstavkaRepository.DeleteAsync(idodstavky);

@@ -54,7 +54,7 @@ $('#allTable').DataTable({
             return `
                 <span class="badge fs-10 ${badgeClass}" style="${badgeStyle}">
                     <span class="badge-label" style="${labelStyle}">${labelText}</span>
-                    <i class="fa-solid ${iconClass}" style="color: ${iconColor};"></i>
+                    <i class="fa-solid ${iconClass}" style  ="color: ${iconColor};"></i>
                 </span>
             `;
         }

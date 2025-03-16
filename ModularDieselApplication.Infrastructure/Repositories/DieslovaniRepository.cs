@@ -98,15 +98,21 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var dieslovani = await _context.DieslovaniS.FindAsync(id);
             if (dieslovani != null)
             {
-                var anotherDieselRequest = await AnotherDieselRequest(dieslovani.Technik.ID);
+                var technik = dieslovani.Technik.ID;
+                _context.DieslovaniS.Remove(dieslovani);
+                await _context.SaveChangesAsync();
+
+               
+
+                var anotherDieselRequest = await AnotherDieselRequest(technik);
                 if (!anotherDieselRequest)
                 {
                     dieslovani.Technik.Taken = false;
                     await _context.SaveChangesAsync();
                 }
-                _context.DieslovaniS.Remove(dieslovani);
                 await _context.SaveChangesAsync();
                 return true;
+               
             }
             return false;
         }
@@ -169,7 +175,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<bool> AnotherDieselRequest(string idTechnika)
         {
             return await _context.DieslovaniS
-                .AnyAsync(d => d.Technik.ID == idTechnika);
+                .Include(o=>o.Odstavka)
+                .AnyAsync(o => o.Technik.ID == idTechnika && o.Odchod == DateTime.MinValue.Date);
         }
 
         // ----------------------------------------

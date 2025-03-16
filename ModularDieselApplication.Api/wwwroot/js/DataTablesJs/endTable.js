@@ -55,8 +55,8 @@ columns:[
 },
 { data: null,
     render: function (data, type, row) {
-        return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.nazevLokality}">
-        ${data.nazevLokality}</a>`;
+        return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.lokalitaNazev}">
+        ${data.lokalitaNazev}</a>`;
     } 
 },
 {

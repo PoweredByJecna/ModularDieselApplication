@@ -60,9 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("dieslovaniVazby").addEventListener("click", function () {
 
       this.classList.add("active");
-
+     
       document.getElementById("odstavkyVazby").classList.remove("active");
-      
    
       document.getElementById("content-odstavkyVazby").style.display = "none";
       document.getElementById("content-dieslovaniVazby").style.display = "block";
@@ -281,6 +280,27 @@ function deleteRecord(element, id) {
         reloadTables();
     });
 }
+/*--------------------------------------------
+ * Smaže záznam dieslovani bez potrvení0
+ */
+function DeleteWithoutConfirm(id) {
+    $.ajax({
+        url: '/Dieslovani/Delete',
+        type: 'POST',  // Nebo 'GET', podle vašeho nastavení
+        data: { id: id },
+        success: function (result) {
+            if (result.success) {
+                window.location.href = '/Dieslovani/Index'; 
+                showModal(response.message, true);
+            } else {
+                alert(result.message || 'Nepodařilo se uzavřít / smazat záznam.');
+            }
+        },
+        error: function () {
+            alert('Nastala chyba při mazání/uzavírání záznamu.');
+        }
+    });
+}
 
 /*--------------------------------------------
  * Smaže záznam dieslování
@@ -308,9 +328,6 @@ function deleteRecordDieslovani(element, id) {
         ]);
     });
 }
-
-
-
 
 /*--------------------------------------------
  * Zaznamená vstup dieslování

@@ -8,10 +8,11 @@
             <div class="section small FORMS left" style="flex:7">
                 <div class="detail TASK" style="margin-top: 0px;">
                     <div class="logoForm">
-                        <h2 class="h2-div">Akce <i class="fa-regular fa-hand-spock"></i></h2>
+                    <h2 class="h2-div">Akce <i class="fa-regular fa-hand-spock"></i></h2>
                     </div>
                     <div class="formINFO-D form">
-                        <div style="border: none;">
+                        <div style="border: none;" id="deleteBadge">
+                            
                         </div>
                     </div>                    
                 </div>
@@ -85,14 +86,12 @@
                 </div>
                 <div class="detail Stav">
                     <div class="logoForm">
-                        <h2 class="h2-div">Stav <i class="fa-solid fa-file-contract"></i></h2>
+                        <h2 class="h2-div">Stav dieslování <i class="fa-solid fa-file-contract"></i></h2>
                     </div>
                     <div class="formINFO-D form stav">
-                        <div style="border: none;">
-                            <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: yellow; border-radius: 5px;">
-                                <span class="badge-label" style="color: black; padding: 1px; font-size: small;">Čekající</span>
-                                <i class="fa-solid fa-clock-rotate-left" style="color: Black;"></i>
-                            </span>
+                        <div style="border: none; padding: 0px;">
+                            <div id="statusBadge" style="border: none;">
+                            </div>
                         </div>
                     </div>     
                                        
@@ -109,7 +108,7 @@
                         <p id="vazby">VAZBY</p>
                     </div>
               
-                <div class="table-div odstavkyTable" id="content-log">
+                <div class="table-div odstavkyTable LOG" id="content-log">
                     <div id="logsContainer">
 
                     </div>

@@ -173,6 +173,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 dieslovaniTaken.Technik.Taken = true;
                 await _technikService.UpdateTechnikAsync(dieslovaniTaken.Technik);
                 await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovaniTaken.ID, $"Technik {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni} si převzal lokalitu.");
 
                 result.Success = true;
                 result.Message = $"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni}";
@@ -202,6 +203,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 }
 
                 bool deleted = await _dieslovaniRepository.DeleteAsync(id);
+
                 if (!deleted)
                 {
                     result.Success = false;

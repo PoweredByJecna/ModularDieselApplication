@@ -157,6 +157,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var detail = await _dieslovaniRepository.GetByIdAsync(id);
             if (detail == null)
             {
+
                 return new
                 {
                     error = "Dieslovani nenalezeno"
@@ -193,6 +194,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 baterie = detail.Odstavka.Lokality.Baterie,
                 region = detail.Odstavka.Lokality.Region.Nazev,
                 popis = detail.Odstavka.Popis,
+                zadanVstup = detail.Vstup,
+                zadanOdchod = detail.Odchod,
                 Technik = detail.Technik?.User?.Id ?? "Unknown",
                 jmenoTechnika = detail.Technik?.User?.Jmeno ?? "Unknown",
                 prijmeniTechnika = detail.Technik?.User?.Prijmeni ?? "Unknown",

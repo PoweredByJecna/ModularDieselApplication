@@ -53,6 +53,7 @@ $('#odTable').DataTable({
             } 
         },
         {
+         
             data: 'klasifikace',
             render: function (data, type, row) {
                 return `<span style="font-weight: 700;">${data}</span>`;
@@ -110,6 +111,10 @@ $('#odTable').DataTable({
         else if(data.idTechnika=="606794494")
         {
             $(row).addClass('row-neprirazeno');  
+        }
+        else if(zadanOdchod == true && zadanVstup == true && data.idTechnika !="606794494" && data.idTechnika!=null) 
+        {
+            $(row).addClass('row-ukoncene');
         }
         else {
             $(row).addClass('row-standart');

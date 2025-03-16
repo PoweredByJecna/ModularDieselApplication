@@ -25,5 +25,6 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<HandleResult> DeleteDieslovaniAsync(int iDdieslovani);
         Task<int> GetOdstavkaIDbyDieselId(int idDieslovani);
         Task<List<object>> GetTableDataDetailJsonAsync(int id);
+        Task<bool>AnotherDieselRequestAsync(string idTechnika);  
     }
 }
