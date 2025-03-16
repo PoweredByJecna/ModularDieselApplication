@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6zbhB8siGmU9zbAUsoywY+pBftGxmiDUaInGici+XQE=",
+  "Hash": "gXpckWKKF1sArMsdLINlOQkxag3reOPtXRn8b5ewwrE=",
   "Source": "ModularDieselApplication.Api",
   "BasePath": "_content/ModularDieselApplication.Api",
   "Mode": "Default",
@@ -378,12 +378,12 @@
       "OriginalItemSpec": "wwwroot\\js\\DataTablesJs\\odDetailTable.js"
     },
     {
-      "Identity": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\OdstavkyNaLokalityTable.js",
+      "Identity": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\OdstavkyNaLokaliteTable.js",
       "SourceId": "ModularDieselApplication.Api",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\",
       "BasePath": "_content/ModularDieselApplication.Api",
-      "RelativePath": "js/DataTablesJs/OdstavkyNaLokalityTable.js",
+      "RelativePath": "js/DataTablesJs/OdstavkyNaLokaliteTable.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -394,7 +394,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\DataTablesJs\\OdstavkyNaLokalityTable.js"
+      "OriginalItemSpec": "wwwroot\\js\\DataTablesJs\\OdstavkyNaLokaliteTable.js"
     },
     {
       "Identity": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\OdTable.js",

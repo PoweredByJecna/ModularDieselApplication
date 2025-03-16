@@ -95,7 +95,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var validRegions = await _regionyService.GetRegionByIdFirmy(firmaId);
 
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(o=>o.Technik.ID=="606794494" && o.Odstavka.Od.Date<=DateTime.Today);
+                .Where(o=>o.Technik.ID=="606794494");
 
             if (isEngineer && validRegions.Any())
             {

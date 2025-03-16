@@ -92,7 +92,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     region = l.Lokality.Region.Nazev,
                     popis = l.Popis,
                     zacatekOdstavky = l.Od,
-                    konecOdstavky = l.Do
+                    konecOdstavky = l.Do,
+                    zasvuka = l.Lokality.Zasuvka,
                 })
                 .ToListAsync();
 

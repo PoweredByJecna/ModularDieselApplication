@@ -34,6 +34,43 @@ document.querySelectorAll('.InputSearching').forEach(input => {
 });
 
 /*--------------------------------------------
+ * Nastavení výchozího zobrazení a přepínání mezi Odstavky a Dieslování
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  
+    document.getElementById("odstavkyVazby").classList.add("active");
+  
+    document.getElementById("content-odstavkyVazby").style.display = "block";
+
+    document.getElementById("content-dieslovaniVazby").style.display = "none";
+
+
+    document.getElementById("odstavkyVazby").addEventListener("click", function () {
+ 
+      this.classList.add("active");
+  
+      document.getElementById("dieslovaniVazby").classList.remove("active");
+      
+ 
+      document.getElementById("content-odstavkyVazby").style.display = "block";
+      document.getElementById("content-dieslovaniVazby").style.display = "none";
+    });
+
+
+    document.getElementById("dieslovaniVazby").addEventListener("click", function () {
+
+      this.classList.add("active");
+
+      document.getElementById("odstavkyVazby").classList.remove("active");
+      
+   
+      document.getElementById("content-odstavkyVazby").style.display = "none";
+      document.getElementById("content-dieslovaniVazby").style.display = "block";
+    });
+});
+
+
+/*--------------------------------------------
  * Nastavení výchozího zobrazení a přepínání mezi LOG a VAZBY
  */
 document.addEventListener('DOMContentLoaded', function () {

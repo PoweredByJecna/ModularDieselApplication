@@ -57,8 +57,8 @@
       "PackagePath": "staticwebassets\\js\\DataTablesJs\\OdTable.js"
     },
     {
-      "Id": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\OdstavkyNaLokalityTable.js",
-      "PackagePath": "staticwebassets\\js\\DataTablesJs\\OdstavkyNaLokalityTable.js"
+      "Id": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\OdstavkyNaLokaliteTable.js",
+      "PackagePath": "staticwebassets\\js\\DataTablesJs\\OdstavkyNaLokaliteTable.js"
     },
     {
       "Id": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-9\\ModularDieselApplication.Api\\wwwroot\\js\\DataTablesJs\\allTable.js",
