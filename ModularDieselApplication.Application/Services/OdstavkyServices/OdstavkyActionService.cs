@@ -1,6 +1,7 @@
 
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
+using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services
@@ -31,22 +32,25 @@ namespace ModularDieselApplication.Application.Services
                     result.Message = "Záznam nebyl nalezen.";
                     return result;
                 }
-
-                // Případně zrušení dieslování a uvolnění technika
+                
                 var dieslovani = await _dieslovaniService.GetDieslovaniByOdstavkaId(idodstavky);
+                var technikID = dieslovani.Technik.ID;
+                await _odstavkaRepository.DeleteAsync(idodstavky);
+
                 if (dieslovani != null)
                 {
                     
-                    var antoherDa= await _dieslovaniService.AnotherDieselRequestAsync(dieslovani.Technik.ID);
+                    var antoherDa= await _dieslovaniService.AnotherDieselRequestAsync(technikID);
                     if(antoherDa)
                     {
-                        dieslovani.Technik.Taken = false;
-                        await _technikService.UpdateTechnikAsync(dieslovani.Technik);
+                        var Technik = await _technikService.GetTechnikByIdAsync(technikID);
+                        Technik.Taken = false;
+                        await _technikService.UpdateTechnikAsync(Technik);
                     }
                     
                 }
 
-                await _odstavkaRepository.DeleteAsync(idodstavky);
+                
 
                 result.Success = true;
                 result.Message = "Záznam byl úspěšně smazán.";
