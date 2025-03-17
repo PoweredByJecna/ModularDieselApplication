@@ -34,10 +34,10 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                 var _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                 var outdatedRecordsOdstavky = await _context.OdstavkyS
-                    .Where(d => d.Do.Date.AddDays(-5) < DateTime.Today).ToListAsync();
+                    .Where(d => d.Do.Date.AddDays(90) < DateTime.Today).ToListAsync();
 
                 var outdatedRecordsDieslovani = await _context.DieslovaniS.Include(d => d.Technik)
-                    .Where(d => d.Odstavka.Do.Date.AddDays(-5) < DateTime.Today).ToListAsync();
+                    .Where(d => d.Odstavka.Do.Date.AddDays(90) < DateTime.Today).ToListAsync();
 
                 var outdatedRecordPohotovosti = await _context.PohotovostiS
                     .Where(d => d.Konec.Date < DateTime.Today).ToListAsync();
@@ -64,7 +64,7 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                     foreach (var odstavka in outdatedRecordsOdstavky)
                     {
                         var odstavkaDieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka.ID);
-                        if(odstavkaDieslovani == null)
+                        if(odstavkaDieslovani != null)
                         {
                             var technikId = odstavkaDieslovani.Technik.ID;
                             await _odstavkyRepository.DeleteAsync(odstavka.ID);
@@ -89,8 +89,6 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                         }
                         
                     }
-                    _context.OdstavkyS.RemoveRange(outdatedRecordsOdstavky);
-                    await _context.SaveChangesAsync();
                 }
                 if (outdatedRecordPohotovosti.Any())
                 {
