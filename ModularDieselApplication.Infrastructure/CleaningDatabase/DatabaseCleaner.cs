@@ -5,15 +5,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Application.Interfaces;
+using ModularDieselApplication.Application.Interfaces.Repositories;
+using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Interfaces.Repositories;
 namespace ModularDieselApplication.Infrastructure.CleaningDatabase
 {
     public class DatabaseCleaner : IDatabaseCleaner
     {
         private readonly IServiceScopeFactory _scopeFactory;
-        public DatabaseCleaner(IServiceScopeFactory scopeFactory)
+        private readonly IDieslovaniRepository _dieslovaniRepository;
+        private readonly IOdstavkyRepository _odstavkyRepository;
+        private readonly IPohotovostiRepository _pohotovostiRepository;
+        private readonly ITechniciRepository _techniciRepository;
+        public DatabaseCleaner(IServiceScopeFactory scopeFactory,  IDieslovaniRepository dieslovaniRepository, IOdstavkyRepository odstavkyRepository, IPohotovostiRepository pohotovostiRepository, ITechniciRepository techniciRepository)
         {
             _scopeFactory = scopeFactory;
+            _dieslovaniRepository = dieslovaniRepository;
+            _odstavkyRepository = odstavkyRepository;
+            _pohotovostiRepository = pohotovostiRepository;
+            _techniciRepository = techniciRepository;
+        
         }
+        
         public async Task CleanOutdatedRecords()
         {
             using (var scope = _scopeFactory.CreateScope())
@@ -21,29 +34,61 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                 var _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                 var outdatedRecordsOdstavky = await _context.OdstavkyS
-                    .Where(d => d.Do.Date.AddDays(15) < DateTime.Today.AddDays(15)).ToListAsync();
+                    .Where(d => d.Do.Date.AddDays(-5) < DateTime.Today).ToListAsync();
 
                 var outdatedRecordsDieslovani = await _context.DieslovaniS.Include(d => d.Technik)
-                    .Where(d => d.Odstavka.Do.Date.AddDays(15) < DateTime.Today).ToListAsync();
+                    .Where(d => d.Odstavka.Do.Date.AddDays(-5) < DateTime.Today).ToListAsync();
 
                 var outdatedRecordPohotovosti = await _context.PohotovostiS
                     .Where(d => d.Konec.Date < DateTime.Today).ToListAsync();
 
                 foreach (var dieslovani in outdatedRecordsDieslovani)
                 {
-                    if (dieslovani.Technik != null)
+                    var technik = dieslovani.Technik;
+                    await _dieslovaniRepository.DeleteAsync(dieslovani.ID);
+                    await _context.SaveChangesAsync();
+
+                    if (technik != null)
                     {
-                        var AnotherDieselRequest= await _context.DieslovaniS.AnyAsync(d => d.Technik.ID == dieslovani.Technik.ID);
+                        var AnotherDieselRequest= await _dieslovaniRepository.AnotherDieselRequest(technik.ID);
                         if (!AnotherDieselRequest)
                         {
                             dieslovani.Technik.Taken = false;
-                            _context.TechnikS.Update(dieslovani.Technik);
+                            _context.TechnikS.Update(technik);
                             await _context.SaveChangesAsync();
                         }
                     }
                 }
                 if (outdatedRecordsOdstavky.Any())
                 {
+                    foreach (var odstavka in outdatedRecordsOdstavky)
+                    {
+                        var odstavkaDieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka.ID);
+                        if(odstavkaDieslovani == null)
+                        {
+                            var technikId = odstavkaDieslovani.Technik.ID;
+                            await _odstavkyRepository.DeleteAsync(odstavka.ID);
+                            await _context.SaveChangesAsync();
+                            if (odstavkaDieslovani != null)
+                            { 
+                            var anotherDA= await _dieslovaniRepository.AnotherDieselRequest(technikId);
+                            var technik = await _techniciRepository.GetByIdAsync(technikId);
+                            if(!anotherDA)
+                            {
+                                technik.Taken = false;
+                                await _techniciRepository.UpdateAsync(technik);
+                                await _context.SaveChangesAsync();
+                            }
+                            }
+                          
+                        }
+                        else
+                        {
+                            await _odstavkyRepository.DeleteAsync(odstavka.ID);
+                            await _context.SaveChangesAsync();
+                        }
+                        
+                    }
                     _context.OdstavkyS.RemoveRange(outdatedRecordsOdstavky);
                     await _context.SaveChangesAsync();
                 }

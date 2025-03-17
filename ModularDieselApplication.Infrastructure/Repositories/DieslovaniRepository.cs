@@ -169,7 +169,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return dieslovanList.Cast<object>().ToList();
         }
 
-        // ----------------------------------------
         // Check if another diesel request exists
         // ----------------------------------------
         public async Task<bool> AnotherDieselRequest(string idTechnika)
@@ -224,7 +223,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(o => o.Region)
                 .Include(o => o.Technik)
                 .ThenInclude(o => o.User)
-                .FirstOrDefaultAsync(o => o.Odstavka.ID == idOdstavky);
+                .FirstOrDefaultAsync(o => o.IDodstavky == idOdstavky);
 
             return _mapper.Map<Dieslovani>(entity);
         }

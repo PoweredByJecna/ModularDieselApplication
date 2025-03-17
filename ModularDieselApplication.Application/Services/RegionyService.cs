@@ -81,7 +81,8 @@ namespace ModularDieselApplication.Application.Services
                 var techniciDto = technikList.Select(t => new 
                 {
                     jmeno = $"{t.User.Jmeno} {t.User.Prijmeni}",
-                    maPohotovost = _regionyRepository.GetValueIfTechnikHasPohotovostAsync(t.ID)
+                    userId = t.User.Id,
+                    maPohotovost = _regionyRepository.GetValueIfTechnikHasPohotovost(t.ID)
                 }).ToList();
 
                 var regionData = new

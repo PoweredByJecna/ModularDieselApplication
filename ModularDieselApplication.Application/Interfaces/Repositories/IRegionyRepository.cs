@@ -13,7 +13,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<int> GetLokalityCountAsync(int regionId);
         Task<int> GetOdstavkyCountAsync(int regionId);
         Task<List<Region>> GetRegionById (int idregion);
-        Task<bool> GetValueIfTechnikHasPohotovostAsync(string idTechnik);
+        bool GetValueIfTechnikHasPohotovost(string idTechnik);
         Task<List<Technik>> GetTechnikListVRegionu (int IDfirmy);
 
    

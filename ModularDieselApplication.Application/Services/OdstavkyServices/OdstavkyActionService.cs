@@ -34,6 +34,14 @@ namespace ModularDieselApplication.Application.Services
                 }
                 
                 var dieslovani = await _dieslovaniService.GetDieslovaniByOdstavkaId(idodstavky);
+
+                if(dieslovani == null)
+                {
+                    await _odstavkaRepository.DeleteAsync(idodstavky);
+                    result.Success = true;
+                    return result;
+                }
+
                 var technikID = dieslovani.Technik.ID;
                 await _odstavkaRepository.DeleteAsync(idodstavky);
 
@@ -41,7 +49,7 @@ namespace ModularDieselApplication.Application.Services
                 {
                     
                     var antoherDa= await _dieslovaniService.AnotherDieselRequestAsync(technikID);
-                    if(antoherDa)
+                    if(!antoherDa)
                     {
                         var Technik = await _technikService.GetTechnikByIdAsync(technikID);
                         Technik.Taken = false;
@@ -49,9 +57,6 @@ namespace ModularDieselApplication.Application.Services
                     }
                     
                 }
-
-                
-
                 result.Success = true;
                 result.Message = "Záznam byl úspěšně smazán.";
                 return result;

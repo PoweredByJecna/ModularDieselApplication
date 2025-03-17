@@ -90,11 +90,11 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return resultList;
         }
 
-        public async Task<bool> GetValueIfTechnikHasPohotovostAsync(string idTechnik)
+        public bool GetValueIfTechnikHasPohotovost(string idTechnik)
         {
             var exists = _context.PohotovostiS
-                .Any(p => p.IdTechnik == idTechnik);
-            return exists; 
+                .Any(p => p.IdTechnik == idTechnik && p.Konec.Date >= DateTime.Today);
+            return exists;
         }
         public async Task<List<Technik>> GetTechnikListVRegionu (int IDfirmy)
         {
