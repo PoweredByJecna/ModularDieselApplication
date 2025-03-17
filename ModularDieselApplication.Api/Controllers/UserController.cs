@@ -10,10 +10,17 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
 namespace ModularDieselApplication.Api.Controllers
 {
-    public class UserController(IUserService service) : Controller
+    public class UserController : Controller
     {
-        private readonly IUserService _service = service;
-
+        private readonly IUserService _service;
+        private readonly IMapper _mapper;
+        private readonly UserManager<TableUser> _userManager;
+        public UserController(IUserService service, IMapper mapper, UserManager<TableUser> userManager)
+        {
+            _service = service;
+            _mapper = mapper;
+            _userManager = userManager;
+        }        
         public IActionResult Index()
         {
             return View();

@@ -403,8 +403,6 @@ function toggleObjednatNa() {
 /*--------------------------------------------
     * Zapis pohotovosti
 */
-
-
 function Zapis() {
     var Zacatek = document.getElementById('zacatek').value;
     var Konec = document.getElementById('konec').value;
@@ -598,6 +596,10 @@ function showConfirmModal(message, onConfirm) {
         }
     });
 }
+
+
+
+
 
 /*--------------------------------------------
  * Aktualizuje všechny tabulky
