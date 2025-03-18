@@ -64,6 +64,8 @@ $(document).ready(function () {
                     $('#baterie').append(data.baterie);
                     $('#region').append(data.region);
                     $('#popis').append(data.popis);
+                    $('#zadanVstup').append(formatDate(data.zadanVstup));
+                    $('#zadanOdchod').append(formatDate(data.zadanOdchod));
                     $('#technik').append(`<a href="/User/Index?id=${data.technik}">${data.jmenoTechnika} ${data.prijmeniTechnika}</a>`);
                     const badgeHTML = renderBadge(null, null, data);
                     $('#statusBadge').html(badgeHTML);

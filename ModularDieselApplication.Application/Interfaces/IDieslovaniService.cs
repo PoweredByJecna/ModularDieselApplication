@@ -8,10 +8,10 @@ namespace ModularDieselApplication.Application.Interfaces.Services
 {
     public interface IDieslovaniService
     {
-        Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User currentUser, bool isEngineer);
-        Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User currentUser, bool isEngineer);
-        Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User currentUser, bool isEngineer);
-        Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User currentUser, bool isEngineer);
+        Task<List<object>> GetTableDataAllTableAsync(User currentUser, bool isEngineer);
+        Task<List<object>> GetTableDataRunningTableAsync(User currentUser, bool isEngineer);
+        Task<List<object>> GetTableDataUpcomingTableAsync(User currentUser, bool isEngineer);
+        Task<List<object>> GetTableDataEndTableAsync(User currentUser, bool isEngineer);
         Task<List<object>> GetTableDatathrashTableAsync(User currentUser, bool isEngineer);
         Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky);
         Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result);

@@ -35,7 +35,7 @@ namespace ModularDieselApplication.Application.Services
                 
                 var dieslovani = await _dieslovaniService.GetDieslovaniByOdstavkaId(idodstavky);
 
-                if(dieslovani != null)
+                if(dieslovani == null)
                 {
                     await _odstavkaRepository.DeleteAsync(idodstavky);
                     result.Success = true;

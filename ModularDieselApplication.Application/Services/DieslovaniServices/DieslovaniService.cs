@@ -37,28 +37,28 @@ namespace ModularDieselApplication.Application.Services
         /* ----------------------------------------
            GetTableDataAllTableAsync
            ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
         {
             return await _dieslovaniQueryService.GetTableDataAllTableAsync(currentUser, isEngineer);
         }
         /* ----------------------------------------
            GetTableDataRunningTableAsync
            ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             return await _dieslovaniQueryService.GetTableDataRunningTableAsync(currentUser, isEngineer);
         }
         /* ----------------------------------------
            GetTableDataUpcomingTableAsync
            ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             return await _dieslovaniQueryService.GetTableDataUpcomingTableAsync(currentUser, isEngineer);
         }
         /* ----------------------------------------
            GetTableDataEndTableAsync
            ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             return await _dieslovaniQueryService.GetTableDataEndTableAsync(currentUser, isEngineer);
         }

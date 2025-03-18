@@ -159,15 +159,13 @@ namespace ModularDieselApplication.Api.Controllers
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var (totalRecords, data) = await _dieslovaniService.GetTableDataRunningTableAsync(domainUser, isEngineer);
+            var  data = await _dieslovaniService.GetTableDataRunningTableAsync(domainUser, isEngineer);
 
 
             // Vrátíme data ve formátu DataTables
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
                 data = data
             });
         }
@@ -181,13 +179,11 @@ namespace ModularDieselApplication.Api.Controllers
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var (totalRecords, data) = await _dieslovaniService.GetTableDataAllTableAsync(domainUser, isEngineer);
+            var  data = await _dieslovaniService.GetTableDataAllTableAsync(domainUser, isEngineer);
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
+                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),          
                 data = data
             });
         }
@@ -202,13 +198,11 @@ namespace ModularDieselApplication.Api.Controllers
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var (totalRecords, data) = await _dieslovaniService.GetTableDataUpcomingTableAsync(domainUser, isEngineer);
+            var  data= await _dieslovaniService.GetTableDataUpcomingTableAsync(domainUser, isEngineer);
 
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
                 data = data
             });
         }
@@ -216,20 +210,18 @@ namespace ModularDieselApplication.Api.Controllers
         // Načtení dat GetTableDataEndTable 
         // ----------------------------------------        
         [HttpGet]
-        public async Task<IActionResult> GetTableDataEndTable(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableDataEndTable()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
 
-            var (totalRecords, data) = await _dieslovaniService.GetTableDataEndTableAsync(domainUser, isEngineer);
+            var data = await _dieslovaniService.GetTableDataEndTableAsync(domainUser, isEngineer);
 
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
                 data = data
             });
         }

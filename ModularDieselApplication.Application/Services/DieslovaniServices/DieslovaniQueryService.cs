@@ -32,48 +32,45 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         /* ----------------------------------------
            GetTableDataRunningTableAsync
         ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery();
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return (totalRecords, data);
+            return data;
         }
         /* ----------------------------------------
            GetTableDataRunningTableAsync
         ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(i => i.Vstup != DateTime.MinValue && i.Odchod == DateTime.MinValue);
-            int totalRecords = await _dieslovaniRepository.CountAsync(query);
+            query = FilteredData(query, currentUser, isEngineer);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return (totalRecords, data);
+            return data;
         }
         /* ----------------------------------------
            GetTableDataUpcomingTableAsync
         ---------------------------------------- */     
-        public async Task<(int totalRecords, List<object> data)> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
+        public async Task< List<object>> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(i => i.Vstup ==DateTime.MinValue.Date && i.Odstavka.Od.Date==DateTime.Today && i.Technik.ID != "606794494");
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return (totalRecords, data);
+            return  data;
         }
         /* ----------------------------------------
            GetTableDataEndTableAsync
         ---------------------------------------- */
-        public async Task<(int totalRecords, List<object> data)> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
+        public async Task< List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.Odchod != DateTime.MinValue.Date && o.Odstavka.Do.Date <= DateTime.Today);
             query = FilteredData(query, currentUser, isEngineer);
-            int totalRecords = await _dieslovaniRepository.CountAsync(query);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return (totalRecords, data);
+            return  data;
         }
         /* ----------------------------------------
            GetTableDatathrashTableAsync

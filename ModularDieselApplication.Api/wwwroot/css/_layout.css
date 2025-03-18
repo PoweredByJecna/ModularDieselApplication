@@ -1050,6 +1050,11 @@ header.dark-mode {
     padding: 10px 35px 10px 35px;
 
 }
+.formINFO-D.form.VstupOdchod div{
+    width: 100%;
+    justify-content: space-between;
+}
+
 .infowrapper.user form{
     display: flex;
     flex-wrap: wrap;
