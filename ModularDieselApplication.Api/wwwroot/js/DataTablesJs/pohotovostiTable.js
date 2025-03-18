@@ -17,8 +17,16 @@ $('#pohotovostTable').DataTable({ajax: {
         },
     {   data: 'telTechnika'},
     {   data: 'firmaTechnika'},
-    {   data: 'zacetekPohotovosti'},
-    {   data: 'konecPohotovosti'},
+    {   data: 'zacetekPohotovosti',
+        render: function(data) {
+            return formatDate(data);
+        }
+    },
+    {   data: 'konecPohotovosti',
+        render: function(data) {
+            return formatDate(data);
+        }
+    },
     {
         data: null, 
         render: function(data, type, row) {
