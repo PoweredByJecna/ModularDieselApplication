@@ -238,10 +238,23 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                 if (type == "vstup")
                 {
+                    if(time.Date != dieslovani.Odstavka.Od.Date)
+                    {   
+                        result.Success = false;
+                        result.Message = "Nelze zadat vstup mimo den odstávky.";
+                        return result;
+                    }
+
                     dieslovani.Vstup = time;
                 }
                 else if (type == "odchod")
                 {
+                    if(dieslovani.Vstup == DateTime.MinValue)
+                    {
+                        result.Success = false;
+                        result.Message = "Nejprve musíte zadat vstup.";
+                        return result;
+                    }
                     dieslovani.Odchod = time;
                 }
                 else
