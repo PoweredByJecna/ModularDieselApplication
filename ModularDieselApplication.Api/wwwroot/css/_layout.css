@@ -1107,7 +1107,14 @@ header.dark-mode {
     background-color: #f5f7fa;
     top: 50px;
 }
-
+/* ----------------------------------------
+   navdiv a styles
+   ---------------------------------------- */
+.menuA{
+    padding: 0 !important;
+    font-size: small !important;
+    color: #5f6368 !important;
+}
 
 
 
