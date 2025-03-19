@@ -223,6 +223,48 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
+        public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
+        {
+            var result = new HandleResult();
+            try
+            {
+                var dieslovani = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
+                if (dieslovani == null)
+                {
+                    result.Success = false;
+                    result.Message = "Dieslovani nebyla nalezena.";
+                    return result;
+                }
+
+                if (type == "Vstup")
+                {
+                    dieslovani.Vstup = time;
+                }
+                else if (type == "Odchod")
+                {
+                    dieslovani.Odchod = time;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = "Neznámý typ času.";
+                    return result;
+                }
+
+                await _dieslovaniRepository.UpdateAsync(dieslovani);
+                result.Success = true;
+                result.Message = $"Čas {type} byl změněn na {time}.";
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Byl změnen čas {type}, na {time}.");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = $"Chyba při změně času: {ex.Message}";
+                return result;
+            }
+        }
+
 
     }
 }

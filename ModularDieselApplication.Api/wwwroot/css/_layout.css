@@ -214,6 +214,7 @@ thead th, tbody td {
     background-color: white;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 
@@ -1052,7 +1053,11 @@ header.dark-mode {
 }
 .formINFO-D.form.VstupOdchod div{
     width: 100%;
-    justify-content: space-between;
+    position: relative;
+}
+.button.VstupOdchod{
+    position: absolute;
+    right: 0;
 }
 
 .infowrapper.user form{
@@ -1102,6 +1107,10 @@ header.dark-mode {
     background-color: #f5f7fa;
     top: 50px;
 }
+
+
+
+
 
 
 

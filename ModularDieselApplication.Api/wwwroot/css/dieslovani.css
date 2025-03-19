@@ -205,3 +205,8 @@ table.dataTable.no-footer{
     transition: 0.3s;
 }
 
+.vstupodchodspan{
+    color: #5f6368;
+    font-size: medium;  
+}
+

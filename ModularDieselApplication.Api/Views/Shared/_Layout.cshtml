@@ -201,7 +201,7 @@
                                 <i class="fa-solid fa-user"></i>
                                 <div class="modal-user" id="modal-user">
                                     <ul style="list-style: none;">
-                                        <li><a href="/User/Index?id=@userId"><i class="fa-regular fa-id-card"></i>Profil</a></li>
+                                        <li href="/User/Index?id=@userId"><i class="fa-regular fa-id-card"></i>Profil</li>
                                         <li><p onclick="showModalHeslo()"><i class="fa-solid fa-lock"></i> Změnit heslo</p></li>
                                         @if(User.IsInRole("Admin"))
                                         {

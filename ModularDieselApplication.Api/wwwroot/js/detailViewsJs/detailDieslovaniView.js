@@ -46,6 +46,8 @@ $(document).ready(function () {
     const id = params.get("id");
     console.log(data);
     console.log(id);
+    const min = "0001-01-01T00:00:00"; 
+
 
     if (id) {
         $.ajax({
@@ -64,8 +66,22 @@ $(document).ready(function () {
                     $('#baterie').append(data.baterie);
                     $('#region').append(data.region);
                     $('#popis').append(data.popis);
-                    $('#zadanVstup').append(formatDate(data.zadanVstup));
-                    $('#zadanOdchod').append(formatDate(data.zadanOdchod));
+                    if(data.zadanVstup == min)
+                    {
+                        $('#zadanVstup').append("--");
+                    }
+                    else
+                    {
+                        $('#zadanVstup').append(formatDate(data.zadanVstup));
+                    }
+                    if(data.zadanOdchod == min)
+                    {
+                        $('#zadanOdchod').append("--");
+                    }
+                    else
+                    {
+                        $('#zadanOdchod').append(formatDate(data.zadanOdchod));
+                    }
                     $('#technik').append(`<a href="/User/Index?id=${data.technik}">${data.jmenoTechnika} ${data.prijmeniTechnika}</a>`);
                     const badgeHTML = renderBadge(null, null, data);
                     $('#statusBadge').html(badgeHTML);

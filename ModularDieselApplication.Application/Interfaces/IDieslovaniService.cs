@@ -26,5 +26,6 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<int> GetOdstavkaIDbyDieselId(int idDieslovani);
         Task<List<object>> GetTableDataDetailJsonAsync(int id);
         Task<bool>AnotherDieselRequestAsync(string idTechnika);  
+        Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type);
     }
 }

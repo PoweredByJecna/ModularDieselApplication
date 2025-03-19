@@ -329,6 +329,17 @@ function deleteRecordDieslovani(element, id) {
     });
 }
 
+function ChangeTime (idDieslovani, type){
+ajaxAction('/Dieslovani/ChangeTime', { idDieslovani: idDieslovani, type: type }, [
+    '#allTable',
+    '#upcomingTable',
+    '#endTable',
+    '#runningTable',
+    '#thrashTable'
+]);
+}
+
+
 /*--------------------------------------------
  * Zaznamená vstup dieslování
  */

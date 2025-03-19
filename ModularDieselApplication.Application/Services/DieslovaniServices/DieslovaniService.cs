@@ -152,6 +152,10 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniRepository.AnotherDieselRequest(idTechnika);
         }
+        public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
+        {
+            return await _dieslovaniActionService.ChangeTimeAsync(idDieslovani, time, type);
+        }
 
       
     }    
