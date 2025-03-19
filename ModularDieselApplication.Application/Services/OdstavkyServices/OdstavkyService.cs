@@ -39,6 +39,8 @@ namespace ModularDieselApplication.Application.Services
         public async Task<Odstavka> DetailOdstavkyAsync(int id)
         {
             var odstavka = await _odstavkaRepository.GetByIdAsync(id);
+            var query = _odstavkaRepository.GetOdstavkaQuery();
+            var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.Where(o => o.ID == id));
             if (odstavka == null)
             {
                 throw new InvalidOperationException($"Odstavka with id {id} not found.");

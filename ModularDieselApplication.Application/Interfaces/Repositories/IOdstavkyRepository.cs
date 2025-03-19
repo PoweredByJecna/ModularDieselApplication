@@ -17,7 +17,6 @@ namespace ModularDieselApplication.Application.Interfaces
         Task <bool>DeleteAsync(int id);
         IQueryable<Odstavka> GetOdstavkaQuery();
         Task<Odstavka?> AnotherOdsatvkaAsync(int LokalitaId, DateTime od);
-
         Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query);
 
 

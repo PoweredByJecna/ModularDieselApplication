@@ -40,6 +40,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Include(o => o.Lokality)
                 .ThenInclude(l => l.Region)
                 .FirstOrDefaultAsync(o => o.ID == id);    
+            
 
             return _mapper.Map<Odstavka?>(entity);
         }
