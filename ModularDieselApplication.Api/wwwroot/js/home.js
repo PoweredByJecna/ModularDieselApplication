@@ -350,7 +350,27 @@ function ChangeTime(dieslovaniId, timeValue, type) {
         }
     });
 }
-
+function ChangeTimeOdstavky(odstavkaId, timeValue, type) {
+    $.ajax({
+        url: '/Dieslovani/ChangeTimeOdstavky',
+        type: 'POST',
+        data: {
+            dieslovaniId: odstavkaId,
+            time: timeValue,  // formát např. 2025-03-19T14:30
+            type: type        // 'vstup' nebo 'odchod'
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
 
 
 

@@ -68,6 +68,39 @@ namespace ModularDieselApplication.Application.Services
                 return result;
             }
         }
+        public async Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type)
+        {
+            var result = new HandleResult();
+            try
+            {
+                var odstavka = await _odstavkaRepository.GetByIdAsync(idodstavky);
+                if (odstavka == null)
+                {
+                    result.Success = false;
+                    result.Message = "Záznam nebyl nalezen.";
+                    return result;
+                }
+                if (type == "zacatek")
+                {
+                    odstavka.Od = time;
+                }
+                else if (type == "konec")
+                {
+                    odstavka.Do = time;
+                }
+                await _odstavkaRepository.UpdateAsync(odstavka);
+                result.Success = true;
+                result.Message = "Čas byl úspěšně změněn.";
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Chyba při změně času: " + ex.Message;
+                return result;
+            }
+        }
+        
 
     }
     

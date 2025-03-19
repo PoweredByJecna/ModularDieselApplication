@@ -124,12 +124,26 @@ namespace ModularDieselApplication.Api.Controllers
                 data=detailOdstavky
             });
         }
+        [HttpGet]
         public async Task<IActionResult> DetailOdstavky(int id)
         {
             var detail = await _odstavkyService.DetailOdstavkyAsync(id);
             if (detail == null)
                 return NotFound();
             return View(detail);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangeTimeOdstavky(int odstavkaId, DateTime time, string type)
+        {
+            var result = await _odstavkyService.ChangeTimeOdstavkyAsync(odstavkaId, time, type);
+            if (!result.Success)
+            {
+                return Json(new { success = false, message = result.Message });
+            }
+            else
+            {
+                return Json(new { success = true, message = result.Message });
+            }
         }
 
     }

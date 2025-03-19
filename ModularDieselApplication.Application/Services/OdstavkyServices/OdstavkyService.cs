@@ -69,6 +69,10 @@ namespace ModularDieselApplication.Application.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type)
+        {
+           return await  _odstavkyActionService.ChangeTimeOdstavkyAsync(idodstavky, time, type);
+        }   
        
     }
 }

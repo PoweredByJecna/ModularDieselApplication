@@ -18,5 +18,6 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<HandleResult> DeleteOdstavkaAsync(int idodstavky);
         Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0);
         Task<List<object>> GetTableDataOdDetailAsync(int dieslovaniId);
+        Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type);
     }
 }
