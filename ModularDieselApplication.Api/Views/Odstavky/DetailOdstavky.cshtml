@@ -11,7 +11,8 @@
                         <h2 class="h2-div">Akce <i class="fa-regular fa-hand-spock"></i></h2>
                     </div>
                     <div class="formINFO-D form">
-                        <div style="border: none;">
+                       <div style="border: none;" id="deleteBadge">
+                            
                         </div>
                     </div>                    
                 </div>
@@ -64,7 +65,7 @@
                 <div class="detail diesel">
                     <div class="formINFO-D info">
                         <div>
-                            <span class="Infowrapperspan"><i class="fa-solid fa-info fa-lg fa-sm navA"></i> ID odstávky: </span><p id="odstavkaId"> </p>
+                            <span class="Infowrapperspan"><i class="fa-solid fa-info fa-lg fa-sm navA"></i> ID odstávky: </span><p id="id"> </p>
                         </div>
                         <div>
                             <span class="Infowrapperspan" style="font-weight: 900;"> <i class="fa-regular fa-calendar-days fa-lg fa-sm navA"></i> Začátek odstávky: </span><p id="zacatekOdstavky"> </p>
@@ -92,10 +93,8 @@
                     </div>
                     <div class="formINFO-D form stav">
                         <div style="border: none;">
-                            <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: yellow; border-radius: 5px;">
-                                <span class="badge-label" style="color: black; padding: 1px; font-size: small;">Čekající</span>
-                                <i class="fa-solid fa-clock-rotate-left" style="color: Black;"></i>
-                            </span>
+                            <div id="statusBadge" style="border: none;">
+                            </div>
                         </div>
                     </div>     
                                        

@@ -302,6 +302,25 @@ function DeleteWithoutConfirm(id) {
     });
 }
 
+function DeleteWithoutConfirmOdstavka(id) {
+    $.ajax({
+        url: '/Odstavky/Delete',
+        type: 'POST',  // Nebo 'GET', podle vašeho nastavení
+        data: { id: id },
+        success: function (result) {
+            if (result.success) {
+                window.location.href = '/Odstavky/Index'; 
+                showModal(response.message, true);
+            } else {
+                alert(result.message || 'Nepodařilo se uzavřít / smazat záznam.');
+            }
+        },
+        error: function () {
+            alert('Nastala chyba při mazání/uzavírání záznamu.');
+        }
+    });
+}
+
 /*--------------------------------------------
  * Smaže záznam dieslování
  */

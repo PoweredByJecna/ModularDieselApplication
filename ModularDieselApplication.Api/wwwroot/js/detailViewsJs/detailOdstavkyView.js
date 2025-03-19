@@ -6,30 +6,19 @@ function renderBadge(data, type, row) {
     let iconClass = "fa-clock-rotate-left";
     let iconColor = "black";
 
-    let minDateString = "0001-01-01T00:00:00"; 
+    let today = new Date().setHours(0, 0, 0, 0); 
 
-    let zadanVstup = row.zadanVstup && row.zadanVstup !== minDateString;
-    let zadanOdchod = row.zadanOdchod && row.zadanOdchod !== minDateString;
+    let od = row.zacatekOdstavky;
+    let doo = row.konecOdstavky;
+    let zacatek = od == today
+    let konec = doo > today    
 
-    if (zadanOdchod == true) {
+    if (doo == true) {
         badgeClass = "badge-phoenix-danger";
         badgeStyle = "background-color: red; border-radius: 5px;";
         labelStyle = "color: white; padding: 1px; font-size: small;";
         labelText = "Ukončené";
         iconClass = "fa-check-circle";
-        iconColor = "black";
-    } else if (zadanVstup == true && zadanOdchod == false) {
-        badgeClass = "badge-phoenix-primary";
-        badgeStyle = "background-color: green; border-radius: 5px;";
-        labelStyle = "color: white; padding: 1px; font-size: small;";
-        labelText = "Aktivní";
-        iconClass = "fa-clock-rotate-left";
-        iconColor = "black";
-    } else if (row.idtechnika == "606794494") {
-        badgeClass = "badge-phoenix-warning";
-        badgeStyle = "background-color: orange; border-radius: 5px;";
-        labelText = "Nepřiřazeno";
-        iconClass = "fa-clock-rotate-left";
         iconColor = "black";
     }
     return `
@@ -55,7 +44,7 @@ $(document).ready(function () {
                 const data = response.data;
                 console.log(response.data);
                 if (data) {
-                    $('#odstavkaId').append(data.id);
+                    $('#odstavkaId').append(data.odstavkaId);
                     $('#lokalita').append(data.lokalita);
                     $('#adresa').append(data.adresa);
                     $('#klasifikace').append(data.klasifikace);
@@ -64,6 +53,12 @@ $(document).ready(function () {
                     $('#popis').append(data.popis);
                     $('#zacatekOdstavky').append(formatDate(data.zacatekOdstavky));
                     $('#konecOdstavky').append(formatDate(data.konecOdstavky));
+               
+                    const deleteBadgeHTML = `<span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="DeleteWithoutConfirmOdstavka(${data.odstavkaId})">
+                    <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Uzavřít</span>
+                    <i class="fa-solid fa-xmark"></i>
+                    </span>`;
+                    $('#deleteBadge').html(deleteBadgeHTML);
 
                     const badgeHTML = renderBadge(null, null, data);
                     $('#statusBadge').html(badgeHTML);

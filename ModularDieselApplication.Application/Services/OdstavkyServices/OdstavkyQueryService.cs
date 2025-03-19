@@ -31,7 +31,6 @@ namespace ModularDieselApplication.Application.Services
         public async Task<object> DetailOdstavkyJsonAsync(int id)
         {
             var detailOdstavky = await _odstavkaRepository.GetByIdAsync(id);
-  
 
             if (detailOdstavky == null)
             {

@@ -36,16 +36,15 @@ namespace ModularDieselApplication.Application.Services
             return result;
         }
 
-        public async Task<Odstavka> DetailOdstavkyAsync(int id)
+        public async Task<object> DetailOdstavkyAsync(int id)
         {
-            var odstavka = await _odstavkaRepository.GetByIdAsync(id);
             var query = _odstavkaRepository.GetOdstavkaQuery();
             var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.Where(o => o.ID == id));
-            if (odstavka == null)
+            if (data == null)
             {
                 throw new InvalidOperationException($"Odstavka with id {id} not found.");
             }
-            return odstavka;
+            return data;
         }
 
         public async Task<object> DetailOdstavkyJsonAsync(int id)
