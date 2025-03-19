@@ -20,6 +20,23 @@ $(document).ready(function () {
                     $('#baterie').append(data.baterie);
                     $('#region').append(data.region);
                     $('#popis').append(data.popis);
+                    const buttonZacatek = `
+                    <button type="button"
+                            class="button VstupOdchod"
+                            onclick="ChangeTime(${data.odstavkaId}, document.getElementById('zacatekChange').value, 'zacatek')">
+                        Změnit čas
+                    </button>
+                    `;
+                    $('#changeTimeZacatek').html(buttonKonec);
+                    const buttonKonec = `
+                    <button type="button"
+                            class="button VstupOdchod"
+                            onclick="ChangeTime(${data.odstavkaId}, document.getElementById('konecChange').value, 'konec')">
+                        Změnit čas
+                    </button>
+                    `;
+                    $('#changeTimeKonec').html(buttonZacatek);
+
                     $('#zacatekOdstavky').append(formatDate(data.zacatekOdstavky));
                     $('#konecOdstavky').append(formatDate(data.konecOdstavky));
                 } else {
