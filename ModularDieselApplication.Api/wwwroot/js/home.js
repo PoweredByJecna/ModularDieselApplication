@@ -328,16 +328,31 @@ function deleteRecordDieslovani(element, id) {
         ]);
     });
 }
-
-function ChangeTime (idDieslovani, type){
-ajaxAction('/Dieslovani/ChangeTime', { idDieslovani: idDieslovani, type: type }, [
-    '#allTable',
-    '#upcomingTable',
-    '#endTable',
-    '#runningTable',
-    '#thrashTable'
-]);
+function ChangeTime(dieslovaniId, timeValue, type) {
+    $.ajax({
+        url: '/Dieslovani/ChangeTime',
+        type: 'POST',
+        data: {
+            dieslovaniId: dieslovaniId,
+            time: timeValue,  // formát např. 2025-03-19T14:30
+            type: type        // 'vstup' nebo 'odchod'
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+                // případně reload tabulek
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
 }
+
+
+
 
 
 /*--------------------------------------------

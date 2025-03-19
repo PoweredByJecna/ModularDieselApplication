@@ -236,11 +236,11 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     return result;
                 }
 
-                if (type == "Vstup")
+                if (type == "vstup")
                 {
                     dieslovani.Vstup = time;
                 }
-                else if (type == "Odchod")
+                else if (type == "odchod")
                 {
                     dieslovani.Odchod = time;
                 }

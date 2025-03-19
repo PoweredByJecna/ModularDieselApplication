@@ -90,6 +90,23 @@ $(document).ready(function () {
                                 <i class="fa-solid fa-xmark"></i>
                             </span>`;
                     $('#deleteBadge').html(deleteBadgeHTML);
+                    const buttonHtmlVstup = `
+                    <button type="button"
+                            class="button VstupOdchod"
+                            onclick="ChangeTime(${data.dieslovaniId}, document.getElementById('vstupChange').value, 'vstup')">
+                        Změnit čas
+                    </button>
+                    `;
+                    $('#changeTimeVstup').html(buttonHtmlVstup);
+
+                    const buttonHtmlOdchod = `
+                    <button type="button"
+                            class="button VstupOdchod"
+                            onclick="ChangeTime(${data.dieslovaniId}, document.getElementById('odchodChange').value, 'odchod')">
+                        Změnit čas
+                    </button>
+                    `;
+                    $('#changeTimeOdchod').html(buttonHtmlOdchod);
 
                 } else {
                 $('#dieslovani-detail').html('<p>Data nebyla nalezena.</p>');

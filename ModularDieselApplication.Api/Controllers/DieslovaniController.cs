@@ -263,9 +263,9 @@ namespace ModularDieselApplication.Api.Controllers
         // Změna času dieslovaní
         // ----------------------------------------
         [HttpPost]
-        public async Task<IActionResult> ChangeTime(int id, DateTime time, string type)
+        public async Task<IActionResult> ChangeTime(int dieslovaniId, DateTime time, string type)
         {
-            var result = await _dieslovaniService.ChangeTimeAsync(id, time, type);
+            var result = await _dieslovaniService.ChangeTimeAsync(dieslovaniId, time, type);
             if (!result.Success)
             {
                 return Json(new { success = false, message = result.Message });
