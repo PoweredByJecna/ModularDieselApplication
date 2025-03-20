@@ -17,18 +17,21 @@ namespace ModularDieselApplication.Application.Services
         private readonly DieslovaniQueryService _dieslovaniQueryService;
         private readonly DieslovaniActionService _dieslovaniActionService;
         private readonly DieslovaniAssignmentService _dieslovaniAssignmentService;
+
         
         public DieslovaniService(
             IDieslovaniRepository dieslovaniRepository,
             DieslovaniQueryService dieslovaniQueryService,
             DieslovaniActionService dieslovaniActionService,
             DieslovaniAssignmentService dieslovaniAssignmentService
+    
         )
         {
             _dieslovaniRepository = dieslovaniRepository;
             _dieslovaniQueryService = dieslovaniQueryService;
             _dieslovaniActionService = dieslovaniActionService;
             _dieslovaniAssignmentService = dieslovaniAssignmentService;
+        
         }
         public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
         {
@@ -155,6 +158,12 @@ namespace ModularDieselApplication.Application.Services
         public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
         {
             return await _dieslovaniActionService.ChangeTimeAsync(idDieslovani, time, type);
+        }
+
+        public async Task<HandleResult> CallDieslovaniAsync(int odstavky)
+        {
+            return await _dieslovaniAssignmentService.CallDieslovaniAsync(odstavky);
+        
         }
 
       

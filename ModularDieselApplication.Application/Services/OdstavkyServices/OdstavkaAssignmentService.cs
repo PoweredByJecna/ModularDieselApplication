@@ -15,16 +15,14 @@ namespace ModularDieselApplication.Application.Services
         private readonly DieslovaniAssignmentService _dieslovaniAssignmentService;
         private readonly IDieslovaniService _dieslovaniService;
         private readonly ILogService _logService;
-        private readonly OdstavkyRules _odstavkyRules;
         private readonly ITechnikService _technikService;
 
-        public OdstavkaAssignmentService(IOdstavkyRepository odstavkaRepository, DieslovaniAssignmentService dieslovaniAssignmentService, IDieslovaniService dieslovaniService, ILogService logService, OdstavkyRules odstavkyRules, ITechnikService technikService)
+        public OdstavkaAssignmentService(IOdstavkyRepository odstavkaRepository, DieslovaniAssignmentService dieslovaniAssignmentService, IDieslovaniService dieslovaniService, ILogService logService, ITechnikService technikService)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniAssignmentService = dieslovaniAssignmentService;
             _dieslovaniService = dieslovaniService;
             _logService = logService;
-            _odstavkyRules = odstavkyRules;
             _technikService = technikService;
 
         }
@@ -82,7 +80,6 @@ namespace ModularDieselApplication.Application.Services
                     await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Kontrola, zda je dieslovaní potřeba.");
 
                     result = await _dieslovaniService.HandleOdstavkyDieslovani(newOdstavka, result);
-
 
                     return result;
                 }

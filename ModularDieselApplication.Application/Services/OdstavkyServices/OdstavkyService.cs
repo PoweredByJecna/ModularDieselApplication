@@ -9,7 +9,6 @@ namespace ModularDieselApplication.Application.Services
     public class OdstavkyService : IOdstavkyService
     {
         private readonly IOdstavkyRepository _odstavkaRepository;
-    
         private readonly OdstavkyActionService _odstavkyActionService;
         private readonly OdstavkyQueryService _odstavkyQueryService;
         private readonly OdstavkaAssignmentService _odstavkaAssignmentService;
@@ -74,6 +73,11 @@ namespace ModularDieselApplication.Application.Services
         {
            return await  _odstavkyActionService.ChangeTimeOdstavkyAsync(idodstavky, time, type);
         }   
+        public async Task<Odstavka> GetOdstavkaByIdAsync(int id)
+        {
+            return await _odstavkaRepository.GetByIdAsync(id);
+           
+        }
        
     }
 }

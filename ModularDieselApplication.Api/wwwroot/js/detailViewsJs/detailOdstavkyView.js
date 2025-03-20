@@ -60,6 +60,12 @@ $(document).ready(function () {
                     </span>`;
                     $('#deleteBadge').html(deleteBadgeHTML);
 
+                    const calldieslovaniHTML = `<span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color:rgb(185, 113, 30); border-radius: 5px; cursor: pointer" onclick="CallDieslovani(${data.odstavkaId})">
+                    <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Objednat DA</span>
+                    <i class="fa-solid fa-plus"></i>
+                    </span>`;
+                    $('#calldieslovaniBadge').html(calldieslovaniHTML);
+
                     const badgeHTML = renderBadge(null, null, data);
                     $('#statusBadge').html(badgeHTML);
 

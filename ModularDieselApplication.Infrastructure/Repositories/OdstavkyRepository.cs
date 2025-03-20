@@ -34,7 +34,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Odstavka by ID
         // ----------------------------------------
-        public async Task<Odstavka?> GetByIdAsync(int id)
+        public async Task<Odstavka> GetByIdAsync(int id)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -42,7 +42,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync(o => o.ID == id);    
             
 
-            return _mapper.Map<Odstavka?>(entity);
+            return _mapper.Map<Odstavka>(entity);
         }
 
         // ----------------------------------------

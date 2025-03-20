@@ -7,7 +7,7 @@ namespace ModularDieselApplication.Application.Interfaces
 {
     public interface IOdstavkyRepository
     {
-        Task<Odstavka?> GetByIdAsync(int id);
+        Task<Odstavka> GetByIdAsync(int id);
         Task<Lokalita?> GetByNameAsync(string name); 
         Task<Lokalita> GetLokalityByIdAsync(int id);
         Task<List<Lokalita>> GetAllAsync();

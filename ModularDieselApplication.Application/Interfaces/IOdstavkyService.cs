@@ -10,6 +10,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     public interface IOdstavkyService
     {
         Task<List<string>> SuggestLokalitaAsync(string query);
+        Task<Odstavka> GetOdstavkaByIdAsync(int id);
         Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option);
         Task<HandleResult>TestOdstavkaAsync();
         Task<object> DetailOdstavkyAsync(int id);

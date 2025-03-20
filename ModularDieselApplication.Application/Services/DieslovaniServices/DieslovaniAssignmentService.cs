@@ -12,20 +12,20 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         private readonly IDieslovaniRepository _dieslovaniRepository; 
         private readonly ITechnikService _technikService;
         private readonly IPohotovostiService _pohotovostiService;
-        private readonly IEmailService _emailService;
-        private readonly DieslovaniRules _dieslovaniRules;
         private readonly IRegionyService _regionyService;
         private readonly ILogService _logService;
 
-        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, IPohotovostiService pohotovostiService, IEmailService emailService, DieslovaniRules dieslovaniRules, IRegionyService regionyService, ILogService logService)
+
+        public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository,
+         ITechnikService technikService, IPohotovostiService pohotovostiService,
+           IRegionyService regionyService, ILogService logService)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _technikService = technikService;
             _pohotovostiService = pohotovostiService;
-            _emailService = emailService;
-            _dieslovaniRules = dieslovaniRules;
             _regionyService = regionyService;
             _logService = logService;
+         
         }
         public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
         {
@@ -231,6 +231,65 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             await _technikService.UpdateTechnikAsync(newdieslovani.Technik);
             await _dieslovaniRepository.UpdateDieslovaniAsync(newdieslovani);
         }
+
+        public async Task<HandleResult> CallDieslovaniAsync(int idodstavky)
+        {
+            var result = new HandleResult();
+            try
+            {
+                var existingDieslovani = await AnotherDieselRequest(idodstavky);
+                if (existingDieslovani)
+                {
+                    result.Success = false;
+                    result.Message = "Dieslování pro tuto odstávku je již vytvořeno.";
+                    return result;
+                }
+                var odstavka = await _dieslovaniRepository.GetByOdstavkaByIdAsync(idodstavky);
+
+                if(odstavka.Do.Date < DateTime.Now.Date)
+                {
+                    result.Success = false;
+                    result.Message = "Odstávka již skončila.";
+                    return result;
+                }
+                var technik = await _technikService.GetTechnikByIdAsync("606794494");
+
+                if(technik == null)
+                {
+                    result.Success = false;
+                    result.Message = "Technik nebyl nalezen.";
+                    return result;
+                }
+
+                var dieslovani = await CreateNewDieslovaniAsync(odstavka,technik);
+                await AssignTechnikAsync(dieslovani, odstavka);
+                result.Success = true;  
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Chyba při vytváření dieslování: " + ex.Message;
+                return result;
+            }
+        }
+
+        private async Task<bool> AnotherDieselRequest(int odstavka)
+        {
+            var dieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka);
+            if (dieslovani == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+
+        
 
 
 

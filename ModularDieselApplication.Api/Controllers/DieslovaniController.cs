@@ -275,6 +275,17 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
+        public async Task<IActionResult> CallDieslovani (int idOdstavky)
+        {
+            var result = await _dieslovaniService.CallDieslovaniAsync(idOdstavky);  
+            if (!result.Success)
+            {
+                return Json(new { success = false, message = result.Message });
+            }
+            else
+            {
+                return Json(new { success = true, message = result.Message });
+            }
+        }
     }
 }
-

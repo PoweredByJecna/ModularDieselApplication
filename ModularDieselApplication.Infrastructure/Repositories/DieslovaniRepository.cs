@@ -239,5 +239,15 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync(d => d.ID == idDieslovani);
             return entity.Odstavka.ID;
         }
+
+        public async Task<Odstavka> GetByOdstavkaByIdAsync(int idodstavky)
+        {
+            var entity = await _context.OdstavkyS
+                .Include(d => d.Lokality)
+                .ThenInclude(d => d.Region)
+                .FirstOrDefaultAsync(d => d.ID == idodstavky);
+
+            return _mapper.Map<Odstavka>(entity);
+        }
     }
 }

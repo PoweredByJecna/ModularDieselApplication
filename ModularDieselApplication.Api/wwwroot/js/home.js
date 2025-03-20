@@ -187,7 +187,26 @@ function processRegionData(region, containerIds) {
       $(containerIds.technici).append('<p>Žádní technici</p>');
     }
 }
-
+/*--------------------------------------------
+ * Volání metody pro objednání okamžitého dieslovaní na odstávku, kde dieslovaní objednáno nebylo
+ */
+function CallDieslovani(odstavkaId) {
+    $.ajax({    
+        url: '/Dieslovani/CallDieslovani',
+        type: 'POST',
+        data: { odstavkaId: odstavkaId },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    }); 
+}    
 
 /*--------------------------------------------
  * Přepínání zobrazení modálního okna uživatele

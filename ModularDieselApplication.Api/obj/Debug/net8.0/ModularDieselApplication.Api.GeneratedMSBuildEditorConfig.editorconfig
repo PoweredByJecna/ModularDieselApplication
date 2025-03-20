@@ -17,79 +17,79 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ModularDieselApplication.Api
 build_property.RootNamespace = ModularDieselApplication.Api
-build_property.ProjectDir = C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-8\ModularDieselApplication.Api\
+build_property.ProjectDir = C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-11\ModularDieselApplication.Api\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\jirka\ModularDieselApp-Github\ModularDieselApplication-8\ModularDieselApplication.Api
+build_property.MSBuildProjectDirectory = C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-11\ModularDieselApplication.Api
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Dieslovani/DetailDieslovani.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Dieslovani/DetailDieslovani.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGllc2xvdmFuaVxEZXRhaWxEaWVzbG92YW5pLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Dieslovani/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Dieslovani/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGllc2xvdmFuaVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Dieslovani/Privacy.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Dieslovani/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGllc2xvdmFuaVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Login/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Lokality/DetailLokality.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Lokality/DetailLokality.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9rYWxpdHlcRGV0YWlsTG9rYWxpdHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Lokality/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Lokality/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9rYWxpdHlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Odstavky/DetailOdstavky.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Odstavky/DetailOdstavky.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2RzdGF2a3lcRGV0YWlsT2RzdGF2a3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Odstavky/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Odstavky/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2RzdGF2a3lcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Pohotovosti/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Pohotovosti/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ob3Rvdm9zdGlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Regiony/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Regiony/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaW9ueVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Shared/Error.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/User/Index.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/User/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/_ViewImports.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/_ViewStart.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jirka/ModularDieselApp-Github/ModularDieselApplication-8/ModularDieselApplication.Api/Views/Shared/_Layout.cshtml]
+[C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-11/ModularDieselApplication.Api/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-edlipg64nr
