@@ -9,7 +9,7 @@ namespace ModularDieselApplication.Domain.Rules
         /* ----------------------------------------
            IsDieselRequired
            ---------------------------------------- */
-        public static async Task<HandleResult> IsDieselRequired(string klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
+        public async Task<HandleResult> IsDieselRequired(string klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
         {
     
             if (newOdstavka?.Lokality?.DA == true)

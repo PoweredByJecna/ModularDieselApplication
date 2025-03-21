@@ -14,17 +14,21 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         private readonly IPohotovostiService _pohotovostiService;
         private readonly IRegionyService _regionyService;
         private readonly ILogService _logService;
+        private readonly DieslovaniRules _dieslovaniRules;
 
 
         public DieslovaniAssignmentService(IDieslovaniRepository dieslovaniRepository,
          ITechnikService technikService, IPohotovostiService pohotovostiService,
-           IRegionyService regionyService, ILogService logService)
+           IRegionyService regionyService, ILogService logService,
+           DieslovaniRules dieslovaniRules)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _technikService = technikService;
             _pohotovostiService = pohotovostiService;
             _regionyService = regionyService;
             _logService = logService;
+            _dieslovaniRules = dieslovaniRules;
+            
          
         }
         public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
@@ -36,7 +40,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
 
-            await DieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka, result);
+            await _dieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka, result);
            
             if(!result.Success)
             {

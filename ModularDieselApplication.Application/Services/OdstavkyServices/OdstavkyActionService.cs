@@ -3,6 +3,7 @@ using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Domain.Objects;
+using ModularDieselApplication.Domain.Rules;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -11,12 +12,14 @@ namespace ModularDieselApplication.Application.Services
         private readonly IOdstavkyRepository _odstavkaRepository;
         private readonly IDieslovaniService _dieslovaniService;
         private readonly ITechnikService _technikService;
+        private readonly DieslovaniRules _dieslovaniRules;
 
-        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService)
+        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService, DieslovaniRules dieslovaniRules)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniService = dieslovaniService;
             _technikService = technikService;
+            _dieslovaniRules = dieslovaniRules;
 
         }
 
@@ -83,6 +86,12 @@ namespace ModularDieselApplication.Application.Services
                 if (type == "zacatek")
                 {
                     odstavka.Od = time;
+                    await _dieslovaniRules.IsDieselRequired(odstavka.Lokality.Klasifikace, odstavka.Od, odstavka.Do, odstavka.Lokality.Baterie, odstavka, result);
+                    if (!result.Success)
+                    {
+                        
+                    }
+                    
                 }
                 else if (type == "konec")
                 {
