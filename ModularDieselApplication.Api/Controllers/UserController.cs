@@ -1,5 +1,6 @@
 using System.Xml.XPath;
 using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,5 +44,29 @@ namespace ModularDieselApplication.Api.Controllers
                 data=vazby
             });
         }
+
+        public async Task<IActionResult> ChangePassword(string UserId, string newpasssword)
+        {
+            var user = await _userManager.FindByIdAsync(UserId);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, newpasssword);
+            if (result.Succeeded)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "Heslo bylo úspěšně změněno"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Něco se pokazilo"
+                });
+            }
+        }
+
     }
 }

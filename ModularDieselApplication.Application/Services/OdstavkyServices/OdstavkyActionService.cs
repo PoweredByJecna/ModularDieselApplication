@@ -12,14 +12,12 @@ namespace ModularDieselApplication.Application.Services
         private readonly IOdstavkyRepository _odstavkaRepository;
         private readonly IDieslovaniService _dieslovaniService;
         private readonly ITechnikService _technikService;
-        private readonly DieslovaniRules _dieslovaniRules;
 
-        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService, DieslovaniRules dieslovaniRules)
+        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniService = dieslovaniService;
             _technikService = technikService;
-            _dieslovaniRules = dieslovaniRules;
 
         }
 
@@ -86,16 +84,12 @@ namespace ModularDieselApplication.Application.Services
                 if (type == "zacatek")
                 {
                     odstavka.Od = time;
-                    await _dieslovaniRules.IsDieselRequired(odstavka.Lokality.Klasifikace, odstavka.Od, odstavka.Do, odstavka.Lokality.Baterie, odstavka, result);
-                    if (!result.Success)
-                    {
-                        
-                    }
-                    
+                    await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
                 else if (type == "konec")
                 {
                     odstavka.Do = time;
+                    await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
                 await _odstavkaRepository.UpdateAsync(odstavka);
                 result.Success = true;

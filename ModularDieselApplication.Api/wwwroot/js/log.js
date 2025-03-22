@@ -1,4 +1,4 @@
-function formatTimestamp(timestamp) {
+    function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = ("0" + (date.getMonth() + 1)).slice(-2);

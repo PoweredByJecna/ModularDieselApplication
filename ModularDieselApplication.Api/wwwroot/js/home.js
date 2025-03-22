@@ -629,23 +629,23 @@ function showModal(message, isSuccess) {
  * Zobrazuje modální okno pro změnu hesla
  */
 function showModalHeslo() {
-    document.getElementById('modalHeslo').style.display = 'block';
+    document.getElementById("modalHeslo").style.display = "block";
 }
 
 /*--------------------------------------------
  * Zavře modální okno pro změnu hesla
  */
 function closeModalHeslo() {
-    document.getElementById('modalHeslo').style.display = 'none';
+    document.getElementById("modalHeslo").style.display = "none";
 }
 
 /*--------------------------------------------
  * Zavře modální okno při kliknutí mimo něj
  */
 window.onclick = function(event) {
-    var modal = document.getElementById('modalHeslo');
+    var modal = document.getElementById("modalHeslo");
     if (event.target == modal) {
-        modal.style.display = 'none';
+        modal.style.display = "none";
     }
 }
 
