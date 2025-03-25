@@ -1,4 +1,4 @@
-$('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povolení serverového stránkování
+P$('#lokalityTable').DataTable({   // Zobrazí indikátor načítání  // Povolení serverového stránkování
     ajax: {
         url: '/Lokality/GetTableData', // Cesta na vaši serverovou metodu
         type: 'GET',

@@ -275,6 +275,9 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
+        // ---------------------------------------- 
+        // Přiovolání dieslování
+        // ----------------------------------------
         public async Task<IActionResult> CallDieslovani (int idOdstavky)
         {
             var result = await _dieslovaniService.CallDieslovaniAsync(idOdstavky);  

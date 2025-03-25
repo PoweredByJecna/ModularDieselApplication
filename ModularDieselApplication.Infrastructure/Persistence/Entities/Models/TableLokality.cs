@@ -5,8 +5,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
     public class TableLokality
     {
-        
-
         [Key]
         public int ID { get; set; }
         public required string Nazev { get; set; }
@@ -16,8 +14,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public bool DA { get; set; }
         public bool Zasuvka { get; set; }
 
-
-
         [ForeignKey("Region")]
         public int? RegionID {get;set;}
         public required TableRegiony Region {get;set;}
@@ -26,6 +22,5 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         [ForeignKey("Zdroj")]
         public int? ZdrojId { get; set; }
         public virtual TableZdroj? Zdroj { get; set; }
-      
     }
 }

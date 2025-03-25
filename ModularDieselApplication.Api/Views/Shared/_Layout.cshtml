@@ -30,7 +30,6 @@
     <body>
         @if(User.Identity?.IsAuthenticated==true)   
         {
-            
             <div class="Content">
                 <div class="sidemenu" id="sidemenu">
                     <div class="s1">
@@ -38,11 +37,12 @@
                     </div>
                     <div class="s2">
                         <div style="display: flex; flex-direction: column;width: 97%;">
-                            <div class="sidebar">
+                            <div class="sidebar" data-id="dieslovani">
                                 <li class="li-sidebar" style="list-style: none;">
                                     <a asp-action="Index" asp-controller="Dieslovani" class="a-sidebar" style="padding-left: 0px;">
                                         <i class="fa-solid fa-gas-pump fa-sm navA"></i>
                                         <span class="sb">Dieslovaní</span>  
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </a>
                                 </li>
                                 <ul class="ul-sidebar">
@@ -79,11 +79,12 @@
                                 </ul>
                             </div>
 
-                            <div class="sidebar">
+                            <div class="sidebar" data-id="odstavky">
                                 <li class="li-sidebar" style="list-style: none;">
                                     <a asp-action="Index" asp-controller="Odstavky" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-bolt navA"></i>
                                         <span class="sb">Odstávky</span>  
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </a>
                                 </li>
                                  <ul class="ul-sidebar">
@@ -103,11 +104,12 @@
                             </div>
                                  
                         
-                            <div class="sidebar">
+                            <div class="sidebar" data-id="lokality">
                                 <li class="li-sidebar" style="list-style: none;">
                                     <a asp-action="Index" asp-controller="Lokality" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-tower-broadcast navA"></i>
                                         <span class="sb">Lokality</span>  
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </a>
                                 </li>
                                 
@@ -121,7 +123,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="sidebar">
+                            <div class="sidebar" data-id="pohotovosti">
                                 <li class="li-sidebar" style="list-style: none;">
                                     <a asp-action="Index" asp-controller="Pohotovosti" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-table fa-sm navA"></i>
@@ -137,11 +139,12 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="sidebar">
+                            <div class="sidebar" data-id="regiony">
                                 <li class="li-sidebar" style="list-style: none;">
                                     <a asp-action="Index" asp-controller="Regiony" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-map-location navA"></i>
                                         <span class="sb">Regiony</span>  
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </a>
                                 </li>
                                 
@@ -206,7 +209,7 @@
                                         @if(User.IsInRole("Admin"))
                                         {
                                             <li><p id="testButton"><i class="fa-solid fa-vial-virus"></i> Test</p></li>
-                                            <li><p><i class="fa-solid fa-user-plus"></i> Přidat uživatele</p></li>
+                                            <li><p onclick="showModalAddUser()"><i class="fa-solid fa-user-plus"></i> Přidat uživatele</p></li>
                                             <li><p onclick="sendEmail()"><i class="fa-solid fa-paper-plane"></i> Odeslat-test</p></li>
                                         }
                                         <li style="border-top: 1px solid #ddd; padding-top: 5px;"><p><i class="fa-solid fa-right-from-bracket"></i><a asp-action="Logout" asp-controller="Login" class="menuA"> Odhlásit se</a></p></li>
@@ -225,24 +228,58 @@
                     </div>
                 </div>
 
-                <div class="modalHeslo" id="modalHeslo">
-                    <div class="logoForm">
-                        <h2 class="h2-div">Změna hesla <i class="fa-solid fa-lock"></i></h2>
+                <div id="modalOverlayheslo" class="modal-overlay">
+                    <div class="modalHeslo" id="modalHeslo">
+                        <div class="logoForm">
+                            <h2 class="h2-div">Změna hesla <i class="fa-solid fa-lock"></i></h2>
+                        </div>
+                        <div class="formINFO-D form changepassword">
+                            <div>
+                                <input type="password" placeholder="aktuální heslo..">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Nové heslo..">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Potvrzení nového hesla..">
+                            </div>
+                        </div> 
+                        <button type="button" class="button" style="margin: 15px;" onclick="ChangePassword()">Změnit heslo</button>
                     </div>
-                    <div class="formINFO-D form changepassword">
-                        <div>
-                            <input type="password" placeholder="aktuální heslo..">
-                        </div>
-                        <div>
-                            <input type="password" placeholder="Nové heslo..">
-                        </div>
-                        <div>
-                            <input type="password" placeholder="Potvrzení nového hesla..">
-                        </div>
-                    </div> 
-                    <button type="button" class="button" style="margin: 15px;" onclick="ChangePassword()">Změnit heslo</button>
-                  
                 </div>
+                <div id="modalOverlayAddUser" class="modal-overlay">
+                    <div class="formAddUser">
+                        <div class="logoForm">
+                            <h2 class="h2-div">Přidání uživatele <i class="fa-solid fa-user-plus"></i></h2>
+                        </div>
+                        <div class="formINFO-D form">
+                            <div>
+                                <input type="text" placeholder="Jméno..">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Příjmení..">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Email..">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Heslo..">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Potvrzení hesla..">
+                            </div>
+                            <div>
+                                <select>
+                                    <option value="Admin">Admin</option>
+                                    <option value="User">User</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <button type="button" class="button" style="margin: 15px;" onclick="AddUser()">Přidat uživatele</button>
+                    </div>
+                </div>
+
+
 
                   
                 <div id="confirmModal" class="modal-confirm-modal">

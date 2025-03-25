@@ -629,16 +629,30 @@ function showModal(message, isSuccess) {
  * Zobrazuje modální okno pro změnu hesla
  */
 function showModalHeslo() {
-    document.getElementById("modalHeslo").style.display = "block";
+    document.getElementById('modalOverlayheslo').style.display = 'block';
 }
 
 /*--------------------------------------------
  * Zavře modální okno pro změnu hesla
  */
 function closeModalHeslo() {
-    document.getElementById("modalHeslo").style.display = "none";
+    document.getElementById('modalOverlayheslo').style.display = 'none';
 }
 
+/*--------------------------------------------
+ * Zobrazuje modální okno pro přidaní uživatele
+ */
+
+function showModalAddUser() {
+    document.getElementById('modalOverlayAddUser').style.display = 'block';
+}
+
+/*--------------------------------------------
+ * Zavře modální okno pro přidaní uživatele
+ */
+function closeModalAddUser() {  
+    document.getElementById('modalOverlayAddUser').style.display = 'none';
+}
 /*--------------------------------------------
  * Zavře modální okno při kliknutí mimo něj
  */
@@ -680,6 +694,68 @@ function showConfirmModal(message, onConfirm) {
         }
     });
 }
+
+/*--------------------------------------------
+ * Slouží pro rozbalení seznamu v sidebaru
+ */
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebars = document.querySelectorAll('.sidebar');
+
+    sidebars.forEach(sidebar => {
+        const toggle = sidebar.querySelector('a');
+        const submenu = sidebar.querySelector('.ul-sidebar');
+        const id = sidebar.getAttribute('data-id');
+        const icon = sidebar.querySelector('.toggle-icon');
+
+        // Výchozí stav
+        const isOpen = getCookie('sidebar_' + id);
+        if (isOpen === 'true') {
+            submenu.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-left');
+        } else {
+            submenu.style.display = 'none';
+            icon.classList.remove('fa-chevron-left');
+            icon.classList.add('fa-chevron-down');
+        }
+
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (submenu.style.display === 'none') {
+                submenu.style.display = 'block';
+                setCookie('sidebar_' + id, 'true', 7);
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-left');
+            } else {
+                submenu.style.display = 'none';
+                setCookie('sidebar_' + id, 'false', 7);
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        const expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(name + "=") === 0) {
+                return c.substring(name.length + 1, c.length);
+            }
+        }
+        return "";
+    }
+});
+
 
 
 

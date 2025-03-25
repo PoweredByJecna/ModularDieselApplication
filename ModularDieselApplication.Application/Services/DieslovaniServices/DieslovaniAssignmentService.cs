@@ -33,6 +33,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         }
         public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
         {
+            var technik = await _technikService.GetTechnikByIdAsync("606794494");
+
             if (newOdstavka == null)
             {
                 result.Success = false;
@@ -55,7 +57,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
 
-            var technik = await _technikService.GetTechnikByIdAsync("606794494");
 
             if (technik == null)
             {
@@ -227,7 +228,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
             return newDieslovani;
         }
-
         private async Task SaveTechnikAndDieslovani(Dieslovani newdieslovani, Technik novyTechnik)
         {
             newdieslovani.Technik = novyTechnik;
@@ -235,7 +235,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             await _technikService.UpdateTechnikAsync(newdieslovani.Technik);
             await _dieslovaniRepository.UpdateDieslovaniAsync(newdieslovani);
         }
-
         public async Task<HandleResult> CallDieslovaniAsync(int idodstavky)
         {
             var result = new HandleResult();
@@ -277,7 +276,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
-
         private async Task<bool> AnotherDieselRequest(int odstavka)
         {
             var dieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka);
@@ -290,12 +288,5 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return true;
             }
         }
-
-
-
-        
-
-
-
     }
 }

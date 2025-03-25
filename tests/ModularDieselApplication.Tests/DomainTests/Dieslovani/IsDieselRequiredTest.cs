@@ -26,7 +26,8 @@ public class IsDieselRequiredTest
         var result = new HandleResult();
 
         // Act
-        var actualResult = await DieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
+        var dieslovaniRules = new DieslovaniRules();
+        var actualResult = await dieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
 
         // Assert
         Assert.False(actualResult.Success);
@@ -45,7 +46,8 @@ public class IsDieselRequiredTest
         var result = new HandleResult();
 
         // Act
-        var actualResult = await DieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
+        var dieslovaniRules = new DieslovaniRules();
+        var actualResult = await dieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
 
         // Assert
         Assert.False(actualResult.Success);

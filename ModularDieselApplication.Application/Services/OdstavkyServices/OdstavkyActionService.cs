@@ -12,12 +12,14 @@ namespace ModularDieselApplication.Application.Services
         private readonly IOdstavkyRepository _odstavkaRepository;
         private readonly IDieslovaniService _dieslovaniService;
         private readonly ITechnikService _technikService;
+        private readonly ILogService _logService;
 
-        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService)
+        public OdstavkyActionService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService, ITechnikService technikService, ILogService logService)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniService = dieslovaniService;
             _technikService = technikService;
+            _logService = logService;
 
         }
 
@@ -83,12 +85,27 @@ namespace ModularDieselApplication.Application.Services
                 }
                 if (type == "zacatek")
                 {
+                    if (odstavka.Od.Date < DateTime.Today.Date)
+                    {
+                        result.Success = false;
+                        result.Message = "Nelze měnit čas již ukončené odstávky.";
+                        return result;
+                    }
                     odstavka.Od = time;
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změneň čas začátku odstávky na: {odstavka.Od}");
+
                     await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
                 else if (type == "konec")
                 {
+                    if (odstavka.Od.Date < DateTime.Today.Date)
+                    {
+                        result.Success = false;
+                        result.Message = "Nelze měnit čas již ukončené odstávky.";
+                        return result;
+                    }
                     odstavka.Do = time;
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změneň čas konce odstávky na: {odstavka.Od}");
                     await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
                 await _odstavkaRepository.UpdateAsync(odstavka);

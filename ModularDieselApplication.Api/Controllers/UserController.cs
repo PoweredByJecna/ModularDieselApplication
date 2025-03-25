@@ -67,6 +67,32 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
         }
+        public async Task <IActionResult> AddUser(string email, string password, string role)
+        {
+            var user = new TableUser
+            {
+                UserName = email,
+                Email = email
+            };
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, role);
+                return Json(new
+                {
+                    success = true,
+                    message = "Uživatel byl úspěšně přidán"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Něco se pokazilo"
+                });
+            }
+        }
 
     }
 }
