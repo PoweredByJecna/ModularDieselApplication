@@ -5,8 +5,9 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using ModularDieselApplication.Infrastructure.Persistence;
+using System.Collections.Generic;
+using System.Linq;
 using ModularDieselApplication.Interfaces.Repositories;
-using System.Runtime.CompilerServices;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
@@ -22,20 +23,20 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Technik by ID
+        // Get Technik by ID.
         // ----------------------------------------
         public async Task<Technik?> GetByIdAsync(string idTechnika)
         {
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
                 .Include(t => t.User)
-                .FirstOrDefaultAsync(t => t.ID == idTechnika);    
+                .FirstOrDefaultAsync(t => t.ID == idTechnika);
 
             return _mapper.Map<Technik?>(entity);
         }
 
         // ----------------------------------------
-        // Get Technik by User ID
+        // Get Technik by User ID.
         // ----------------------------------------
         public async Task<Technik?> GetByUserIdAsync(string idUser)
         {
@@ -48,7 +49,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Technik by Firma ID
+        // Get Technik by Firma ID.
         // ----------------------------------------
         public async Task<Technik> GetByFirmaIdAsync(int idFirmy)
         {
@@ -62,7 +63,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Check if Technik is on duty
+        // Check if a Technik is currently on duty.
         // ----------------------------------------
         public async Task<bool> IsTechnikOnDutyAsync(string idTechnika)
         {
@@ -70,35 +71,30 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Include(p => p.Technik)
                 .Where(p => p.Technik.ID == idTechnika)
                 .FirstOrDefaultAsync();
-            if (technik == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+
+            return technik != null;
         }
 
         // ----------------------------------------
-        // Update Technik
+        // Update an existing Technik.
         // ----------------------------------------
         public async Task UpdateAsync(Technik technik)
         {
             var existingEntity = await _context.TechnikS.FindAsync(technik.ID);
             if (existingEntity == null)
             {
-            throw new Exception($"Technik s ID {technik.ID} nebyl nalezen.");
+                throw new Exception($"Technik with ID {technik.ID} not found.");
             }
 
-            // Namapujte změny z doménového modelu do existující (trackované) entity.
+            // Map changes from the domain model to the tracked entity.
             _mapper.Map(technik, existingEntity);
-            
-            // Uložte změny.
+
+            // Save changes to the database.
             await _context.SaveChangesAsync();
         }
+
         // ----------------------------------------
-        // Delete Technik by ID
+        // Delete a Technik by ID.
         // ----------------------------------------
         public async Task<bool> DeleteAsync(string idTechnika)
         {
@@ -113,7 +109,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get all Technici
+        // Get all Technici records.
         // ----------------------------------------
         public async Task<List<Technik>> GetAllAsync()
         {

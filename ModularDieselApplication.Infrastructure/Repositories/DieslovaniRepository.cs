@@ -228,24 +228,35 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return _mapper.Map<Dieslovani>(entity);
         }
 
+        // ----------------------------------------
+        // Get the count of Dieslovani records based on a query.
+        // ----------------------------------------
         public async Task<int> CountAsync(IQueryable<Dieslovani> query)
         {
             return await query.CountAsync();
         }
+
+        // ----------------------------------------
+        // Get the ID of an Odstavka associated with a specific Dieslovani.
+        // ----------------------------------------
         public async Task<int> GetIDbyDieselId(int idDieslovani)
         {
             var entity = await _context.DieslovaniS
-                .Include(d => d.Odstavka)
-                .FirstOrDefaultAsync(d => d.ID == idDieslovani);
-            return entity.Odstavka.ID;
+                .Include(d => d.Odstavka) 
+                .FirstOrDefaultAsync(d => d.ID == idDieslovani); 
+
+            return entity.Odstavka.ID; 
         }
 
+        // ----------------------------------------
+        // Get an Odstavka entity by its ID.
+        // ----------------------------------------
         public async Task<Odstavka> GetByOdstavkaByIdAsync(int idodstavky)
         {
             var entity = await _context.OdstavkyS
-                .Include(d => d.Lokality)
-                .ThenInclude(d => d.Region)
-                .FirstOrDefaultAsync(d => d.ID == idodstavky);
+                .Include(d => d.Lokality) 
+                .ThenInclude(d => d.Region) 
+                .FirstOrDefaultAsync(d => d.ID == idodstavky); 
 
             return _mapper.Map<Odstavka>(entity);
         }

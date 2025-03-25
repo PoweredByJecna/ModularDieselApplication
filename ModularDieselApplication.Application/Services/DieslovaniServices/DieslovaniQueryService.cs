@@ -1,37 +1,39 @@
-
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
-
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService
 {
     public class DieslovaniQueryService
     {
-
         private readonly IDieslovaniRepository _dieslovaniRepository;  
         private readonly IRegionyService _regionyService;
         private readonly ITechnikService _technikService;
 
-        /* ----------------------------------------
-           Kontrostruktor
-        ---------------------------------------- */
+        // ----------------------------------------
+        // Constructor for initializing dependencies.
+        // ----------------------------------------
         public DieslovaniQueryService(IDieslovaniRepository dieslovaniRepository, IRegionyService regionyService, ITechnikService technikService)
         {
             _dieslovaniRepository = dieslovaniRepository;
             _regionyService = regionyService;
             _technikService = technikService;
         }
-        public async Task<List<object>>GetDieslovaniByUserId (string UserID)
+
+        // ----------------------------------------
+        // Get dieslovani records by user ID.
+        // ----------------------------------------
+        public async Task<List<object>> GetDieslovaniByUserId(string userId)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(i => i.Technik.User.Id == UserID);
+                .Where(i => i.Technik.User.Id == userId);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        /* ----------------------------------------
-           GetTableDataRunningTableAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get all dieslovani table data.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery();
@@ -39,9 +41,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        /* ----------------------------------------
-           GetTableDataRunningTableAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get running dieslovani table data.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -50,31 +53,34 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        /* ----------------------------------------
-           GetTableDataUpcomingTableAsync
-        ---------------------------------------- */     
-        public async Task< List<object>> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
+
+        // ----------------------------------------
+        // Get upcoming dieslovani table data.
+        // ----------------------------------------
+        public async Task<List<object>> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(i => i.Vstup ==DateTime.MinValue.Date && i.Odstavka.Od.Date==DateTime.Today && i.Technik.ID != "606794494");
+                .Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID != "606794494");
             query = FilteredData(query, currentUser, isEngineer);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return  data;
+            return data;
         }
-        /* ----------------------------------------
-           GetTableDataEndTableAsync
-        ---------------------------------------- */
-        public async Task< List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
+
+        // ----------------------------------------
+        // Get completed dieslovani table data.
+        // ----------------------------------------
+        public async Task<List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.Odchod != DateTime.MinValue.Date && o.Odstavka.Do.Date <= DateTime.Today);
             query = FilteredData(query, currentUser, isEngineer);
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
-            return  data;
+            return data;
         }
-        /* ----------------------------------------
-           GetTableDatathrashTableAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get trashed dieslovani table data.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
         {
             if (currentUser == null)
@@ -92,17 +98,19 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var validRegions = await _regionyService.GetRegionByIdFirmy(firmaId);
 
             var query = _dieslovaniRepository.GetDieslovaniQuery()
-                .Where(o=>o.Technik.ID=="606794494");
+                .Where(o => o.Technik.ID == "606794494");
 
             if (isEngineer && validRegions.Any())
             {
+                // Additional filtering logic can be added here.
             }
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        /* ----------------------------------------
-           GetTableDataOdDetailOdstavkyAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get dieslovani details for a specific odstávka.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
@@ -110,9 +118,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }
-        /* ----------------------------------------
-           Filtrace dat
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Filter dieslovani data based on user and role.
+        // ----------------------------------------
         private static IQueryable<Dieslovani> FilteredData(IQueryable<Dieslovani> query, User? currentUser, bool isEngineer)
         {
             if (currentUser == null)
@@ -125,6 +134,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             }
             return query;
         }
+
+        // ----------------------------------------
+        // Get dieslovani detail data as JSON.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
         {
             var detail = await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
@@ -149,12 +162,15 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 }
             };
         }
+
+        // ----------------------------------------
+        // Get dieslovani details as JSON.
+        // ----------------------------------------
         public async Task<object> DetailDieslovaniJsonAsync(int id)
         {
             var detail = await _dieslovaniRepository.GetByIdAsync(id);
             if (detail == null)
             {
-
                 return new
                 {
                     error = "Dieslovani nenalezeno"
@@ -171,14 +187,14 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             {
                 return new
                 {
-                    error = "Lokalita přiřazena k dieslovani nenalezeno"
+                    error = "Lokalita přiřazena k dieslovani nenalezena"
                 };
             }
             else if (detail.Odstavka.Lokality.Region == null)
             {
                 return new
                 {
-                    error = "Region přiřazen k dieslovani nenalezeno"
+                    error = "Region přiřazen k dieslovani nenalezen"
                 };
             }
             return new 
@@ -198,7 +214,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 prijmeniTechnika = detail.Technik?.User?.Prijmeni ?? "Unknown",
             };
         }
-        
     }
 }
 

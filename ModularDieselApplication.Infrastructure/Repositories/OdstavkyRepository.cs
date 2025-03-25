@@ -7,7 +7,6 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
@@ -24,7 +23,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get count of Odstavka
+        // Get the count of Lokality records.
         // ----------------------------------------
         public async Task<int> GetLokalitaCountAsync()
         {
@@ -32,21 +31,20 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Odstavka by ID
+        // Get an Odstavka record by its ID.
         // ----------------------------------------
         public async Task<Odstavka> GetByIdAsync(int id)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
                 .ThenInclude(l => l.Region)
-                .FirstOrDefaultAsync(o => o.ID == id);    
-            
+                .FirstOrDefaultAsync(o => o.ID == id);
 
             return _mapper.Map<Odstavka>(entity);
         }
 
         // ----------------------------------------
-        // Get all Odstavka
+        // Get all Lokality records.
         // ----------------------------------------
         public async Task<List<Lokalita>> GetAllAsync()
         {
@@ -58,7 +56,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Add new Odstavka
+        // Add a new Odstavka record.
         // ----------------------------------------
         public async Task AddAsync(Odstavka odstavka)
         {
@@ -76,10 +74,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             odstavka.ID = efEntity.ID;
         }
-        
 
         // ----------------------------------------
-        // Update Odstavka
+        // Update an existing Odstavka record.
         // ----------------------------------------
         public async Task UpdateAsync(Odstavka odstavka)
         {
@@ -89,7 +86,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get another Odstavka by Lokalita ID and date
+        // Get another Odstavka record by Lokalita ID and date.
         // ----------------------------------------
         public async Task<Odstavka?> AnotherOdsatvkaAsync(int LokalitaId, DateTime od)
         {
@@ -102,7 +99,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Delete Odstavka by ID
+        // Delete an Odstavka record by its ID.
         // ----------------------------------------
         public async Task<bool> DeleteAsync(int id)
         {
@@ -117,7 +114,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Check if another diesel request exists
+        // Check if another diesel request exists for a technician.
         // ----------------------------------------
         public async Task<bool> AnotherDieselRequest(string idTechnika)
         {
@@ -126,19 +123,18 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Lokalita by name
+        // Get a Lokalita record by its name.
         // ----------------------------------------
         public async Task<Lokalita?> GetByNameAsync(string name)
         {
             var lokalita = await _context.LokalityS
-                .Include(l=>l.Region)
+                .Include(l => l.Region)
                 .FirstOrDefaultAsync(l => l.Nazev == name);
             return lokalita != null ? _mapper.Map<Lokalita>(lokalita) : null;
         }
 
-
         // ----------------------------------------
-        // Get Lokality by ID
+        // Get a Lokalita record by its ID.
         // ----------------------------------------
         public async Task<Lokalita> GetLokalityByIdAsync(int id)
         {
@@ -154,7 +150,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Odstavka query
+        // Get a queryable collection of Odstavka records.
         // ----------------------------------------
         public IQueryable<Odstavka> GetOdstavkaQuery()
         {
@@ -166,7 +162,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get Odstavka data
+        // Get Odstavka data based on a query.
         // ----------------------------------------
         public async Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query)
         {
@@ -183,7 +179,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     VydrzBaterie = l.Lokality.Baterie,
                     Popis = l.Popis,
                     Zasuvka = l.Lokality.Zasuvka,
-                    Dieslovani = _context.DieslovaniS.Include(o=>o.Technik).FirstOrDefault(d => d.IDodstavky == l.ID)
+                    Dieslovani = _context.DieslovaniS.Include(o => o.Technik).FirstOrDefault(d => d.IDodstavky == l.ID)
                 })
                 .ToListAsync();
 
@@ -201,10 +197,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 l.Zasuvka,
                 idTechnika = l.Dieslovani?.Technik?.ID,
                 zadanVstup = l.Dieslovani?.Vstup,
-                zadanOdchod = l.Dieslovani?.Odchod 
+                zadanOdchod = l.Dieslovani?.Odchod
             }).ToList();
 
             return _mapper.Map<List<object>>(result);
-        }      
+        }
     }
 }

@@ -7,51 +7,45 @@ namespace ModularDieselApplication.Application.Services
     {
         private readonly IOdstavkyRepository _odstavkaRepository;
         private readonly IDieslovaniService _dieslovaniService;
+
         public OdstavkyQueryService(IOdstavkyRepository odstavkaRepository, IDieslovaniService dieslovaniService)
         {
             _odstavkaRepository = odstavkaRepository;
             _dieslovaniService = dieslovaniService;
-            
         }
-        /* ----------------------------------------
-            SuggestLokalitaAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Suggest lokalita names based on a query.
+        // ----------------------------------------
         public async Task<List<string>> SuggestLokalitaAsync(string query)
         {
             var lokalities = await _odstavkaRepository.GetAllAsync();
-            
-            return [.. lokalities
+
+            return lokalities
                 .Where(l => l.Nazev != null && l.Nazev.Contains(query))
-                .Select(l => l.Nazev)
-                .Take(10)];
+                .Select(l => l.Nazev!)
+                .Take(10)
+                .ToList();
         }
-        /* ----------------------------------------
-            DetailOdstavkyJsonAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get odstávka details as JSON.
+        // ----------------------------------------
         public async Task<object> DetailOdstavkyJsonAsync(int id)
         {
             var detailOdstavky = await _odstavkaRepository.GetByIdAsync(id);
 
             if (detailOdstavky == null)
             {
-                return new
-                {
-                    error = "Odstavka nenalezena"
-                };
+                return new { error = "Odstavka nenalezena" };
             }
             else if (detailOdstavky.Lokality == null)
             {
-                return new
-                {
-                    error = "Odstavka nenalezena"
-                };
+                return new { error = "Lokalita nenalezena" };
             }
             else if (detailOdstavky.Lokality.Region == null)
             {
-                return new
-                {
-                    error = "Odstavka nenalezena"
-                };
+                return new { error = "Region nenalezen" };
             }
 
             return new
@@ -65,16 +59,16 @@ namespace ModularDieselApplication.Application.Services
                 popis = detailOdstavky.Popis,
                 zacatekOdstavky = detailOdstavky.Od,
                 konecOdstavky = detailOdstavky.Do
-
             };
         }
-        /* ----------------------------------------
-            DetailOdstavkyJsonAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get table data for odstávky.
+        // ----------------------------------------
         public async Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0)
         {
             var query = _odstavkaRepository.GetOdstavkaQuery();
-            
+
             int totalRecords = query.Count();
 
             if (length == 0)
@@ -85,9 +79,10 @@ namespace ModularDieselApplication.Application.Services
             var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.OrderBy(o => o.Od).Skip(start).Take(length));
             return (totalRecords, data.Cast<object>().ToList());
         }
-        /* ----------------------------------------
-            GetTableDataOdDetailAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Get detailed table data for a specific dieslovani.
+        // ----------------------------------------
         public async Task<List<object>> GetTableDataOdDetailAsync(int IDdieslovani)
         {
             var findodstavka = await _dieslovaniService.GetOdstavkaIDbyDieselId(IDdieslovani);
@@ -96,6 +91,5 @@ namespace ModularDieselApplication.Application.Services
             var data = await _odstavkaRepository.GetOdstavkaDataAsync(query);
             return data;
         }
-
     }
 }

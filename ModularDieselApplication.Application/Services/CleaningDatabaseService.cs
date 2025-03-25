@@ -12,38 +12,44 @@ namespace ModularDieselApplication.Application.Services
         private readonly IServiceScopeFactory _scopeFactory;
         private Timer? _timer;
 
-        // do konstruktoru si necháme injektovat pouze IServiceScopeFactory
         public CleaningDatabaseService(IServiceScopeFactory scopeFactory)
         {
             _scopeFactory = scopeFactory;
         }
 
+        // ----------------------------------------
+        // Start the background service.
+        // ----------------------------------------
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            // první volání okamžitě (TimeSpan.Zero) a pak opakování 1× za den
+            // Schedule the DoWork method to run daily.
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromDays(1));
             return Task.CompletedTask;
         }
 
+        // ----------------------------------------
+        // Perform the database cleaning task.
+        // ----------------------------------------
         private void DoWork(object? state)
         {
-            // Tady si vytvoříme nový scope
             using var scope = _scopeFactory.CreateScope();
-
-            // Z toho scope si vytáhneme IDatabaseCleaner
             var databaseCleaner = scope.ServiceProvider.GetRequiredService<IDatabaseCleaner>();
-
-            // Zavoláme async metodu - je potřeba nějak vyřešit await.
-            // Pro ukázku "synchronně" počkáme (nebo použijte jiný pattern, např. async void / Task.Run atd.)
             databaseCleaner.CleanOutdatedRecords().GetAwaiter().GetResult();
         }
 
+        // ----------------------------------------
+        // Stop the background service.
+        // ----------------------------------------
         public Task StopAsync(CancellationToken cancellationToken)
         {
+            // Stop the timer to halt scheduled tasks.
             _timer?.Change(Timeout.Infinite, 0);
             return Task.CompletedTask;
         }
 
+        // ----------------------------------------
+        // Dispose of resources used by the service.
+        // ----------------------------------------
         public void Dispose()
         {
             _timer?.Dispose();

@@ -17,15 +17,14 @@ namespace ModularDieselApplication.Api.Controllers
         {
             _emailService = emailService;
         }
-
+        // ---------------------------------------- 
+        // Odeslání e-mailu 
+        // ----------------------------------------
         [HttpPost("send")]
         public async Task<IActionResult> SendEmail([FromBody] Dieslovani dieslovani,string emailResult)
         {
-            // Zavoláme metodu, která v EmailService sestaví 
-            // text a předmět a e-mail odešle
             await _emailService.SendDieslovaniEmailAsync(dieslovani, emailResult);
 
-            // Vrátíme 200 OK
             return Ok(new { message = "E‑mail byl odeslán." });
         }
     }

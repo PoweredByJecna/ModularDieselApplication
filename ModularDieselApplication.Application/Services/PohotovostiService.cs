@@ -14,7 +14,6 @@ namespace ModularDieselApplication.Application.Services
     {
         private readonly IPohotovostiRepository _pohotovostiRepository;
         private readonly IUserService _userService;
-
         private readonly ITechnikService _technikRepository;
 
         public PohotovostiService(IPohotovostiRepository pohotovostiRepository, IUserService userService, ITechnikService technikRepository)
@@ -24,18 +23,28 @@ namespace ModularDieselApplication.Application.Services
             _technikRepository = technikRepository;
         }
 
+        // ----------------------------------------
+        // Get all pohotovosti records.
+        // ----------------------------------------
         public async Task<List<Pohotovosti>> GetAllPohotovostiAsync()
         {
             return await _pohotovostiRepository.GetAllPohotovostiAsync();
         }
+
+        // ----------------------------------------
+        // Check if pohotovosti exist in a specific region within a time range.
+        // ----------------------------------------
         public async Task<bool> PohovostiVRegionuAsync(int idRegionu, DateTime OD, DateTime DO)
         {
             return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu, OD, DO);
         }
 
+        // ----------------------------------------
+        // Record a new pohotovost for a user.
+        // ----------------------------------------
         public async Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser)
         {
-            var result  =  new HandleResult();
+            var result = new HandleResult();
             bool isEngineer = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Engineer");
             bool isAdmin = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Admin");
 
@@ -67,7 +76,7 @@ namespace ModularDieselApplication.Application.Services
                 if (technikSearch == null)
                 {
                     result.Success = false;
-                    result.Message = "Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli.";	
+                    result.Message = "Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli.";
                     return result;
                 }
 
@@ -76,7 +85,7 @@ namespace ModularDieselApplication.Application.Services
                     IdUser = technikSearch.User.Id,
                     User = technikSearch.User,
                     Zacatek = zacatek,
-                    Konec =konec,
+                    Konec = konec,
                     IdTechnik = technikSearch.ID
                 };
 
@@ -102,7 +111,7 @@ namespace ModularDieselApplication.Application.Services
                 {
                     IdUser = technikSearch.User.Id,
                     Zacatek = zacatek,
-                    Konec =konec,
+                    Konec = konec,
                     IdTechnik = technikSearch.ID
                 };
 
@@ -118,6 +127,9 @@ namespace ModularDieselApplication.Application.Services
             return result;
         }
 
+        // ----------------------------------------
+        // Get table data for pohotovosti.
+        // ----------------------------------------
         public async Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length)
         {
             int totalRecords = await _pohotovostiRepository.GetPohotovostCountAsync();
@@ -133,12 +145,14 @@ namespace ModularDieselApplication.Application.Services
 
             return (totalRecords, pohotovostList);
         }
+
+        // ----------------------------------------
+        // Get active technik by firm ID within a time range.
+        // ----------------------------------------
         public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirma, DateTime OD, DateTime DO)
         {
             var technik = await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma, OD, DO);
             return technik;
         }
-        
-
     }
 }

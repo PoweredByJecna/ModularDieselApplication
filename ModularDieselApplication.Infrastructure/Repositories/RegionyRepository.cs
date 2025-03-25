@@ -1,12 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence;
-using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
-using Org.BouncyCastle.Asn1;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
@@ -21,8 +19,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             _context = context;
             _mapper = mapper;
         }
+
         // ----------------------------------------
-        // Get data by region ID
+        // Get data by region ID.
         // ----------------------------------------
         public async Task<List<object>> GetData(int regionId)
         {
@@ -34,6 +33,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var resultList = _mapper.Map<List<object>>(regions);
             return resultList;
         }
+
+        // ----------------------------------------
+        // Get Firma data by region ID.
+        // ----------------------------------------
         public async Task<Firma> GetFirmaAsync(int idReg)
         {
             var firma = await _context.RegionS
@@ -43,8 +46,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
             return _mapper.Map<Firma>(firma);
         }
+
         // ----------------------------------------
-        // Check if Technik has Pohotovost
+        // Check if a Technik has Pohotovost.
         // ----------------------------------------
         public async Task<bool> TechnikHasPohotovost(string idTechnik)
         {
@@ -52,8 +56,9 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .AnyAsync(p => p.IdTechnik == idTechnik);
             return exists;
         }
+
         // ----------------------------------------
-        // Get regions by Firma ID
+        // Get regions by Firma ID.
         // ----------------------------------------
         public async Task<List<object>> GetRegion(int firmaId)
         {
@@ -65,6 +70,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var resultList = _mapper.Map<List<object>>(regions);
             return resultList;
         }
+
+        // ----------------------------------------
+        // Get the count of Lokality records in a region.
+        // ----------------------------------------
         public async Task<int> GetLokalityCountAsync(int regionId)
         {
             return await _context.LokalityS
@@ -72,15 +81,23 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .Where(o => o.Region.ID == regionId)
                 .CountAsync();
         }
+
+        // ----------------------------------------
+        // Get the count of Odstavky records in a region.
+        // ----------------------------------------
         public async Task<int> GetOdstavkyCountAsync(int regionId)
         {
             return await _context.OdstavkyS
-            .Include(o => o.Lokality)
-            .ThenInclude(o => o.Region)
-            .Where(o => o.Lokality.Region.ID == regionId)
-            .CountAsync();
+                .Include(o => o.Lokality)
+                .ThenInclude(o => o.Region)
+                .Where(o => o.Lokality.Region.ID == regionId)
+                .CountAsync();
         }
-        public async Task<List<Region>> GetRegionById (int idregion)
+
+        // ----------------------------------------
+        // Get region data by its ID.
+        // ----------------------------------------
+        public async Task<List<Region>> GetRegionById(int idregion)
         {
             var region = await _context.RegionS
                 .Include(r => r.Firma)
@@ -90,13 +107,20 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return resultList;
         }
 
+        // ----------------------------------------
+        // Check if a Technik has an active Pohotovost.
+        // ----------------------------------------
         public bool GetValueIfTechnikHasPohotovost(string idTechnik)
         {
             var exists = _context.PohotovostiS
                 .Any(p => p.IdTechnik == idTechnik && p.Konec.Date >= DateTime.Today);
             return exists;
         }
-        public async Task<List<Technik>> GetTechnikListVRegionu (int IDfirmy)
+
+        // ----------------------------------------
+        // Get a list of Techniks in a specific Firma.
+        // ----------------------------------------
+        public async Task<List<Technik>> GetTechnikListVRegionu(int IDfirmy)
         {
             var technik = await _context.TechnikS
                 .Include(t => t.Firma)
@@ -106,7 +130,5 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var resultList = _mapper.Map<List<Technik>>(technik);
             return resultList;
         }
-
-
     }
 }

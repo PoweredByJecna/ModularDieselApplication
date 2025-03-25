@@ -1,10 +1,10 @@
-
 using MimeKit;
 using Microsoft.Extensions.Configuration;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
+
 namespace ModularDieselApplication.Application.Services
 {
     public class EmailService : IEmailService
@@ -16,14 +16,14 @@ namespace ModularDieselApplication.Application.Services
             _config = config;
         }
 
-        /// <summary>
-        /// Veřejná metoda, která bere dieslování a sama sestaví e‑mail
-        /// (předmět a tělo) a odešle ho skrze SendEmailAsync
-        /// </summary>
+        // ----------------------------------------
+        // Send an email for dieslovani with a specific result.
+        // ----------------------------------------
         public async Task SendDieslovaniEmailAsync(Dieslovani dieslovani, string emailResult)
         {
             var subject = "";
             var body = "";
+
             if (emailResult == "DA-ok")
             {
                 subject = $"Objednávka DA č. {dieslovani.ID} " +
@@ -35,7 +35,7 @@ namespace ModularDieselApplication.Application.Services
                     Toto je objednávka DA na lokalitu: 
                     <strong>{dieslovani.Odstavka?.Lokality?.Nazev}</strong>
                 </p>
-            ";
+                ";
             }
             else
             {
@@ -45,20 +45,19 @@ namespace ModularDieselApplication.Application.Services
                 body = $@"
                 <h1>Dobrý den</h1>
                 <p>
-                    Toto je objednávka DA na lokalitu: 
+                    Toto je zrušení DA na lokalitu: 
                     <strong>{dieslovani.Odstavka?.Lokality?.Nazev}</strong>
                 </p>
-            ";
+                ";
             }
 
-            // A zavoláme níže uvedenou "obecnou" metodu
+            // Call the general method to send the email.
             await SendEmailAsync(subject, body);
         }
 
-        /// <summary>
-        /// Obecná pomocná metoda – pošle e‑mail s daným subjectem a body
-        /// (používána v různých scénářích)
-        /// </summary>
+        // ----------------------------------------
+        // Send a generic email with a subject and body.
+        // ----------------------------------------
         public async Task SendEmailAsync(string subject, string body)
         {
             var emailSettings = _config.GetSection("EmailSettings");
@@ -68,7 +67,7 @@ namespace ModularDieselApplication.Application.Services
                 emailSettings["SenderName"],
                 emailSettings["SenderEmail"]));
 
-            // Příklad: posíláme "sobě" nebo někam nastaveně
+            // Example: send to the configured recipient
             message.To.Add(new MailboxAddress(
                 "", 
                 emailSettings["SenderEmail"]));

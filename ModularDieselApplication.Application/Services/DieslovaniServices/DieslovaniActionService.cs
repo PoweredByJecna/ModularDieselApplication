@@ -1,8 +1,6 @@
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
-using ModularDieselApplication.Domain.Rules;
-using static ModularDieselApplication.Application.Services.OdstavkyService;
 using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService
@@ -11,7 +9,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
     {
         private readonly IDieslovaniRepository _dieslovaniRepository; 
         private readonly ITechnikService _technikService;
-        private readonly ILogService    _logService;
+        private readonly ILogService _logService;
 
         public DieslovaniActionService(IDieslovaniRepository dieslovaniRepository, ITechnikService technikService, ILogService logService)
         {
@@ -19,10 +17,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             _technikService = technikService;
             _logService = logService;
         }
-    
-        /* ----------------------------------------
-            VstupAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Record entry to a location.
+        // ----------------------------------------
         public async Task<HandleResult> VstupAsync(int idDieslovani)
         {
             var result = new HandleResult();
@@ -34,45 +32,44 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 {
                     dis.Vstup = DateTime.Now;
                     dis.Technik.Taken = true;
-                    
+
                     await _dieslovaniRepository.UpdateAsync(dis);
                     await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " vstoupil na lokalitu.");
 
-                    result.Success=true;
-                    result.Message="Byl zadán vstup na lokalitu.";
+                    result.Success = true;
+                    result.Message = "Byl zadán vstup na lokalitu.";
                     return result;
                 }
                 else
                 {
-                    result.Success=false;
-                    result.Message="Záznam dieslování nebyl nalezen.";
+                    result.Success = false;
+                    result.Message = "Záznam dieslování nebyl nalezen.";
                     return result;
                 }
             }
             catch (Exception ex)
             {
-                result.Success=false;
-                result.Message="Chyba při zadávání vstupu " + ex.Message;
+                result.Success = false;
+                result.Message = "Chyba při zadávání vstupu " + ex.Message;
                 return result;
             }
         }
-        /*----------------------------------------
-            OdchodAsync
-        ----------------------------------------*/
+
+        // ----------------------------------------
+        // Record exit from a location.
+        // ----------------------------------------
         public async Task<HandleResult> OdchodAsync(int idDieslovani)
         {
             var result = new HandleResult();
-
             try
             {
                 var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
 
                 if (dis != null)
-                {              
+                {
                     var anotherDiesel = await _dieslovaniRepository.AnotherDieselRequest(dis.Technik.ID);
 
-
-                    if (anotherDiesel == false)
+                    if (!anotherDiesel)
                     {
                         dis.Technik.Taken = false;
                         await _technikService.UpdateTechnikAsync(dis.Technik);
@@ -100,9 +97,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
-        /* ----------------------------------------
-           TemporaryLeaveAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Toggle temporary leave status.
+        // ----------------------------------------
         public async Task<(bool Success, string Message)> TemporaryLeaveAsync(int idDieslovani)
         {
             try
@@ -126,9 +124,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return (false, "Chyba při dočasném uvolnění: " + ex.Message);
             }
         }
-        /* ----------------------------------------
-           TakeAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Assign a technician to a location.
+        // ----------------------------------------
         public async Task<HandleResult> TakeAsync(int idDieslovani, User currentUser)
         {
             var result = new HandleResult();
@@ -142,7 +141,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 }
 
                 var technik = await _technikService.GetTechnikByUserIdAsync(currentUser.Id);
-
                 var dieslovaniTaken = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
 
                 if (dieslovaniTaken == null)
@@ -168,7 +166,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     return result;
                 }
 
-
                 dieslovaniTaken.Technik = technik;
                 dieslovaniTaken.Technik.Taken = true;
                 await _technikService.UpdateTechnikAsync(dieslovaniTaken.Technik);
@@ -186,12 +183,13 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
-        /*----------------------------------------
-           DeleteDieslovaniJsonAsync
-        ---------------------------------------- */
+
+        // ----------------------------------------
+        // Delete a dieslovani record.
+        // ----------------------------------------
         public async Task<HandleResult> DeleteDieslovaniAsync(int id)
         {
-             var result = new HandleResult();
+            var result = new HandleResult();
             try
             {
                 var dieslovani = await _dieslovaniRepository.GetByIdAsync(id);
@@ -209,12 +207,11 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     result.Success = false;
                     result.Message = "Dieslovani se nepodařilo smazat.";
                     return result;
-                    
                 }
+
                 result.Success = true;
                 result.Message = "Dieslovani byla úspěšně smazána.";
                 return result;
-                
             }
             catch (Exception ex)
             {
@@ -223,6 +220,10 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
+
+        // ----------------------------------------
+        // Change the time for a dieslovani record.
+        // ----------------------------------------
         public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
         {
             var result = new HandleResult();
@@ -238,8 +239,8 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                 if (type == "vstup")
                 {
-                    if(time.Date != dieslovani.Odstavka.Od.Date)
-                    {   
+                    if (time.Date != dieslovani.Odstavka.Od.Date)
+                    {
                         result.Success = false;
                         result.Message = "Nelze zadat vstup mimo den odstávky.";
                         return result;
@@ -249,7 +250,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 }
                 else if (type == "odchod")
                 {
-                    if(dieslovani.Vstup == DateTime.MinValue)
+                    if (dieslovani.Vstup == DateTime.MinValue)
                     {
                         result.Success = false;
                         result.Message = "Nejprve musíte zadat vstup.";
@@ -277,7 +278,5 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 return result;
             }
         }
-
-
     }
 }

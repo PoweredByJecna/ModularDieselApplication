@@ -14,8 +14,15 @@ namespace ModularDieselApplication.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // ----------------------------------------
+            // Configure default schema for Identity tables.
+            // ----------------------------------------
             builder.HasDefaultSchema("Identity");
             base.OnModelCreating(builder);
+
+            // ----------------------------------------
+            // Configure Identity tables.
+            // ----------------------------------------
             builder.Entity<TableUser>().ToTable("User");
             builder.Entity<IdentityRole>().ToTable("Role");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
@@ -24,6 +31,9 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
+            // ----------------------------------------
+            // Configure application-specific tables with schema "Data".
+            // ----------------------------------------
             builder.Entity<TableLokality>().ToTable("LokalityTable", schema: "Data");
             builder.Entity<TableOdstavky>().ToTable("OdstavkyTable", schema: "Data");
             builder.Entity<TableDieslovani>().ToTable("TableDieslovani", schema: "Data");
@@ -34,24 +44,33 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<DebugLogModel>().ToTable("DebugModel", schema: "Data");
             builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");
 
+            // ----------------------------------------
+            // Configure relationships for TableOdstavky.
+            // ----------------------------------------
             builder.Entity<TableOdstavky>()
-                .HasOne(o => o.Lokality) 
-                .WithMany(l => l.OdstavkyList) 
-                .HasForeignKey(o => o.LokalitaID) 
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(o => o.Lokality) // One Lokality can have many Odstavky.
+                .WithMany(l => l.OdstavkyList) // Navigation property in Lokality.
+                .HasForeignKey(o => o.LokalitaID) // Foreign key in TableOdstavky.
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior.
+
+            // ----------------------------------------
+            // Configure relationships for TableDieslovani.
+            // ----------------------------------------
+            builder.Entity<TableDieslovani>()
+                .HasOne(o => o.Odstavka) // One Odstavka can have many Dieslovani.
+                .WithMany(i => i.DieslovaniList) // Navigation property in Odstavka.
+                .HasForeignKey(o => o.IDodstavky) // Foreign key in TableDieslovani.
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior.
 
             builder.Entity<TableDieslovani>()
-                .HasOne(o=>o.Odstavka)
-                .WithMany(I=>I.DieslovaniList)
-                .HasForeignKey(o=>o.IDodstavky)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<TableDieslovani>()
-                .HasOne(o=>o.Technik)
-                .WithMany(i=>i.DieslovaniList)
-                .HasForeignKey(o=>o.IdTechnik);
-                
+                .HasOne(o => o.Technik) // One Technik can have many Dieslovani.
+                .WithMany(i => i.DieslovaniList) // Navigation property in Technik.
+                .HasForeignKey(o => o.IdTechnik); // Foreign key in TableDieslovani.
         }
+
+        // ----------------------------------------
+        // DbSet properties for application tables.
+        // ----------------------------------------
         public DbSet<TableLokality> LokalityS { get; set; }
         public DbSet<TableOdstavky> OdstavkyS { get; set; }
         public DbSet<TableDieslovani> DieslovaniS { get; set; }

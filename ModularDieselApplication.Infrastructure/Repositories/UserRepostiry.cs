@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using ModularDieselApplication.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -13,39 +12,43 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<TableUser> _signInManager;
-        private readonly UserManager<TableUser>_userManager;
-        public UserRepository (ApplicationDbContext context, IMapper mapper, UserManager<TableUser> userManager, SignInManager<TableUser> signInManager)
+        private readonly UserManager<TableUser> _userManager;
+
+        public UserRepository(ApplicationDbContext context, IMapper mapper, UserManager<TableUser> userManager, SignInManager<TableUser> signInManager)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         // ----------------------------------------
-        // LogIn User
+        // Log in a user.
         // ----------------------------------------
         public async Task<SignInResult> LoginAsync(string username, string password, bool rememberMe)
         {
-            // Tady už signInManager nebude null
             return await _signInManager.PasswordSignInAsync(username, password, rememberMe, false);
         }
+
         // ----------------------------------------
-        // GetUserByUsernameAsync
+        // Get a user by their username.
         // ----------------------------------------
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             var tableUser = await _userManager.FindByNameAsync(username);
             return tableUser is null ? null : _mapper.Map<User>(tableUser);
         }
+
         // ----------------------------------------
-        // Logout User
+        // Log out the current user.
         // ----------------------------------------
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }
+
         // ----------------------------------------
-        // Get User by ID
+        // Get a user by their ID.
         // ----------------------------------------
         public async Task<User?> GetByIdAsync(string userId)
         {
@@ -55,19 +58,19 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         }
 
         // ----------------------------------------
-        // Get User's primary role
+        // Get the primary role of a user.
         // ----------------------------------------
         public async Task<string?> GetUserPrimaryRoleAsync(string userId)
         {
             var userRoleEntity = await _context.UserRoles
                 .FirstOrDefaultAsync(ur => ur.UserId == userId);
-            var  rolename = await _context.Roles
-                .FirstOrDefaultAsync(r => r.Id == userRoleEntity.RoleId);    
-            return rolename?.Name;
+            var roleName = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == userRoleEntity.RoleId);
+            return roleName?.Name;
         }
 
         // ----------------------------------------
-        // Get User's Pohotovost
+        // Get the Pohotovost record associated with a user.
         // ----------------------------------------
         public async Task<Pohotovosti?> GetUserPohotovostAsync(string userId)
         {
@@ -81,7 +84,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         }
 
         // ----------------------------------------
-        // Get User's Technik
+        // Get the Technik record associated with a user.
         // ----------------------------------------
         public async Task<Technik?> GetUserTechnikAsync(string userId)
         {
@@ -94,7 +97,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         }
 
         // ----------------------------------------
-        // Get User's Region for Firma
+        // Get the Region associated with a user's Firma.
         // ----------------------------------------
         public async Task<Region?> GetUserRegionForFirmaAsync(int firmaId)
         {
@@ -105,13 +108,17 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
 
             return _mapper.Map<Region?>(regionEntity);
         }
+
+        // ----------------------------------------
+        // Get Dieslovani records associated with a user.
+        // ----------------------------------------
         public async Task<List<object>> GetDieslovaniByUserId(string userId)
         {
             var userDieslovani = await _context.DieslovaniS
                 .Include(d => d.Technik)
                     .ThenInclude(t => t.User)
                 .Where(d => d.Technik.User.Id == userId)
-                .Select(l=>new
+                .Select(l => new
                 {
                     id = l.ID,
                     distributor = l.Odstavka.Distributor,
@@ -133,9 +140,8 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
                     User = l.Technik.User.Id
                 })
                 .ToListAsync();
+
             return _mapper.Map<List<object>>(userDieslovani);
         }
     }
-
-
 }

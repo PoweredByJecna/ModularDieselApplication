@@ -19,17 +19,28 @@ namespace ModularDieselApplication.Api.Controllers
             _odstavkyService = odstavkyService;
         }
 
+        // ----------------------------------------
+        // Render the main view for Odstavky.
+        // ----------------------------------------
         [Authorize]
         public IActionResult Index()
         {
             return View();
         }
+
+        // ----------------------------------------
+        // Suggest Lokality based on a query.
+        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> SuggestLokalita(string query)
         {
             var lokalities = await _odstavkyService.SuggestLokalitaAsync(query);
             return Json(lokalities);
         }
+
+        // ----------------------------------------
+        // Create a new Odstavka.
+        // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> Create(string lokalita, DateTime od, DateTime DO, string popis, string daOption)
         {
@@ -49,6 +60,10 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
         }
+
+        // ----------------------------------------
+        // Test the Odstavka functionality.
+        // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> Test()
         {
@@ -68,6 +83,10 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
         }
+
+        // ----------------------------------------
+        // Delete an Odstavka by ID.
+        // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -81,12 +100,15 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
+
+        // ----------------------------------------
+        // Fetch Odstavky data for a table.
+        // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> GetTableData(int start = 0, int length = 0)
         {
             var (totalRecords, data) = await _odstavkyService.GetTableDataAsync(start, length);
 
-            // Vracíme data ve formátu, který DataTables očekává
             return Json(new
             {
                 draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
@@ -95,6 +117,10 @@ namespace ModularDieselApplication.Api.Controllers
                 data = data
             });
         }
+
+        // ----------------------------------------
+        // Fetch detailed Odstavky data for a table.
+        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> GetTableDataOdDetail(int id)
         {
@@ -107,23 +133,23 @@ namespace ModularDieselApplication.Api.Controllers
             });
         }
 
+        // ----------------------------------------
+        // Fetch Odstavka details as JSON.
+        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> DetailOdstavkyJson(int id)
         {
             var detailOdstavky = await _odstavkyService.DetailOdstavkyJsonAsync(id);
-            if(detailOdstavky==null)
+            if (detailOdstavky == null)
             {
-                return Json(new{
-                    error="null"
-                });
-                
+                return Json(new { error = "null" });
             }
-            return Json(
-            new
-            {
-                data=detailOdstavky
-            });
+            return Json(new { data = detailOdstavky });
         }
+
+        // ----------------------------------------
+        // Render the detail view for an Odstavka.
+        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> DetailOdstavky(int id)
         {
@@ -132,6 +158,10 @@ namespace ModularDieselApplication.Api.Controllers
                 return NotFound();
             return View(detail);
         }
+
+        // ----------------------------------------
+        // Change the time of an Odstavka.
+        // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> ChangeTimeOdstavky(int odstavkaId, DateTime time, string type)
         {
@@ -145,7 +175,5 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
-
     }
-    
 }

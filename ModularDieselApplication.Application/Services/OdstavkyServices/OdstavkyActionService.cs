@@ -1,4 +1,3 @@
-
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
@@ -20,9 +19,11 @@ namespace ModularDieselApplication.Application.Services
             _dieslovaniService = dieslovaniService;
             _technikService = technikService;
             _logService = logService;
-
         }
 
+        // ----------------------------------------
+        // Delete an odstávka record.
+        // ----------------------------------------
         public async Task<HandleResult> DeleteOdstavkaAsync(int idodstavky)
         {
             var result = new HandleResult();
@@ -38,7 +39,7 @@ namespace ModularDieselApplication.Application.Services
                 
                 var dieslovani = await _dieslovaniService.GetDieslovaniByOdstavkaId(idodstavky);
 
-                if(dieslovani == null)
+                if (dieslovani == null)
                 {
                     await _odstavkaRepository.DeleteAsync(idodstavky);
                     result.Success = true;
@@ -50,15 +51,13 @@ namespace ModularDieselApplication.Application.Services
 
                 if (dieslovani != null)
                 {
-                    
-                    var antoherDa= await _dieslovaniService.AnotherDieselRequestAsync(technikID);
-                    if(!antoherDa)
+                    var anotherDa = await _dieslovaniService.AnotherDieselRequestAsync(technikID);
+                    if (!anotherDa)
                     {
-                        var Technik = await _technikService.GetTechnikByIdAsync(technikID);
-                        Technik.Taken = false;
-                        await _technikService.UpdateTechnikAsync(Technik);
+                        var technik = await _technikService.GetTechnikByIdAsync(technikID);
+                        technik.Taken = false;
+                        await _technikService.UpdateTechnikAsync(technik);
                     }
-                    
                 }
                 result.Success = true;
                 result.Message = "Záznam byl úspěšně smazán.";
@@ -71,6 +70,10 @@ namespace ModularDieselApplication.Application.Services
                 return result;
             }
         }
+
+        // ----------------------------------------
+        // Change the time for an odstávka record.
+        // ----------------------------------------
         public async Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type)
         {
             var result = new HandleResult();
@@ -92,7 +95,7 @@ namespace ModularDieselApplication.Application.Services
                         return result;
                     }
                     odstavka.Od = time;
-                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změneň čas začátku odstávky na: {odstavka.Od}");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změněn čas začátku odstávky na: {odstavka.Od}");
 
                     await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
@@ -105,7 +108,7 @@ namespace ModularDieselApplication.Application.Services
                         return result;
                     }
                     odstavka.Do = time;
-                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změneň čas konce odstávky na: {odstavka.Od}");
+                    await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změněn čas konce odstávky na: {odstavka.Do}");
                     await _dieslovaniService.HandleOdstavkyDieslovani(odstavka, result);
                 }
                 await _odstavkaRepository.UpdateAsync(odstavka);
@@ -120,8 +123,5 @@ namespace ModularDieselApplication.Application.Services
                 return result;
             }
         }
-        
-
     }
-    
 }

@@ -18,14 +18,16 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         }
 
         // ----------------------------------------
-        // Get logs by entity ID
+        // Get logs by entity ID.
         // ----------------------------------------
         public async Task<IEnumerable<Log>> GetLogByEntityAsync(int id)
         {
+            // Retrieve logs from the database where the EntityId matches the given ID.
             var logModels = await _context.Set<DebugLogModel>()
                 .Where(l => l.EntityId == id)
                 .ToListAsync();
 
+            // Map the database models to domain entities and return them.
             return logModels.Select(l => new Log
             {
                 IdLog = l.IdLog,
@@ -37,10 +39,11 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         }
 
         // ----------------------------------------
-        // Add a new log entry
+        // Add a new log entry.
         // ----------------------------------------
         public async Task AddLogAsync(Log logEntry)
         {
+            // Map the domain entity to a database model.
             var logModel = new DebugLogModel
             {
                 IdLog = logEntry.IdLog,
@@ -50,6 +53,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
                 LogMessage = logEntry.LogMessage
             };
 
+            // Add the log entry to the database and save changes.
             await _context.Set<DebugLogModel>().AddAsync(logModel);
             await _context.SaveChangesAsync();
         }
