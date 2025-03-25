@@ -1,38 +1,50 @@
 $(document).ready(function () {
-    // Získání ID z URL
+    // ----------------------------------------
+    // Function to get the Odstavka ID from the URL.
+    // ----------------------------------------
     function getDieslovaniIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        return params.get("id"); // Vrátí hodnotu parametru 'id'
+        return params.get("id"); // Returns the value of the 'id' parameter.
     }
 
+    // ----------------------------------------
+    // Initialize the DataTable for displaying Odstavka details.
+    // ----------------------------------------
     $('#OdDetail').DataTable({
         ajax: {
-            url: '/Odstavky/GetTableDataOdDetail',
+            // ----------------------------------------
+            // Configure the AJAX request to fetch data from the server.
+            // ----------------------------------------
+            url: '/Odstavky/GetTableDataOdDetail', // Server-side method to fetch data.
             type: 'GET',
             data: function (d) {
                 const id = getDieslovaniIdFromUrl();
-                console.log("ID odesláno na server:", id); // Pro ladění
-                d.id = id; // Přidání ID do dotazu
+                console.log("ID sent to the server:", id); // Debugging log.
+                d.id = id; // Add the ID to the request data.
             },
             dataSrc: function (json) {
-                console.log("Data vrácená serverem:", json); // Pro ladění
+                console.log("Data returned by the server:", json); // Debugging log.
                 return json.data;
             }
         },
-      
         columns: [
-            
-            { data: 'id',
-                render: function(data)
-                {
+            {
+                // ----------------------------------------
+                // Render a clickable link for the Odstavka ID.
+                // ----------------------------------------
+                data: 'id',
+                render: function (data) {
                     return `
                         <a href="/Odstavky/DetailOdstavky?id=${data}">
                         ${data}
                         </a>
-                     `;
+                    `;
                 }
             },
             {
+                // ----------------------------------------
+                // Render the distributor logo based on the distributor name.
+                // ----------------------------------------
                 data: 'distributor',
                 render: function (data, type, row) {
                     let logo = '';
@@ -52,24 +64,61 @@ $(document).ready(function () {
                     return logo;
                 }
             },
-            { data: null,
+            {
+                // ----------------------------------------
+                // Render a clickable link for the Lokalita name.
+                // ----------------------------------------
+                data: null,
                 render: function (data, type, row) {
                     return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.nazevLokality}">
                     ${data.nazevLokality}</a>`;
-                } 
+                }
             },
             {
+                // ----------------------------------------
+                // Render the classification (Klasifikace) column.
+                // ----------------------------------------
                 data: 'klasifikace',
                 render: function (data, type, row) {
                     return `<span style="font-weight: 700;">${data}</span>`;
-                }   
+                }
             },
-            { data: 'zacatekOdstavky', render: data => formatDate(data) },
-            { data: 'konecOdstavky', render: data => formatDate(data) },
-            { data: 'adresa' },
-            { data: 'vydrzBaterie' },
-            { data: 'popis' },
             {
+                // ----------------------------------------
+                // Format the start date of the Odstavka.
+                // ----------------------------------------
+                data: 'zacatekOdstavky',
+                render: data => formatDate(data)
+            },
+            {
+                // ----------------------------------------
+                // Format the end date of the Odstavka.
+                // ----------------------------------------
+                data: 'konecOdstavky',
+                render: data => formatDate(data)
+            },
+            {
+                // ----------------------------------------
+                // Render the address of the Lokalita.
+                // ----------------------------------------
+                data: 'adresa'
+            },
+            {
+                // ----------------------------------------
+                // Render the battery capacity.
+                // ----------------------------------------
+                data: 'vydrzBaterie'
+            },
+            {
+                // ----------------------------------------
+                // Render the description (Popis) column.
+                // ----------------------------------------
+                data: 'popis'
+            },
+            {
+                // ----------------------------------------
+                // Render an icon indicating whether a socket (Zásuvka) is available.
+                // ----------------------------------------
                 data: 'zasuvka',
                 render: function (data) {
                     return data
@@ -78,6 +127,9 @@ $(document).ready(function () {
                 }
             }
         ],
+        // ----------------------------------------
+        // Apply custom row styling based on the data.
+        // ----------------------------------------
         rowCallback: function (row, data) {
             const today = new Date().setHours(0, 0, 0, 0);
             const startDate = new Date(data.od).setHours(0, 0, 0, 0);
@@ -96,10 +148,10 @@ $(document).ready(function () {
                 $(row).addClass('row-standart');
             }
         },
-        paging: false,
-        searching: false,
-        ordering: false,
-        lengthChange: false,
-        pageLength: 1 // Počet řádků na stránku
+        paging: false,        // Disable pagination.
+        searching: false,     // Disable searching.
+        ordering: false,      // Disable ordering.
+        lengthChange: false,  // Disable length change.
+        pageLength: 1         // Number of rows per page.
     });
 });

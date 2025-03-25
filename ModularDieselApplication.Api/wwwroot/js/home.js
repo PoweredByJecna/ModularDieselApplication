@@ -411,8 +411,6 @@ function ChangeTimeOdstavky(odstavkaId, timeValue, type) {
 }
 
 
-
-
 /*--------------------------------------------
  * Zaznamená vstup dieslování
  */

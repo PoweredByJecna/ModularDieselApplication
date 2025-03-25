@@ -1,102 +1,118 @@
 $(document).ready(function () {
-    // Získání ID z URL
+    // ----------------------------------------
+    // Function to get the User ID from the URL.
+    // ----------------------------------------
     function getUserIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        return params.get("id"); // Vrátí hodnotu parametru 'id'
+        return params.get("id"); // Returns the value of the 'id' parameter.
     }
 
+    // ----------------------------------------
+    // Initialize the DataTable for displaying technician Dieslovani records.
+    // ----------------------------------------
     $('#technikDieslovaniTable').DataTable({
         ajax: {
-            url: '/User/VazbyJson',
+            // ----------------------------------------
+            // Configure the AJAX request to fetch data from the server.
+            // ----------------------------------------
+            url: '/User/VazbyJson', // Server-side method to fetch data.
             type: 'GET',
             data: function (d) {
                 const id = getUserIdFromUrl();
-                console.log("ID odesláno na server:", id); // Pro ladění
-                d.id = id; // Přidání ID do dotazu
+                console.log("ID sent to the server:", id); // Debugging log.
+                d.id = id; // Add the User ID to the request data.
             },
             dataSrc: function (json) {
-                console.log("Data vrácená serverem:", json); // Pro ladění
+                console.log("Data returned by the server:", json); // Debugging log.
                 return json.data;
             }
         },
         columns: [
-        {
-            
-            render: function (data, type, row) {
-                let badgeClass = "badge-phoenix-success";
-                let badgeStyle = "background-color: yellow; border-radius: 5px;";
-                let labelStyle = "color: black; padding: 1px; font-size: small;";
-                let labelText = "Čekající";
-                let iconClass = "fa-clock-rotate-left";
-                let iconColor = "black";
-
-                let minDateString = "0001-01-01T00:00:00"; 
-
-                let zadanVstup = row.zadanVstup && row.zadanVstup !== minDateString;
-                let zadanOdchod = row.zadanOdchod && row.zadanOdchod !== minDateString;
-
-                // Pokud je zadán ZadanOdchod, nastav "Ukončené"
-                if (zadanOdchod == true) {
-                    badgeClass = "badge-phoenix-danger";
-                    badgeStyle = "background-color: red; border-radius: 5px;";
-                    labelStyle = "color: white; padding: 1px; font-size: small;";
-                    labelText = "Ukončené";
-                    iconClass = "fa-check-circle";
-                    iconColor = "black";
-                }
-                // Pokud je zadán ZadanVstup, nastav "Aktivní"
-                else if (zadanVstup ==true && zadanOdchod==false)  {
-                    badgeClass = "badge-phoenix-primary";
-                    badgeStyle = "background-color: green; border-radius: 5px;";
-                    labelStyle = "color: white; padding: 1px; font-size: small;";
-                    labelText = "Aktivní";
-                    iconClass = "fa-clock-rotate-left";
-                    iconColor = "black";
-                }
-                // Pokud je technik "606794494" a stav je "Nepřiřazeno"
-                else if (row.idtechnika == "606794494")  {
-                    badgeClass = "badge-phoenix-warning";
-                    badgeStyle = "background-color: orange; border-radius: 5px;"; // Oranžová barva pro "Nepřiřazeno"
-                    labelText = "Nepřiřazeno";
-                    iconClass = "fa-clock-rotate-left"; // Můžeš změnit ikonu
-                    iconColor = "black";
-                }
-
-                return `
-                    <span class="badge fs-10 ${badgeClass}" style="${badgeStyle}">
-                        <span class="badge-label" style="${labelStyle}">${labelText}</span>
-                        <i class="fa-solid ${iconClass}" style="color: ${iconColor};"></i>
-                    </span>
-                `;
-            }
-        },
-        {
-            data: null,
-            render: function (data, type, row) {
-                return `       
-                <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="deleteRecordDieslovani(this, ${row.id})">
-                    <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Uzavřít</span>
-                    <i class="fa-solid fa-xmark"></i>
-                </span>  
-            `;
-
-            
-        }
-        },
-        
-        { data: 'id',
-            render: function (data, type, row) {
-                return `
-                    <a href="/Dieslovani/DetailDieslovani?id=${data}">
-                    ${data}
-                    </a>
-                `;
-            }
-        },
-        {
-            data: 'distributor',
+            {
+                // ----------------------------------------
+                // Render a badge indicating the status of the record.
+                // ----------------------------------------
                 render: function (data, type, row) {
-                    var logo = '';
+                    let badgeClass = "badge-phoenix-success";
+                    let badgeStyle = "background-color: yellow; border-radius: 5px;";
+                    let labelStyle = "color: black; padding: 1px; font-size: small;";
+                    let labelText = "Čekající";
+                    let iconClass = "fa-clock-rotate-left";
+                    let iconColor = "black";
+
+                    let minDateString = "0001-01-01T00:00:00";
+
+                    let zadanVstup = row.zadanVstup && row.zadanVstup !== minDateString;
+                    let zadanOdchod = row.zadanOdchod && row.zadanOdchod !== minDateString;
+
+                    // If ZadanOdchod is set, mark as "Ukončené".
+                    if (zadanOdchod == true) {
+                        badgeClass = "badge-phoenix-danger";
+                        badgeStyle = "background-color: red; border-radius: 5px;";
+                        labelStyle = "color: white; padding: 1px; font-size: small;";
+                        labelText = "Ukončené";
+                        iconClass = "fa-check-circle";
+                        iconColor = "black";
+                    }
+                    // If ZadanVstup is set but ZadanOdchod is not, mark as "Aktivní".
+                    else if (zadanVstup == true && zadanOdchod == false) {
+                        badgeClass = "badge-phoenix-primary";
+                        badgeStyle = "background-color: green; border-radius: 5px;";
+                        labelStyle = "color: white; padding: 1px; font-size: small;";
+                        labelText = "Aktivní";
+                        iconClass = "fa-clock-rotate-left";
+                        iconColor = "black";
+                    }
+                    // If the technician ID matches a specific value, mark as "Nepřiřazeno".
+                    else if (row.idtechnika == "606794494") {
+                        badgeClass = "badge-phoenix-warning";
+                        badgeStyle = "background-color: orange; border-radius: 5px;";
+                        labelText = "Nepřiřazeno";
+                        iconClass = "fa-clock-rotate-left";
+                        iconColor = "black";
+                    }
+
+                    // Return the HTML for the badge.
+                    return `
+                        <span class="badge fs-10 ${badgeClass}" style="${badgeStyle}">
+                            <span class="badge-label" style="${labelStyle}">${labelText}</span>
+                            <i class="fa-solid ${iconClass}" style="color: ${iconColor};"></i>
+                        </span>
+                    `;
+                }
+            },
+            {
+                // ----------------------------------------
+                // Render a button to close the Dieslovani record.
+                // ----------------------------------------
+                data: null,
+                render: function (data, type, row) {
+                    return `
+                    <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="deleteRecordDieslovani(this, ${row.id})">
+                        <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Uzavřít</span>
+                        <i class="fa-solid fa-xmark"></i>
+                    </span>`;
+                }
+            },
+            {
+                // ----------------------------------------
+                // Render a clickable link for the Dieslovani ID.
+                // ----------------------------------------
+                data: 'id',
+                render: function (data, type, row) {
+                    return `
+                        <a href="/Dieslovani/DetailDieslovani?id=${data}">
+                        ${data}
+                        </a>`;
+                }
+            },
+            {
+                // ----------------------------------------
+                // Render the distributor logo based on the distributor name.
+                // ----------------------------------------
+                data: 'distributor',
+                render: function (data, type, row) {
+                    let logo = '';
                     if (data === 'ČEZ') {
                         logo = '<img src="/Images/CEZ-Logo.jpg" width="25" height="25" style="border-radius: 20px; border: 0.5px solid grey;">';
                     } else if (data === 'EGD') {
@@ -106,99 +122,124 @@ $(document).ready(function () {
                     }
                     return logo;
                 }
-        },
-        {
-            data: 'lokalitaNazev',
-            render: function (data, type, row) {
-                return `<span style="font-weight: 700;">${data}</span>`;
-            }
-        },
-        {
-            data: 'klasifikace',
-            render: function (data, type, row) {
-                return `<span style="font-weight: 700;">${data}</span>`;
-            }
-        },
-        {data:'adresa'},
-        {data: 'technikFirma'},
-        { 
-            data: null, 
-                        render: function(data, type, row) {
-                        return `<a class="userA" href="/User/Index?id=${data.idUser}">
+            },
+            {
+                // ----------------------------------------
+                // Render the Lokalita name.
+                // ----------------------------------------
+                data: 'lokalitaNazev',
+                render: function (data, type, row) {
+                    return `<span style="font-weight: 700;">${data}</span>`;
+                }
+            },
+            {
+                // ----------------------------------------
+                // Render the classification (Klasifikace) column.
+                // ----------------------------------------
+                data: 'klasifikace',
+                render: function (data, type, row) {
+                    return `<span style="font-weight: 700;">${data}</span>`;
+                }
+            },
+            { data: 'adresa' },
+            { data: 'technikFirma' },
+            {
+                // ----------------------------------------
+                // Render a clickable link for the technician's name.
+                // ----------------------------------------
+                data: null,
+                render: function (data, type, row) {
+                    return `<a class="userA" href="/User/Index?id=${data.idUser}">
                         ${data.jmenoTechnika} ${data.prijmeniTechnika}
-                    </a>`;}
-        },    
-        {data: 'nazevRegionu'},
-        {data: 'odstavkaZacatek', 
-            render: function(data) {
-                return formatDate(data);
-            } },
-        {data: 'odstavkaKonec', 
-            render: function(data) {
-                return formatDate(data);
-            } },
-        {
-            data: 'zadanVstup',
-            render: function(data) {
-                // Zkontroluje, jestli je datum ve formátu "01.01.1 00:00" nebo je null/undefined
-                if (!data || data === "0001-01-01T00:00:00") {
-                    return "-";  // Zobrazí pomlčku
-                } else {
-                    return formatDate(data);  // Jinak použije formátování
+                    </a>`;
+                }
+            },
+            { data: 'nazevRegionu' },
+            {
+                // ----------------------------------------
+                // Format the start date of the Odstavka.
+                // ----------------------------------------
+                data: 'odstavkaZacatek',
+                render: function (data) {
+                    return formatDate(data);
+                }
+            },
+            {
+                // ----------------------------------------
+                // Format the end date of the Odstavka.
+                // ----------------------------------------
+                data: 'odstavkaKonec',
+                render: function (data) {
+                    return formatDate(data);
+                }
+            },
+            {
+                // ----------------------------------------
+                // Format the entry date (ZadanVstup).
+                // ----------------------------------------
+                data: 'zadanVstup',
+                render: function (data) {
+                    if (!data || data === "0001-01-01T00:00:00") {
+                        return "-"; // Display a dash if the date is not set.
+                    } else {
+                        return formatDate(data); // Format the date.
+                    }
+                }
+            },
+            {
+                // ----------------------------------------
+                // Format the exit date (ZadanOdchod).
+                // ----------------------------------------
+                data: 'zadanOdchod',
+                render: function (data) {
+                    if (!data || data === "0001-01-01T00:00:00") {
+                        return "-"; // Display a dash if the date is not set.
+                    } else {
+                        return formatDate(data); // Format the date.
+                    }
+                }
+            },
+            { data: 'popis' },
+            { data: 'vydrzBaterie' },
+            {
+                // ----------------------------------------
+                // Render an icon indicating whether a socket (Zásuvka) is available.
+                // ----------------------------------------
+                data: 'zasuvka',
+                render: function (data, type, row) {
+                    return data
+                        ? '<i class="fa-solid fa-circle-check socket-icon" style="color: #51fe06;"></i>'
+                        : '<i class="fa-solid fa-ban" style="color: #ea0606;"></i>';
                 }
             }
-        },
-        {data: 'zadanOdchod', 
-            render: function(data) {
-                // Zkontroluje, jestli je datum ve formátu "01.01.1 00:00" nebo je null/undefined
-                if (!data || data === "0001-01-01T00:00:00") {
-                    return "-";  // Zobrazí pomlčku
-                } else {
-                    return formatDate(data);  // Jinak použije formátování
-                }
-            }
-        },
-        {data:'popis'},
-
-        {data: 'vydrzBaterie'},
-        {
-            data: 'zasuvka',
-            render: function (data, type, row) {
-                var zasuvkaHtml = '';
-                if (data == true) {
-                    zasuvkaHtml = '<i class="fa-solid fa-circle-check socket-icon" style="color: #51fe06;"></i>';
-                } else if (data == false) {
-                    zasuvkaHtml = '<i class="fa-solid fa-ban" style="color: #ea0606;"></i>';
-                }
-                return zasuvkaHtml;
-            }
-        },
-        
         ],
-        rowCallback: function(row, data, index) {
-            var today = new Date().setHours(0, 0, 0, 0); 
-            var startDate = new Date(data.odstavkaZacatek).setHours(0, 0, 0, 0); 
-            var minDateString = "0001-01-01T00:00:00"; 
-            var zadanVstup = data.zadanVstup && data.zadanVstup !== minDateString;
-            var zadanOdchod = data.zadanOdchod && data.zadanOdchod !== minDateString;
+        // ----------------------------------------
+        // Apply custom row styling based on the data.
+        // ----------------------------------------
+        rowCallback: function (row, data, index) {
+            const today = new Date().setHours(0, 0, 0, 0);
+            const startDate = new Date(data.odstavkaZacatek).setHours(0, 0, 0, 0);
+            const minDateString = "0001-01-01T00:00:00";
+            const zadanVstup = data.zadanVstup && data.zadanVstup !== minDateString;
+            const zadanOdchod = data.zadanOdchod && data.zadanOdchod !== minDateString;
 
             if (zadanOdchod == true) {
                 $(row).addClass('row-ukoncene');
-            } else if (zadanVstup == true && zadanOdchod==false) {
+            } else if (zadanVstup == true && zadanOdchod == false) {
                 $(row).addClass('row-aktivni');
             } else if (data.idtechnika == "606794494") {
-                $(row).addClass('row-neprirazeno'); 
-            } else if(zadanOdchod == false && zadanVstup ==false && today==startDate) {
+                $(row).addClass('row-neprirazeno');
+            } else if (zadanOdchod == false && zadanVstup == false && today == startDate) {
                 $(row).addClass('row-cekajici');
-            }else {
+            } else {
                 $(row).addClass('row-standart');
             }
         },
-        paging: true,        
-        searching: true,
-        ordering: true,
-        lengthChange:false,
-        pageLength: 9,
+        paging: true,        // Enable pagination.
+        searching: true,     // Enable searching.
+        ordering: true,      // Enable column ordering.
+        lengthChange: false, // Disable length change.
+        pageLength: 9        // Set the number of rows per page.
     });
 });
 
