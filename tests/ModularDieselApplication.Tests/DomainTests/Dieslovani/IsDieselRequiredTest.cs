@@ -7,6 +7,9 @@ using Xunit;
 
 public class IsDieselRequiredTest
 {
+    // ----------------------------------------
+    // Test: Verify "Hello, World!" string.
+    // ----------------------------------------
     [Fact]
     public void HelloWorld_ReturnsExpectedString()
     {
@@ -14,6 +17,9 @@ public class IsDieselRequiredTest
         Assert.Equal("Hello, World!", result);
     }
 
+    // ----------------------------------------
+    // Test: Should return false when Lokality has a stationary generator (DA).
+    // ----------------------------------------
     [Fact]
     public async Task IsDieselRequired_ShouldReturnFalse_WhenLokalityHasDA()
     {
@@ -30,10 +36,13 @@ public class IsDieselRequiredTest
         var actualResult = await dieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
 
         // Assert
-        Assert.False(actualResult.Success);
+        Assert.False(actualResult.Success); // Verify that diesel is not required.
         Assert.Equal("na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.", actualResult.Duvod);
     }
 
+    // ----------------------------------------
+    // Test: Should return false when Lokality has no socket (Zasuvka).
+    // ----------------------------------------
     [Fact]
     public async Task IsDieselRequired_ShouldReturnFalse_WhenLokalityHasNoZasuvka()
     {
@@ -50,9 +59,11 @@ public class IsDieselRequiredTest
         var actualResult = await dieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
 
         // Assert
-        Assert.False(actualResult.Success);
+        Assert.False(actualResult.Success); // Verify that diesel is not required.
         Assert.Equal("na lokalitě se nedá dieslovat, protože tam není zásuvka.", actualResult.Duvod);
     }
 
-    // Add more tests to cover other scenarios
+    // ----------------------------------------
+    // Add more tests to cover other scenarios.
+    // ----------------------------------------
 }

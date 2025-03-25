@@ -13,10 +13,16 @@ using ModularDieselApplication.Application.Common.Models;
 public class CreateOdstavkaTest
 {
     private readonly Mock<IOdstavkyService> _odstavkyServiceMock;
+
     public CreateOdstavkaTest()
     {
+        // Initialize the mock for IOdstavkyService.
         _odstavkyServiceMock = new Mock<IOdstavkyService>();
     }
+
+    // ----------------------------------------
+    // Test: CreateOdstavka with valid data should create an Odstavka successfully.
+    // ----------------------------------------
     [Fact]
     public async Task CreateOdstavka_ValidData_ShouldCreateOdstavkaSuccessfully()
     {
@@ -49,6 +55,7 @@ public class CreateOdstavkaTest
             Odstavka = expectedOdstavka
         };
 
+        // Mock the CreateOdstavkaAsync method to return the expected result.
         _odstavkyServiceMock
             .Setup(service => service.CreateOdstavkaAsync(
                 testLokalita.Nazev, fromDateTime, toDateTime, testPopis, "default"))
@@ -59,25 +66,25 @@ public class CreateOdstavkaTest
             testLokalita.Nazev, fromDateTime, toDateTime, testPopis, "default");
 
         // Assert
-        Assert.NotNull(result);
-        Assert.True(result.Success);
+        Assert.NotNull(result); // Verify the result is not null.
+        Assert.True(result.Success); // Verify the result indicates success.
 
         var createdOdstavka = result.Odstavka;
-        Assert.NotNull(createdOdstavka);
-        Assert.Equal(expectedKlasifikace, createdOdstavka.Lokality.Klasifikace);
-        Assert.Equal(fromDateTime, createdOdstavka.Od);
-        Assert.Equal(toDateTime, createdOdstavka.Do); 
-        Assert.Equal(expectedBaterie, createdOdstavka.Lokality.Baterie);
-        Assert.Equal(testPopis, createdOdstavka.Popis);
-        Assert.Equal(testLokalita.Nazev, createdOdstavka.Lokality.Nazev);
-        Assert.Equal(testLokalita.DA, createdOdstavka.Lokality.DA);
-        Assert.Equal(testLokalita.Zasuvka, createdOdstavka.Lokality.Zasuvka);
+        Assert.NotNull(createdOdstavka); // Verify the created Odstavka is not null.
+        Assert.Equal(expectedKlasifikace, createdOdstavka.Lokality.Klasifikace); // Verify the classification.
+        Assert.Equal(fromDateTime, createdOdstavka.Od); // Verify the start time.
+        Assert.Equal(toDateTime, createdOdstavka.Do); // Verify the end time.
+        Assert.Equal(expectedBaterie, createdOdstavka.Lokality.Baterie); // Verify the battery capacity.
+        Assert.Equal(testPopis, createdOdstavka.Popis); // Verify the description.
+        Assert.Equal(testLokalita.Nazev, createdOdstavka.Lokality.Nazev); // Verify the location name.
+        Assert.Equal(testLokalita.DA, createdOdstavka.Lokality.DA); // Verify the DA flag.
+        Assert.Equal(testLokalita.Zasuvka, createdOdstavka.Lokality.Zasuvka); // Verify the socket availability.
 
+        // Verify that the CreateOdstavkaAsync method was called exactly once.
         _odstavkyServiceMock.Verify(
             s => s.CreateOdstavkaAsync(testLokalita.Nazev, fromDateTime, toDateTime,
             testPopis, "default"),
             Times.Once
         );
-        
     }
 }

@@ -15,21 +15,29 @@ namespace ModularDieselApplication.Tests.ApplicationTests
         private readonly Mock<IOdstavkyRepository> _mockOdstavkyRepository;
         private readonly Mock<IDieslovaniService> _mockDieslovaniService;
         private readonly Mock<ITechnikService> _mockTechnikService;
+        private readonly Mock<ILogService> _mockLogService;
         private readonly OdstavkyActionService _service;
 
         public ChangeTimeOdstavkaWithDieslovaniTest()
         {
+            // Initialize mocks for dependencies.
             _mockOdstavkyRepository = new Mock<IOdstavkyRepository>();
             _mockDieslovaniService = new Mock<IDieslovaniService>();
             _mockTechnikService = new Mock<ITechnikService>();
+            _mockLogService = new Mock<ILogService>();
 
+            // Initialize the service under test with mocked dependencies.
             _service = new OdstavkyActionService(
                 _mockOdstavkyRepository.Object,
                 _mockDieslovaniService.Object,
-                _mockTechnikService.Object
+                _mockTechnikService.Object,
+                _mockLogService.Object
             );
         }
 
+        // ----------------------------------------
+        // Test: ChangeTimeOdstavkyAsync should call Dieslovani and return success.
+        // ----------------------------------------
         [Fact]
         public async Task ChangeTimeOdstavkyAsync_WhenTimeIsChanged_CallsDieslovaniAndReturnsSuccess()
         {
@@ -38,10 +46,9 @@ namespace ModularDieselApplication.Tests.ApplicationTests
             DateTime newTime = new DateTime(2025, 1, 1, 12, 0, 0);
             string type = "zacatek";
 
-            // Připravíme odstávku s vyplněnou lokalitou 
-            // (pokud "IsDieselRequired" čte Klasifikaci, Baterii atd., vyplňte je).
-            var odstavka = new Odstavka 
-            { 
+            // Prepare an Odstavka with a Lokality object.
+            var odstavka = new Odstavka
+            {
                 ID = idodstavky,
                 Lokality = new Lokalita
                 {
@@ -50,33 +57,30 @@ namespace ModularDieselApplication.Tests.ApplicationTests
                 }
             };
 
-            // V repository simuluji, že odstávka existuje:
+            // Mock repository to return the prepared Odstavka.
             _mockOdstavkyRepository
                 .Setup(repo => repo.GetByIdAsync(idodstavky))
                 .ReturnsAsync(odstavka);
 
-            // Musíme zajistit, že se v HandleOdstavkyDieslovani nenastaví success = false:
-            // - nastavit, že se najde technik
+            // Mock TechnikService to return a valid Technik.
             _mockTechnikService
                 .Setup(x => x.GetTechnikByIdAsync("606794494"))
-                .ReturnsAsync(new Technik 
+                .ReturnsAsync(new Technik
                 {
                     ID = "606794494",
                 });
 
-            // - a nastavit, že dieslování dopadne úspěšně (result.Success = true)
+            // Mock DieslovaniService to simulate successful dieslovani handling.
             _mockDieslovaniService
                 .Setup(service => service.HandleOdstavkyDieslovani(It.IsAny<Odstavka>(), It.IsAny<HandleResult>()))
                 .ReturnsAsync((Odstavka odst, HandleResult res) =>
                 {
-                    // Tady simulujeme, že "IsDieselRequired" došla k závěru, že je dieslování OK, 
-                    // a pak byl technik nalezen => success = true
                     res.Success = true;
-                    res.Message = "Vytvořeno nové dieslování.";  // nebo cokoliv
+                    res.Message = "Vytvořeno nové dieslování.";
                     return res;
                 });
 
-            // Mock pro uložení
+            // Mock repository to simulate successful update.
             _mockOdstavkyRepository
                 .Setup(repo => repo.UpdateAsync(It.IsAny<Odstavka>()))
                 .Returns(Task.CompletedTask);
@@ -85,14 +89,14 @@ namespace ModularDieselApplication.Tests.ApplicationTests
             var result = await _service.ChangeTimeOdstavkyAsync(idodstavky, newTime, type);
 
             // Assert
-            Assert.True(result.Success);                      // Ověřím, že se vrátil úspěch
-            Assert.Equal("Čas byl úspěšně změněn.", result.Message);  // "Čas byl úspěšně změněn."
+            Assert.True(result.Success); // Verify the result indicates success.
+            Assert.Equal("Čas byl úspěšně změněn.", result.Message); // Verify the success message.
 
-            // Zkontrolujeme, zda se odstávka opravdu změnila
-            Assert.Equal(newTime, odstavka.Od);              
-            Assert.Null(odstavka.Do);  // protože měníme jen zacatek
+            // Verify that the Odstavka's time was updated.
+            Assert.Equal(newTime, odstavka.Od);
+            Assert.Null(odstavka.Do); // Verify only the start time was changed.
 
-            // Ověříme, že se skutečně zavolala metoda dieslování
+            // Verify that DieslovaniService was called exactly once.
             _mockDieslovaniService.Verify(
                 x => x.HandleOdstavkyDieslovani(It.IsAny<Odstavka>(), It.IsAny<HandleResult>()),
                 Times.Once
