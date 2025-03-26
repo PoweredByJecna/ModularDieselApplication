@@ -12349,8 +12349,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
-              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
+            "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+              "projectPath": "c:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
             },
             "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
