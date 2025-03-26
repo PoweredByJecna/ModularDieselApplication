@@ -164,6 +164,25 @@ $('#allTable').DataTable({
             }
         },
         {
+            data: 'zadanVstup',
+            render: function (data) {
+                return formatDate(data);
+            }
+        },   
+        {
+            data: 'zadanOdchod',
+            render: function (data) {
+                return formatDate(data);
+            }
+        }, 
+        {
+            data: 'popis'
+        },
+        {
+            data: 'vydrzBaterie'
+        },
+
+        {
             // ----------------------------------------
             // Render an icon indicating whether a socket (Zásuvka) is available.
             // ----------------------------------------

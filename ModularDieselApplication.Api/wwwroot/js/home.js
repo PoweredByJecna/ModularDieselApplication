@@ -701,44 +701,46 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebars = document.querySelectorAll('.sidebar');
 
     sidebars.forEach(sidebar => {
-        const toggle = sidebar.querySelector('a');
+        // Použijeme správnou třídu ikony
+        const icon = sidebar.querySelector('.ChevronSideMenu');
+        // Vybereme submenu podle třídy, nikoliv podle id
         const submenu = sidebar.querySelector('.ul-sidebar');
         const id = sidebar.getAttribute('data-id');
-        const icon = sidebar.querySelector('.toggle-icon');
 
-        // Výchozí stav
+        // Výchozí stav podle cookie: když je true, menu je rozbalené
         const isOpen = getCookie('sidebar_' + id);
         if (isOpen === 'true') {
             submenu.style.display = 'block';
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-left');
-        } else {
-            submenu.style.display = 'none';
             icon.classList.remove('fa-chevron-left');
             icon.classList.add('fa-chevron-down');
+        } else {
+            submenu.style.display = 'none';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-left');
         }
 
-        toggle.addEventListener('click', function (e) {
+        // Přidáme event listener pouze na ikonu
+        icon.addEventListener('click', function (e) {
             e.preventDefault();
-
+            e.stopPropagation();
             if (submenu.style.display === 'none') {
                 submenu.style.display = 'block';
                 setCookie('sidebar_' + id, 'true', 7);
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-left');
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-down');
             } else {
                 submenu.style.display = 'none';
                 setCookie('sidebar_' + id, 'false', 7);
-                icon.classList.remove('fa-chevron-left');
-                icon.classList.add('fa-chevron-down');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-left');
             }
         });
     });
 
     function setCookie(name, value, days) {
         const d = new Date();
-        d.setTime(d.getTime() + (days*24*60*60*1000));
-        const expires = "expires="+ d.toUTCString();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
 
@@ -753,6 +755,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return "";
     }
 });
+
 
 
 

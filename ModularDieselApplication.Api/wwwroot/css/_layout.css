@@ -651,6 +651,13 @@ header.dark-mode {
     width: 100%;
     align-items: baseline;
     padding: 7px 10px 7px 16px;
+    position: relative;
+}
+
+.ChevronSideMenu{
+    position: absolute;
+    right: 3px;
+    padding: 2px 10px 2px 10px;
 }
 
 .navA {

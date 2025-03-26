@@ -42,10 +42,10 @@
                                     <a asp-action="Index" asp-controller="Dieslovani" class="a-sidebar" style="padding-left: 0px;">
                                         <i class="fa-solid fa-gas-pump fa-sm navA"></i>
                                         <span class="sb">Dieslovaní</span>  
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-solid fa-chevron-down ChevronSideMenu"></i>
                                     </a>
                                 </li>
-                                <ul class="ul-sidebar">
+                                <ul class="ul-sidebar" >
                                     <li class="li-sidebar">
                                         <a asp-action="Index" asp-controller="Dieslovani" asp-fragment="runningTable" class="a-sidebar">
                                             <i class="fa-solid fa-person-running fa-sm navA"></i>
@@ -84,7 +84,7 @@
                                     <a asp-action="Index" asp-controller="Odstavky" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-bolt navA"></i>
                                         <span class="sb">Odstávky</span>  
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-solid fa-chevron-down ChevronSideMenu"></i>
                                     </a>
                                 </li>
                                  <ul class="ul-sidebar">
@@ -109,7 +109,7 @@
                                     <a asp-action="Index" asp-controller="Lokality" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-tower-broadcast navA"></i>
                                         <span class="sb">Lokality</span>  
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-solid fa-chevron-down ChevronSideMenu"></i>
                                     </a>
                                 </li>
                                 
@@ -128,7 +128,7 @@
                                     <a asp-action="Index" asp-controller="Pohotovosti" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-table fa-sm navA"></i>
                                         <span class="sb">Pohotovosti</span>  
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-solid fa-chevron-down ChevronSideMenu"></i>
                                     </a>
                                 </li>
                                  <ul class="ul-sidebar">
@@ -145,7 +145,7 @@
                                     <a asp-action="Index" asp-controller="Regiony" class="a-sidebar" style="padding-left: 0px;"> 
                                         <i class="fa-solid fa-map-location navA"></i>
                                         <span class="sb">Regiony</span>  
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-solid fa-chevron-down ChevronSideMenu"></i>
                                     </a>
                                 </li>
                                 
@@ -233,6 +233,7 @@
                     <div class="modalHeslo" id="modalHeslo">
                         <div class="logoForm">
                             <h2 class="h2-div">Změna hesla <i class="fa-solid fa-lock"></i></h2>
+                            <span id="closeModal" class="close" onclick="closeModalHeslo()">&times;</span>
                         </div>
                         <div class="formINFO-D form changepassword">
                             <div>
@@ -252,6 +253,7 @@
                     <div class="formAddUser">
                         <div class="logoForm">
                             <h2 class="h2-div">Přidání uživatele <i class="fa-solid fa-user-plus"></i></h2>
+                            <span id="closeModal" class="close" onclick="closeModalAddUser()">&times;</span>
                         </div>
                         <div class="formINFO-D form" style="flex-direction: column;">
                             <div>
@@ -280,9 +282,6 @@
                     </div>
                 </div>
 
-
-
-                  
                 <div id="confirmModal" class="modal-confirm-modal">
                     <div id="confirmModalContent" class="modal-content-confirm">
                         <span id="closeConfirmModal" class="closeConfirm">&times;</span>
