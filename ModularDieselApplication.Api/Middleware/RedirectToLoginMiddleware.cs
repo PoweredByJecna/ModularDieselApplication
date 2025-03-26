@@ -1,4 +1,4 @@
-﻿namespace ModularDieselApplication.Application.Middleware
+﻿namespace ModularDieselApplication.Api.Middleware
 {
     public class RedirectToLoginMiddleware
     {

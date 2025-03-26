@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FBPw3nVrTK0=",
+  "dgSpecHash": "pFSAMF/vRo7WzaoelcSOweDN1fHBwUnD+VlhiQXNjCgEPYCpIKV+1k3vpdiliWQaVKsbnoJOTOX+5ENxoyw69Q==",
   "success": true,
-  "projectFilePath": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
-  "expectedPackageFiles": [
-    "/Users/jirichroust/.nuget/packages/microsoft.netcore.app.ref/8.0.14/microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
-    "/Users/jirichroust/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.14/microsoft.aspnetcore.app.ref.8.0.14.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-14\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
