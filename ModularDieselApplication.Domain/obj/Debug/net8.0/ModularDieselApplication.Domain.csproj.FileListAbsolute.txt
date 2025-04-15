@@ -310,3 +310,15 @@ C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-14/ModularDiese
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/obj/Debug/net8.0/refint/ModularDieselApplication.Domain.dll
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.pdb
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/obj/Debug/net8.0/ref/ModularDieselApplication.Domain.dll
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/bin/Debug/net8.0/ModularDieselApplication.Domain.deps.json
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/bin/Debug/net8.0/ModularDieselApplication.Domain.dll
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/bin/Debug/net8.0/ModularDieselApplication.Domain.pdb
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.AssemblyInfoInputs.cache
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.AssemblyInfo.cs
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.csproj.CoreCompileInputs.cache
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.sourcelink.json
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.dll
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/refint/ModularDieselApplication.Domain.dll
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.pdb
+/Users/jirichroust/nt/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/Debug/net8.0/ref/ModularDieselApplication.Domain.dll
