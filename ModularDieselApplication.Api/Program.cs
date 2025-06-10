@@ -100,7 +100,6 @@ using (var scope = app.Services.CreateScope())
     mapper.ConfigurationProvider.AssertConfigurationIsValid();
 }
 app.UseRouting();
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

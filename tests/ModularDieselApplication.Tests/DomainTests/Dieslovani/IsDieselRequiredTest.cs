@@ -23,7 +23,7 @@ public class IsDieselRequiredTest
     [Fact]
     public async Task IsDieselRequired_ShouldReturnFalse_WhenLokalityHasDA()
     {
-        // Arrange
+    
         var klasifikace = "A1";
         var od = DateTime.Now;
         var do_ = DateTime.Now.AddHours(1);
@@ -31,12 +31,10 @@ public class IsDieselRequiredTest
         var newOdstavka = new Odstavka { Lokality = new Lokalita { DA = true } };
         var result = new HandleResult();
 
-        // Act
         var dieslovaniRules = new DieslovaniRules();
         var actualResult = await dieslovaniRules.IsDieselRequired(klasifikace, od, do_, baterie, newOdstavka, result);
-
-        // Assert
-        Assert.False(actualResult.Success); // Verify that diesel is not required.
+     
+        Assert.False(actualResult.Success);
         Assert.Equal("na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.", actualResult.Duvod);
     }
 
