@@ -73,35 +73,23 @@ document.addEventListener('DOMContentLoaded', function () {
  * Nastavení výchozího zobrazení a přepínání mezi LOG a VAZBY
  */
 document.addEventListener('DOMContentLoaded', function () {
-    // Výchozí nastavení:
-    // 1) Přidáme "active" na LOG
     document.getElementById("log").classList.add("active");
   
-    // 2) Zobrazíme content-log, schováme content-vazby
     document.getElementById("content-log").style.display = "block";
 
     document.getElementById("content-vazby").style.display = "none";
 
-    // Kliknutí na "LOG"
     document.getElementById("log").addEventListener("click", function () {
-      // LOG je aktivní
       this.classList.add("active");
-      // VAZBY přestane být aktivní
       document.getElementById("vazby").classList.remove("active");
       
-      // Zobrazit content-log, schovat content-vazby
       document.getElementById("content-log").style.display = "block";
       document.getElementById("content-vazby").style.display = "none";
     });
 
-    // Kliknutí na "VAZBY"
     document.getElementById("vazby").addEventListener("click", function () {
-      // VAZBY je aktivní
       this.classList.add("active");
-      // LOG přestane být aktivní
       document.getElementById("log").classList.remove("active");
-      
-      // Zobrazit content-vazby, schovat content-log
       document.getElementById("content-log").style.display = "none";
       document.getElementById("content-vazby").style.display = "block";
     });
@@ -305,7 +293,7 @@ function deleteRecord(element, id) {
 function DeleteWithoutConfirm(id) {
     $.ajax({
         url: '/Dieslovani/Delete',
-        type: 'POST',  // Nebo 'GET', podle vašeho nastavení
+        type: 'POST',  
         data: { id: id },
         success: function (result) {
             if (result.success) {
@@ -324,7 +312,7 @@ function DeleteWithoutConfirm(id) {
 function DeleteWithoutConfirmOdstavka(id) {
     $.ajax({
         url: '/Odstavky/Delete',
-        type: 'POST',  // Nebo 'GET', podle vašeho nastavení
+        type: 'POST',  
         data: { id: id },
         success: function (result) {
             if (result.success) {
@@ -350,7 +338,7 @@ function deleteRecordDieslovani(element, id) {
     var cislo2 = 100;
 
     $('#confirmModal').css({
-        top: cislo1 + offset.top + row.height() + 'px',  // Umístění pod řádek
+        top: cislo1 + offset.top + row.height() + 'px', 
         left: cislo2 + offset.left + 'px',
         position: 'absolute'
     });
@@ -372,13 +360,12 @@ function ChangeTime(dieslovaniId, timeValue, type) {
         type: 'POST',
         data: {
             dieslovaniId: dieslovaniId,
-            time: timeValue,  // formát např. 2025-03-19T14:30
-            type: type        // 'vstup' nebo 'odchod'
+            time: timeValue,  
+            type: type        
         },
         success: function (response) {
             if (response.success) {
                 showModal(response.message, true);
-                // případně reload tabulek
             } else {
                 showModal(response.message, false);
             }
@@ -394,8 +381,8 @@ function ChangeTimeOdstavky(odstavkaId, timeValue, type) {
         type: 'POST',
         data: {
             dieslovaniId: odstavkaId,
-            time: timeValue,  // formát např. 2025-03-19T14:30
-            type: type        // 'vstup' nebo 'odchod'
+            time: timeValue,  
+            type: type       
         },
         success: function (response) {
             if (response.success) {
@@ -410,6 +397,61 @@ function ChangeTimeOdstavky(odstavkaId, timeValue, type) {
     });
 }
 
+function ChangePassword() {
+    var userId = $('#userId').val();
+    var newPassword = $('#newPassword').val();
+    $.ajax({
+        url: '/User/ChangePassword',
+        type: 'POST',
+        data: {
+            userId: userId,
+            newPassword: newPassword
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
+
+function AddUser() {
+    var jmeno = $('#firstName').val();
+    var prijmeni = $('#lastName').val();
+    var username = $('#username').val();
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var role = $('#roleSelect').val();
+
+    $.ajax({
+        url: '/User/AddUser',
+        type: 'POST',
+        data: {
+            email: email,
+            password: password,
+            role: role,
+            username: username,
+            Jmeno: jmeno,
+            Prijmeni: prijmeni
+        },
+        success: function (response) {
+            if (response.success) {
+                showModal(response.message, true);  
+                reloadTables(); 
+            } else {
+                showModal(response.message, false);
+            }
+        },
+        error: function () {
+            showModal('Došlo k chybě při komunikaci se serverem.', false);
+        }
+    });
+}
 
 /*--------------------------------------------
  * Zaznamená vstup dieslování
@@ -458,11 +500,11 @@ function Take(idDieslovani) {
 $(document).ready(function () {
     $('#testButton').on('click', function () {
         $.ajax({
-            url: '/Odstavky/Test', // URL akce v kontroleru
-            type: 'POST', // Typ HTTP požadavku
+            url: '/Odstavky/Test', 
+            type: 'POST', 
             success: function (response) {
                 if (response.success) {
-                    showModal(response.message, true); // Úspěšná hláška
+                    showModal(response.message, true);
                     reloadTables(); 
                 } else {
                     showModal(response.message, false); // Chybová hláška
@@ -494,7 +536,7 @@ function Zapis() {
     });
     // AJAX volání na server
     $.ajax({
-        url: '/Pohotovosti/Zapis', // Změňte "ControllerName" na název vašeho controlleru
+        url: '/Pohotovosti/Zapis', 
         type: 'POST',
         data: {
             Zacatek: Zacatek,
@@ -757,11 +799,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-
-
-
 /*--------------------------------------------
  * Aktualizuje všechny tabulky
  */
@@ -792,7 +829,6 @@ function reloadTables() {
         }).on('mouseleave', '.table-row', function () {
             $(this).find('.hidden-buttons').css('display', 'none');
         });
-
 
         $('.dataTables_filter label').contents().filter(function () {
             return this.nodeType === 3; 

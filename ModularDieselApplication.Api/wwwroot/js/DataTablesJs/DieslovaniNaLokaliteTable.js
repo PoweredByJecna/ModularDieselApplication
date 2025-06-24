@@ -10,6 +10,8 @@ $(document).ready(function () {
     // ----------------------------------------
     // Initialize the DataTable for Dieslovani on a specific Lokalita.
     // ----------------------------------------
+    if (!$.fn.DataTable.isDataTable('#DieslovaniNaLokaliteTable'))
+    {
     $('#DieslovaniNaLokaliteTable').DataTable({
         ajax: {
             // ----------------------------------------
@@ -148,4 +150,5 @@ $(document).ready(function () {
         lengthChange: false, // Disable length change.
         pageLength: 1 // Number of rows per page.
     });
+}
 });

@@ -246,8 +246,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>27edwj022v</Fingerprint>
-      <Integrity>4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g=</Integrity>
+      <Fingerprint>k0i1luk34x</Fingerprint>
+      <Integrity>dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\DataTablesJs\DieslovaniNaLokaliteTable.js'))</OriginalItemSpec>
@@ -516,8 +516,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>3y8eg51dlo</Fingerprint>
-      <Integrity>y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg=</Integrity>
+      <Fingerprint>9g0f55sqbr</Fingerprint>
+      <Integrity>97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\home.js'))</OriginalItemSpec>

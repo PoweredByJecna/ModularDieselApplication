@@ -84,31 +84,66 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         // Add a new user with a role.
         // ----------------------------------------
-        public async Task<IActionResult> AddUser(string email, string password, string role)
+        public async Task<IActionResult> AddUser(string email, string password, string role, string username, string Jmeno, string Prijmeni)
         {
-            var user = new TableUser
-            {
-                UserName = email,
-                Email = email
-            };
-            var result = await _userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, role);
-                return Json(new
-                {
-                    success = true,
-                    message = "Uživatel byl úspěšně přidán"
-                });
-            }
-            else
+            // Check if the user already exists
+            var existingUser = await _userManager.FindByNameAsync(username);
+            var passwordValidator = _userManager.PasswordValidators.FirstOrDefault();
+
+            if (existingUser != null)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Něco se pokazilo"
+                    message = "Uživatel s tímto username již existuje"
                 });
             }
+            var correctPassword = await passwordValidator.ValidateAsync(_userManager, null, password);
+            if (!correctPassword.Succeeded)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Heslo nesplňuje požadavky"
+                });
+            }
+
+            else
+            {
+                var user = new TableUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = username,
+                    Email = email,
+                    Jmeno = Jmeno,
+                    Prijmeni = Prijmeni,
+                    EmailConfirmed = true,
+                    NormalizedEmail = email.ToUpper(),
+                    NormalizedUserName = username.ToUpper()
+
+                };
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, role);
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Uživatel byl úspěšně přidán"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Něco se pokazilo"
+                    });
+                }
+            }
+        
+
         }
+
     }
 }

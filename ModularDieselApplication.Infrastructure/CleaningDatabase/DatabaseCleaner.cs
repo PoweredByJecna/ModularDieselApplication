@@ -39,11 +39,11 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
 
                 // Retrieve outdated odstávky records.
                 var outdatedRecordsOdstavky = await _context.OdstavkyS
-                    .Where(d => d.Do.Date.AddDays(90) < DateTime.Today).ToListAsync();
+                    .Where(d => d.Do.Date.AddDays(10) < DateTime.Today).ToListAsync();
 
                 // Retrieve outdated dieslovani records.
                 var outdatedRecordsDieslovani = await _context.DieslovaniS.Include(d => d.Technik)
-                    .Where(d => d.Odstavka.Do.Date.AddDays(90) < DateTime.Today).ToListAsync();
+                    .Where(d => d.Odstavka.Do.Date.AddDays(10) < DateTime.Today).ToListAsync();
 
                 // Retrieve outdated pohotovosti records.
                 var outdatedRecordPohotovosti = await _context.PohotovostiS

@@ -209,9 +209,9 @@
                                         <li><p onclick="showModalHeslo()"><i class="fa-solid fa-lock"></i> Změnit heslo</p></li>
                                         @if(User.IsInRole("Admin"))
                                         {
-                                            <li><p id="testButton"><i class="fa-solid fa-vial-virus"></i> Test</p></li>
+                                            //<li><p id="testButton"><i class="fa-solid fa-vial-virus"></i> Test</p></li>
                                             <li><p onclick="showModalAddUser()"><i class="fa-solid fa-user-plus"></i> Přidat uživatele</p></li>
-                                            <li><p onclick="sendEmail()"><i class="fa-solid fa-paper-plane"></i> Odeslat-test</p></li>
+                                            //<li><p onclick="sendEmail()"><i class="fa-solid fa-paper-plane"></i> Odeslat-test</p></li>
                                         }
                                         <li style="border-top: 1px solid #ddd; padding-top: 5px;"><p><i class="fa-solid fa-right-from-bracket"></i><a asp-action="Logout" asp-controller="Login" class="menuA"> Odhlásit se</a></p></li>
                                     </ul>
@@ -240,7 +240,7 @@
                                 <input type="password" placeholder="aktuální heslo..">
                             </div>
                             <div>
-                                <input type="password" placeholder="Nové heslo..">
+                                <input type="password" placeholder="Nové heslo.. ">
                             </div>
                             <div>
                                 <input type="password" placeholder="Potvrzení nového hesla..">
@@ -257,26 +257,24 @@
                         </div>
                         <div class="formINFO-D form" style="flex-direction: column;">
                             <div>
-                                <input type="text" placeholder="Jméno..">
+                                <input type="text" id="firstName" placeholder="Jméno..">
                             </div>
                             <div>
-                                <input type="text" placeholder="Příjmení..">
+                                <input type="text" id="lastName" placeholder="Příjmení..">
                             </div>
                             <div>
-                                <input type="text" placeholder="Email..">
+                                <input type="text" id="username" placeholder="Username..">
                             </div>
                             <div>
-                                <input type="password" placeholder="Heslo..">
+                                <input type="text" id="email" placeholder="Email..">
                             </div>
                             <div>
-                                <input type="password" placeholder="Potvrzení hesla..">
+                                <input type="password" id="password" placeholder="Heslo..">
                             </div>
-                            <div>
-                                <select>
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
-                                </select>
-                            </div>
+                            <select id="roleSelect">
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                            </select>
                         </div> 
                         <button type="button" class="button" style="margin: 15px;" onclick="AddUser()">Přidat uživatele</button>
                     </div>

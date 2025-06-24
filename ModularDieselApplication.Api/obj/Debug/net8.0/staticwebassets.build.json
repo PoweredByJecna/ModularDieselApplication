@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DL1Hjg/o1MLL1iNxrMF1SU5SU8e54VWUFoqepnDp0Po=",
+  "Hash": "3jTKXbbu8+xdCpfEvSmoU5aF7Tcw06Va1GQAcB3nVek=",
   "Source": "ModularDieselApplication.Api",
   "BasePath": "_content/ModularDieselApplication.Api",
   "Mode": "Default",
@@ -346,8 +346,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "27edwj022v",
-      "Integrity": "4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g=",
+      "Fingerprint": "k0i1luk34x",
+      "Integrity": "dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/DataTablesJs/DieslovaniNaLokaliteTable.js"
@@ -661,8 +661,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "3y8eg51dlo",
-      "Integrity": "y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg=",
+      "Fingerprint": "9g0f55sqbr",
+      "Integrity": "97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/home.js"
@@ -3080,51 +3080,6 @@
       ]
     },
     {
-      "Route": "js/DataTablesJs/DieslovaniNaLokaliteTable.27edwj022v.js",
-      "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/DataTablesJs/DieslovaniNaLokaliteTable.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7029"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "27edwj022v"
-        },
-        {
-          "Name": "label",
-          "Value": "js/DataTablesJs/DieslovaniNaLokaliteTable.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g="
-        }
-      ]
-    },
-    {
       "Route": "js/DataTablesJs/DieslovaniNaLokaliteTable.js",
       "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/DataTablesJs/DieslovaniNaLokaliteTable.js",
       "Selectors": [],
@@ -3135,7 +3090,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7029"
+          "Value": "7104"
         },
         {
           "Name": "Content-Type",
@@ -3143,11 +3098,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g=\""
+          "Value": "\"dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 09:07:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3157,7 +3112,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-4qp9QW90RxyMc5YrzCGkfCdn0UcNaiwxAS6oVgl0Y0g="
+          "Value": "sha256-dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4="
+        }
+      ]
+    },
+    {
+      "Route": "js/DataTablesJs/DieslovaniNaLokaliteTable.k0i1luk34x.js",
+      "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/DataTablesJs/DieslovaniNaLokaliteTable.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7104"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Jun 2025 09:07:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k0i1luk34x"
+        },
+        {
+          "Name": "label",
+          "Value": "js/DataTablesJs/DieslovaniNaLokaliteTable.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-dH5azpOv5po2TAhXzdYnFBvm8dkfBF7sn5bFe3GN5Z4="
         }
       ]
     },
@@ -3430,7 +3430,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 09:29:00 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3467,7 +3467,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 09:29:00 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4086,7 +4086,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 08:48:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4123,7 +4123,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 08:48:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4310,7 +4310,7 @@
       ]
     },
     {
-      "Route": "js/home.3y8eg51dlo.js",
+      "Route": "js/home.9g0f55sqbr.js",
       "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/home.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -4320,7 +4320,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "26462"
+          "Value": "27112"
         },
         {
           "Name": "Content-Type",
@@ -4328,11 +4328,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg=\""
+          "Value": "\"97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 10:49:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4342,7 +4342,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "3y8eg51dlo"
+          "Value": "9g0f55sqbr"
         },
         {
           "Name": "label",
@@ -4350,7 +4350,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg="
+          "Value": "sha256-97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8="
         }
       ]
     },
@@ -4365,7 +4365,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "26462"
+          "Value": "27112"
         },
         {
           "Name": "Content-Type",
@@ -4373,11 +4373,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg=\""
+          "Value": "\"97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 10 Jun 2025 17:57:17 GMT"
+          "Value": "Tue, 24 Jun 2025 10:49:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4387,7 +4387,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-y7j2l83n/vs5esjuVbOeRIMwpj2NNSiOSSzsupILtYg="
+          "Value": "sha256-97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8="
         }
       ]
     },
