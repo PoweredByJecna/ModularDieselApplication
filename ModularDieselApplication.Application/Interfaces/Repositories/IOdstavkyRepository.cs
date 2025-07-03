@@ -7,16 +7,16 @@ namespace ModularDieselApplication.Application.Interfaces
 {
     public interface IOdstavkyRepository
     {
-        Task<Odstavka> GetByIdAsync(int id);
+        Task<Odstavka> GetByIdAsync(string id);
         Task<Lokalita?> GetByNameAsync(string name); 
-        Task<Lokalita> GetLokalityByIdAsync(int id);
+        Task<Lokalita> GetLokalityByIdAsync(string id);
         Task<List<Lokalita>> GetAllAsync();
         Task<int> GetLokalitaCountAsync();
         Task AddAsync(Odstavka odstavka);
         Task UpdateAsync(Odstavka odstavka);
-        Task <bool>DeleteAsync(int id);
+        Task <bool>DeleteAsync(string id);
         IQueryable<Odstavka> GetOdstavkaQuery();
-        Task<Odstavka?> AnotherOdsatvkaAsync(int LokalitaId, DateTime od);
+        Task<Odstavka?> AnotherOdsatvkaAsync(string LokalitaId, DateTime od);
         Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query);
 
 

@@ -33,7 +33,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get an Odstavka record by its ID.
         // ----------------------------------------
-        public async Task<Odstavka> GetByIdAsync(int id)
+        public async Task<Odstavka> GetByIdAsync(string id)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -88,7 +88,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get another Odstavka record by Lokalita ID and date.
         // ----------------------------------------
-        public async Task<Odstavka?> AnotherOdsatvkaAsync(int LokalitaId, DateTime od)
+        public async Task<Odstavka?> AnotherOdsatvkaAsync(string LokalitaId, DateTime od)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -101,7 +101,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Delete an Odstavka record by its ID.
         // ----------------------------------------
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             var entity = await _context.OdstavkyS.FindAsync(id);
             if (entity != null)
@@ -119,7 +119,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<bool> AnotherDieselRequest(string idTechnika)
         {
             return await _context.DieslovaniS
-                .AnyAsync(d => d.Technik.ID == idTechnika);
+                .AnyAsync(d => d.Technik.Id == idTechnika);
         }
 
         // ----------------------------------------
@@ -136,7 +136,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get a Lokalita record by its ID.
         // ----------------------------------------
-        public async Task<Lokalita> GetLokalityByIdAsync(int id)
+        public async Task<Lokalita> GetLokalityByIdAsync(string id)
         {
             var lokalitaEntity = await _context.LokalityS
                 .Include(l => l.Region)
@@ -195,7 +195,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 l.VydrzBaterie,
                 l.Popis,
                 l.Zasuvka,
-                idTechnika = l.Dieslovani?.Technik?.ID,
+                idTechnika = l.Dieslovani?.Technik?.Id,
                 zadanVstup = l.Dieslovani?.Vstup,
                 zadanOdchod = l.Dieslovani?.Odchod
             }).ToList();

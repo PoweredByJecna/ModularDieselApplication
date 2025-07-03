@@ -6,7 +6,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     public class TableLokality
     {
         [Key]
-        public int ID { get; set; }
+        public string ID { get; set; } = GenerateCustomId();
         public required string Nazev { get; set; }
         public required string Klasifikace { get; set; }
         public required string Adresa { get; set; }
@@ -15,12 +15,19 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public bool Zasuvka { get; set; }
 
         [ForeignKey("Region")]
-        public int? RegionID {get;set;}
-        public required TableRegiony Region {get;set;}
+        public required string RegionID { get; set; }
+        public required TableRegiony Region { get; set; }
         public virtual ICollection<TableOdstavky>? OdstavkyList { get; set; }
-        
+
         [ForeignKey("Zdroj")]
-        public int? ZdrojId { get; set; }
+        public string? ZdrojId { get; set; }
         public virtual TableZdroj? Zdroj { get; set; }
+
+        private static string GenerateCustomId()
+        {
+            var random = new Random();
+            var number = random.Next(1, 1000000).ToString("D5");
+            return $"LN-{number}";
+        }
     }
 }

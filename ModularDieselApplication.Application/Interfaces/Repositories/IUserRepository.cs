@@ -10,7 +10,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<string?> GetUserPrimaryRoleAsync(string userId);
         Task<Pohotovosti?> GetUserPohotovostAsync(string userId);
         Task<Technik?> GetUserTechnikAsync(string userId);
-        Task<Region?> GetUserRegionForFirmaAsync(int firmaId);
+        Task<Region?> GetUserRegionForFirmaAsync(string firmaId);
         Task<SignInResult> LoginAsync(string username, string password, bool rememberMe);
         Task<User?> GetUserByUsernameAsync(string username);
         Task LogoutAsync();

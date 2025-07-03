@@ -28,7 +28,8 @@ public class IsDieselRequiredTest
         var od = DateTime.Now;
         var do_ = DateTime.Now.AddHours(1);
         var baterie = 100;
-        var newOdstavka = new Odstavka { Lokality = new Lokalita { DA = true } };
+        var Region =  new Region { ID = "region1", Nazev = "Region 1", Firma = new Firma { ID = "firma1", Nazev = "Firma 1" } };
+        var newOdstavka = new Odstavka { Lokality = new Lokalita { DA = true, Region = Region } };
         var result = new HandleResult();
 
         var dieslovaniRules = new DieslovaniRules();
@@ -49,7 +50,8 @@ public class IsDieselRequiredTest
         var od = DateTime.Now;
         var do_ = DateTime.Now.AddHours(1);
         var baterie = 100;
-        var newOdstavka = new Odstavka { Lokality = new Lokalita { Zasuvka = false } };
+        var Region =  new Region { ID = "region1", Nazev = "Region 1", Firma = new Firma { ID = "firma1", Nazev = "Firma 1" } };
+        var newOdstavka = new Odstavka { Lokality = new Lokalita { Zasuvka = false, Region = Region } };
         var result = new HandleResult();
 
         // Act

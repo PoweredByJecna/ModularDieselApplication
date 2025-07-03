@@ -6,15 +6,15 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
 {
     public interface IRegionyRepository
     {
-        Task<List<object>> GetData(int regionId);
+        Task<List<object>> GetData(string regionId);
         Task<bool> TechnikHasPohotovost(string idTechnik);
-        Task<List<object>> GetRegion(int firmaId);
-        Task<Firma> GetFirmaAsync(int idReg);
-        Task<int> GetLokalityCountAsync(int regionId);
-        Task<int> GetOdstavkyCountAsync(int regionId);
-        Task<List<Region>> GetRegionById (int idregion);
+        Task<List<object>> GetRegion(string firmaId);
+        Task<Firma> GetFirmaAsync(string idReg);
+        Task<int> GetLokalityCountAsync(string regionId);
+        Task<int> GetOdstavkyCountAsync(string regionId);
+        Task<List<Region>> GetRegionById (string idregion);
         bool GetValueIfTechnikHasPohotovost(string idTechnik);
-        Task<List<Technik>> GetTechnikListVRegionu (int IDfirmy);
+        Task<List<Technik>> GetTechnikListVRegionu (string IDfirmy);
 
    
 

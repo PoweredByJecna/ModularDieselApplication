@@ -38,7 +38,17 @@ public class CreateOdstavkaTest
             Zasuvka = true,
             Klasifikace = expectedKlasifikace,
             Baterie = expectedBaterie,
-            Nazev = "TesLokalita"
+            Nazev = "TesLokalita",
+            Region = new Region
+            {
+                ID = "region1",
+                Nazev = "Region 1",
+                Firma = new Firma
+                {
+                    ID = "firma1",
+                    Nazev = "Firma 1"
+                }
+            }
         };
 
         var expectedOdstavka = new Odstavka

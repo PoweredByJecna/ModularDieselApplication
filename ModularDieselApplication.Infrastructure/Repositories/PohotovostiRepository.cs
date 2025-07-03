@@ -24,7 +24,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Pohotovost by ID
         // ----------------------------------------
-        public async Task<Pohotovosti> GetPohotovostByIdAsync(int id)
+        public async Task<Pohotovosti> GetPohotovostByIdAsync(string id)
         {
             var tablePohotovosti = await _context.PohotovostiS
                 .Include(o => o.Technik)
@@ -35,7 +35,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Check if Pohotovosti exists in a region
         // ----------------------------------------
-        public async Task<bool> GetPohotovostiRegionAsync(int id, DateTime OD, DateTime DO)
+        public async Task<bool> GetPohotovostiRegionAsync(string id, DateTime OD, DateTime DO)
         {
             var tablePohotovosti = await _context.PohotovostiS
                 .Include(o => o.Technik)
@@ -90,7 +90,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<Technik> GetPohotovostTechnikIdsAsync(string Id)
         {
             var technikIds = await _context.PohotovostiS
-                .Select(p => p.Technik.ID)
+                .Select(p => p.Technik.Id)
                 .Distinct()
                 .ToListAsync();
 
@@ -103,7 +103,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<List<string>> GetPohotovostTechnikIdListAsync()
         {
             var technikIds = await _context.PohotovostiS
-            .Select(p => p.Technik.ID)
+            .Select(p => p.Technik.Id)
             .Distinct()
             .ToListAsync();
 
@@ -132,7 +132,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // Get TechnikVPohotovosti
         // ----------------------------------------
 
-        public async Task<string> GetTechnikVPohotovostiAsnyc(int firmaid, DateTime OD, DateTime DO)
+        public async Task<string> GetTechnikVPohotovostiAsnyc(string firmaid, DateTime OD, DateTime DO)
         {
             var technik = await _context.PohotovostiS
                 .Include(o => o.Technik)
@@ -145,7 +145,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 {
                     return "0";
                 }
-            return technik.Technik.ID;
+            return technik.Technik.Id;
         }
         // ----------------------------------------
         // Get Pohotovost table data

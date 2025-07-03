@@ -1,6 +1,5 @@
 public class Firma
 {
-    public int ID { get; private set; }
-    public string Nazev { get; private set; } = string.Empty;
-
+    public string ID { get; set; } = null!;
+    public required string Nazev { get;  set; }
 }

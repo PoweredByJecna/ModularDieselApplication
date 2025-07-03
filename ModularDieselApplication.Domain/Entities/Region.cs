@@ -1,9 +1,9 @@
 namespace ModularDieselApplication.Domain.Entities 
 {
-public class Region
-{
-    public int ID {get;  set;}
-    public string? Nazev {get;  set;}
-    public Firma Firma {get;  set;}
-}
+    public class Region
+    {
+        public string ID {get;  set;} = null!;
+        public string? Nazev {get;  set;}
+        public required Firma Firma {get;  set;}
+    }
 }

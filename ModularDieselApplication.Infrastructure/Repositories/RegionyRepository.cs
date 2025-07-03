@@ -23,7 +23,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get data by region ID.
         // ----------------------------------------
-        public async Task<List<object>> GetData(int regionId)
+        public async Task<List<object>> GetData(string regionId)
         {
             var regions = await _context.RegionS
                 .Include(r => r.Firma)
@@ -37,7 +37,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Firma data by region ID.
         // ----------------------------------------
-        public async Task<Firma> GetFirmaAsync(int idReg)
+        public async Task<Firma> GetFirmaAsync(string idReg)
         {
             var firma = await _context.RegionS
                 .Include(r => r.Firma)
@@ -60,7 +60,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get regions by Firma ID.
         // ----------------------------------------
-        public async Task<List<object>> GetRegion(int firmaId)
+        public async Task<List<object>> GetRegion(string firmaId)
         {
             var regions = await _context.RegionS
                 .Include(r => r.Firma)
@@ -74,7 +74,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get the count of Lokality records in a region.
         // ----------------------------------------
-        public async Task<int> GetLokalityCountAsync(int regionId)
+        public async Task<int> GetLokalityCountAsync(string regionId)
         {
             return await _context.LokalityS
                 .Include(o => o.Region)
@@ -85,7 +85,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get the count of Odstavky records in a region.
         // ----------------------------------------
-        public async Task<int> GetOdstavkyCountAsync(int regionId)
+        public async Task<int> GetOdstavkyCountAsync(string regionId)
         {
             return await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -97,7 +97,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get region data by its ID.
         // ----------------------------------------
-        public async Task<List<Region>> GetRegionById(int idregion)
+        public async Task<List<Region>> GetRegionById(string idregion)
         {
             var region = await _context.RegionS
                 .Include(r => r.Firma)
@@ -120,7 +120,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get a list of Techniks in a specific Firma.
         // ----------------------------------------
-        public async Task<List<Technik>> GetTechnikListVRegionu(int IDfirmy)
+        public async Task<List<Technik>> GetTechnikListVRegionu(string IDfirmy)
         {
             var technik = await _context.TechnikS
                 .Include(t => t.Firma)

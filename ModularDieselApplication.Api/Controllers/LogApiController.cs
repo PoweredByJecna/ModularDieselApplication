@@ -9,8 +9,8 @@ public class LogApiController(ILogService logService) : ControllerBase
         // Poslani logu pro dieslování do ajax
         // ----------------------------------------
         [HttpGet]
-        public async Task<IActionResult> GetLogByEntity(int entityId)
-        {   
+        public async Task<IActionResult> GetLogByEntity(string entityId)
+        {
             var logDieslovani = await _logService.GetLogByEntityAsync(entityId);
             return new JsonResult(new
             {

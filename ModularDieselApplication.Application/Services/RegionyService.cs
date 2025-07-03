@@ -18,7 +18,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get region data by firm ID.
         // ----------------------------------------
-        public async Task<List<object>> GetRegionByIdFirmy(int _IdRegionu)
+        public async Task<List<object>> GetRegionByIdFirmy(string _IdRegionu)
         {
             var resultList = await GetDataRegioon(_IdRegionu);
             return resultList;
@@ -30,7 +30,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataPrahaAsync()
         {
             var _IdRegionu = 4;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
@@ -40,7 +40,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataSeverniMoravaAsync()
         {
             var _IdRegionu = 3;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
@@ -50,7 +50,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataJizniMoravaAsync()
         {
             var _IdRegionu = 2;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
@@ -60,7 +60,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataJizniCechyAsync()
         {
             var _IdRegionu = 5;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
@@ -70,7 +70,7 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataSeverniCechyAsync()
         {
             var _IdRegionu = 1;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
@@ -80,14 +80,14 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetRegionDataZapadniCechyAsync()
         {
             var _IdRegionu = 6;
-            var resultList = await GetDataRegioon(_IdRegionu);
+            var resultList = await GetDataRegioon(_IdRegionu.ToString());
             return resultList;
         }
 
         // ----------------------------------------
         // Get firm data for a specific region.
         // ----------------------------------------
-        public async Task<Firma> GetFirmaVRegionuAsync(int idReg)
+        public async Task<Firma> GetFirmaVRegionuAsync(string idReg)
         {
             var firma = await _regionyRepository.GetFirmaAsync(idReg);
             return firma;
@@ -96,7 +96,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get detailed region data by region ID.
         // ----------------------------------------
-        private async Task<List<object>> GetDataRegioon(int regionId)
+        private async Task<List<object>> GetDataRegioon(string regionId)
         {
             var regiony = await _regionyRepository.GetRegionById(regionId);
             var pocetLokalit = await _regionyRepository.GetLokalityCountAsync(regionId);

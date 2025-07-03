@@ -30,7 +30,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
                 .Include(t => t.User)
-                .FirstOrDefaultAsync(t => t.ID == idTechnika);
+                .FirstOrDefaultAsync(t => t.Id == idTechnika);
 
             return _mapper.Map<Technik?>(entity);
         }
@@ -51,7 +51,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Technik by Firma ID.
         // ----------------------------------------
-        public async Task<Technik> GetByFirmaIdAsync(int idFirmy)
+        public async Task<Technik> GetByFirmaIdAsync(string idFirmy)
         {
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
@@ -69,7 +69,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var technik = await _context.PohotovostiS
                 .Include(p => p.Technik)
-                .Where(p => p.Technik.ID == idTechnika)
+                .Where(p => p.Technik.Id == idTechnika)
                 .FirstOrDefaultAsync();
 
             return technik != null;

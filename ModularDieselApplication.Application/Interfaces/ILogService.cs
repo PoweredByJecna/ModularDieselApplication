@@ -8,7 +8,7 @@ namespace ModularDieselApplication.Application.Services
     public interface ILogService
     {
         Task LogAsync(Log logEntry);
-        Task<object> GetLogByEntityAsync(int id);
-        Task<Log> ZapisDoLogu(DateTime datum, string entityname, int entityId, string logmessage);
+        Task<object> GetLogByEntityAsync(string id);
+        Task<Log> ZapisDoLogu(DateTime datum, string entityname, string entityId, string logmessage);
     }
 }

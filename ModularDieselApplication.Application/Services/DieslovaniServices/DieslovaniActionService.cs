@@ -21,7 +21,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Record entry to a location.
         // ----------------------------------------
-        public async Task<HandleResult> VstupAsync(int idDieslovani)
+        public async Task<HandleResult> VstupAsync(string idDieslovani)
         {
             var result = new HandleResult();
             try
@@ -58,7 +58,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Record exit from a location.
         // ----------------------------------------
-        public async Task<HandleResult> OdchodAsync(int idDieslovani)
+        public async Task<HandleResult> OdchodAsync(string idDieslovani)
         {
             var result = new HandleResult();
             try
@@ -101,7 +101,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Toggle temporary leave status.
         // ----------------------------------------
-        public async Task<(bool Success, string Message)> TemporaryLeaveAsync(int idDieslovani)
+        public async Task<(bool Success, string Message)> TemporaryLeaveAsync(string idDieslovani)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Assign a technician to a location.
         // ----------------------------------------
-        public async Task<HandleResult> TakeAsync(int idDieslovani, User currentUser)
+        public async Task<HandleResult> TakeAsync(string idDieslovani, User currentUser)
         {
             var result = new HandleResult();
             try
@@ -187,7 +187,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Delete a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> DeleteDieslovaniAsync(int id)
+        public async Task<HandleResult> DeleteDieslovaniAsync(string id)
         {
             var result = new HandleResult();
             try
@@ -224,7 +224,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Change the time for a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
+        public async Task<HandleResult> ChangeTimeAsync(string idDieslovani, DateTime time, string type)
         {
             var result = new HandleResult();
             try

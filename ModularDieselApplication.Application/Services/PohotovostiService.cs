@@ -34,7 +34,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Check if pohotovosti exist in a specific region within a time range.
         // ----------------------------------------
-        public async Task<bool> PohovostiVRegionuAsync(int idRegionu, DateTime OD, DateTime DO)
+        public async Task<bool> PohovostiVRegionuAsync(string idRegionu, DateTime OD, DateTime DO)
         {
             return await _pohotovostiRepository.GetPohotovostiRegionAsync(idRegionu, OD, DO);
         }
@@ -82,11 +82,13 @@ namespace ModularDieselApplication.Application.Services
 
                 var zapis = new Pohotovosti
                 {
+                    ID = Guid.NewGuid().ToString(),
                     IdUser = technikSearch.User.Id,
                     User = technikSearch.User,
                     Zacatek = zacatek,
                     Konec = konec,
-                    IdTechnik = technikSearch.ID
+                    IdTechnik = technikSearch.ID,
+                    Technik = technikSearch
                 };
 
                 await _pohotovostiRepository.AddPohotovostAsync(zapis);
@@ -112,6 +114,8 @@ namespace ModularDieselApplication.Application.Services
                     IdUser = technikSearch.User.Id,
                     Zacatek = zacatek,
                     Konec = konec,
+                    User = technikSearch.User,
+                    Technik = technikSearch,
                     IdTechnik = technikSearch.ID
                 };
 
@@ -149,7 +153,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get active technik by firm ID within a time range.
         // ----------------------------------------
-        public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(int idFirma, DateTime OD, DateTime DO)
+        public async Task<string> GetTechnikActivTechnikByIdFirmaAsync(string idFirma, DateTime OD, DateTime DO)
         {
             var technik = await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma, OD, DO);
             return technik;

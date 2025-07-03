@@ -22,7 +22,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Dieslovani by ID
         // ----------------------------------------
-        public async Task<Dieslovani?> GetByIdAsync(int id)
+        public async Task<Dieslovani?> GetByIdAsync(string id)
         {
             var entity = await _context.DieslovaniS
                 .Include(d => d.Odstavka)
@@ -68,7 +68,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task<Dieslovani?> GetTechnikByIdAsync(string technikId)
         {
             var entity = await _context.TechnikS
-                .FirstOrDefaultAsync(p => p.ID == technikId);
+                .FirstOrDefaultAsync(p => p.Id == technikId);
 
             return entity == null ? null : _mapper.Map<Dieslovani>(entity);
         }
@@ -93,12 +93,12 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Delete Dieslovani by ID
         // ----------------------------------------
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             var dieslovani = await _context.DieslovaniS.FindAsync(id);
             if (dieslovani != null)
             {
-                var technik = dieslovani.Technik.ID;
+                var technik = dieslovani.Technik.Id;
                 _context.DieslovaniS.Remove(dieslovani);
                 await _context.SaveChangesAsync();
 
@@ -117,13 +117,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return false;
         }
 
-        // ----------------------------------------
-        // Get count of Dieslovani
-        // ----------------------------------------
-        public async Task<int> GetCountAsync()
-        {
-            return await _context.DieslovaniS.CountAsync();
-        }
 
         // ----------------------------------------
         // Get Dieslovani query
@@ -175,13 +168,13 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             return await _context.DieslovaniS
                 .Include(o=>o.Odstavka)
-                .AnyAsync(o => o.Technik.ID == idTechnika && o.Odchod == DateTime.MinValue.Date);
+                .AnyAsync(o => o.Technik.Id == idTechnika && o.Odchod == DateTime.MinValue.Date);
         }
 
         // ----------------------------------------
         // Get Dieslovani with Technik by Firma ID
         // ----------------------------------------
-        public async Task<Dieslovani?> GetDieslovaniWithTechnikAsync(int firmaId)
+        public async Task<Dieslovani?> GetDieslovaniWithTechnikAsync(string firmaId)
         {
             var entity = await _context.DieslovaniS
                 .Include(p => p.Technik)
@@ -215,7 +208,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Dieslovani by Odstavka ID
         // ----------------------------------------
-        public async Task<Dieslovani> GetDAbyOdstavkaAsync(int idOdstavky)
+        public async Task<Dieslovani> GetDAbyOdstavkaAsync(string idOdstavky)
         {
             var entity = await _context.DieslovaniS
                 .Include(o => o.Odstavka)
@@ -239,19 +232,18 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get the ID of an Odstavka associated with a specific Dieslovani.
         // ----------------------------------------
-        public async Task<int> GetIDbyDieselId(int idDieslovani)
+        public async Task<string>  GetIDbyDieselId(string idDieslovani)
         {
             var entity = await _context.DieslovaniS
                 .Include(d => d.Odstavka) 
                 .FirstOrDefaultAsync(d => d.ID == idDieslovani); 
-
             return entity.Odstavka.ID; 
         }
 
         // ----------------------------------------
         // Get an Odstavka entity by its ID.
         // ----------------------------------------
-        public async Task<Odstavka> GetByOdstavkaByIdAsync(int idodstavky)
+        public async Task<Odstavka> GetByOdstavkaByIdAsync(string idodstavky)
         {
             var entity = await _context.OdstavkyS
                 .Include(d => d.Lokality) 

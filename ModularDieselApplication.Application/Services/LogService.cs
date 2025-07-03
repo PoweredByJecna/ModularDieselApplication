@@ -16,7 +16,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Retrieve logs for a specific entity by ID.
         // ----------------------------------------
-        public async Task<object> GetLogByEntityAsync(int id)
+        public async Task<object> GetLogByEntityAsync(string id)
         {
             var log = await _Ilogservice.GetLogByEntityAsync(id);
             return log;
@@ -36,10 +36,11 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Create and save a log entry with specific details.
         // ----------------------------------------
-        public async Task<Log> ZapisDoLogu(DateTime datum, string entityname, int entityId, string logmessage)
+        public async Task<Log> ZapisDoLogu(DateTime datum, string entityname, string entityId, string logmessage)
         {
             var logEntry = new Log
             {
+                IdLog = Guid.NewGuid().ToString(),
                 TimeStamp = datum,
                 EntityName = entityname,
                 EntityId = entityId,

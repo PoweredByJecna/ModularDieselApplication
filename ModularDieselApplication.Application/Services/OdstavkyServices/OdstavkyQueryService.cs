@@ -31,7 +31,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get odstávka details as JSON.
         // ----------------------------------------
-        public async Task<object> DetailOdstavkyJsonAsync(int id)
+        public async Task<object> DetailOdstavkyJsonAsync(string id)
         {
             var detailOdstavky = await _odstavkaRepository.GetByIdAsync(id);
 
@@ -83,7 +83,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get detailed table data for a specific dieslovani.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataOdDetailAsync(int IDdieslovani)
+        public async Task<List<object>> GetTableDataOdDetailAsync(string IDdieslovani)
         {
             var findodstavka = await _dieslovaniService.GetOdstavkaIDbyDieselId(IDdieslovani);
             var query = _odstavkaRepository.GetOdstavkaQuery()

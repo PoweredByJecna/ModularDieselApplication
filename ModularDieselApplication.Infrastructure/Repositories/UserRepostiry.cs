@@ -99,7 +99,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         // ----------------------------------------
         // Get the Region associated with a user's Firma.
         // ----------------------------------------
-        public async Task<Region?> GetUserRegionForFirmaAsync(int firmaId)
+        public async Task<Region?> GetUserRegionForFirmaAsync(string firmaId)
         {
             var regionEntity = await _context.RegionS
                 .Include(r => r.Firma)
@@ -128,9 +128,9 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
                     technikFirma = l.Technik.Firma.Nazev,
                     jmenoTechnika = l.Technik.User.Jmeno,
                     prijmeniTechnika = l.Technik.User.Prijmeni,
-                    zadanVstup = l.Vstup,
+                    zadanVstup = l.Vstup, 
                     zadanOdchod = l.Odchod,
-                    Idtechnika = l.Technik.ID,
+                    Idtechnika = l.Technik.Id,
                     NazevRegionu = l.Odstavka.Lokality.Region.Nazev,
                     OdstavkaZacatek = l.Odstavka.Od,
                     OdstavkaKonec = l.Odstavka.Do,

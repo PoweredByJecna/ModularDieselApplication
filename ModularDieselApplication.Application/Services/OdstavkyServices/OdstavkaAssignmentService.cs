@@ -91,7 +91,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Check if an existing odstávka overlaps.
         // ----------------------------------------
-        private async Task<bool> ExistingOdstavka(int lokalitaSearchId, DateTime od)
+        private async Task<bool> ExistingOdstavka(string lokalitaSearchId, DateTime od)
         {
             var existingOdstavka = await _odstavkaRepository.AnotherOdsatvkaAsync(lokalitaSearchId, od);
 
@@ -112,34 +112,6 @@ namespace ModularDieselApplication.Application.Services
             };
         }
 
-        // ----------------------------------------
-        // Test the creation of an odstávka.
-        // ----------------------------------------
-        public async Task<HandleResult> TestOdstavkaAsync()
-        {
-            var result = new HandleResult();
-            var number = await _odstavkaRepository.GetLokalitaCountAsync();
-
-            var IdNumber = RandomNumberGenerator.GetInt32(1, number);
-
-            var lokalitaSearch = await _odstavkaRepository.GetLokalityByIdAsync(IdNumber);
-
-            var hours = RandomNumberGenerator.GetInt32(1, 100);
-
-            string distrib = DetermineDistributor(lokalitaSearch.Region.Nazev);
-
-            var od = DateTime.Today.AddHours(hours + 2);
-
-            var do_ = DateTime.Today.AddHours(hours + 8);
-
-            string popis = $"Odstávka od {distrib}, od: {od}, do: {do_}";
-
-            string option = "Default";
-
-            result = await CreateOdstavkaAsync(lokalitaSearch.Nazev, od, do_, popis, option);
-
-            return result;
-        }
 
         // ----------------------------------------
         // Create a new odstávka record.

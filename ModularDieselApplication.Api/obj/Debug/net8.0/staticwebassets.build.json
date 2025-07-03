@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3jTKXbbu8+xdCpfEvSmoU5aF7Tcw06Va1GQAcB3nVek=",
+  "Hash": "utrv36YWa3aIBdCzB+4Chk420/7V88/c/6OuHEThTZk=",
   "Source": "ModularDieselApplication.Api",
   "BasePath": "_content/ModularDieselApplication.Api",
   "Mode": "Default",
@@ -661,8 +661,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "9g0f55sqbr",
-      "Integrity": "97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=",
+      "Fingerprint": "mgvrviuibu",
+      "Integrity": "Bj9FjeTM8sIel5Ch4DaLOex23s6JWrtyApD6mGu0Bx0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/home.js"
@@ -4310,51 +4310,6 @@
       ]
     },
     {
-      "Route": "js/home.9g0f55sqbr.js",
-      "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/home.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "27112"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Jun 2025 10:49:11 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "9g0f55sqbr"
-        },
-        {
-          "Name": "label",
-          "Value": "js/home.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8="
-        }
-      ]
-    },
-    {
       "Route": "js/home.js",
       "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/home.js",
       "Selectors": [],
@@ -4365,7 +4320,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "27112"
+          "Value": "27177"
         },
         {
           "Name": "Content-Type",
@@ -4373,11 +4328,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8=\""
+          "Value": "\"Bj9FjeTM8sIel5Ch4DaLOex23s6JWrtyApD6mGu0Bx0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Jun 2025 10:49:11 GMT"
+          "Value": "Tue, 24 Jun 2025 12:24:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4387,7 +4342,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-97aQZCAXrQzYpu29q7p6qHQOX9npSQ9BMkh+oyRSkZ8="
+          "Value": "sha256-Bj9FjeTM8sIel5Ch4DaLOex23s6JWrtyApD6mGu0Bx0="
+        }
+      ]
+    },
+    {
+      "Route": "js/home.mgvrviuibu.js",
+      "AssetFile": "/Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Api/wwwroot/js/home.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "27177"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Bj9FjeTM8sIel5Ch4DaLOex23s6JWrtyApD6mGu0Bx0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Jun 2025 12:24:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mgvrviuibu"
+        },
+        {
+          "Name": "label",
+          "Value": "js/home.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Bj9FjeTM8sIel5Ch4DaLOex23s6JWrtyApD6mGu0Bx0="
         }
       ]
     },

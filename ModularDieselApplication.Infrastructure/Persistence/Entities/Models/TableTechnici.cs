@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Identity;
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
    
-    public class TableTechnici
+    public class TableTechnici : IdentityUser<string>
     {
-        [Key]
-        public required string ID{get;set;}
         public bool Taken{get;set;}=false;
 
         [ForeignKey("Firma")]
-        public int FirmaId{get;set;}
+        public required string FirmaId{get;set;}
         public virtual required TableFirma Firma {get;set;}
 
         [ForeignKey("User")]

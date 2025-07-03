@@ -44,7 +44,7 @@ namespace ModularDieselApplication.Api.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> GetTableDataDetailDieslovani(int id)
+        public async Task<IActionResult> GetTableDataDetailDieslovani(string id)
         {
            var detailDieslovani = await _dieslovaniService.GetTableDataDetailJsonAsync(id);
             if (detailDieslovani == null)
@@ -64,7 +64,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Zobrazení detailu Dieslovani
         // -------------------------------
         [HttpGet]
-        public async Task<IActionResult> DetailDieslovani(int id)
+        public async Task<IActionResult> DetailDieslovani(string id)
         {
             var detail = await _dieslovaniService.DetailDieslovaniAsync(id);
             if (detail == null)
@@ -75,7 +75,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Detail - načítá data pro dané Dieslovani
         // ----------------------------------------
         [HttpGet]
-        public async Task<IActionResult> DetailDieslovaniJson(int id)
+        public async Task<IActionResult> DetailDieslovaniJson(string id)
         {
             var detailDieslovani = await _dieslovaniService.DetailDieslovaniJsonAsync(id);
             if (detailDieslovani == null)
@@ -94,7 +94,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Vstup - volá metodu ze servisu
         // ----------------------------------------
         [HttpPost]
-        public async Task<IActionResult> Vstup(int IdDieslovani)
+        public async Task<IActionResult> Vstup(string IdDieslovani)
         {
             var result = await _dieslovaniService.VstupAsync(IdDieslovani);
 
@@ -112,7 +112,7 @@ namespace ModularDieselApplication.Api.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Take(int IdDieslovani)
+        public async Task<IActionResult> Take(string IdDieslovani)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var domainUser = _mapper.Map<User>(currentUser);
@@ -136,7 +136,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Odchod - volá metodu ze servisu
         // ----------------------------------------
         [HttpPost]
-        public async Task<IActionResult> Odchod(int IdDieslovani)
+        public async Task<IActionResult> Odchod(string IdDieslovani)
         {
             var result = await _dieslovaniService.OdchodAsync(IdDieslovani);
 
@@ -247,7 +247,7 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var result = await _dieslovaniService.DeleteDieslovaniAsync(id);
             if (!result.Success)
@@ -263,7 +263,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Změna času dieslovaní
         // ----------------------------------------
         [HttpPost]
-        public async Task<IActionResult> ChangeTime(int dieslovaniId, DateTime time, string type)
+        public async Task<IActionResult> ChangeTime(string dieslovaniId, DateTime time, string type)
         {
             var result = await _dieslovaniService.ChangeTimeAsync(dieslovaniId, time, type);
             if (!result.Success)
@@ -278,7 +278,7 @@ namespace ModularDieselApplication.Api.Controllers
         // ---------------------------------------- 
         // Přiovolání dieslování
         // ----------------------------------------
-        public async Task<IActionResult> CallDieslovani (int odstavkaId)
+        public async Task<IActionResult> CallDieslovani (string odstavkaId)
         {
             var result = await _dieslovaniService.CallDieslovaniAsync(odstavkaId);  
             if (!result.Success)

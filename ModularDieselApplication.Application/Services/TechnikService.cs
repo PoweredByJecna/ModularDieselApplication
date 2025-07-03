@@ -31,7 +31,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get a technician by their firm's ID.
         // ----------------------------------------
-        public async Task<Technik> GetTechnikByIdFrimy(int idFirmy)
+        public async Task<Technik> GetTechnikByIdFrimy(string idFirmy)
         {
             return await _techniciRepository.GetByFirmaIdAsync(idFirmy);
         }

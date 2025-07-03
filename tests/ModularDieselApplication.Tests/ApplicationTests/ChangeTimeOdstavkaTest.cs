@@ -42,7 +42,7 @@ namespace ModularDieselApplication.Tests.ApplicationTests
         public async Task ChangeTimeOdstavkyAsync_WhenTimeIsChanged_CallsDieslovaniAndReturnsSuccess()
         {
             // Arrange
-            int idodstavky = 1;
+            string idodstavky = "1";
             DateTime newTime = new DateTime(2025, 1, 1, 12, 0, 0);
             string type = "zacatek";
 
@@ -54,6 +54,16 @@ namespace ModularDieselApplication.Tests.ApplicationTests
                 {
                     Klasifikace = "A1",
                     Baterie = 123,
+                    Region = new Region
+                    {
+                        ID = "region1",
+                        Nazev = "Region 1",
+                        Firma = new Firma
+                        {
+                            ID = "firma1",
+                            Nazev = "Firma 1"
+                        }
+                    }
                 }
             };
 
@@ -68,6 +78,16 @@ namespace ModularDieselApplication.Tests.ApplicationTests
                 .ReturnsAsync(new Technik
                 {
                     ID = "606794494",
+                    User = new User
+                    {
+
+                    },
+                    Firma = new Firma
+                    {
+                        ID = "firma1",
+                        Nazev = "Firma 1"
+                    }
+
                 });
 
             // Mock DieslovaniService to simulate successful dieslovani handling.

@@ -3,7 +3,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
     public class TableUser : IdentityUser<string>
     {
-        public string Jmeno { get; set; }
-        public string Prijmeni { get; set; }
+        public required string Jmeno { get; set; }
+        public required string Prijmeni { get; set; }
     }
 }

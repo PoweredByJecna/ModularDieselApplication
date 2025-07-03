@@ -4,7 +4,7 @@ namespace ModularDieselApplication.Domain.Entities
     {
         public string? ID {get;  set;}
         public bool Taken {get;  set;}
-        public User? User {get; private set;}
-        public Firma? Firma {get; private set;}
+        public required User User {get;  set;}
+        public required Firma Firma {get;  set;}
     }
 }

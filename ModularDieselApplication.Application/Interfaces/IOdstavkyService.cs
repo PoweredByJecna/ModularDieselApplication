@@ -10,15 +10,14 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     public interface IOdstavkyService
     {
         Task<List<string>> SuggestLokalitaAsync(string query);
-        Task<Odstavka> GetOdstavkaByIdAsync(int id);
+        Task<Odstavka> GetOdstavkaByIdAsync(string id);
         Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option);
-        Task<HandleResult>TestOdstavkaAsync();
-        Task<object> DetailOdstavkyAsync(int id);
-        Task<object> DetailOdstavkyJsonAsync(int id);
-        Task<HandleResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis);
-        Task<HandleResult> DeleteOdstavkaAsync(int idodstavky);
+        Task<object> DetailOdstavkyAsync(string id);
+        Task<object> DetailOdstavkyJsonAsync(string id);
+        Task<HandleResult> UpdateOdstavkaAsync(string idodstavky, string lokalita, DateTime od, DateTime @do, string popis);
+        Task<HandleResult> DeleteOdstavkaAsync(string idodstavky);
         Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0);
-        Task<List<object>> GetTableDataOdDetailAsync(int dieslovaniId);
-        Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type);
+        Task<List<object>> GetTableDataOdDetailAsync(string dieslovaniId);
+        Task<HandleResult> ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, string type);
     }
 }

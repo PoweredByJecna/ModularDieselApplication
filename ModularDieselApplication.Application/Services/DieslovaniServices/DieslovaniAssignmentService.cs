@@ -127,7 +127,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get a company in the region.
         // ----------------------------------------
-        private async Task<Firma?> GetFirmaVRegionuAsync(int regionId)
+        private async Task<Firma?> GetFirmaVRegionuAsync(string regionId)
         {
             return await _regionyService.GetFirmaVRegionuAsync(regionId);
         }
@@ -135,7 +135,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Check for a technician replacement.
         // ----------------------------------------
-        private async Task<Technik?> CheckTechnikReplacementAsync(Dieslovani dieslovani, Odstavka newOdstavka, int idFirma)
+        private async Task<Technik?> CheckTechnikReplacementAsync(Dieslovani dieslovani, Odstavka newOdstavka, string idFirma)
         {
             var technik = await GetHigherPriorityAsync(dieslovani, newOdstavka, idFirma);
             return technik;
@@ -144,7 +144,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get a technician with higher priority.
         // ----------------------------------------
-        private async Task<Technik?> GetHigherPriorityAsync(Dieslovani newdieslovani, Odstavka newOdstavka, int idFirma)
+        private async Task<Technik?> GetHigherPriorityAsync(Dieslovani newdieslovani, Odstavka newOdstavka, string idFirma)
         {
             var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(idFirma);
 
@@ -185,7 +185,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         public async Task<Dieslovani> CreateNewDieslovaniAsync(Odstavka newOdstavka, Technik technik)
         {
             var newDieslovani = new Dieslovani
-            {
+            { 
                 Vstup = DateTime.MinValue,
                 Odchod = DateTime.MinValue,
                 Odstavka = newOdstavka,
@@ -213,7 +213,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Call dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> CallDieslovaniAsync(int idodstavky)
+        public async Task<HandleResult> CallDieslovaniAsync(string idodstavky)
         {
             var result = new HandleResult();
             try
@@ -258,7 +258,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Check if another dieslovani request exists.
         // ----------------------------------------
-        private async Task<bool> AnotherDieselRequest(int odstavka)
+        private async Task<bool> AnotherDieselRequest(string odstavka)
         {
             var dieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka);
             return dieslovani != null;

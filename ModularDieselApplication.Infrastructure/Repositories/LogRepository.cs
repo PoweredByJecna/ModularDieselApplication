@@ -20,7 +20,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         // ----------------------------------------
         // Get logs by entity ID.
         // ----------------------------------------
-        public async Task<IEnumerable<Log>> GetLogByEntityAsync(int id)
+        public async Task<IEnumerable<Log>> GetLogByEntityAsync(string id)
         {
             // Retrieve logs from the database where the EntityId matches the given ID.
             var logModels = await _context.Set<DebugLogModel>()

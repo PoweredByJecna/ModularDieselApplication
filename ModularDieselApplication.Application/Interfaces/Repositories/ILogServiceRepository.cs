@@ -7,7 +7,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
 {
     public interface ILogServiceRepository
     {
-        Task<IEnumerable<Log>> GetLogByEntityAsync(int id);
+        Task<IEnumerable<Log>> GetLogByEntityAsync(string id);
         Task AddLogAsync(Log logEntry);
     }
 }

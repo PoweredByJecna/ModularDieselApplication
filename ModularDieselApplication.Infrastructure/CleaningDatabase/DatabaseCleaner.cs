@@ -58,7 +58,7 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
 
                     if (technik != null)
                     {
-                        var anotherDieselRequest = await _dieslovaniRepository.AnotherDieselRequest(technik.ID);
+                        var anotherDieselRequest = await _dieslovaniRepository.AnotherDieselRequest(technik.Id);
                         if (!anotherDieselRequest)
                         {
                             dieslovani.Technik.Taken = false;

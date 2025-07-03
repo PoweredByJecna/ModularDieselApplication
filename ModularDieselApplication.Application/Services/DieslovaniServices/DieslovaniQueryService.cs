@@ -111,7 +111,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get dieslovani details for a specific odstávka.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky)
+        public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(string idodstavky)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.ID == idodstavky);
@@ -138,7 +138,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get dieslovani detail data as JSON.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
+        public async Task<List<object>> GetTableDataDetailJsonAsync(string id)
         {
             var detail = await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
             if (detail == null || detail.Odstavka == null || detail.Odstavka.Lokality == null || detail.Odstavka.Lokality.Region == null)
@@ -166,7 +166,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get dieslovani details as JSON.
         // ----------------------------------------
-        public async Task<object> DetailDieslovaniJsonAsync(int id)
+        public async Task<object> DetailDieslovaniJsonAsync(string id)
         {
             var detail = await _dieslovaniRepository.GetByIdAsync(id);
             if (detail == null)

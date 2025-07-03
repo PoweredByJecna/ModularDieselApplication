@@ -6,12 +6,12 @@ namespace ModularDieselApplication.Domain.Entities
 {
     public class Pohotovosti
     {
-        public int ID { get; set; }
+        public string ID { get; set; } = null!;
         public DateTime Zacatek { get; set; }
         public DateTime Konec { get; set; }
         public required string IdUser { get; set; }
-        public User User { get; set; }
-        public string IdTechnik { get; set; }
-        public Technik Technik { get; set; }
+        public required User User { get; set; }
+        public required string IdTechnik { get; set; }
+        public required Technik Technik { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get dieslovani detail data as JSON.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataDetailJsonAsync(int id)
+        public async Task<List<object>> GetTableDataDetailJsonAsync(string id)
         {
             return await _dieslovaniQueryService.GetTableDataDetailJsonAsync(id);
         }
@@ -79,7 +79,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get dieslovani details for a specific odstávka.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(int idodstavky)
+        public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(string idodstavky)
         {
             return await _dieslovaniQueryService.GetTableDataOdDetailOdstavkyAsync(idodstavky);
         }
@@ -96,7 +96,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Record entry to a location.
         // ----------------------------------------
-        public async Task<HandleResult> VstupAsync(int idDieslovani)
+        public async Task<HandleResult> VstupAsync(string idDieslovani)
         {
             return await _dieslovaniActionService.VstupAsync(idDieslovani);
         }
@@ -104,7 +104,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Record exit from a location.
         // ----------------------------------------
-        public async Task<HandleResult> OdchodAsync(int idDieslovani)
+        public async Task<HandleResult> OdchodAsync(string idDieslovani)
         {
             return await _dieslovaniActionService.OdchodAsync(idDieslovani);
         }
@@ -112,7 +112,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Toggle temporary leave status.
         // ----------------------------------------
-        public async Task<(bool Success, string Message)> TemporaryLeaveAsync(int idDieslovani)
+        public async Task<(bool Success, string Message)> TemporaryLeaveAsync(string idDieslovani)
         {
             return await _dieslovaniActionService.TemporaryLeaveAsync(idDieslovani);
         }
@@ -120,7 +120,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Assign a technician to a location.
         // ----------------------------------------
-        public async Task<HandleResult> TakeAsync(int idDieslovani, User currentUser)
+        public async Task<HandleResult> TakeAsync(string idDieslovani, User currentUser)
         {
             return await _dieslovaniActionService.TakeAsync(idDieslovani, currentUser);
         }
@@ -128,7 +128,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get dieslovani details by ID.
         // ----------------------------------------
-        public async Task<Dieslovani?> DetailDieslovaniAsync(int id)
+        public async Task<Dieslovani?> DetailDieslovaniAsync(string id)
         {
             return await _dieslovaniRepository.GetByIdAsync(id);
         }
@@ -136,7 +136,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get dieslovani details as JSON.
         // ----------------------------------------
-        public async Task<object> DetailDieslovaniJsonAsync(int id)
+        public async Task<object> DetailDieslovaniJsonAsync(string id)
         {
             return await _dieslovaniQueryService.DetailDieslovaniJsonAsync(id);
         }
@@ -144,7 +144,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Delete a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> DeleteDieslovaniAsync(int idDieslovani)
+        public async Task<HandleResult> DeleteDieslovaniAsync(string idDieslovani)
         {
             return await _dieslovaniActionService.DeleteDieslovaniAsync(idDieslovani);
         }
@@ -152,7 +152,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get dieslovani by odstávka ID.
         // ----------------------------------------
-        public async Task<Dieslovani> GetDieslovaniByOdstavkaId(int id)
+        public async Task<Dieslovani> GetDieslovaniByOdstavkaId(string id)
         {
             return await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
         }
@@ -160,7 +160,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get odstávka ID by dieslovani ID.
         // ----------------------------------------
-        public async Task<int> GetOdstavkaIDbyDieselId(int idDieslovani)
+        public async Task<string> GetOdstavkaIDbyDieselId(string idDieslovani)
         {
             return await _dieslovaniRepository.GetIDbyDieselId(idDieslovani);
         }
@@ -184,7 +184,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Change the time for a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeAsync(int idDieslovani, DateTime time, string type)
+        public async Task<HandleResult> ChangeTimeAsync(string idDieslovani, DateTime time, string type)
         {
             return await _dieslovaniActionService.ChangeTimeAsync(idDieslovani, time, type);
         }
@@ -192,7 +192,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Call dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> CallDieslovaniAsync(int odstavky)
+        public async Task<HandleResult> CallDieslovaniAsync(string odstavky)
         {
             return await _dieslovaniAssignmentService.CallDieslovaniAsync(odstavky);
         }

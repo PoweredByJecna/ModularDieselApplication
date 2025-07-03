@@ -24,7 +24,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Delete an odstávka record.
         // ----------------------------------------
-        public async Task<HandleResult> DeleteOdstavkaAsync(int idodstavky)
+        public async Task<HandleResult> DeleteOdstavkaAsync(string idodstavky)
         {
             var result = new HandleResult();
             try
@@ -74,7 +74,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Change the time for an odstávka record.
         // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type)
+        public async Task<HandleResult> ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, string type)
         {
             var result = new HandleResult();
             try

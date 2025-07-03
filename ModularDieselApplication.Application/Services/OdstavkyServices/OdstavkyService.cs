@@ -36,18 +36,11 @@ namespace ModularDieselApplication.Application.Services
             return await _odstavkaAssignmentService.CreateOdstavkaAsync(lokalita, od, @do, popis, option);
         }
 
-        // ----------------------------------------
-        // Test the creation of an odstávka.
-        // ----------------------------------------
-        public async Task<HandleResult> TestOdstavkaAsync()
-        {
-            return await _odstavkaAssignmentService.TestOdstavkaAsync();
-        }
 
         // ----------------------------------------
         // Get detailed odstávka data.
         // ----------------------------------------
-        public async Task<object> DetailOdstavkyAsync(int id)
+        public async Task<object> DetailOdstavkyAsync(string id)
         {
             var query = _odstavkaRepository.GetOdstavkaQuery();
             var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.Where(o => o.ID == id));
@@ -61,7 +54,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get odstávka details as JSON.
         // ----------------------------------------
-        public async Task<object> DetailOdstavkyJsonAsync(int id)
+        public async Task<object> DetailOdstavkyJsonAsync(string id)
         {
             return await _odstavkyQueryService.DetailOdstavkyJsonAsync(id);
         }
@@ -69,7 +62,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Delete an odstávka record.
         // ----------------------------------------
-        public async Task<HandleResult> DeleteOdstavkaAsync(int idodstavky)
+        public async Task<HandleResult> DeleteOdstavkaAsync(string idodstavky)
         {
             return await _odstavkyActionService.DeleteOdstavkaAsync(idodstavky);
         }
@@ -85,7 +78,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get detailed table data for a specific dieslovani.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataOdDetailAsync(int idDieslovani)
+        public async Task<List<object>> GetTableDataOdDetailAsync(string idDieslovani)
         {
             return await _odstavkyQueryService.GetTableDataOdDetailAsync(idDieslovani);
         }
@@ -93,7 +86,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Update an odstávka record.
         // ----------------------------------------
-        public Task<HandleResult> UpdateOdstavkaAsync(int idodstavky, string lokalita, DateTime od, DateTime @do, string popis)
+        public Task<HandleResult> UpdateOdstavkaAsync(string idodstavky, string lokalita, DateTime od, DateTime @do, string popis)
         {
             throw new NotImplementedException();
         }
@@ -101,7 +94,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Change the time for an odstávka record.
         // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeOdstavkyAsync(int idodstavky, DateTime time, string type)
+        public async Task<HandleResult> ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, string type)
         {
             return await _odstavkyActionService.ChangeTimeOdstavkyAsync(idodstavky, time, type);
         }
@@ -109,7 +102,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get an odstávka record by ID.
         // ----------------------------------------
-        public async Task<Odstavka> GetOdstavkaByIdAsync(int id)
+        public async Task<Odstavka> GetOdstavkaByIdAsync(string id)
         {
             return await _odstavkaRepository.GetByIdAsync(id);
         }

@@ -11,7 +11,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<List<object>> GetRegionDataJizniCechyAsync();
         Task<List<object>> GetRegionDataSeverniCechyAsync();
         Task<List<object>> GetRegionDataZapadniCechyAsync();
-        Task<List<object>> GetRegionByIdFirmy(int id);
-        Task<Firma> GetFirmaVRegionuAsync(int idReg);
+        Task<List<object>> GetRegionByIdFirmy(string id);
+        Task<Firma> GetFirmaVRegionuAsync(string idReg);
     }
 }

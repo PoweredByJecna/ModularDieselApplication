@@ -6,8 +6,8 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models {
 public class TableZdroj
 {
     [Key]
-    public int Id { get; set; }
-    public string? Nazev { get; set; } 
-    public double? Odber { get; set; }   
+    public string ID = Guid.NewGuid().ToString();
+    public required string Nazev { get; set; } 
+    public double Odber { get; set; }   
 }
 }
