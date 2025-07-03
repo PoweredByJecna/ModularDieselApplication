@@ -158,14 +158,12 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.DebugLogModel", b =>
                 {
-                    b.Property<int>("IdLog")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("IdLog")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLog"));
-
-                    b.Property<int>("EntityId")
-                        .HasColumnType("int");
+                    b.Property<string>("EntityId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityName")
                         .IsRequired()
@@ -185,23 +183,21 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("IDodstavky")
-                        .HasColumnType("int");
+                    b.Property<string>("IDodstavky")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdTechnik")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("Odchod")
+                    b.Property<DateTime>("Odchod")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Vstup")
+                    b.Property<DateTime>("Vstup")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -215,11 +211,8 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableFirma", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nazev")
                         .IsRequired()
@@ -232,11 +225,8 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokality", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Adresa")
                         .IsRequired()
@@ -256,14 +246,15 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RegionID")
-                        .HasColumnType("int");
+                    b.Property<string>("RegionID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Zasuvka")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ZdrojId")
-                        .HasColumnType("int");
+                    b.Property<string>("ZdrojId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
@@ -276,11 +267,8 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavky", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Distributor")
                         .IsRequired()
@@ -289,8 +277,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<DateTime>("Do")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LokalitaID")
-                        .HasColumnType("int")
+                    b.Property<string>("LokalitaID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("LokalitaID");
 
                     b.Property<DateTime>("Od")
@@ -309,24 +298,19 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TablePohotovosti", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdTechnik")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Konec")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Zacatek")
                         .HasColumnType("datetime2");
@@ -335,21 +319,19 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("IdTechnik");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("TablePohotovosti", "Data");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegiony", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("FirmaID")
-                        .HasColumnType("int");
+                    b.Property<string>("FirmaID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nazev")
                         .IsRequired()
@@ -364,20 +346,63 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", b =>
                 {
-                    b.Property<string>("ID")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("FirmaId")
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirmaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Taken")
                         .HasColumnType("bit");
 
-                    b.HasKey("ID");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("FirmaId");
 
@@ -461,19 +486,17 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableZdroj", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nazev")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Odber")
+                    b.Property<double>("Odber")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("TableZdroj", "Data");
                 });
@@ -580,11 +603,15 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 {
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", "Technik")
                         .WithMany()
-                        .HasForeignKey("IdTechnik");
+                        .HasForeignKey("IdTechnik")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Technik");
 

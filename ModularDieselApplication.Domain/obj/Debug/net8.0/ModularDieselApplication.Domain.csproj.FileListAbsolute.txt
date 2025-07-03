@@ -346,3 +346,15 @@ C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-17/ModularDiese
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Domain/obj/Debug/net8.0/refint/ModularDieselApplication.Domain.dll
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Domain/obj/Debug/net8.0/ModularDieselApplication.Domain.pdb
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Domain/obj/Debug/net8.0/ref/ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.deps.json
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\bin\Debug\net8.0\ModularDieselApplication.Domain.pdb
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.AssemblyInfoInputs.cache
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.AssemblyInfo.cs
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.csproj.CoreCompileInputs.cache
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.sourcelink.json
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\refint\ModularDieselApplication.Domain.dll
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ModularDieselApplication.Domain.pdb
+C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Domain\obj\Debug\net8.0\ref\ModularDieselApplication.Domain.dll

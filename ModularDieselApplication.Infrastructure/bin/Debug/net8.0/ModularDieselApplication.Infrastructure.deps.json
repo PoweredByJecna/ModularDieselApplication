@@ -663,22 +663,22 @@
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "5.1.1.0"
           },
           "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm64",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "5.1.1.0"
           },
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "5.1.1.0"
           },
           "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "5.1.1.0"
           }
         }
       },
@@ -1483,7 +1483,7 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.225.6610"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
             "rid": "win",
@@ -1726,18 +1726,12 @@
           "ModularDieselApplication.Domain": "1.0.0"
         },
         "runtime": {
-          "ModularDieselApplication.Application.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ModularDieselApplication.Application.dll": {}
         }
       },
       "ModularDieselApplication.Domain/1.0.0": {
         "runtime": {
-          "ModularDieselApplication.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ModularDieselApplication.Domain.dll": {}
         }
       }
     }

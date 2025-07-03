@@ -15,7 +15,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public required string Popis { get; set; }
 
         [Column("LokalitaID")]
-        public int LokalitaID { get; set; }
+        public string LokalitaID { get; set; }
 
         [ForeignKey(nameof(LokalitaID))]
         public virtual required TableLokality Lokality { get; set; }

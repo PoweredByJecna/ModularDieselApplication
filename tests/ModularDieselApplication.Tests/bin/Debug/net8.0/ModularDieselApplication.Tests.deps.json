@@ -1008,7 +1008,7 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.225.6610"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
             "rid": "win",
@@ -1018,7 +1018,14 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.1": {},
+      "System.Formats.Asn1/8.0.1": {
+        "runtime": {
+          "lib/net8.0/System.Formats.Asn1.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.724.31311"
+          }
+        }
+      },
       "System.IO.Pipelines/9.0.2": {
         "runtime": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -1101,7 +1108,7 @@
         "runtime": {
           "lib/netstandard2.0/xunit.abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "2.0.0.0"
           }
         }
       },
@@ -1155,18 +1162,12 @@
           "ModularDieselApplication.Domain": "1.0.0"
         },
         "runtime": {
-          "ModularDieselApplication.Application.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ModularDieselApplication.Application.dll": {}
         }
       },
       "ModularDieselApplication.Domain/1.0.0": {
         "runtime": {
-          "ModularDieselApplication.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ModularDieselApplication.Domain.dll": {}
         }
       }
     }
