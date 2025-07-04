@@ -5,6 +5,7 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
 using ModularDieselApplication.Domain.Objects;
+using ModularDieselApplication.Application.Enum;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -195,6 +196,11 @@ namespace ModularDieselApplication.Application.Services
         public async Task<HandleResult> CallDieslovaniAsync(string odstavky)
         {
             return await _dieslovaniAssignmentService.CallDieslovaniAsync(odstavky);
+        }
+
+        public async Task<List<object>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer)
+        {
+            throw new NotImplementedException("This method is not implemented yet. Please use specific filter methods like GetTableDataAllTableAsync, GetTableDataRunningTableAsync, etc.");
         }
     }
 }

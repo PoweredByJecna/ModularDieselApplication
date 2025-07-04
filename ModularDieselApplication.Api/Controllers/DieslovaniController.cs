@@ -7,6 +7,7 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Application.Enum;
 
 namespace ModularDieselApplication.Api.Controllers
 {
@@ -30,17 +31,8 @@ namespace ModularDieselApplication.Api.Controllers
         // -------------------------------
         // Vracení pohledu
         // -------------------------------
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer"))
-            {
-                TempData["TableName"] = "Moje";
-            }
-            else
-            {
-                TempData["TableName"] = "";
-            }
             return View();
         }
         [HttpGet]
@@ -153,13 +145,13 @@ namespace ModularDieselApplication.Api.Controllers
         // Načtení dat GetTableDataRunningTable
         // ----------------------------------------
         [HttpGet]
-        public async Task<IActionResult> GetTableDataRunningTable(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableDataRunningTable()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var  data = await _dieslovaniService.GetTableDataRunningTableAsync(domainUser, isEngineer);
+            var  data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.RunningTable,domainUser, isEngineer);
 
 
             // Vrátíme data ve formátu DataTables
@@ -173,7 +165,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Načtení dat GetTableDataAllTable
         // ----------------------------------------
         [HttpGet]
-        public async Task<IActionResult> GetTableDataAllTable(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableDataAllTable()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
@@ -192,7 +184,7 @@ namespace ModularDieselApplication.Api.Controllers
         // Načtení dat GetTableDataUpcomingTable 
         // ----------------------------------------
         [HttpGet]
-        public async Task<IActionResult> GetTableUpcomingTable(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableUpcomingTable()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
