@@ -42,8 +42,7 @@ namespace ModularDieselApplication.Application.Services
             {
                 IdLog = Guid.NewGuid().ToString(),
                 TimeStamp = datum,
-                EntityName = entityname,
-                EntityId = entityId,
+
                 LogMessage = logmessage
             };
 

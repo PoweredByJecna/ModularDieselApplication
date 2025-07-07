@@ -65,7 +65,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task AddPohotovostAsync(Pohotovosti pohotovosti)
         {
-            var tablePohotovosti = _mapper.Map<TablePohotovosti>(pohotovosti);
+            var tablePohotovosti = _mapper.Map<TablePohotovost>(pohotovosti);
             var existingTechnik = await _context.TechnikS.FindAsync(pohotovosti.IdTechnik);
             if (existingTechnik == null)
             {

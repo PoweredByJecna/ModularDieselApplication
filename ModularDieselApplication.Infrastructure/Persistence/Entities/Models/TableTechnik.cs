@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Identity;
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
    
-    public class TableTechnici : IdentityUser<string>
+    public class TableTechnik
     {
-        public bool Taken{get;set;}=false;
+        [Key]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public bool Taken { get; set; } = false;
 
         [ForeignKey("Firma")]
         public required string FirmaId{get;set;}

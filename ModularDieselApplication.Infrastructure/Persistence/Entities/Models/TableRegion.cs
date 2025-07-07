@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
-    public class TableRegiony
+    public class TableRegion
     {   
         [Key]
         public string ID { get; set; } = Guid.NewGuid().ToString();

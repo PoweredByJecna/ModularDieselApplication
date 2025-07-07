@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
@@ -9,8 +10,12 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         [Key]
         public string IdLog { get; set; } = GetLogId();
         public DateTime TimeStamp { get; set; }
-        public required string EntityName { get; set; }
-        public required string EntityId { get; set; }
+        [ForeignKey("Odstavka")]
+        public string IdOdstavky { get; set; }
+        public TableOdstavka odstavky { get; set; }
+        [ForeignKey("Dieslovani")]
+        public string IdDieslovani { get; set; }
+        public TableDieslovani Dieslovani { get; set; }
         public required string LogMessage { get; set; }
         
         private static string GetLogId()

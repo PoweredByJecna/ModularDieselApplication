@@ -12,7 +12,7 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             // Map between Dieslovani and TableDieslovani.
             // ----------------------------------------
             CreateMap<Dieslovani, TableDieslovani>()
-                .ForMember(dest => dest.IDodstavky, opt => opt.MapFrom(src => src.Odstavka.ID))
+                .ForMember(dest => dest.IdOdstavky, opt => opt.MapFrom(src => src.Odstavka.ID))
                 .ForMember(dest => dest.IdTechnik, opt => opt.MapFrom(src => src.Technik.ID))
                 .ForMember(dest => dest.Odstavka, opt => opt.Ignore())
                 .ForMember(dest => dest.Technik, opt => opt.Ignore())
@@ -21,7 +21,7 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             // ----------------------------------------
             // Map between Odstavka and TableOdstavky.
             // ----------------------------------------
-            CreateMap<Odstavka, TableOdstavky>()
+            CreateMap<Odstavka, TableOdstavka>()
                 .ForMember(dest => dest.ID, opt => opt.Ignore())
                 .ForMember(dest => dest.LokalitaID, opt => opt.MapFrom(src => src.Lokality.ID))
                 .ForMember(dest => dest.Lokality, opt => opt.Ignore())
@@ -34,20 +34,19 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             CreateMap<TableFirma, Firma>().ReverseMap();
 
             // ----------------------------------------
-            // Map between TableTechnici and Technik.
+            // Map between TableTechnik and Technik.
             // ----------------------------------------
-            CreateMap<TableTechnici, Technik>().ReverseMap();
+            CreateMap<TableTechnik, Technik>().ReverseMap();
 
             // ----------------------------------------
             // Map between TableLokality and Lokalita.
             // ----------------------------------------
-            CreateMap<TableLokality, Lokalita>().ReverseMap();
+            CreateMap<TableLokalita, Lokalita>().ReverseMap();
 
             // ----------------------------------------
             // Map between Pohotovosti and TablePohotovosti.
             // ----------------------------------------
-            CreateMap<Pohotovosti, TablePohotovosti>()
-                .ForMember(dest => dest.User, opt => opt.Ignore())
+            CreateMap<Pohotovosti, TablePohotovost>()
                 .ForMember(dest => dest.Technik, opt => opt.Ignore())
                 .ForMember(dest => dest.IdTechnik, opt => opt.MapFrom(src => src.IdTechnik))
                 .ReverseMap();
@@ -60,7 +59,7 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             // ----------------------------------------
             // Map between TableRegiony and Region.
             // ----------------------------------------
-            CreateMap<TableRegiony, Region>().ReverseMap();
+            CreateMap<TableRegion, Region>().ReverseMap();
 
             // ----------------------------------------
             // Map between TableUser and User.

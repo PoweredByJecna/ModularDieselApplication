@@ -12,8 +12,8 @@ using ModularDieselApplication.Infrastructure.Persistence;
 namespace ModularDieselApplication.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250703173816_newDatabse")]
-    partial class newDatabse
+    [Migration("20250707184302_newDatabase")]
+    partial class newDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -164,11 +164,11 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<string>("IdLog")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("EntityId")
+                    b.Property<string>("IdDieslovani")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("EntityName")
+                    b.Property<string>("IdOdstavky")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -179,7 +179,14 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("odstavkyID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("IdLog");
+
+                    b.HasIndex("IdDieslovani");
+
+                    b.HasIndex("odstavkyID");
 
                     b.ToTable("DebugModel", "Data");
                 });
@@ -189,7 +196,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IDodstavky")
+                    b.Property<string>("IdOdstavky")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -205,7 +212,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("IDodstavky");
+                    b.HasIndex("IdOdstavky");
 
                     b.HasIndex("IdTechnik");
 
@@ -226,7 +233,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.ToTable("TableFirma", "Data");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokality", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokalita", b =>
                 {
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
@@ -265,10 +272,10 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("ZdrojId");
 
-                    b.ToTable("LokalityTable", "Data");
+                    b.ToTable("TableLokalita", "Data");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavky", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>
                 {
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
@@ -296,19 +303,15 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("LokalitaID");
 
-                    b.ToTable("OdstavkyTable", "Data");
+                    b.ToTable("TableOdstavka", "Data");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TablePohotovosti", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TablePohotovost", b =>
                 {
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdTechnik")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -322,12 +325,10 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("IdTechnik");
 
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("TablePohotovosti", "Data");
+                    b.ToTable("TablePohotovost", "Data");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegiony", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegion", b =>
                 {
                     b.Property<string>("ID")
                         .HasColumnType("nvarchar(450)");
@@ -344,25 +345,13 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("FirmaID");
 
-                    b.ToTable("TableRegiony", "Data");
+                    b.ToTable("TableRegion", "Data");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
 
                     b.Property<string>("FirmaId")
                         .IsRequired()
@@ -372,38 +361,8 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Taken")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -411,7 +370,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("TableTechnici", "Data");
+                    b.ToTable("TableTechnik", "Data");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableUser", b =>
@@ -555,15 +514,32 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.DebugLogModel", b =>
                 {
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavky", "Odstavka")
-                        .WithMany("DieslovaniList")
-                        .HasForeignKey("IDodstavky")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", "Dieslovani")
+                        .WithMany()
+                        .HasForeignKey("IdDieslovani")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", "Technik")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", "odstavky")
+                        .WithMany()
+                        .HasForeignKey("odstavkyID");
+
+                    b.Navigation("Dieslovani");
+
+                    b.Navigation("odstavky");
+                });
+
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", b =>
+                {
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", "Odstavka")
+                        .WithMany("DieslovaniList")
+                        .HasForeignKey("IdOdstavky")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", "Technik")
                         .WithMany("DieslovaniList")
                         .HasForeignKey("IdTechnik")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -574,9 +550,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Navigation("Technik");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokality", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokalita", b =>
                 {
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegiony", "Region")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegion", "Region")
                         .WithMany()
                         .HasForeignKey("RegionID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -591,9 +567,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Navigation("Zdroj");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavky", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>
                 {
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokality", "Lokality")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokalita", "Lokality")
                         .WithMany("OdstavkyList")
                         .HasForeignKey("LokalitaID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -602,26 +578,18 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Navigation("Lokality");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TablePohotovosti", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TablePohotovost", b =>
                 {
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", "Technik")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", "Technik")
                         .WithMany()
                         .HasForeignKey("IdTechnik")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableUser", "User")
-                        .WithMany()
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Technik");
-
-                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegiony", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegion", b =>
                 {
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableFirma", "Firma")
                         .WithMany()
@@ -632,7 +600,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Navigation("Firma");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", b =>
                 {
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableFirma", "Firma")
                         .WithMany()
@@ -651,17 +619,17 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokality", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokalita", b =>
                 {
                     b.Navigation("OdstavkyList");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavky", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>
                 {
                     b.Navigation("DieslovaniList");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnici", b =>
+            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", b =>
                 {
                     b.Navigation("DieslovaniList");
                 });

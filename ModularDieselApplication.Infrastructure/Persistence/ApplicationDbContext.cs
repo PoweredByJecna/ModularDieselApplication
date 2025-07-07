@@ -34,20 +34,20 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             // ----------------------------------------
             // Configure application-specific tables with schema "Data".
             // ----------------------------------------
-            builder.Entity<TableLokality>().ToTable("LokalityTable", schema: "Data");
-            builder.Entity<TableOdstavky>().ToTable("OdstavkyTable", schema: "Data");
+            builder.Entity<TableLokalita>().ToTable("TableLokalita", schema: "Data");
+            builder.Entity<TableOdstavka>().ToTable("TableOdstavka", schema: "Data");
             builder.Entity<TableDieslovani>().ToTable("TableDieslovani", schema: "Data");
             builder.Entity<TableFirma>().ToTable("TableFirma", schema: "Data");
-            builder.Entity<TableRegiony>().ToTable("TableRegiony", schema: "Data");
-            builder.Entity<TablePohotovosti>().ToTable("TablePohotovosti", schema: "Data");
-            builder.Entity<TableTechnici>().ToTable("TableTechnici", schema: "Data");
+            builder.Entity<TableRegion>().ToTable("TableRegion", schema: "Data");
+            builder.Entity<TablePohotovost>().ToTable("TablePohotovost", schema: "Data");
+            builder.Entity<TableTechnik>().ToTable("TableTechnik", schema: "Data");
             builder.Entity<DebugLogModel>().ToTable("DebugModel", schema: "Data");
             builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");
 
             // ----------------------------------------
             // Configure relationships for TableOdstavky.
             // ----------------------------------------
-            builder.Entity<TableOdstavky>()
+            builder.Entity<TableOdstavka>()
                 .HasOne(o => o.Lokality) // One Lokality can have many Odstavky.
                 .WithMany(l => l.OdstavkyList) // Navigation property in Lokality.
                 .HasForeignKey(o => o.LokalitaID) // Foreign key in TableOdstavky.
@@ -59,7 +59,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<TableDieslovani>()
                 .HasOne(o => o.Odstavka) // One Odstavka can have many Dieslovani.
                 .WithMany(i => i.DieslovaniList) // Navigation property in Odstavka.
-                .HasForeignKey(o => o.IDodstavky) // Foreign key in TableDieslovani.
+                .HasForeignKey(o => o.IdOdstavky) // Foreign key in TableDieslovani.
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior.
 
             builder.Entity<TableDieslovani>()
@@ -71,13 +71,13 @@ namespace ModularDieselApplication.Infrastructure.Persistence
         // ----------------------------------------
         // DbSet properties for application tables.
         // ----------------------------------------
-        public DbSet<TableLokality> LokalityS { get; set; }
-        public DbSet<TableOdstavky> OdstavkyS { get; set; }
+        public DbSet<TableLokalita> LokalityS { get; set; }
+        public DbSet<TableOdstavka> OdstavkyS { get; set; }
         public DbSet<TableDieslovani> DieslovaniS { get; set; }
         public DbSet<TableFirma> FirmaS { get; set; }
-        public DbSet<TableRegiony> RegionS { get; set; }
-        public DbSet<TablePohotovosti> PohotovostiS { get; set; }
-        public DbSet<TableTechnici> TechnikS { get; set; }
+        public DbSet<TableRegion> RegionS { get; set; }
+        public DbSet<TablePohotovost> PohotovostiS { get; set; }
+        public DbSet<TableTechnik> TechnikS { get; set; }
         public DbSet<DebugLogModel> LogS { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         {
             // Retrieve logs from the database where the EntityId matches the given ID.
             var logModels = await _context.Set<DebugLogModel>()
-                .Where(l => l.EntityId == id)
+                .Where(l => l.IdOdstavky == id || l.IdDieslovani == id)
                 .ToListAsync();
 
             // Map the database models to domain entities and return them.
@@ -32,8 +32,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             {
                 IdLog = l.IdLog,
                 TimeStamp = l.TimeStamp,
-                EntityName = l.EntityName,
-                EntityId = l.EntityId,
+              
                 LogMessage = l.LogMessage
             }).ToList();
         }
@@ -48,8 +47,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             {
                 IdLog = logEntry.IdLog,
                 TimeStamp = logEntry.TimeStamp,
-                EntityName = logEntry.EntityName,
-                EntityId = logEntry.EntityId,
                 LogMessage = logEntry.LogMessage
             };
 

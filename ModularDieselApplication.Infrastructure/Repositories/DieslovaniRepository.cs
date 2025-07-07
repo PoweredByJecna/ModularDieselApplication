@@ -43,10 +43,10 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         public async Task AddAsync(Dieslovani dieslovani)
         {
             var efEntity = _mapper.Map<TableDieslovani>(dieslovani);
-            var existingOdstavka = await _context.OdstavkyS.FindAsync(efEntity.IDodstavky);
+            var existingOdstavka = await _context.OdstavkyS.FindAsync(efEntity.IdOdstavky);
             if (existingOdstavka == null)
             {
-                throw new Exception($"Odstavka s ID {efEntity.IDodstavky} nebyla nalezena.");
+                throw new Exception($"Odstavka s ID {efEntity.IdOdstavky} nebyla nalezena.");
             }
             efEntity.Odstavka = existingOdstavka;
 
@@ -216,7 +216,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .ThenInclude(o => o.Region)
                 .Include(o => o.Technik)
                 .ThenInclude(o => o.User)
-                .FirstOrDefaultAsync(o => o.IDodstavky == idOdstavky);
+                .FirstOrDefaultAsync(o => o.IdOdstavky == idOdstavky);
 
             return _mapper.Map<Dieslovani>(entity);
         }

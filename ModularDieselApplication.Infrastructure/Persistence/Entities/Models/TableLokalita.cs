@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
-    public class TableLokality
+    public class TableLokalita
     {
         [Key]
         public string ID { get; set; } = GenerateCustomId();
@@ -16,8 +16,8 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 
         [ForeignKey("Region")]
         public required string RegionID { get; set; }
-        public required TableRegiony Region { get; set; }
-        public virtual ICollection<TableOdstavky>? OdstavkyList { get; set; }
+        public required TableRegion Region { get; set; }
+        public virtual ICollection<TableOdstavka> OdstavkyList { get; set; }
 
         [ForeignKey("Zdroj")]
         public string? ZdrojId { get; set; }

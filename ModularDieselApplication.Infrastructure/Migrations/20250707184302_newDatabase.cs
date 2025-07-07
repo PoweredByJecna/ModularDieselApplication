@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ModularDieselApplication.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class newDatabse : Migration
+    public partial class newDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,24 +14,11 @@ namespace ModularDieselApplication.Infrastructure.Migrations
             migrationBuilder.EnsureSchema(
                 name: "Data");
 
+            migrationBuilder.EnsureSchema(
+                name: "Identity");
 
-            migrationBuilder.CreateTable(
-                name: "DebugModel",
-                schema: "Data",
-                columns: table => new
-                {
-                    IdLog = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EntityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EntityId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LogMessage = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DebugModel", x => x.IdLog);
-                });
+          
 
-           
             migrationBuilder.CreateTable(
                 name: "TableFirma",
                 schema: "Data",
@@ -59,12 +46,10 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     table.PrimaryKey("PK_TableZdroj", x => x.ID);
                 });
 
-           
-
-          
+        
 
             migrationBuilder.CreateTable(
-                name: "TableRegiony",
+                name: "TableRegion",
                 schema: "Data",
                 columns: table => new
                 {
@@ -74,9 +59,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TableRegiony", x => x.ID);
+                    table.PrimaryKey("PK_TableRegion", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TableRegiony_TableFirma_FirmaID",
+                        name: "FK_TableRegion_TableFirma_FirmaID",
                         column: x => x.FirmaID,
                         principalSchema: "Data",
                         principalTable: "TableFirma",
@@ -85,41 +70,27 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TableTechnici",
+                name: "TableTechnik",
                 schema: "Data",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Taken = table.Column<bool>(type: "bit", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    IdUser = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TableTechnici", x => x.Id);
+                    table.PrimaryKey("PK_TableTechnik", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TableTechnici_TableFirma_FirmaId",
+                        name: "FK_TableTechnik_TableFirma_FirmaId",
                         column: x => x.FirmaId,
                         principalSchema: "Data",
                         principalTable: "TableFirma",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TableTechnici_User_IdUser",
+                        name: "FK_TableTechnik_User_IdUser",
                         column: x => x.IdUser,
                         principalSchema: "Identity",
                         principalTable: "User",
@@ -127,9 +98,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-           
+          
             migrationBuilder.CreateTable(
-                name: "LokalityTable",
+                name: "TableLokalita",
                 schema: "Data",
                 columns: table => new
                 {
@@ -145,16 +116,16 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LokalityTable", x => x.ID);
+                    table.PrimaryKey("PK_TableLokalita", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_LokalityTable_TableRegiony_RegionID",
+                        name: "FK_TableLokalita_TableRegion_RegionID",
                         column: x => x.RegionID,
                         principalSchema: "Data",
-                        principalTable: "TableRegiony",
+                        principalTable: "TableRegion",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LokalityTable_TableZdroj_ZdrojId",
+                        name: "FK_TableLokalita_TableZdroj_ZdrojId",
                         column: x => x.ZdrojId,
                         principalSchema: "Data",
                         principalTable: "TableZdroj",
@@ -162,37 +133,29 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TablePohotovosti",
+                name: "TablePohotovost",
                 schema: "Data",
                 columns: table => new
                 {
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Zacatek = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Konec = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IdTechnik = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TablePohotovosti", x => x.ID);
+                    table.PrimaryKey("PK_TablePohotovost", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TablePohotovosti_TableTechnici_IdTechnik",
+                        name: "FK_TablePohotovost_TableTechnik_IdTechnik",
                         column: x => x.IdTechnik,
                         principalSchema: "Data",
-                        principalTable: "TableTechnici",
+                        principalTable: "TableTechnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TablePohotovosti_User_IdUser",
-                        column: x => x.IdUser,
-                        principalSchema: "Identity",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OdstavkyTable",
+                name: "TableOdstavka",
                 schema: "Data",
                 columns: table => new
                 {
@@ -205,12 +168,12 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OdstavkyTable", x => x.ID);
+                    table.PrimaryKey("PK_TableOdstavka", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_OdstavkyTable_LokalityTable_LokalitaID",
+                        name: "FK_TableOdstavka_TableLokalita_LokalitaID",
                         column: x => x.LokalitaID,
                         principalSchema: "Data",
-                        principalTable: "LokalityTable",
+                        principalTable: "TableLokalita",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -223,53 +186,77 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Vstup = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Odchod = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IDodstavky = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdOdstavky = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IdTechnik = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TableDieslovani", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TableDieslovani_OdstavkyTable_IDodstavky",
-                        column: x => x.IDodstavky,
+                        name: "FK_TableDieslovani_TableOdstavka_IdOdstavky",
+                        column: x => x.IdOdstavky,
                         principalSchema: "Data",
-                        principalTable: "OdstavkyTable",
+                        principalTable: "TableOdstavka",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TableDieslovani_TableTechnici_IdTechnik",
+                        name: "FK_TableDieslovani_TableTechnik_IdTechnik",
                         column: x => x.IdTechnik,
                         principalSchema: "Data",
-                        principalTable: "TableTechnici",
+                        principalTable: "TableTechnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_LokalityTable_RegionID",
+            migrationBuilder.CreateTable(
+                name: "DebugModel",
                 schema: "Data",
-                table: "LokalityTable",
-                column: "RegionID");
+                columns: table => new
+                {
+                    IdLog = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdOdstavky = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    odstavkyID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IdDieslovani = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LogMessage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DebugModel", x => x.IdLog);
+                    table.ForeignKey(
+                        name: "FK_DebugModel_TableDieslovani_IdDieslovani",
+                        column: x => x.IdDieslovani,
+                        principalSchema: "Data",
+                        principalTable: "TableDieslovani",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DebugModel_TableOdstavka_odstavkyID",
+                        column: x => x.odstavkyID,
+                        principalSchema: "Data",
+                        principalTable: "TableOdstavka",
+                        principalColumn: "ID");
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LokalityTable_ZdrojId",
+                name: "IX_DebugModel_IdDieslovani",
                 schema: "Data",
-                table: "LokalityTable",
-                column: "ZdrojId");
+                table: "DebugModel",
+                column: "IdDieslovani");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OdstavkyTable_LokalitaID",
+                name: "IX_DebugModel_odstavkyID",
                 schema: "Data",
-                table: "OdstavkyTable",
-                column: "LokalitaID");
+                table: "DebugModel",
+                column: "odstavkyID");
 
-          
+         
 
             migrationBuilder.CreateIndex(
-                name: "IX_TableDieslovani_IDodstavky",
+                name: "IX_TableDieslovani_IdOdstavky",
                 schema: "Data",
                 table: "TableDieslovani",
-                column: "IDodstavky");
+                column: "IdOdstavky");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TableDieslovani_IdTechnik",
@@ -278,36 +265,48 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 column: "IdTechnik");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TablePohotovosti_IdTechnik",
+                name: "IX_TableLokalita_RegionID",
                 schema: "Data",
-                table: "TablePohotovosti",
+                table: "TableLokalita",
+                column: "RegionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TableLokalita_ZdrojId",
+                schema: "Data",
+                table: "TableLokalita",
+                column: "ZdrojId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TableOdstavka_LokalitaID",
+                schema: "Data",
+                table: "TableOdstavka",
+                column: "LokalitaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TablePohotovost_IdTechnik",
+                schema: "Data",
+                table: "TablePohotovost",
                 column: "IdTechnik");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TablePohotovosti_IdUser",
+                name: "IX_TableRegion_FirmaID",
                 schema: "Data",
-                table: "TablePohotovosti",
-                column: "IdUser");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TableRegiony_FirmaID",
-                schema: "Data",
-                table: "TableRegiony",
+                table: "TableRegion",
                 column: "FirmaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TableTechnici_FirmaId",
+                name: "IX_TableTechnik_FirmaId",
                 schema: "Data",
-                table: "TableTechnici",
+                table: "TableTechnik",
                 column: "FirmaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TableTechnici_IdUser",
+                name: "IX_TableTechnik_IdUser",
                 schema: "Data",
-                table: "TableTechnici",
+                table: "TableTechnik",
                 column: "IdUser");
 
-    
+      
         }
 
         /// <inheritdoc />
@@ -322,11 +321,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "TableDieslovani",
-                schema: "Data");
-
-            migrationBuilder.DropTable(
-                name: "TablePohotovosti",
+                name: "TablePohotovost",
                 schema: "Data");
 
             migrationBuilder.DropTable(
@@ -346,11 +341,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "OdstavkyTable",
-                schema: "Data");
-
-            migrationBuilder.DropTable(
-                name: "TableTechnici",
+                name: "TableDieslovani",
                 schema: "Data");
 
             migrationBuilder.DropTable(
@@ -358,7 +349,15 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "LokalityTable",
+                name: "TableOdstavka",
+                schema: "Data");
+
+            migrationBuilder.DropTable(
+                name: "TableTechnik",
+                schema: "Data");
+
+            migrationBuilder.DropTable(
+                name: "TableLokalita",
                 schema: "Data");
 
             migrationBuilder.DropTable(
@@ -366,7 +365,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "TableRegiony",
+                name: "TableRegion",
                 schema: "Data");
 
             migrationBuilder.DropTable(

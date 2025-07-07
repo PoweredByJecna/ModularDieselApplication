@@ -60,7 +60,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task AddAsync(Odstavka odstavka)
         {
-            var efEntity = _mapper.Map<TableOdstavky>(odstavka);
+            var efEntity = _mapper.Map<TableOdstavka>(odstavka);
 
             var existingLokalita = await _context.LokalityS.FindAsync(efEntity.LokalitaID);
             if (existingLokalita == null)
@@ -80,7 +80,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         public async Task UpdateAsync(Odstavka odstavka)
         {
-            var entity = _mapper.Map<TableOdstavky>(odstavka);
+            var entity = _mapper.Map<TableOdstavka>(odstavka);
             _context.OdstavkyS.Update(entity);
             await _context.SaveChangesAsync();
         }
@@ -179,7 +179,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     VydrzBaterie = l.Lokality.Baterie,
                     Popis = l.Popis,
                     Zasuvka = l.Lokality.Zasuvka,
-                    Dieslovani = _context.DieslovaniS.Include(o => o.Technik).FirstOrDefault(d => d.IDodstavky == l.ID)
+                    Dieslovani = _context.DieslovaniS.Include(o => o.Technik).FirstOrDefault(d => d.IdOdstavky == l.ID)
                 })
                 .ToListAsync();
 

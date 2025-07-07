@@ -3181,11 +3181,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-19\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+      "projectUniqueName": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
       "projectName": "ModularDieselApplication.Application",
-      "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-19\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+      "projectPath": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
       "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-19\\ModularDieselApplication.Application\\obj\\",
+      "outputPath": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3206,8 +3206,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-19\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
-              "projectPath": "C:\\Users\\jirka\\ModularDieselApplication\\ModularDieselApplication-19\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
+            "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+              "projectPath": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
             }
           }
         }

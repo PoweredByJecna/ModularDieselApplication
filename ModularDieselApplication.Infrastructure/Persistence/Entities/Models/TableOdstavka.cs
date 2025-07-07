@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
 {
 
-    public class TableOdstavky
+    public class TableOdstavka
     {
         [Key]
         public string ID { get; set; } = GenerateCustomId();
@@ -18,7 +18,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public string LokalitaID { get; set; }
 
         [ForeignKey(nameof(LokalitaID))]
-        public virtual required TableLokality Lokality { get; set; }
+        public virtual required TableLokalita Lokality { get; set; }
         public virtual ICollection<TableDieslovani>? DieslovaniList { get; set; }
         
         private static string GenerateCustomId()
