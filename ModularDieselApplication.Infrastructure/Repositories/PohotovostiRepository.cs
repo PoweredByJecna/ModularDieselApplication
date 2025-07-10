@@ -123,7 +123,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     group => group.Key,
                     group => group
                         .OrderBy(o => o.Odstavka.Od)
-                        .Where(o => o.Vstup == null)
+                        .Where(o => o.Vstup == DateTime.MinValue)
                         .Select(d => d.Odstavka.Lokality.Nazev)
                         .FirstOrDefault() ?? string.Empty
                 );

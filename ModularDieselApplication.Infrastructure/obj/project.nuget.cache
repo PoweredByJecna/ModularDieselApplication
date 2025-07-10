@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cbqCvRk9cM2mKK2fha5X9vuY0eDmqyC2bLjKduVGSS2rxT/UrKRLTpP4bfWgyP5Xxf5+kFQKTv6gBgMd63OucA==",
+  "dgSpecHash": "wfuhLLNX77evCGYIoHt0m8x8yHuwMfPdAkOegrgCqKhL+z6blo+cwY3VTgyWLjuJmk60kiISZl/xGsiV/O7C5Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -25,7 +25,7 @@
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.3.0\\microsoft.aspnetcore.http.abstractions.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.3.0\\microsoft.aspnetcore.http.extensions.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
-    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.0\\microsoft.aspnetcore.identity.2.3.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.1\\microsoft.aspnetcore.identity.2.3.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.0\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.3.0\\microsoft.aspnetcore.webutilities.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
@@ -135,16 +135,5 @@
     "C:\\Users\\jirka\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNetCore.Identity' 2.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-2865-hh9g-w894",
-      "libraryId": "Microsoft.AspNetCore.Identity",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

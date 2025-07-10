@@ -6,12 +6,11 @@ $('#upcomingTable').DataTable({
         // ----------------------------------------
         // Configure the AJAX request to fetch data from the server.
         // ----------------------------------------
-        url: '/Dieslovani/GetTableUpcomingTable', // Server-side method to fetch data.
+        url: '/Dieslovani/GetTableUpcomingTable', 
         type: 'GET',
         dataSrc: function (json) {
-            // Log the server response for debugging.
             console.log(json);
-            return json.data; // Return the data array from the server response.
+            return json.data; 
         }
     },
     columns: [
@@ -20,7 +19,7 @@ $('#upcomingTable').DataTable({
             // Render a badge indicating the record is "Čekající" (Waiting).
             // ----------------------------------------
             data: null,
-            render: function (data, type, row) {
+            render: function () {
                 return `
                     <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: yellow; border-radius: 5px;">
                         <span class="badge-label" style="color: black; padding: 1px; font-size: small;">Čekající</span>
@@ -34,7 +33,7 @@ $('#upcomingTable').DataTable({
             // Render a button to mark the technician's entry (Vstup).
             // ----------------------------------------
             data: null,
-            render: function (data, type, row) {
+            render: function (row) {
                 return `       
                 <span class="badge badge-phoenix fs-10 badge-phoenix-success" style="background-color: #28a745; border-radius: 5px; cursor: pointer" onclick="Vstup(${row.id})">
                     <span class="badge-label" style="color: white; padding: 1px; font-size: small;">Vstup</span>
@@ -47,7 +46,7 @@ $('#upcomingTable').DataTable({
             // Render a clickable link for the Dieslovani ID.
             // ----------------------------------------
             data: 'id',
-            render: function (data, type, row) {
+            render: function (data) {
                 return `
                     <a href="/Dieslovani/DetailDieslovani?id=${data}">
                         ${data}
@@ -59,7 +58,7 @@ $('#upcomingTable').DataTable({
             // Render the distributor logo based on the distributor name.
             // ----------------------------------------
             data: 'distributor',
-            render: function (data, type, row) {
+            render: function (data) {
                 let logo = '';
                 if (data === 'ČEZ') {
                     logo = '<img src="/Images/CEZ-Logo.jpg" width="25" height="25" style="border-radius: 20px; border: 0.5px solid grey;">';
@@ -76,7 +75,7 @@ $('#upcomingTable').DataTable({
             // Render a clickable link for the Lokalita name.
             // ----------------------------------------
             data: null,
-            render: function (data, type, row) {
+            render: function (data) {
                 return `<a style="font-weight: 700;" href="/Lokality/DetailLokality?nazev=${data.lokalitaNazev}">
                     ${data.lokalitaNazev}</a>`;
             }
@@ -86,7 +85,7 @@ $('#upcomingTable').DataTable({
             // Render the classification (Klasifikace) column.
             // ----------------------------------------
             data: 'klasifikace',
-            render: function (data, type, row) {
+            render: function (data) {
                 return `<span style="font-weight: 700;">${data}</span>`;
             }
         },
@@ -95,7 +94,7 @@ $('#upcomingTable').DataTable({
             // Render a clickable link for the technician's name.
             // ----------------------------------------
             data: null,
-            render: function (data, type, row) {
+            render: function (data) {
                 return `<a class="userA" href="/User/Index?id=${data.user}">
                     ${data.jmenoTechnika} ${data.prijmeniTechnika}
                 </a>`;
@@ -145,13 +144,13 @@ $('#upcomingTable').DataTable({
     // ----------------------------------------
     // Apply custom row styling for waiting records.
     // ----------------------------------------
-    rowCallback: function (row, data, index) {
-        $(row).addClass('row-cekajici'); // Mark rows as waiting.
+    rowCallback: function (row) {
+        $(row).addClass('row-cekajici');
     },
-    paging: true,        // Enable pagination.
-    searching: true,     // Enable searching.
-    ordering: false,     // Disable column ordering.
-    lengthChange: false, // Disable length change.
-    pageLength: 4        // Set the number of rows per page.
+    paging: true,        
+    searching: true,     
+    ordering: false,     
+    lengthChange: false, 
+    pageLength: 4        
 });
 

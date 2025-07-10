@@ -100,6 +100,13 @@ namespace ModularDieselApplication.Application.Services
 
             if (isAdmin)
             {
+                if (currentUser == null)
+                {
+                    result.Success = false;
+                    result.Message = "Aktuální uživatel je null.";
+                    return result;
+                }
+                
                 var technikSearch = await _technikRepository.GetTechnikByUserIdAsync(currentUser.Id);
 
                 if (technikSearch == null)

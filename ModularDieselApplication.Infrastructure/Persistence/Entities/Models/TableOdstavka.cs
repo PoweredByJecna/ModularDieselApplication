@@ -15,12 +15,12 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public required string Popis { get; set; }
 
         [Column("LokalitaID")]
-        public string LokalitaID { get; set; }
+        public string LokalitaID { get; set; } = null!;
 
         [ForeignKey(nameof(LokalitaID))]
         public virtual required TableLokalita Lokality { get; set; }
         public virtual ICollection<TableDieslovani>? DieslovaniList { get; set; }
-        
+    
         private static string GenerateCustomId()
         {
             var random = new Random();

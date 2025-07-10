@@ -8,7 +8,7 @@ namespace ModularDieselApplication.Domain.Entities
         public DateTime Od { get; set; }
         public DateTime Do { get; set; }
         public string? Popis { get; set; }
-        public string? Distributor { get; set; }
+        public string Distributor { get; set; } = null!;
         public required Lokalita Lokality { get; set; }
     }
 }

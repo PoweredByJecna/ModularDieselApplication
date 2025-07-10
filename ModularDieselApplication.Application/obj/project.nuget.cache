@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CrO8MvlM/IUvMeXIS+xA4dxJ7pYj25zkGv42wdmfuMQ9lNuldX8FUVHIpXpLlNBp6gjsguz5Og/EB2GAvvHotw==",
+  "dgSpecHash": "JRfg3AhNLpnjeD5OjXmMc4uvL9sU9My+sTGdAdQ6YPmhRNGTOKWk+2bsoGFmUTaclXbTdnGaU2Fwt34pZQqf0A==",
   "success": true,
   "projectFilePath": "C:\\Users\\jirka\\New folder (2)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
   "expectedPackageFiles": [
@@ -22,7 +22,7 @@
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.3.0\\microsoft.aspnetcore.http.abstractions.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.3.0\\microsoft.aspnetcore.http.extensions.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
-    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.0\\microsoft.aspnetcore.identity.2.3.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.1\\microsoft.aspnetcore.identity.2.3.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.3.0\\microsoft.aspnetcore.webutilities.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.2\\microsoft.extensions.configuration.9.0.2.nupkg.sha512",
@@ -72,16 +72,5 @@
     "C:\\Users\\jirka\\.nuget\\packages\\system.text.encodings.web\\9.0.2\\system.text.encodings.web.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\system.text.json\\9.0.2\\system.text.json.9.0.2.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNetCore.Identity' 2.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-2865-hh9g-w894",
-      "libraryId": "Microsoft.AspNetCore.Identity",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

@@ -64,6 +64,12 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
         {
             var userRoleEntity = await _context.UserRoles
                 .FirstOrDefaultAsync(ur => ur.UserId == userId);
+            if (userRoleEntity == null)
+            {
+                return null; // No role found for the user
+            }
+
+
             var roleName = await _context.Roles
                 .FirstOrDefaultAsync(r => r.Id == userRoleEntity.RoleId);
             return roleName?.Name;

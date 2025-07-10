@@ -11,11 +11,11 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public string IdLog { get; set; } = GetLogId();
         public DateTime TimeStamp { get; set; }
         [ForeignKey("Odstavka")]
-        public string IdOdstavky { get; set; }
-        public TableOdstavka odstavky { get; set; }
+        public string? IdOdstavky { get; set; }
+        public TableOdstavka? Odstavky { get; set; }
         [ForeignKey("Dieslovani")]
-        public string IdDieslovani { get; set; }
-        public TableDieslovani Dieslovani { get; set; }
+        public string? IdDieslovani { get; set; }
+        public TableDieslovani? Dieslovani { get; set; }
         public required string LogMessage { get; set; }
         
         private static string GetLogId()

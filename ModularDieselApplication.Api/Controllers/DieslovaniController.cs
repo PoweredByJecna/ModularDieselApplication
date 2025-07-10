@@ -157,7 +157,6 @@ namespace ModularDieselApplication.Api.Controllers
             // Vrátíme data ve formátu DataTables
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
                 data = data
             });
         }
@@ -171,11 +170,10 @@ namespace ModularDieselApplication.Api.Controllers
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var  data = await _dieslovaniService.GetTableDataAllTableAsync(domainUser, isEngineer);
+            var  data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.AllTable, domainUser, isEngineer);
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),          
                 data = data
             });
         }
@@ -190,11 +188,10 @@ namespace ModularDieselApplication.Api.Controllers
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
 
-            var  data= await _dieslovaniService.GetTableDataUpcomingTableAsync(domainUser, isEngineer);
+            var  data= await _dieslovaniService.GetTableData(DieslovaniFilterEnum.UpcomingTable, domainUser, isEngineer);
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
                 data = data
             });
         }
@@ -209,11 +206,10 @@ namespace ModularDieselApplication.Api.Controllers
             var domainUser = _mapper.Map<User>(currentUser);
 
 
-            var data = await _dieslovaniService.GetTableDataEndTableAsync(domainUser, isEngineer);
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.EndTable,domainUser, isEngineer);
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
                 data = data
             });
         }
@@ -226,11 +222,11 @@ namespace ModularDieselApplication.Api.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
-            var data = await _dieslovaniService.GetTableDatathrashTableAsync(domainUser, isEngineer);
+            
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.TrashTable, domainUser, isEngineer);
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
                 data = data
             });
         }

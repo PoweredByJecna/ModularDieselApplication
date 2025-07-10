@@ -25,27 +25,27 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Technik by ID.
         // ----------------------------------------
-        public async Task<Technik?> GetByIdAsync(string idTechnika)
+        public async Task<Technik> GetByIdAsync(string idTechnika)
         {
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
                 .Include(t => t.User)
                 .FirstOrDefaultAsync(t => t.Id == idTechnika);
 
-            return _mapper.Map<Technik?>(entity);
+            return _mapper.Map<Technik>(entity);
         }
 
         // ----------------------------------------
         // Get Technik by User ID.
         // ----------------------------------------
-        public async Task<Technik?> GetByUserIdAsync(string idUser)
+        public async Task<Technik> GetByUserIdAsync(string idUser)
         {
             var entity = await _context.TechnikS
                 .Include(t => t.Firma)
                 .Include(t => t.User)
                 .FirstOrDefaultAsync(t => t.IdUser == idUser);
 
-            return _mapper.Map<Technik?>(entity);
+            return _mapper.Map<Technik>(entity);
         }
 
         // ----------------------------------------

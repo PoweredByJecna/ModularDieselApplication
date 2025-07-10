@@ -13,16 +13,13 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public int Baterie { get; set; }
         public bool DA { get; set; }
         public bool Zasuvka { get; set; }
-
         [ForeignKey("Region")]
         public required string RegionID { get; set; }
         public required TableRegion Region { get; set; }
-        public virtual ICollection<TableOdstavka> OdstavkyList { get; set; }
-
+        public virtual ICollection<TableOdstavka>? OdstavkyList { get; set; }
         [ForeignKey("Zdroj")]
         public string? ZdrojId { get; set; }
         public virtual TableZdroj? Zdroj { get; set; }
-
         private static string GenerateCustomId()
         {
             var random = new Random();

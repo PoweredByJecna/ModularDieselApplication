@@ -69,7 +69,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get completed dieslovani table data.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDataEndTableAsync(User currentUser, bool isEngineer)
         {
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.Odchod != DateTime.MinValue.Date && o.Odstavka.Do.Date <= DateTime.Today);
@@ -81,17 +81,13 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Get trashed dieslovani table data.
         // ----------------------------------------
-        public async Task<List<object>> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
+        public async Task<List<object>> GetTableDatathrashTableAsync(User currentUser, bool isEngineer)
         {
-            if (currentUser == null)
-            {
-                throw new ArgumentNullException(nameof(currentUser), "Current user cannot be null.");
-            }
             var technik = await _technikService.GetTechnikByUserIdAsync(currentUser.Id);
 
-            if (technik == null || technik.Firma == null)
+            if (technik == null)
             {
-                throw new InvalidOperationException("Technik or Firma is null.");
+                return new List<object>();
             }
             var firmaId = technik.Firma.ID;
 
@@ -100,10 +96,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             var query = _dieslovaniRepository.GetDieslovaniQuery()
                 .Where(o => o.Technik.ID == "606794494");
 
-            if (isEngineer && validRegions.Any())
-            {
-                // Additional filtering logic can be added here.
-            }
+          
             var data = await _dieslovaniRepository.GetDieslovaniDataAsync(query);
             return data;
         }

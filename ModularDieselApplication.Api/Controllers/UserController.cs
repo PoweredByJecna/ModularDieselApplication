@@ -61,6 +61,14 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> ChangePassword(string UserId, string newpasssword)
         {
             var user = await _userManager.FindByIdAsync(UserId);
+            if (user == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Uživatel nebyl nalezen"
+                });
+            }
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, newpasssword);
             if (result.Succeeded)
@@ -86,10 +94,7 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         public async Task<IActionResult> AddUser(string email, string password, string role, string username, string Jmeno, string Prijmeni)
         {
-            // Check if the user already exists
             var existingUser = await _userManager.FindByNameAsync(username);
-            var passwordValidator = _userManager.PasswordValidators.FirstOrDefault();
-
             if (existingUser != null)
             {
                 return Json(new
@@ -98,15 +103,17 @@ namespace ModularDieselApplication.Api.Controllers
                     message = "Uživatel s tímto username již existuje"
                 });
             }
-            var correctPassword = await passwordValidator.ValidateAsync(_userManager, null, password);
-            if (!correctPassword.Succeeded)
+            var passwordValidator = _userManager.PasswordValidators.FirstOrDefault();
+
+            if (passwordValidator == null)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Heslo nesplňuje požadavky"
+                    message = "Nastavení hesla není správně nakonfigurováno"
                 });
             }
+
 
             else
             {
@@ -122,6 +129,17 @@ namespace ModularDieselApplication.Api.Controllers
                     NormalizedUserName = username.ToUpper()
 
                 };
+
+                var correctPassword = await passwordValidator.ValidateAsync(_userManager, user, password);
+                if (!correctPassword.Succeeded)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Heslo nesplňuje požadavky"
+                    });
+                }
+
                 var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {

@@ -6,8 +6,8 @@ namespace ModularDieselApplication.Interfaces.Repositories
 {
     public interface ITechniciRepository
     {
-        Task<Technik?> GetByIdAsync(string idTechnika);
-        Task<Technik?> GetByUserIdAsync(string idUser);
+        Task<Technik> GetByIdAsync(string idTechnika);
+        Task<Technik> GetByUserIdAsync(string idUser);
         Task<Technik> GetByFirmaIdAsync(string idFirmy);
         Task<bool> IsTechnikOnDutyAsync(string idTechnika);
         Task UpdateAsync(Technik technik);

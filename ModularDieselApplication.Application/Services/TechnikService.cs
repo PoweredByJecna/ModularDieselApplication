@@ -18,14 +18,18 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get a technician by their ID.
         // ----------------------------------------
-        public async Task<Technik?> GetTechnikByIdAsync(string idtechnika)
+        public async Task<Technik> GetTechnikByIdAsync(string idtechnika)
         {
             var technik = await _techniciRepository.GetByIdAsync(idtechnika);
             if (technik != null)
             {
                 await _techniciRepository.UpdateAsync(technik);
+                return technik;
             }
-            return technik;
+            else
+            {
+                throw new KeyNotFoundException($"Technician with ID {idtechnika} not found.");
+            }
         }
 
         // ----------------------------------------
@@ -39,7 +43,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get a technician by their user ID.
         // ----------------------------------------
-        public async Task<Technik?> GetTechnikByUserIdAsync(string idUser)
+        public async Task<Technik> GetTechnikByUserIdAsync(string idUser)
         {
             return await _techniciRepository.GetByUserIdAsync(idUser);
         }

@@ -114,7 +114,6 @@ namespace ModularDieselApplication.Tests.ApplicationTests
 
             // Verify that the Odstavka's time was updated.
             Assert.Equal(newTime, odstavka.Od);
-            Assert.Null(odstavka.Do); // Verify only the start time was changed.
 
             // Verify that DieslovaniService was called exactly once.
             _mockDieslovaniService.Verify(

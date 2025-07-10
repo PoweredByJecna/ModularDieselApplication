@@ -232,11 +232,15 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get the ID of an Odstavka associated with a specific Dieslovani.
         // ----------------------------------------
-        public async Task<string>  GetIDbyDieselId(string idDieslovani)
+        public async Task<string> GetIDbyDieselId(string idDieslovani)
         {
             var entity = await _context.DieslovaniS
                 .Include(d => d.Odstavka) 
                 .FirstOrDefaultAsync(d => d.ID == idDieslovani); 
+            if (entity == null)
+            {
+                throw new Exception($"Dieslovani with ID {idDieslovani} not found.");
+            }    
             return entity.Odstavka.ID; 
         }
 

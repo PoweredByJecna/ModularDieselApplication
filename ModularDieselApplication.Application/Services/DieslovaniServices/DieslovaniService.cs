@@ -36,47 +36,6 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniQueryService.GetTableDataDetailJsonAsync(id);
         }
-
-        // ----------------------------------------
-        // Get all dieslovani table data.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataAllTableAsync(User? currentUser, bool isEngineer)
-        {
-            return await _dieslovaniQueryService.GetTableDataAllTableAsync(currentUser, isEngineer);
-        }
-
-        // ----------------------------------------
-        // Get running dieslovani table data.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataRunningTableAsync(User? currentUser, bool isEngineer)
-        {
-            return await _dieslovaniQueryService.GetTableDataRunningTableAsync(currentUser, isEngineer);
-        }
-
-        // ----------------------------------------
-        // Get upcoming dieslovani table data.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataUpcomingTableAsync(User? currentUser, bool isEngineer)
-        {
-            return await _dieslovaniQueryService.GetTableDataUpcomingTableAsync(currentUser, isEngineer);
-        }
-
-        // ----------------------------------------
-        // Get completed dieslovani table data.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataEndTableAsync(User? currentUser, bool isEngineer)
-        {
-            return await _dieslovaniQueryService.GetTableDataEndTableAsync(currentUser, isEngineer);
-        }
-
-        // ----------------------------------------
-        // Get trashed dieslovani table data.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDatathrashTableAsync(User? currentUser, bool isEngineer)
-        {
-            return await _dieslovaniQueryService.GetTableDatathrashTableAsync(currentUser, isEngineer);
-        }
-
         // ----------------------------------------
         // Get dieslovani details for a specific odstávka.
         // ----------------------------------------
@@ -200,7 +159,21 @@ namespace ModularDieselApplication.Application.Services
 
         public async Task<List<object>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer)
         {
-            throw new NotImplementedException("This method is not implemented yet. Please use specific filter methods like GetTableDataAllTableAsync, GetTableDataRunningTableAsync, etc.");
+            switch (filter)
+            {
+                case DieslovaniFilterEnum.AllTable:
+                    return await _dieslovaniQueryService.GetTableDataAllTableAsync(currentUser, isEngineer);
+                case DieslovaniFilterEnum.RunningTable:
+                    return await _dieslovaniQueryService.GetTableDataRunningTableAsync(currentUser, isEngineer);
+                case DieslovaniFilterEnum.UpcomingTable:
+                    return await _dieslovaniQueryService.GetTableDataUpcomingTableAsync(currentUser, isEngineer);
+                case DieslovaniFilterEnum.EndTable:
+                    return await _dieslovaniQueryService.GetTableDataEndTableAsync(currentUser, isEngineer);
+                case DieslovaniFilterEnum.TrashTable:
+                    return await _dieslovaniQueryService.GetTableDatathrashTableAsync(currentUser, isEngineer);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
+            }
         }
     }
 }
