@@ -26,7 +26,6 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // Zobrazíme view a předáme nový model
             return View(new LoginViewModel());
         }
 

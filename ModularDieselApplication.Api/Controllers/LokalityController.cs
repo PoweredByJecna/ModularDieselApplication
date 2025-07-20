@@ -33,7 +33,6 @@ namespace ModularDieselApplication.Api.Controllers
 
             return Json(new
             {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(), // Unique request ID
                 data = lokality
             });
         }

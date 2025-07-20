@@ -8,6 +8,8 @@ using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using ModularDieselApplication.Application.Enum;
+using ModularDieselApplication.Application.Common.Models;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Api.Controllers
 {
@@ -18,7 +20,6 @@ namespace ModularDieselApplication.Api.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<TableUser> _userManager;
 
-        
         public DieslovaniController(
             IDieslovaniService dieslovaniService,
             UserManager<TableUser> userManager,
@@ -38,19 +39,20 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataDetailDieslovani(string id)
         {
-           var detailDieslovani = await _dieslovaniService.GetTableDataDetailJsonAsync(id);
+            var detailDieslovani = await _dieslovaniService.GetTableDataDetailJsonAsync(id);
             if (detailDieslovani == null)
             {
-                return Json(new{
-                    error="nenalezeno žádné dieslovaní"
+                return Json(new
+                {
+                    error = "nenalezeno žádné dieslovaní"
                 });
             }
             return Json(
             new
             {
-                data=detailDieslovani 
+                data = detailDieslovani
             });
-        
+
         }
         // -------------------------------
         // Zobrazení detailu Dieslovani
@@ -72,14 +74,15 @@ namespace ModularDieselApplication.Api.Controllers
             var detailDieslovani = await _dieslovaniService.DetailDieslovaniJsonAsync(id);
             if (detailDieslovani == null)
             {
-                return Json(new{
-                    error="null"
+                return Json(new
+                {
+                    error = "null"
                 });
             }
             return Json(
             new
             {
-                data=detailDieslovani 
+                data = detailDieslovani
             });
         }
         // ----------------------------------------
@@ -89,40 +92,14 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> Vstup(string IdDieslovani)
         {
             var result = await _dieslovaniService.VstupAsync(IdDieslovani);
-
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new
-                {
-                    success = true,
-                    message = result.Message,
-                });
-            }
+            return JsonResult(result);
         }
         [HttpPost]
         public async Task<IActionResult> Take(string IdDieslovani)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            var domainUser = _mapper.Map<User>(currentUser);
-
+            var (isEngineer, domainUser) = await InfoDataTable();
             var result = await _dieslovaniService.TakeAsync(IdDieslovani, domainUser);
-
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new
-                {
-                    success = true,
-                    message = result.Message,
-                });
-            }
+            return JsonResult(result);
         }
         // ----------------------------------------
         // Odchod - volá metodu ze servisu
@@ -131,15 +108,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> Odchod(string IdDieslovani)
         {
             var result = await _dieslovaniService.OdchodAsync(IdDieslovani);
-
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new { success = true, message = result.Message });
-            }
+            return JsonResult(result);
         }
         // ----------------------------------------
         // Načtení dat GetTableDataRunningTable
@@ -147,18 +116,9 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataRunningTable()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-            var domainUser = _mapper.Map<User>(currentUser);
-
-            var  data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.RunningTable,domainUser, isEngineer);
-
-
-            // Vrátíme data ve formátu DataTables
-            return Json(new
-            {
-                data = data
-            });
+            var (isEngineer, domainUser) = await InfoDataTable();
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.RunningTable, domainUser, isEngineer);
+            return Json(new { data });
         }
         // ----------------------------------------
         // Načtení dat GetTableDataAllTable
@@ -166,34 +126,20 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataAllTable()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-            var domainUser = _mapper.Map<User>(currentUser);
-
-            var  data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.AllTable, domainUser, isEngineer);
-
-            return Json(new
-            {
-                data = data
-            });
+            var (isEngineer, domainUser) = await InfoDataTable();
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.AllTable, domainUser, isEngineer);
+            return Json(new { data });
         }
-       
+
         // ----------------------------------------
         // Načtení dat GetTableDataUpcomingTable 
         // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> GetTableUpcomingTable()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-            var domainUser = _mapper.Map<User>(currentUser);
-
-            var  data= await _dieslovaniService.GetTableData(DieslovaniFilterEnum.UpcomingTable, domainUser, isEngineer);
-
-            return Json(new
-            {
-                data = data
-            });
+            var (isEngineer, domainUser) = await InfoDataTable();
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.UpcomingTable, domainUser, isEngineer);
+            return Json(new { data });
         }
         // ----------------------------------------
         // Načtení dat GetTableDataEndTable 
@@ -201,17 +147,9 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataEndTable()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-            var domainUser = _mapper.Map<User>(currentUser);
-
-
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.EndTable,domainUser, isEngineer);
-
-            return Json(new
-            {
-                data = data
-            });
+            var (isEngineer, domainUser) = await InfoDataTable();
+            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.EndTable, domainUser, isEngineer);
+            return Json(new { data });
         }
         // ----------------------------------------
         // Načtení dat GetTableThrashEndTable 
@@ -219,16 +157,9 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDatathrashTable()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            bool isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
-            var domainUser = _mapper.Map<User>(currentUser);
-            
+            var (isEngineer, domainUser) = await InfoDataTable();
             var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.TrashTable, domainUser, isEngineer);
-
-            return Json(new
-            {
-                data = data
-            });
+            return Json(new { data });
         }
         // ----------------------------------------
         // Smazání dieslování
@@ -238,14 +169,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var result = await _dieslovaniService.DeleteDieslovaniAsync(id);
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new { success = true, message = result.Message });
-            }
+            return JsonResult(result);
         }
         // ---------------------------------------- 
         // Změna času dieslovaní
@@ -254,21 +178,18 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> ChangeTime(string dieslovaniId, DateTime time, string type)
         {
             var result = await _dieslovaniService.ChangeTimeAsync(dieslovaniId, time, type);
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new { success = true, message = result.Message });
-            }
+            return JsonResult(result);
         }
         // ---------------------------------------- 
         // Přiovolání dieslování
         // ----------------------------------------
-        public async Task<IActionResult> CallDieslovani (string odstavkaId)
+        public async Task<IActionResult> CallDieslovani(string odstavkaId)
         {
-            var result = await _dieslovaniService.CallDieslovaniAsync(odstavkaId);  
+            var result = await _dieslovaniService.CallDieslovaniAsync(odstavkaId);
+            return JsonResult(result);
+        }
+        private JsonResult JsonResult(HandleResult result)
+        {
             if (!result.Success)
             {
                 return Json(new { success = false, message = result.Message });
@@ -278,5 +199,13 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
+        private async Task<(bool isEngineer, User domainUser)> InfoDataTable()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
+            var domainUser = _mapper.Map<User>(currentUser);
+            return (isEngineer, domainUser);
+        }
+
     }
 }
