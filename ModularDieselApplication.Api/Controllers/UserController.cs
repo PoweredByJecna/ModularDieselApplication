@@ -114,7 +114,6 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
 
-
             else
             {
                 var user = new TableUser

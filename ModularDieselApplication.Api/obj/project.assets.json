@@ -12322,11 +12322,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
+      "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
       "projectName": "ModularDieselApplication.Api",
-      "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
+      "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
       "packagesPath": "/Users/jirichroust/.nuget/packages/",
-      "outputPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Api/obj/",
+      "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
@@ -12342,11 +12342,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
-              "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
+            "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
+              "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
             },
-            "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj": {
-              "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj"
+            "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj": {
+              "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj"
             }
           }
         }

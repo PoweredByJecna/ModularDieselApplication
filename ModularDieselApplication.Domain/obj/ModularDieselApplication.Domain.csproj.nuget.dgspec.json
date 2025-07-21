@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {}
+    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {}
   },
   "projects": {
-    "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {
+    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
+        "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
         "projectName": "ModularDieselApplication.Domain",
-        "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
+        "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
         "packagesPath": "/Users/jirichroust/.nuget/packages/",
-        "outputPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/",
+        "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jirichroust/.nuget/NuGet/NuGet.Config"

@@ -6950,11 +6950,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
+      "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
       "projectName": "ModularDieselApplication.Infrastructure",
-      "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
+      "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
       "packagesPath": "/Users/jirichroust/.nuget/packages/",
-      "outputPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/obj/",
+      "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
@@ -6970,8 +6970,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
-              "projectPath": "/Users/jirichroust/Documents/ModularDieselApplication-main/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
+            "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
+              "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
             }
           }
         }

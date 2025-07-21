@@ -97,7 +97,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Take(string IdDieslovani)
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
+            var domainUser = _mapper.Map<User>(await _userManager.GetUserAsync(User));
             var result = await _dieslovaniService.TakeAsync(IdDieslovani, domainUser);
             return JsonResult(result);
         }
@@ -116,9 +116,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataRunningTable()
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.RunningTable, domainUser, isEngineer);
-            return Json(new { data });
+            return await InfoDataTable(DieslovaniFilterEnum.RunningTable);
         }
         // ----------------------------------------
         // Načtení dat GetTableDataAllTable
@@ -126,9 +124,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataAllTable()
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.AllTable, domainUser, isEngineer);
-            return Json(new { data });
+            return await InfoDataTable(DieslovaniFilterEnum.AllTable);
         }
 
         // ----------------------------------------
@@ -137,9 +133,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableUpcomingTable()
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.UpcomingTable, domainUser, isEngineer);
-            return Json(new { data });
+            return await InfoDataTable(DieslovaniFilterEnum.UpcomingTable);
         }
         // ----------------------------------------
         // Načtení dat GetTableDataEndTable 
@@ -147,9 +141,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDataEndTable()
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.EndTable, domainUser, isEngineer);
-            return Json(new { data });
+            return await InfoDataTable(DieslovaniFilterEnum.EndTable);
         }
         // ----------------------------------------
         // Načtení dat GetTableThrashEndTable 
@@ -157,9 +149,7 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDatathrashTable()
         {
-            var (isEngineer, domainUser) = await InfoDataTable();
-            var data = await _dieslovaniService.GetTableData(DieslovaniFilterEnum.TrashTable, domainUser, isEngineer);
-            return Json(new { data });
+            return await InfoDataTable(DieslovaniFilterEnum.TrashTable);
         }
         // ----------------------------------------
         // Smazání dieslování
@@ -199,12 +189,13 @@ namespace ModularDieselApplication.Api.Controllers
                 return Json(new { success = true, message = result.Message });
             }
         }
-        private async Task<(bool isEngineer, User domainUser)> InfoDataTable()
+        private async Task<IActionResult> InfoDataTable(DieslovaniFilterEnum filter)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var isEngineer = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "Engineer");
             var domainUser = _mapper.Map<User>(currentUser);
-            return (isEngineer, domainUser);
+            var data = await _dieslovaniService.GetTableData(filter, domainUser, isEngineer);
+            return Json(new { data });
         }
 
     }
