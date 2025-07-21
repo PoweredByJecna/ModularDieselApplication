@@ -114,15 +114,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Check if another diesel request exists for a technician.
-        // ----------------------------------------
-        public async Task<bool> AnotherDieselRequest(string idTechnika)
-        {
-            return await _context.DieslovaniS
-                .AnyAsync(d => d.Technik.Id == idTechnika);
-        }
-
-        // ----------------------------------------
         // Get a Lokalita record by its name.
         // ----------------------------------------
         public async Task<Lokalita?> GetByNameAsync(string name)
@@ -132,23 +123,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync(l => l.Nazev == name);
             return lokalita != null ? _mapper.Map<Lokalita>(lokalita) : null;
         }
-
-        // ----------------------------------------
-        // Get a Lokalita record by its ID.
-        // ----------------------------------------
-        public async Task<Lokalita> GetLokalityByIdAsync(string id)
-        {
-            var lokalitaEntity = await _context.LokalityS
-                .Include(l => l.Region)
-                .FirstOrDefaultAsync(l => l.ID == id);
-
-            if (lokalitaEntity == null)
-            {
-                throw new Exception($"Lokalita with ID {id} not found.");
-            }
-            return _mapper.Map<Lokalita>(lokalitaEntity);
-        }
-
         // ----------------------------------------
         // Get a queryable collection of Odstavka records.
         // ----------------------------------------

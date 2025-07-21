@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using AutoMapper;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
 {
@@ -30,10 +31,29 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             return await _signInManager.PasswordSignInAsync(username, password, rememberMe, false);
         }
 
+        public async Task<HandleResult> AddAsync(User user)
+        {
+            var tableUser = _mapper.Map<TableUser>(user);
+            var result = await _userManager.CreateAsync(tableUser, user.Password);
+            if (result.Succeeded)
+            {
+                return new HandleResult
+                {
+                    Success = true,
+                    Message = "Uživatel byl úspěšně vytvořen."
+                };
+            }
+            return new HandleResult
+            {
+                Success = false,
+                Message = "Uživatel nebyl vytvořen: "
+            };
+        }
+
         // ----------------------------------------
         // Get a user by their username.
         // ----------------------------------------
-        public async Task<User?> GetUserByUsernameAsync(string username)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
             var tableUser = await _userManager.FindByNameAsync(username);
             return tableUser is null ? null : _mapper.Map<User>(tableUser);
@@ -134,7 +154,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
                     technikFirma = l.Technik.Firma.Nazev,
                     jmenoTechnika = l.Technik.User.Jmeno,
                     prijmeniTechnika = l.Technik.User.Prijmeni,
-                    zadanVstup = l.Vstup, 
+                    zadanVstup = l.Vstup,
                     zadanOdchod = l.Odchod,
                     Idtechnika = l.Technik.Id,
                     NazevRegionu = l.Odstavka.Lokality.Region.Nazev,
@@ -148,6 +168,28 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
                 .ToListAsync();
 
             return _mapper.Map<List<object>>(userDieslovani);
+        }
+        public async Task<HandleResult> ChangePasswordAsync(string userId, string newPassword)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return new HandleResult { Success = false, Message = "Uživatel nebyl nalezen" };
+            }
+            if (string.IsNullOrEmpty(user.PasswordHash))
+            {
+                return new HandleResult { Success = false, Message = "Aktuální heslo nesmí být prázdné" };
+            }
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                return new HandleResult { Success = false, Message = "Nové heslo nesmí být prázdné" };
+            }
+            var result = await _userManager.ChangePasswordAsync(user, user.PasswordHash, newPassword);
+            if (result.Succeeded)
+            {
+                return new HandleResult { Success = true };
+            }
+            return new HandleResult { Success = false, Message = string.Join(", ", result.Errors.Select(e => e.Description)) };
         }
     }
 }

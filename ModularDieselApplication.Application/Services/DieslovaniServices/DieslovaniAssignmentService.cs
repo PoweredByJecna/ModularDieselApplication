@@ -3,6 +3,7 @@ using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Domain.Objects;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService
 {
@@ -31,9 +32,9 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Handle dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
+        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka newOdstavka, HandleResult result)
         {
-            var technik = await _technikService.GetTechnikByIdAsync("606794494");
+            var technik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
 
             if (newOdstavka == null)
             {
@@ -84,7 +85,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Assign a technician to dieslovani.
         // ----------------------------------------
-        public async Task<Technik?> AssignTechnikAsync(Dieslovani dieslovani, Odstavka newOdstavka)
+        public async Task<Technik> AssignTechnikAsync(Dieslovani dieslovani, Odstavka newOdstavka)
         {
             var firmaVRegionu = await GetFirmaVRegionuAsync(dieslovani.Odstavka.Lokality.Region.ID);
 
@@ -107,7 +108,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     }
                     else
                     {
-                        technikSearch = await _technikService.GetTechnikByIdAsync("606794494");
+                        technikSearch = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
                         return technikSearch;
                     }
                 }
@@ -166,14 +167,14 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
             if (maVyssiPrioritu && casovyLimit)
             {
-                var novyTechnik = await _technikService.GetTechnikByIdAsync("606794494");
+                var novyTechnik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
                 await SaveTechnikAndDieslovani(newdieslovani, dieslovani.Technik);
                 await SaveTechnikAndDieslovani(dieslovani, novyTechnik);
                 return newdieslovani.Technik;
             }
             else
             {
-                var novyTechnik = await _technikService.GetTechnikByIdAsync("606794494");
+                var novyTechnik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
                 await SaveTechnikAndDieslovani(newdieslovani, novyTechnik);
                 return newdieslovani.Technik;
             }
@@ -215,7 +216,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         public async Task<HandleResult> CallDieslovaniAsync(string idodstavky)
         {
-            var result = new HandleResult();
+            HandleResult result = new();
             try
             {
                 var existingDieslovani = await AnotherDieselRequest(idodstavky);
@@ -233,7 +234,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                     result.Message = "Odstávka již skončila.";
                     return result;
                 }
-                var technik = await _technikService.GetTechnikByIdAsync("606794494");
+                var technik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
 
                 if (technik == null)
                 {

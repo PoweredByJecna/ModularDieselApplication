@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -13,6 +14,25 @@ namespace ModularDieselApplication.Application.Services
         {
             _userRepository = userRepository;
         }
+
+        public async Task<HandleResult> ChangePasswordAsync(string userId, string newPassword)
+        {
+            return await _userRepository.ChangePasswordAsync(userId, newPassword);
+        }
+
+        public async Task<HandleResult> AddUserAsync(string username, string password, string email, string role, string Jmeno, string Prijmeni)
+        {
+            User user = new ()
+            {
+                UserName = username,
+                Password = password,
+                Email = email,
+                Jmeno = Jmeno,
+                Prijmeni = Prijmeni
+            };
+            return await _userRepository.AddAsync(user);
+        }
+
 
         // ----------------------------------------
         // Get dieslovani records associated with a user as JSON.
@@ -46,7 +66,7 @@ namespace ModularDieselApplication.Application.Services
             {
                 uzivatelskeJmeno = userDetail.UserName,
                 stav = technik?.Taken,
-                nadrizeny = "Neznámý", // Original code returned this value
+                nadrizeny = "Neznámý", 
                 firma = firma?.Nazev ?? "Neznámá",
                 region = region?.Nazev ?? "Neznámý",
                 jmeno = pohotovost?.Technik?.User.Jmeno,
@@ -65,7 +85,7 @@ namespace ModularDieselApplication.Application.Services
         {
             var userRole = await _userRepository.GetUserPrimaryRoleAsync(userId);
             if (userRole == null) return false;
-            return userRole.Equals(roleName, System.StringComparison.OrdinalIgnoreCase);
+            return userRole.Equals(roleName,StringComparison.OrdinalIgnoreCase);
         }
     }
 }

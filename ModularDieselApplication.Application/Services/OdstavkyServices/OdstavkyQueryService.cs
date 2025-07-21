@@ -65,19 +65,12 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get table data for odstávky.
         // ----------------------------------------
-        public async Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0)
+        public async Task<List<object>> GetTableDataAsync()
         {
             var query = _odstavkaRepository.GetOdstavkaQuery();
 
-            int totalRecords = query.Count();
-
-            if (length == 0)
-            {
-                length = totalRecords;
-            }
-
-            var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.OrderBy(o => o.Od).Skip(start).Take(length));
-            return (totalRecords, data.Cast<object>().ToList());
+            var data = await _odstavkaRepository.GetOdstavkaDataAsync(query.OrderBy(o => o.Od));
+            return data;
         }
 
         // ----------------------------------------

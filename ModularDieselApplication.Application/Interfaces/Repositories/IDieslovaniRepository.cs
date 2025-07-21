@@ -1,7 +1,9 @@
 
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Objects;
 namespace ModularDieselApplication.Application.Interfaces.Repositories
 {
     public interface IDieslovaniRepository
@@ -10,11 +12,10 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<bool> AnotherDieselRequest(string idTechnika);
         IQueryable<Dieslovani> GetDieslovaniQuery();       
         Task<List<object>> GetDieslovaniDataAsync(IQueryable<Dieslovani> query);
-        Task AddAsync(Dieslovani dieslovani);
+        Task<HandleResult> AddAsync(Dieslovani dieslovani);
         Task UpdateAsync(Dieslovani dieslovani);
         Task<bool> DeleteAsync(string id);
         Task<Dieslovani?> GetDieslovaniWithTechnikAsync(string firmaId);
-        Task<Dieslovani?> GetTechnikByIdAsync(string technikId);
         Task UpdateDieslovaniAsync(Dieslovani dieslovani);
         Task <Dieslovani> GetDAbyOdstavkaAsync(string idOdstavky);
         Task<string> GetIDbyDieselId(string idDieslovani);

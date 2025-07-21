@@ -74,10 +74,10 @@ namespace ModularDieselApplication.Tests.ApplicationTests
 
             // Mock TechnikService to return a valid Technik.
             _mockTechnikService
-                .Setup(x => x.GetTechnikByIdAsync("606794494"))
+                .Setup(x => x.GetTechnikByIdAsync(FiktivniTechnik.Id))
                 .ReturnsAsync(new Technik
                 {
-                    ID = "606794494",
+                    ID = FiktivniTechnik.Id,
                     User = new User
                     {
 

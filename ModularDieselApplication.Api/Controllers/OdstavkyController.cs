@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Api.Controllers
 {
@@ -35,7 +37,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> SuggestLokalita(string query)
         {
             var lokalities = await _odstavkyService.SuggestLokalitaAsync(query);
-            return Json(lokalities);
+            return Json(new { data = lokalities });
         }
 
         // ----------------------------------------
@@ -60,8 +62,6 @@ namespace ModularDieselApplication.Api.Controllers
                 });
             }
         }
-
-
         // ----------------------------------------
         // Delete an Odstavka by ID.
         // ----------------------------------------
@@ -69,31 +69,18 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var result = await _odstavkyService.DeleteOdstavkaAsync(id);
-            if (!result.Success)
-            {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new { success = true, message = result.Message });
-            }
+            return JsonResult(result);
         }
 
         // ----------------------------------------
         // Fetch Odstavky data for a table.
         // ----------------------------------------
         [HttpPost]
-        public async Task<IActionResult> GetTableData(int start = 0, int length = 0)
+        public async Task<IActionResult> GetTableData()
         {
-            var (totalRecords, data) = await _odstavkyService.GetTableDataAsync(start, length);
+            var data = await _odstavkyService.GetTableDataAsync();
+            return Json(new { data });
 
-            return Json(new
-            {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
-                data = data
-            });
         }
 
         // ----------------------------------------
@@ -103,12 +90,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> GetTableDataOdDetail(string id)
         {
             var odstavkaList = await _odstavkyService.GetTableDataOdDetailAsync(id);
-
-            return Json(new
-            {
-                draw = HttpContext.Request.Query["draw"].FirstOrDefault(),
-                data = odstavkaList
-            });
+            return Json(new { data = odstavkaList });
         }
 
         // ----------------------------------------
@@ -118,10 +100,6 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailOdstavkyJson(string id)
         {
             var detailOdstavky = await _odstavkyService.DetailOdstavkyJsonAsync(id);
-            if (detailOdstavky == null)
-            {
-                return Json(new { error = "null" });
-            }
             return Json(new { data = detailOdstavky });
         }
 
@@ -132,8 +110,6 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailOdstavky(string id)
         {
             var detail = await _odstavkyService.DetailOdstavkyAsync(id);
-            if (detail == null)
-                return NotFound();
             return View(detail);
         }
 
@@ -144,6 +120,11 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> ChangeTimeOdstavky(string odstavkaId, DateTime time, string type)
         {
             var result = await _odstavkyService.ChangeTimeOdstavkyAsync(odstavkaId, time, type);
+            return JsonResult(result);
+        }
+
+        private JsonResult JsonResult(HandleResult result)
+        {
             if (!result.Success)
             {
                 return Json(new { success = false, message = result.Message });

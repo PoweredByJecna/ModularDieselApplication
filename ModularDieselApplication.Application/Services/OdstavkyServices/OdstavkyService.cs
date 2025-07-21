@@ -70,9 +70,9 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get table data for odstávky.
         // ----------------------------------------
-        public async Task<(int totalRecords, List<object> data)> GetTableDataAsync(int start = 0, int length = 0)
+        public async Task<List<object>> GetTableDataAsync()
         {
-            return await _odstavkyQueryService.GetTableDataAsync(start, length);
+            return await _odstavkyQueryService.GetTableDataAsync();
         }
 
         // ----------------------------------------
@@ -81,14 +81,6 @@ namespace ModularDieselApplication.Application.Services
         public async Task<List<object>> GetTableDataOdDetailAsync(string idDieslovani)
         {
             return await _odstavkyQueryService.GetTableDataOdDetailAsync(idDieslovani);
-        }
-
-        // ----------------------------------------
-        // Update an odstávka record.
-        // ----------------------------------------
-        public Task<HandleResult> UpdateOdstavkaAsync(string idodstavky, string lokalita, DateTime od, DateTime @do, string popis)
-        {
-            throw new NotImplementedException();
         }
 
         // ----------------------------------------

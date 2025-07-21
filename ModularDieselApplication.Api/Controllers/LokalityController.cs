@@ -30,11 +30,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> GetTableData(int start = 0, int length = 0)
         {
             var lokality = await _lokalityService.GetAllLokalityAsync();
-
-            return Json(new
-            {
-                data = lokality
-            });
+            return Json(new { data = lokality });
         }
 
         // ----------------------------------------
@@ -44,10 +40,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailLokalityJson(string Nazev)
         {
             var lokality = await _lokalityService.DetailLokalityJsonAsync(Nazev);
-            return Json(new
-            {
-                data = lokality
-            });
+            return Json(new { data = lokality });
         }
 
         // ----------------------------------------
@@ -56,10 +49,6 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailLokality(string nazev)
         {
             var lokality = await _lokalityService.DetailLokalityAsync(nazev);
-            if (lokality == null)
-            {
-                return NotFound();
-            }
             return View(lokality);
         }
 
@@ -70,10 +59,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> GetDieslovaniNaLokalite(string nazev)
         {
             var dieslovani = await _lokalityService.GetDieslovaniNaLokaliteAsync(nazev);
-            return Json(new
-            {
-                data = dieslovani
-            });
+            return Json(new { data = dieslovani });
         }
 
         // ----------------------------------------
@@ -82,10 +68,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> GetOdstavkynaLokalite(string nazev)
         {
             var odstavky = await _lokalityService.GetOdstavkynaLokaliteAsync(nazev);
-            return Json(new
-            {
-                data = odstavky
-            });
+            return Json(new { data = odstavky });
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ModularDieselApplication.Domain.Entities;
 using static ModularDieselApplication.Application.Services.OdstavkyService;
 using ModularDieselApplication.Domain.Objects;
-using ModularDieselApplication.Application.Enum;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
 {
@@ -11,11 +11,9 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         
         Task<List<object>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer);
-        Task<List<object>> GetTableDataOdDetailOdstavkyAsync(string idodstavky);
         Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result);
         Task<HandleResult> VstupAsync(string idDieslovani);
         Task<HandleResult> OdchodAsync(string idDieslovani);
-        Task<(bool Success, string Message)> TemporaryLeaveAsync(string idDieslovani);
         Task<HandleResult> TakeAsync(string idDieslovani, User user);
         Task<Dieslovani?> DetailDieslovaniAsync(string id);
         Task<object> DetailDieslovaniJsonAsync(string id);

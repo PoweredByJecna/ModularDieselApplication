@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
@@ -38,40 +39,38 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Add new Dieslovani
         // ----------------------------------------
-        
-
-        public async Task AddAsync(Dieslovani dieslovani)
+        public async Task<HandleResult> AddAsync(Dieslovani dieslovani)
         {
             var efEntity = _mapper.Map<TableDieslovani>(dieslovani);
             var existingOdstavka = await _context.OdstavkyS.FindAsync(efEntity.IdOdstavky);
             if (existingOdstavka == null)
             {
-                throw new Exception($"Odstavka s ID {efEntity.IdOdstavky} nebyla nalezena.");
+                return new HandleResult()
+                {
+                    Success = false,
+                    Message = $"Odstavka s ID {efEntity.IdOdstavky} nebyla nalezena."
+                };
             }
             efEntity.Odstavka = existingOdstavka;
 
             var existingTechnik = await _context.TechnikS.FindAsync(efEntity.IdTechnik);
             if (existingTechnik == null)
             {
-                throw new Exception($"Technik s ID {efEntity.IdTechnik} nebyl nalezen.");
+                return new HandleResult()
+                {
+                    Success = false,
+                    Message = $"Technik s ID {efEntity.IdTechnik} nebyl nalezen."
+                };
+
             }
             efEntity.Technik = existingTechnik;
             _context.DieslovaniS.Add(efEntity);
             await _context.SaveChangesAsync();
 
             dieslovani.ID = efEntity.ID;
+            return null;
         }
 
-        // ----------------------------------------
-        // Get Technik by ID
-        // ----------------------------------------
-        public async Task<Dieslovani?> GetTechnikByIdAsync(string technikId)
-        {
-            var entity = await _context.TechnikS
-                .FirstOrDefaultAsync(p => p.Id == technikId);
-
-            return entity == null ? null : _mapper.Map<Dieslovani>(entity);
-        }
 
         // ----------------------------------------
         // Update Dieslovani
@@ -219,14 +218,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync(o => o.IdOdstavky == idOdstavky);
 
             return _mapper.Map<Dieslovani>(entity);
-        }
-
-        // ----------------------------------------
-        // Get the count of Dieslovani records based on a query.
-        // ----------------------------------------
-        public async Task<int> CountAsync(IQueryable<Dieslovani> query)
-        {
-            return await query.CountAsync();
         }
 
         // ----------------------------------------

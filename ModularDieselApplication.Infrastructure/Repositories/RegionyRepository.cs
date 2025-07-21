@@ -21,20 +21,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Get data by region ID.
-        // ----------------------------------------
-        public async Task<List<object>> GetData(string regionId)
-        {
-            var regions = await _context.RegionS
-                .Include(r => r.Firma)
-                .Where(r => r.ID == regionId)
-                .ToListAsync();
-
-            var resultList = _mapper.Map<List<object>>(regions);
-            return resultList;
-        }
-
-        // ----------------------------------------
         // Get Firma data by region ID.
         // ----------------------------------------
         public async Task<Firma> GetFirmaAsync(string idReg)
@@ -48,60 +34,30 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         }
 
         // ----------------------------------------
-        // Check if a Technik has Pohotovost.
-        // ----------------------------------------
-        public async Task<bool> TechnikHasPohotovost(string idTechnik)
-        {
-            var exists = await _context.PohotovostiS
-                .AnyAsync(p => p.IdTechnik == idTechnik);
-            return exists;
-        }
-
-        // ----------------------------------------
-        // Get regions by Firma ID.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegion(string firmaId)
-        {
-            var regions = await _context.RegionS
-                .Include(r => r.Firma)
-                .Where(r => r.FirmaID == firmaId)
-                .ToListAsync();
-
-            var resultList = _mapper.Map<List<object>>(regions);
-            return resultList;
-        }
-
-        // ----------------------------------------
         // Get the count of Lokality records in a region.
         // ----------------------------------------
-        public async Task<int> GetLokalityCountAsync(string regionId)
+        public async Task<(int pocetLokalit, int pocetOdstavek)> GetCountAsync(string name)
         {
-            return await _context.LokalityS
+            var pocetlokalit = await _context.LokalityS
                 .Include(o => o.Region)
-                .Where(o => o.Region.ID == regionId)
+                .Where(o => o.Region.Nazev == name)
                 .CountAsync();
-        }
 
-        // ----------------------------------------
-        // Get the count of Odstavky records in a region.
-        // ----------------------------------------
-        public async Task<int> GetOdstavkyCountAsync(string regionId)
-        {
-            return await _context.OdstavkyS
+            var pocetOdstavek = await _context.OdstavkyS
                 .Include(o => o.Lokality)
                 .ThenInclude(o => o.Region)
-                .Where(o => o.Lokality.Region.ID == regionId)
+                .Where(o => o.Lokality.Region.Nazev == name)
                 .CountAsync();
+            return (pocetlokalit, pocetOdstavek);
         }
-
         // ----------------------------------------
-        // Get region data by its ID.
+        // Get region data by its Name.
         // ----------------------------------------
-        public async Task<List<Region>> GetRegionById(string idregion)
+        public async Task<List<Region>> GetRegionByName(string name)
         {
             var region = await _context.RegionS
                 .Include(r => r.Firma)
-                .Where(r => r.ID == idregion)
+                .Where(r => r.Nazev == name)
                 .ToListAsync();
             var resultList = _mapper.Map<List<Region>>(region);
             return resultList;

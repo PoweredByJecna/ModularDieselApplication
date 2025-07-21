@@ -141,7 +141,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get table data for pohotovosti.
         // ----------------------------------------
-        public async Task<(int totalRecords, List<object> data)> GetPohotovostTableDataAsync(int start, int length)
+        public async Task<List<object>> GetPohotovostTableDataAsync(int start, int length)
         {
             int totalRecords = await _pohotovostiRepository.GetPohotovostCountAsync();
             if (length == 0)
@@ -154,7 +154,7 @@ namespace ModularDieselApplication.Application.Services
 
             var pohotovostList = await _pohotovostiRepository.GetPohotovostTableDataAsync(start, length, technikLokalitaMap);
 
-            return (totalRecords, pohotovostList);
+            return pohotovostList;
         }
 
         // ----------------------------------------

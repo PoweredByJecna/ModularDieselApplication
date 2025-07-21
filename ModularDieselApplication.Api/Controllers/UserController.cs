@@ -7,20 +7,20 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Domain.Objects;
+
+
 
 namespace ModularDieselApplication.Api.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _service;
-        private readonly IMapper _mapper;
-        private readonly UserManager<TableUser> _userManager;
+    
 
-        public UserController(IUserService service, IMapper mapper, UserManager<TableUser> userManager)
+        public UserController(IUserService service )
         {
             _service = service;
-            _mapper = mapper;
-            _userManager = userManager;
         }
 
         // ----------------------------------------
@@ -37,10 +37,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> DetailUserJson(string id)
         {
             var detailUser = await _service.DetailUserJsonAsync(id);
-            return Json(new
-            {
-                data = detailUser
-            });
+            return Json(new { data = detailUser });
         }
 
         // ----------------------------------------
@@ -49,10 +46,7 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> VazbyJson(string id)
         {
             var vazby = await _service.VazbyJsonAsync(id);
-            return Json(new
-            {
-                data = vazby
-            });
+            return Json(new { data = vazby });
         }
 
         // ----------------------------------------
@@ -60,33 +54,8 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         public async Task<IActionResult> ChangePassword(string UserId, string newpasssword)
         {
-            var user = await _userManager.FindByIdAsync(UserId);
-            if (user == null)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Uživatel nebyl nalezen"
-                });
-            }
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await _userManager.ResetPasswordAsync(user, token, newpasssword);
-            if (result.Succeeded)
-            {
-                return Json(new
-                {
-                    success = true,
-                    message = "Heslo bylo úspěšně změněno"
-                });
-            }
-            else
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Něco se pokazilo"
-                });
-            }
+            var result = await _service.ChangePasswordAsync(UserId, newpasssword);
+            return JsonResult(result);
         }
 
         // ----------------------------------------
@@ -94,72 +63,21 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         public async Task<IActionResult> AddUser(string email, string password, string role, string username, string Jmeno, string Prijmeni)
         {
-            var existingUser = await _userManager.FindByNameAsync(username);
-            if (existingUser != null)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Uživatel s tímto username již existuje"
-                });
-            }
-            var passwordValidator = _userManager.PasswordValidators.FirstOrDefault();
+            var result = await _service.AddUserAsync(username, password, email, role, Jmeno, Prijmeni);
+            return JsonResult(result);
 
-            if (passwordValidator == null)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Nastavení hesla není správně nakonfigurováno"
-                });
-            }
 
+        }
+        private JsonResult JsonResult(HandleResult result)
+        {
+            if (!result.Success)
+            {
+                return Json(new { success = false, message = result.Message });
+            }
             else
             {
-                var user = new TableUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = username,
-                    Email = email,
-                    Jmeno = Jmeno,
-                    Prijmeni = Prijmeni,
-                    EmailConfirmed = true,
-                    NormalizedEmail = email.ToUpper(),
-                    NormalizedUserName = username.ToUpper()
-
-                };
-
-                var correctPassword = await passwordValidator.ValidateAsync(_userManager, user, password);
-                if (!correctPassword.Succeeded)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Heslo nesplňuje požadavky"
-                    });
-                }
-
-                var result = await _userManager.CreateAsync(user, password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, role);
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Uživatel byl úspěšně přidán"
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Něco se pokazilo"
-                    });
-                }
+                return Json(new { success = true, message = result.Message });
             }
-        
-
         }
 
     }

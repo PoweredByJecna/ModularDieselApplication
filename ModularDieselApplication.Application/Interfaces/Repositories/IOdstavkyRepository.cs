@@ -9,9 +9,7 @@ namespace ModularDieselApplication.Application.Interfaces
     {
         Task<Odstavka> GetByIdAsync(string id);
         Task<Lokalita?> GetByNameAsync(string name); 
-        Task<Lokalita> GetLokalityByIdAsync(string id);
         Task<List<Lokalita>> GetAllAsync();
-        Task<int> GetLokalitaCountAsync();
         Task AddAsync(Odstavka odstavka);
         Task UpdateAsync(Odstavka odstavka);
         Task <bool>DeleteAsync(string id);

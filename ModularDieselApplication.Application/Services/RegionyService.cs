@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -20,67 +21,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         public async Task<List<object>> GetRegionByIdFirmy(string _IdRegionu)
         {
-            var resultList = await GetDataRegioon(_IdRegionu);
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Praha.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataPrahaAsync()
-        {
-            var _IdRegionu = 4;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Severní Morava.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataSeverniMoravaAsync()
-        {
-            var _IdRegionu = 3;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Jižní Morava.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataJizniMoravaAsync()
-        {
-            var _IdRegionu = 2;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Jižní Čechy.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataJizniCechyAsync()
-        {
-            var _IdRegionu = 5;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Severní Čechy.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataSeverniCechyAsync()
-        {
-            var _IdRegionu = 1;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
-            return resultList;
-        }
-
-        // ----------------------------------------
-        // Get region data for Západní Čechy.
-        // ----------------------------------------
-        public async Task<List<object>> GetRegionDataZapadniCechyAsync()
-        {
-            var _IdRegionu = 6;
-            var resultList = await GetDataRegioon(_IdRegionu.ToString());
+            var resultList = await GetDataRegion(_IdRegionu);
             return resultList;
         }
 
@@ -94,15 +35,14 @@ namespace ModularDieselApplication.Application.Services
         }
 
         // ----------------------------------------
-        // Get detailed region data by region ID.
+        // Get detailed region data by region Name.
         // ----------------------------------------
-        private async Task<List<object>> GetDataRegioon(string regionId)
+        private async Task<List<object>> GetDataRegion(string name)
         {
-            var regiony = await _regionyRepository.GetRegionById(regionId);
-            var pocetLokalit = await _regionyRepository.GetLokalityCountAsync(regionId);
-            var pocetOdstavek = await _regionyRepository.GetOdstavkyCountAsync(regionId);
+            var regiony = await _regionyRepository.GetRegionByName(name);
+            var (pocetLokalit, pocetOdstavek) = await _regionyRepository.GetCountAsync(name);
 
-            var resultList = new List<object>();
+            List<object> resultList = new();
 
             foreach (var reg in regiony)
             {
@@ -139,6 +79,20 @@ namespace ModularDieselApplication.Application.Services
                 "Jižní Morava" or "Jižní Čechy" => "EGD",
                 "Praha + Střední Čechy" => "PRE",
                 _ => ""
+            };
+        }
+        
+        public async Task<List<object>> GetRegionData(RegionyFilterEnum regionFilter)
+        {
+            return regionFilter switch
+            {
+                RegionyFilterEnum.Praha => await GetDataRegion("Praha + Střední Čechy"),
+                RegionyFilterEnum.SeverniMorava => await GetDataRegion("Severní Morava"),
+                RegionyFilterEnum.JizniMorava => await GetDataRegion("Jižní Morava"),
+                RegionyFilterEnum.ZapadniCechy => await GetDataRegion("Západní Čechy"),
+                RegionyFilterEnum.SeverniCechy => await GetDataRegion("Severní Čechy"),
+                RegionyFilterEnum.JizniCechy => await GetDataRegion("Jižní Čechy"),
+                _ => new List<object>(),
             };
         }
     }

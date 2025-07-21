@@ -5,7 +5,7 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService;
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
 using ModularDieselApplication.Domain.Objects;
-using ModularDieselApplication.Application.Enum;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Application.Services
 {

@@ -54,7 +54,7 @@ namespace ModularDieselApplication.Application.Services
                 {
                     await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Dieslování objednáno bez kontroli");
 
-                    var technik = await _technikService.GetTechnikByIdAsync("606794494");
+                    var technik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
 
                     if (technik == null)
                     {

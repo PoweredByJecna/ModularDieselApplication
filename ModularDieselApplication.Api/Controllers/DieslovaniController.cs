@@ -7,8 +7,7 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
-using ModularDieselApplication.Application.Enum;
-using ModularDieselApplication.Application.Common.Models;
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Api.Controllers

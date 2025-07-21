@@ -59,14 +59,8 @@ namespace ModularDieselApplication.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableDatapohotovostiTable(int start = 0, int length = 0)
         {
-            var (totalRecords, data) = await _pohotovostiService.GetPohotovostTableDataAsync(start, length);
-
-            return Json(new
-            {
-                recordsTotal = totalRecords,
-                recordsFiltered = totalRecords,
-                data = data
-            });
+            var data = await _pohotovostiService.GetPohotovostTableDataAsync(start, length);
+            return Json(new { data });
         }
     }
 }
