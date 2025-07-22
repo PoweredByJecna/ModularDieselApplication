@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lxfKOhBzX/8U0ZMzc/sYNbe+UeDlI2tNFLgl2mibjYe1MD7hvZXERaMOv9egL+aKwSnNkst7TF1eaHes/7Q2qg==",
+  "dgSpecHash": "qnVWn93hzWWdVFX6nHY8VBhexYXFmdemRtOQWRA2q1MId6pJ9qyZFG11gQDhw0VVkCPfsmN3EOS6RK4G5a8yYQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jirka\\Da-Modular-Application\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,11 @@
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.1\\microsoft.aspnetcore.identity.2.3.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.3.0\\microsoft.aspnetcore.webutilities.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.1\\microsoft.entityframeworkcore.analyzers.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.1\\microsoft.extensions.caching.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.1\\microsoft.extensions.caching.memory.9.0.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.2\\microsoft.extensions.configuration.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.2\\microsoft.extensions.configuration.abstractions.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration.binder\\9.0.2\\microsoft.extensions.configuration.binder.9.0.2.nupkg.sha512",

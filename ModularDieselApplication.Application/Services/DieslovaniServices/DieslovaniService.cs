@@ -6,6 +6,8 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Enum;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -28,7 +30,6 @@ namespace ModularDieselApplication.Application.Services
             _dieslovaniActionService = dieslovaniActionService;
             _dieslovaniAssignmentService = dieslovaniAssignmentService;
         }
-
         // ----------------------------------------
         // Get dieslovani detail data as JSON.
         // ----------------------------------------
@@ -37,22 +38,13 @@ namespace ModularDieselApplication.Application.Services
             return await _dieslovaniQueryService.GetTableDataDetailJsonAsync(id);
         }
         // ----------------------------------------
-        // Get dieslovani details for a specific odstávka.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataOdDetailOdstavkyAsync(string idodstavky)
-        {
-            return await _dieslovaniQueryService.GetTableDataOdDetailOdstavkyAsync(idodstavky);
-        }
-
-        // ----------------------------------------
         // Handle dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka? newOdstavka, HandleResult result)
+        public async Task<HandleResult<Dieslovani>> HandleOdstavkyDieslovani(Odstavka? newOdstavka)
         {
-            await _dieslovaniAssignmentService.HandleOdstavkyDieslovani(newOdstavka, result);
+            var result = await _dieslovaniAssignmentService.HandleOdstavkyDieslovani(newOdstavka);
             return result;
         }
-
         // ----------------------------------------
         // Record entry to a location.
         // ----------------------------------------
@@ -60,7 +52,6 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniActionService.VstupAsync(idDieslovani);
         }
-
         // ----------------------------------------
         // Record exit from a location.
         // ----------------------------------------
@@ -68,15 +59,6 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniActionService.OdchodAsync(idDieslovani);
         }
-
-        // ----------------------------------------
-        // Toggle temporary leave status.
-        // ----------------------------------------
-        public async Task<(bool Success, string Message)> TemporaryLeaveAsync(string idDieslovani)
-        {
-            return await _dieslovaniActionService.TemporaryLeaveAsync(idDieslovani);
-        }
-
         // ----------------------------------------
         // Assign a technician to a location.
         // ----------------------------------------
@@ -84,7 +66,6 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniActionService.TakeAsync(idDieslovani, currentUser);
         }
-
         // ----------------------------------------
         // Get dieslovani details by ID.
         // ----------------------------------------
@@ -157,20 +138,20 @@ namespace ModularDieselApplication.Application.Services
             return await _dieslovaniAssignmentService.CallDieslovaniAsync(odstavky);
         }
 
-        public async Task<List<object>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer)
+        public async Task<List<Dieslovani>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer)
         {
             switch (filter)
             {
                 case DieslovaniFilterEnum.AllTable:
-                    return await _dieslovaniQueryService.GetTableDataAllTableAsync(currentUser, isEngineer);
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).ToListAsync();
                 case DieslovaniFilterEnum.RunningTable:
-                    return await _dieslovaniQueryService.GetTableDataRunningTableAsync(currentUser, isEngineer);
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup != DateTime.MinValue && i.Odchod == DateTime.MinValue).ToListAsync();
                 case DieslovaniFilterEnum.UpcomingTable:
-                    return await _dieslovaniQueryService.GetTableDataUpcomingTableAsync(currentUser, isEngineer);
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID != FiktivniTechnik.Id).ToListAsync();
                 case DieslovaniFilterEnum.EndTable:
-                    return await _dieslovaniQueryService.GetTableDataEndTableAsync(currentUser, isEngineer);
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date <= DateTime.Today).ToListAsync();
                 case DieslovaniFilterEnum.TrashTable:
-                    return await _dieslovaniQueryService.GetTableDatathrashTableAsync(currentUser, isEngineer);
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date < DateTime.Today).ToListAsync();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
             }

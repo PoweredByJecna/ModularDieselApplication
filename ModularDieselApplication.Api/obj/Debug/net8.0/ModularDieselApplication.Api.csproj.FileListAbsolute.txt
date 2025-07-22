@@ -6305,3 +6305,6 @@ C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularD.BE4A98A7.Up2Date
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.genruntimeconfig.cache
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ref\ModularDieselApplication.Api.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\refint\ModularDieselApplication.Api.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.pdb

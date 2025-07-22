@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -45,30 +46,22 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var existingOdstavka = await _context.OdstavkyS.FindAsync(efEntity.IdOdstavky);
             if (existingOdstavka == null)
             {
-                return new HandleResult()
-                {
-                    Success = false,
-                    Message = $"Odstavka s ID {efEntity.IdOdstavky} nebyla nalezena."
-                };
+                return HandleResult.Error($"Odstavka s ID {efEntity.IdOdstavky} nebyla nalezena.");
             }
             efEntity.Odstavka = existingOdstavka;
 
             var existingTechnik = await _context.TechnikS.FindAsync(efEntity.IdTechnik);
             if (existingTechnik == null)
             {
-                return new HandleResult()
-                {
-                    Success = false,
-                    Message = $"Technik s ID {efEntity.IdTechnik} nebyl nalezen."
-                };
-
+                return HandleResult.Error($"Technik s ID {efEntity.IdTechnik} nebyl nalezen.");
             }
             efEntity.Technik = existingTechnik;
             _context.DieslovaniS.Add(efEntity);
             await _context.SaveChangesAsync();
 
             dieslovani.ID = efEntity.ID;
-            return null;
+
+            return HandleResult.OK("Dieslovani bylo úspěšně přidáno.");
         }
 
 
@@ -120,13 +113,20 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get Dieslovani query
         // ----------------------------------------
-        public IQueryable<Dieslovani> GetDieslovaniQuery()
+        public IQueryable<Dieslovani> GetDieslovaniQuery(User? currentUser = null, bool isEngineer = false)
         {
-            return _context.DieslovaniS
+            var query = _context.DieslovaniS
                 .Include(d => d.Odstavka)
                 .Include(d => d.Technik)
-                .ThenInclude(d=>d.User)
+                .ThenInclude(d => d.User)
                 .ProjectTo<Dieslovani>(_mapper.ConfigurationProvider);
+
+            if (isEngineer)
+            {
+                var userId = currentUser?.Id;
+                query = query.Where(d => d.Technik.User.Id == userId);
+            }
+            return query;
         }
 
         // ----------------------------------------
@@ -196,11 +196,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             {
             throw new Exception($"Technik s ID {dieslovani.ID} nebyl nalezen.");
             }
-
-            // Namapujte změny z doménového modelu do existující (trackované) entity.
             _mapper.Map(dieslovani, existingEntity);
 
-            // Uložte změny.
             await _context.SaveChangesAsync();
         }
 
@@ -247,5 +244,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<Odstavka>(entity);
         }
+
     }
 }

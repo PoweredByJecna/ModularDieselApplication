@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ModularDieselApplication.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97ad71fe11c70f73d09a6260f50c107f7539a175")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f4913997c447e9a66b60ac27ee2c937285fba1e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ModularDieselApplication.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ModularDieselApplication.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

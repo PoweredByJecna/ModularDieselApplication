@@ -4,6 +4,7 @@ using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Enum;
+using System.Reflection.Metadata;
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService
 {
@@ -32,54 +33,39 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Handle dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> HandleOdstavkyDieslovani(Odstavka newOdstavka, HandleResult result)
+        public async Task<HandleResult<Dieslovani>> HandleOdstavkyDieslovani(Odstavka newOdstavka)
         {
             var technik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
 
             if (newOdstavka == null)
             {
-                result.Success = false;
-                result.Message = "Odstavka is null.";
-                return result;
+                return HandleResult<Dieslovani>.Error("Odstavka is null.");
             }
 
-            await _dieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka, result);
+            var result = await _dieslovaniRules.IsDieselRequired(newOdstavka.Lokality.Klasifikace, newOdstavka.Od, newOdstavka.Do, newOdstavka.Lokality.Baterie, newOdstavka);
+            {
+                switch (result)
+                {
+                    case IsDieselRequiredEnum.Zasuvka:
+                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Dieslování není potřeba z důvodu že na lokalitě není zásuvka.");
+                        return HandleResult<Dieslovani>.Error($"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování není potřeba z důvodu, protože na lokalitě není zásuvka.");
+
+                    case IsDieselRequiredEnum.Agregat:
+                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Dieslování není potřeba z důvodu že na lokalitě je diesel agregát.");
+                        return HandleResult<Dieslovani>.Error($"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování není potřeba z důvodu, protože na lokalitě je diesel agregát.");
+
+                    case IsDieselRequiredEnum.Baterie:
+                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Dieslování je částečně potřeba: na lokalitě jsou baterie, které vydrží po dobu odstávky.");
+                        return HandleResult<Dieslovani>.Error($"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování je částečně potřeba: na lokalitě jsou baterie, které vydrží po dobu odstávky.");
+
+                    default:
+                        var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
+                        var technikSearch = await AssignTechnikAsync(dieslovani, newOdstavka);
+                        await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Bylo vytvořeno nové dieslování č.{dieslovani.ID}.");
+                        return HandleResult<Dieslovani>.OK(dieslovani, $"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nBylo vytvořeno nové dieslování č.{dieslovani.ID}.\nTechnik: {technikSearch.User.Jmeno} {technikSearch.User.Jmeno}.");
+                }
+            }
            
-            if (!result.Success)
-            {
-                result.Success = false;
-                await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Dieslování není potřeba z důvodu: {result.Duvod}");
-                result.Message = $"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování není potřeba z důvodu: {result.Duvod}";
-                result.Color = "Orange";
-                return result;
-            }
-
-            if (technik == null)
-            {
-                result.Success = false;
-                result.Message = "Technik se nanašel.";
-                return result;
-            }
-            else 
-            {
-                var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
-                var technikSearch = await AssignTechnikAsync(dieslovani, newOdstavka);
-
-                if (technikSearch == null)
-                {
-                    result.Success = false;
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Dieslovaní", dieslovani.ID, "Nepodařilo se přiřadit technika.");
-                    result.Message = "Nepodařilo se přiřadit technika.";
-                    return result;
-                }
-                else
-                {
-                    await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Bylo vytvořeno nové dieslování č.{dieslovani.ID}.");
-                    result.Message = "Vytvořeno nové dieslování.";
-                    result.Success = true;
-                    return result;
-                }
-            }
         }
 
         // ----------------------------------------
@@ -191,7 +177,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
                 Odchod = DateTime.MinValue,
                 Odstavka = newOdstavka,
                 Technik = technik
-            };
+            }; 
             await _dieslovaniRepository.AddAsync(newDieslovani);
             technik.Taken = true;
             await _technikService.UpdateTechnikAsync(technik);
@@ -216,43 +202,33 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         public async Task<HandleResult> CallDieslovaniAsync(string idodstavky)
         {
-            HandleResult result = new();
             try
             {
                 var existingDieslovani = await AnotherDieselRequest(idodstavky);
                 if (existingDieslovani)
                 {
-                    result.Success = false;
-                    result.Message = "Dieslování pro tuto odstávku je již vytvořeno.";
-                    return result;
+                    return HandleResult.Error( $"Dieslování pro tuto odstávku je již vytvořeno");
                 }
                 var odstavka = await _dieslovaniRepository.GetByOdstavkaByIdAsync(idodstavky);
 
                 if (odstavka.Do.Date < DateTime.Now.Date)
                 {
-                    result.Success = false;
-                    result.Message = "Odstávka již skončila.";
-                    return result;
+                    return HandleResult.Error("Odstávka již skončila.");
                 }
                 var technik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
 
                 if (technik == null)
                 {
-                    result.Success = false;
-                    result.Message = "Technik nebyl nalezen.";
-                    return result;
+                    return HandleResult.Error("Technik nebyl nalezen.");
                 }
 
                 var dieslovani = await CreateNewDieslovaniAsync(odstavka, technik);
                 await AssignTechnikAsync(dieslovani, odstavka);
-                result.Success = true;  
-                return result;
+                return HandleResult.OK();
             }
             catch (Exception ex)
             {
-                result.Success = false;
-                result.Message = "Chyba při vytváření dieslování: " + ex.Message;
-                return result;
+                return HandleResult.Error("Chyba při vytváření dieslování: " + ex.Message);
             }
         }
 

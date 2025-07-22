@@ -1,4 +1,5 @@
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Domain.Rules
@@ -8,44 +9,25 @@ namespace ModularDieselApplication.Domain.Rules
         // ----------------------------------------
         // Check if diesel is required for a location.
         // ----------------------------------------
-        public async Task<HandleResult> IsDieselRequired(string klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka, HandleResult result)
+        public async Task<IsDieselRequiredEnum> IsDieselRequired(string klasifikace, DateTime Od, DateTime Do, int baterie, Odstavka newOdstavka)
         {
-            if (newOdstavka?.Lokality?.DA == true)
+            switch (true)
             {
-                result.Success = false;
-                result.Duvod = "Na lokalitě není potřeba dieslovat, nachází se tam stacionární generátor.";
-                return result;
+            case bool _ when newOdstavka.Lokality.DA == true:
+                return IsDieselRequiredEnum.Agregat;
+            case bool _ when newOdstavka.Lokality.Zasuvka == false:
+                return IsDieselRequiredEnum.Zasuvka;
             }
-
-            if (newOdstavka?.Lokality?.Zasuvka == false)
-            {
-                result.Success = false;
-                result.Duvod = "Na lokalitě se nedá dieslovat, protože tam není zásuvka.";
-                return result;
-            }
-
             var casVypadku = await Task.Run(() => klasifikace.ZiskejCasVypadku());
             var rozdil = (Do - Od).TotalMinutes;
-
-            if (casVypadku * 60 > rozdil)
+            switch (true)
             {
-                result.Success = false;
-                result.Duvod = "Lokalita může být vypnuta delší dobu než je délka výpadku.";
-                return result;
-            }
-            else
-            {
-                if (await BatteryAsync(Od, Do, baterie))
-                {
-                    result.Success = false;
-                    result.Duvod = "Lokalita vydrží na baterie.";
-                    return result;
-                }
-                else
-                {
-                    result.Success = true;
-                    return result;
-                }
+            case bool _ when casVypadku * 60 > rozdil:
+                return IsDieselRequiredEnum.Priorita;
+            case bool _ when await BatteryAsync(Od, Do, baterie):
+                return IsDieselRequiredEnum.Baterie;
+            default:
+                return IsDieselRequiredEnum.Yes;
             }
         }
 

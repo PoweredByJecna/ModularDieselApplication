@@ -578,3 +578,6 @@ C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\ModularD.D4E20E3D.Up2Date
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\ModularDieselApplication.Infrastructure.genruntimeconfig.cache
 C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\ref\ModularDieselApplication.Infrastructure.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\ModularDieselApplication.Infrastructure.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\refint\ModularDieselApplication.Infrastructure.dll
+C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Infrastructure\obj\Debug\net8.0\ModularDieselApplication.Infrastructure.pdb

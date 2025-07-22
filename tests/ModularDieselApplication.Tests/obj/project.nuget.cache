@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Gm2TTlqQQNpxsCC5pJ9DnjMpn0oXrCcbqZW0k7eBxKikAVS/JG2DdQ2/dPhcER2mSRV11PO5evonMA6DWuzVDA==",
+  "dgSpecHash": "r7uNm+zmJ8oYTOlOsORX/levP8hrw65jsdEZrKL5EdyfcqSim0ikU0oPaNWRUEc43DJKhXRMo5RQH0eCkWiVRA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jirka\\Da-Modular-Application\\ModularDieselApplication\\tests\\ModularDieselApplication.Tests\\ModularDieselApplication.Tests.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,11 @@
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.3.0\\microsoft.aspnetcore.webutilities.2.3.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.codecoverage\\17.13.0\\microsoft.codecoverage.17.13.0.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.1\\microsoft.entityframeworkcore.analyzers.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.1\\microsoft.extensions.caching.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.1\\microsoft.extensions.caching.memory.9.0.1.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.2\\microsoft.extensions.configuration.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.2\\microsoft.extensions.configuration.abstractions.9.0.2.nupkg.sha512",
     "C:\\Users\\jirka\\.nuget\\packages\\microsoft.extensions.configuration.binder\\9.0.2\\microsoft.extensions.configuration.binder.9.0.2.nupkg.sha512",

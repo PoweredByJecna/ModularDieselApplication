@@ -8,10 +8,9 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
 {
     public interface IDieslovaniRepository
     {
-        Task<Dieslovani?> GetByIdAsync(string id);
+        Task<Dieslovani> GetByIdAsync(string id);
         Task<bool> AnotherDieselRequest(string idTechnika);
-        IQueryable<Dieslovani> GetDieslovaniQuery();       
-        Task<List<object>> GetDieslovaniDataAsync(IQueryable<Dieslovani> query);
+        IQueryable<Dieslovani> GetDieslovaniQuery(User? currentUser = null, bool isEngineer = false);
         Task<HandleResult> AddAsync(Dieslovani dieslovani);
         Task UpdateAsync(Dieslovani dieslovani);
         Task<bool> DeleteAsync(string id);

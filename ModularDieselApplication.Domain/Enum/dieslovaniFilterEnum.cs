@@ -19,5 +19,14 @@ namespace ModularDieselApplication.Domain.Enum
         JizniCechy,
         SeverniCechy
     }
+
+    public enum IsDieselRequiredEnum
+    {
+        Yes,
+        Baterie,
+        Zasuvka,
+        Agregat,
+        Priorita
+    }
    
 }

@@ -4249,6 +4249,7 @@
           "MailKit": "4.10.0",
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.0.0",
           "Microsoft.AspNetCore.Identity": "2.3.1",
+          "Microsoft.EntityFrameworkCore": "9.0.1",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.2",
           "Microsoft.Extensions.Hosting": "9.0.2",
           "ModularDieselApplication.Domain": "1.0.0"
