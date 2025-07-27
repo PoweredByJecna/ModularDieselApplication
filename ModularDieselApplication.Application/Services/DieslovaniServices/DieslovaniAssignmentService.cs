@@ -60,7 +60,6 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
                     default:
                         var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
-                        var technikSearch = await AssignTechnikAsync(dieslovani, newOdstavka);
                         await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Bylo vytvořeno nové dieslování č.{dieslovani.ID}.");
                         return HandleResult<Dieslovani>.OK(dieslovani, $"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nBylo vytvořeno nové dieslování č.{dieslovani.ID}.\nTechnik: {technikSearch.User.Jmeno} {technikSearch.User.Jmeno}.");
                 }
@@ -78,31 +77,16 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
             if (firmaVRegionu != null)
             {
                 await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, $"Firma která bude zajišťovat dieslování: {firmaVRegionu.Nazev}");
-
-                var technikId = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID, newOdstavka.Od, newOdstavka.Do);   
-                var technikSearch = await _technikService.GetTechnikByIdAsync(technikId);
-
-                if (technikId == "0")
+                var technik = await _pohotovostiService.GetTechnikActivTechnikByIdFirmaAsync(firmaVRegionu.ID, newOdstavka.Od, newOdstavka.Do); 
+                if(technik.ID == FiktivniTechnik.Id)
                 {
-                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", dieslovani.ID, "Nebyl nalezen aktivní technik, který by byl volný");
-                    bool nejakyTechnikMaPohotovost = await _pohotovostiService.PohovostiVRegionuAsync(firmaVRegionu.ID, newOdstavka.Od, newOdstavka.Do);
-                    
-                    if (nejakyTechnikMaPohotovost)
-                    {
-                        technikSearch = await CheckTechnikReplacementAsync(dieslovani, dieslovani.Odstavka, firmaVRegionu.ID);
-                        return technikSearch;
-                    }
-                    else
-                    {
-                        technikSearch = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
-                        return technikSearch;
-                    }
-                }
-                else
-                {
+                    technik = await CheckTechnikReplacementAsync(dieslovani, dieslovani.Odstavka, firmaVRegionu.ID)
+                
+                
+                
                     await SaveTechnikAndDieslovani(dieslovani, technikSearch);
                     return technikSearch;
-                }
+                
             }
             else
             {
@@ -122,30 +106,21 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Check for a technician replacement.
         // ----------------------------------------
-        private async Task<Technik?> CheckTechnikReplacementAsync(Dieslovani dieslovani, Odstavka newOdstavka, string idFirma)
+        private async Task CheckTechnikReplacementAsync(Dieslovani dieslovani, Odstavka newOdstavka, string idFirma)
         {
-            var technik = await GetHigherPriorityAsync(dieslovani, newOdstavka, idFirma);
-            return technik;
+            await GetHigherPriorityAsync(dieslovani, newOdstavka, idFirma);
         }
 
         // ----------------------------------------
         // Get a technician with higher priority.
         // ----------------------------------------
-        private async Task<Technik?> GetHigherPriorityAsync(Dieslovani newdieslovani, Odstavka newOdstavka, string idFirma)
+        private async Task GetHigherPriorityAsync(Dieslovani newdieslovani, Odstavka newOdstavka, string idFirma)
         {
             var dieslovani = await _dieslovaniRepository.GetDieslovaniWithTechnikAsync(idFirma);
-
-            if (dieslovani == null)
-            {
-                return null;
-            }
-
             if (dieslovani.Odstavka.Do < newOdstavka.Od.AddHours(3) || newOdstavka.Do < dieslovani.Odstavka.Od.AddHours(4))
             {
                 await SaveTechnikAndDieslovani(newdieslovani, dieslovani.Technik);
-                return dieslovani.Technik;
             }
-
             int staraVaha = dieslovani.Odstavka.Lokality.Klasifikace.ZiskejVahu();
             int novaVaha = newOdstavka.Lokality.Klasifikace.ZiskejVahu();
             bool maVyssiPrioritu = novaVaha > staraVaha;
@@ -153,16 +128,14 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
 
             if (maVyssiPrioritu && casovyLimit)
             {
-                var novyTechnik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
+                var novyTechnik = await _technikService.GetTechnik(GetTechnikEnum.fitkivniTechnik);
                 await SaveTechnikAndDieslovani(newdieslovani, dieslovani.Technik);
                 await SaveTechnikAndDieslovani(dieslovani, novyTechnik);
-                return newdieslovani.Technik;
             }
             else
             {
                 var novyTechnik = await _technikService.GetTechnikByIdAsync(FiktivniTechnik.Id);
                 await SaveTechnikAndDieslovani(newdieslovani, novyTechnik);
-                return newdieslovani.Technik;
             }
         }
 
@@ -171,15 +144,15 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         public async Task<Dieslovani> CreateNewDieslovaniAsync(Odstavka newOdstavka, Technik technik)
         {
-            var newDieslovani = new Dieslovani
+            Dieslovani newDieslovani = new()
             { 
-                Vstup = DateTime.MinValue,
-                Odchod = DateTime.MinValue,
                 Odstavka = newOdstavka,
                 Technik = technik
             }; 
             await _dieslovaniRepository.AddAsync(newDieslovani);
             technik.Taken = true;
+            var technikSearch = await AssignTechnikAsync(newDieslovani, newOdstavka);
+
             await _technikService.UpdateTechnikAsync(technik);
             await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", newDieslovani.ID, $"Nové dieslování č.{newDieslovani.ID} bylo vytvořeno.");
 

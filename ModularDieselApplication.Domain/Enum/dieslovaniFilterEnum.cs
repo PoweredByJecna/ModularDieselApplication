@@ -28,5 +28,24 @@ namespace ModularDieselApplication.Domain.Enum
         Agregat,
         Priorita
     }
+
+    public enum DieslovaniFieldEnum
+    {
+        ID,
+        Odstavka,
+        Technik,
+        Vstup,
+        Odchod
+    }
+
+    public enum GetTechnikEnum
+    {
+        ById,
+        ByFirmaId,
+        ByUserId,
+        All,
+        fitkivniTechnik
+    }
+
    
 }

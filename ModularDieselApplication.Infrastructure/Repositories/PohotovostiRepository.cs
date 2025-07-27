@@ -7,6 +7,10 @@ using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
+using ModularDieselApplication.Interfaces.Repositories;
+using ModularDieselApplication.Application.Services;
+using ModularDieselApplication.Application.Interfaces.Services;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
@@ -14,11 +18,14 @@ namespace ModularDieselApplication.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ITechnikService _technikService;
 
-        public PohotovostiRepository(ApplicationDbContext context, IMapper mapper)
+        public PohotovostiRepository(ApplicationDbContext context, IMapper mapper, ITechnikService technikService)
         {
             _context = context;
             _mapper = mapper;
+            _technikService = technikService;
+
         }
 
         // ----------------------------------------
@@ -132,20 +139,16 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // Get TechnikVPohotovosti
         // ----------------------------------------
 
-        public async Task<string> GetTechnikVPohotovostiAsnyc(string firmaid, DateTime OD, DateTime DO)
+        public async Task<Technik> GetTechnikVPohotovostiAsnyc(string firmaid, DateTime OD, DateTime DO)
         {
             var technik = await _context.PohotovostiS
                 .Include(o => o.Technik)
                 .ThenInclude(o=> o.User)
-                .Include(o => o.Technik)
-                .ThenInclude(o => o.Firma)
+                .Include(o => o.Technik.Firma)
                 .Where(o => o.Technik.Firma.ID == firmaid && o.Technik.Taken==false && o.Zacatek <= OD && o.Konec >= DO)
                 .FirstOrDefaultAsync();
-                if (technik == null)
-                {
-                    return "0";
-                }
-            return technik.Technik.Id;
+                if (technik == null) return await _technikService.GetTechnik(GetTechnikEnum.fitkivniTechnik);
+            return _mapper.Map<Technik>(technik);
         }
         // ----------------------------------------
         // Get Pohotovost table data

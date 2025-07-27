@@ -14,7 +14,7 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task<HandleResult> AddAsync(Dieslovani dieslovani);
         Task UpdateAsync(Dieslovani dieslovani);
         Task<bool> DeleteAsync(string id);
-        Task<Dieslovani?> GetDieslovaniWithTechnikAsync(string firmaId);
+        Task<Dieslovani> GetDieslovaniWithTechnikAsync(string firmaId);
         Task UpdateDieslovaniAsync(Dieslovani dieslovani);
         Task <Dieslovani> GetDAbyOdstavkaAsync(string idOdstavky);
         Task<string> GetIDbyDieselId(string idDieslovani);

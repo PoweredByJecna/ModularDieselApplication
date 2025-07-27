@@ -8,6 +8,7 @@ using ModularDieselApplication.Infrastructure.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using ModularDieselApplication.Interfaces.Repositories;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
@@ -85,11 +86,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             {
                 throw new Exception($"Technik with ID {technik.ID} not found.");
             }
-
-            // Map changes from the domain model to the tracked entity.
             _mapper.Map(technik, existingEntity);
 
-            // Save changes to the database.
             await _context.SaveChangesAsync();
         }
 
