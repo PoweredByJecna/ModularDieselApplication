@@ -42,30 +42,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<TablePohotovost>().ToTable("TablePohotovost", schema: "Data");
             builder.Entity<TableTechnik>().ToTable("TableTechnik", schema: "Data");
             builder.Entity<DebugLogModel>().ToTable("DebugModel", schema: "Data");
-            builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");
-
-            // ----------------------------------------
-            // Configure relationships for TableOdstavky.
-            // ----------------------------------------
-            builder.Entity<TableOdstavka>()
-                .HasOne(o => o.Lokality) // One Lokality can have many Odstavky.
-                .WithMany(l => l.OdstavkyList) // Navigation property in Lokality.
-                .HasForeignKey(o => o.LokalitaID) // Foreign key in TableOdstavky.
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior.
-
-            // ----------------------------------------
-            // Configure relationships for TableDieslovani.
-            // ----------------------------------------
-            builder.Entity<TableDieslovani>()
-                .HasOne(o => o.Odstavka) // One Odstavka can have many Dieslovani.
-                .WithMany(i => i.DieslovaniList) // Navigation property in Odstavka.
-                .HasForeignKey(o => o.IdOdstavky) // Foreign key in TableDieslovani.
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior.
-
-            builder.Entity<TableDieslovani>()
-                .HasOne(o => o.Technik) // One Technik can have many Dieslovani.
-                .WithMany(i => i.DieslovaniList) // Navigation property in Technik.
-                .HasForeignKey(o => o.IdTechnik); // Foreign key in TableDieslovani.
+            builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");  
         }
 
         // ----------------------------------------

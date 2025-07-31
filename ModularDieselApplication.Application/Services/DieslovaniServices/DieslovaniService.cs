@@ -7,6 +7,7 @@ using ModularDieselApplication.Application.Services.DieslovaniServices.Dieslovan
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 
 namespace ModularDieselApplication.Application.Services
@@ -31,13 +32,6 @@ namespace ModularDieselApplication.Application.Services
             _dieslovaniAssignmentService = dieslovaniAssignmentService;
         }
         // ----------------------------------------
-        // Get dieslovani detail data as JSON.
-        // ----------------------------------------
-        public async Task<List<object>> GetTableDataDetailJsonAsync(string id)
-        {
-            return await _dieslovaniQueryService.GetTableDataDetailJsonAsync(id);
-        }
-        // ----------------------------------------
         // Handle dieslovani for an odstávka.
         // ----------------------------------------
         public async Task<HandleResult<Dieslovani>> HandleOdstavkyDieslovani(Odstavka? newOdstavka)
@@ -46,74 +40,38 @@ namespace ModularDieselApplication.Application.Services
             return result;
         }
         // ----------------------------------------
-        // Record entry to a location.
-        // ----------------------------------------
-        public async Task<HandleResult> VstupAsync(string idDieslovani)
-        {
-            return await _dieslovaniActionService.VstupAsync(idDieslovani);
-        }
-        // ----------------------------------------
-        // Record exit from a location.
-        // ----------------------------------------
-        public async Task<HandleResult> OdchodAsync(string idDieslovani)
-        {
-            return await _dieslovaniActionService.OdchodAsync(idDieslovani);
-        }
-        // ----------------------------------------
-        // Assign a technician to a location.
-        // ----------------------------------------
-        public async Task<HandleResult> TakeAsync(string idDieslovani, User currentUser)
-        {
-            return await _dieslovaniActionService.TakeAsync(idDieslovani, currentUser);
-        }
-        // ----------------------------------------
-        // Get dieslovani details by ID.
-        // ----------------------------------------
-        public async Task<Dieslovani?> DetailDieslovaniAsync(string id)
-        {
-            return await _dieslovaniRepository.GetByIdAsync(id);
-        }
-
-        // ----------------------------------------
-        // Get dieslovani details as JSON.
-        // ----------------------------------------
-        public async Task<object> DetailDieslovaniJsonAsync(string id)
-        {
-            return await _dieslovaniQueryService.DetailDieslovaniJsonAsync(id);
-        }
-
-        // ----------------------------------------
-        // Delete a dieslovani record.
-        // ----------------------------------------
-        public async Task<HandleResult> DeleteDieslovaniAsync(string idDieslovani)
-        {
-            return await _dieslovaniActionService.DeleteDieslovaniAsync(idDieslovani);
-        }
-
-        // ----------------------------------------
-        // Get dieslovani by odstávka ID.
-        // ----------------------------------------
-        public async Task<Dieslovani> GetDieslovaniByOdstavkaId(string id)
-        {
-            return await _dieslovaniRepository.GetDAbyOdstavkaAsync(id);
-        }
-
-        // ----------------------------------------
-        // Get odstávka ID by dieslovani ID.
-        // ----------------------------------------
-        public async Task<string> GetOdstavkaIDbyDieselId(string idDieslovani)
-        {
-            return await _dieslovaniRepository.GetIDbyDieselId(idDieslovani);
-        }
-
-        // ----------------------------------------
         // Get dieslovani records by user ID.
         // ----------------------------------------
-        public async Task<List<object>> GetDieslovaniByUserId(string idUser)
+        public async Task<HandleResult> ActioOnDieslovani(ActionFilter filter, string Id, DateTime time  = default)
         {
-            return await _dieslovaniQueryService.GetDieslovaniByUserId(idUser);
+            try
+            {
+                switch (filter)
+                {
+                    case ActionFilter.Vstup:
+                        await _dieslovaniActionService.VstupAsync(Id);
+                        return HandleResult.OK("Vstup byl úspěšně zaznamenán.");
+                    case ActionFilter.Odchod:
+                        await _dieslovaniActionService.OdchodAsync(Id);
+                        return HandleResult.OK("Odchod byl úspěšně zaznamenán.");
+                    case ActionFilter.Delete:
+                        await _dieslovaniActionService.DeleteDieslovaniAsync(Id);
+                        return HandleResult.OK("Dieslovani byla úspěšně smazána.");
+                    case ActionFilter.CallDA:
+                        await _dieslovaniAssignmentService.CallDieslovaniAsync(Id);
+                        return HandleResult.OK("Dieslovani bylo úspěšně objednáno.");
+                    case ActionFilter.ChangeTime:
+                        await _dieslovaniActionService.ChangeTimeAsync(Id, time, ActionFilter.Vstup);
+                        return HandleResult.OK("Čas byl úspěšně změněn.");
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return HandleResult.Error($"Chyba při zpracování akce na dieslovani: {ex.Message}");
+            }
         }
-
         // ----------------------------------------
         // Check if another dieslovani request exists.
         // ----------------------------------------
@@ -121,23 +79,6 @@ namespace ModularDieselApplication.Application.Services
         {
             return await _dieslovaniRepository.AnotherDieselRequest(idTechnika);
         }
-
-        // ----------------------------------------
-        // Change the time for a dieslovani record.
-        // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeAsync(string idDieslovani, DateTime time, string type)
-        {
-            return await _dieslovaniActionService.ChangeTimeAsync(idDieslovani, time, type);
-        }
-
-        // ----------------------------------------
-        // Call dieslovani for an odstávka.
-        // ----------------------------------------
-        public async Task<HandleResult> CallDieslovaniAsync(string odstavky)
-        {
-            return await _dieslovaniAssignmentService.CallDieslovaniAsync(odstavky);
-        }
-
         public async Task<List<Dieslovani>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer)
         {
             switch (filter)
@@ -151,7 +92,7 @@ namespace ModularDieselApplication.Application.Services
                 case DieslovaniFilterEnum.EndTable:
                     return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date <= DateTime.Today).ToListAsync();
                 case DieslovaniFilterEnum.TrashTable:
-                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date < DateTime.Today).ToListAsync();
+                    return await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID == FiktivniTechnik.Id).ToListAsync();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
             }

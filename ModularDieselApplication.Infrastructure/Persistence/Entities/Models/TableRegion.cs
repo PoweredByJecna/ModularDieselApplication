@@ -6,7 +6,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     public class TableRegion
     {   
         [Key]
-        public string ID { get; set; } = Guid.NewGuid().ToString();
+        public string ID { get; set; } = default!;
         public required string Nazev{get;set;}
         
         [ForeignKey("Firma")]

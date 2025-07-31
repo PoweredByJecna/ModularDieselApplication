@@ -2,6 +2,8 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Objects;
+using ModularDieselApplication.Domain.Enum;
+
 
 namespace ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService
 {
@@ -21,187 +23,113 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Record entry to a location.
         // ----------------------------------------
-        public async Task<HandleResult> VstupAsync(string idDieslovani)
+        public async Task VstupAsync(string idDieslovani)
         {
-           
-            try
+            var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
+
+            if (dis != null)
             {
-                var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
-
-                if (dis != null)
-                {
-                    dis.Vstup = DateTime.Now;
-                    dis.Technik.Taken = true;
-
-                    await _dieslovaniRepository.UpdateAsync(dis);
-                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " vstoupil na lokalitu.");
-
-                    return HandleResult.OK("Byl zadán vstup na lokalitu.");
-                }
-                else
-                {
-                    return HandleResult.Error("Záznam dieslování nebyl nalezen.");
-                
-                }
+                dis.Nastav(DieslovaniFieldEnum.Vstup,DateTime.Now);
+                dis.Technik.Taken = true;
+                await _dieslovaniRepository.UpdateAsync(dis);
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " vstoupil na lokalitu.");
             }
-            catch (Exception ex)
+            else
             {
-                return HandleResult.Error($"Chyba při zadávání vstupu: {ex.Message}");
+                throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
             }
         }
-
         // ----------------------------------------
         // Record exit from a location.
         // ----------------------------------------
-        public async Task<HandleResult> OdchodAsync(string idDieslovani)
+        public async Task OdchodAsync(string idDieslovani)
         {
-           
-            try
+            var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
+            if (dis != null)
             {
-                var dis = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
+                var anotherDiesel = await _dieslovaniRepository.AnotherDieselRequest(dis.Technik.ID);
 
-                if (dis != null)
+                if (!anotherDiesel)
                 {
-                    var anotherDiesel = await _dieslovaniRepository.AnotherDieselRequest(dis.Technik.ID);
-
-                    if (!anotherDiesel)
-                    {
-                        dis.Technik.Taken = false;
-                        await _technikService.UpdateTechnikAsync(dis.Technik);
-                    }
-
-                    dis.Odchod = DateTime.Now;
-                    await _dieslovaniRepository.UpdateAsync(dis);
-                    await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " zadal odchod z lokality.");
-
-                    return HandleResult.OK("Byl zadán odchod z lokality.");
+                    dis.Technik.Taken = false;
+                    await _technikService.UpdateTechnikAsync(dis.Technik);
                 }
-                else
-                {
-                    return HandleResult.Error("Záznam dieslování nebyl nalezen.");
-                }
+
+                dis.Nastav(DieslovaniFieldEnum.Odchod, DateTime.Now);
+                await _dieslovaniRepository.UpdateAsync(dis);
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " zadal odchod z lokality.");
             }
-            catch (Exception ex)
+            else
             {
-                return HandleResult.Error($"Chyba při zadávání odchodu: {ex.Message}");
+                throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
             }
         }
-
         // ----------------------------------------
         // Assign a technician to a location.
         // ----------------------------------------
-        public async Task<HandleResult> TakeAsync(string idDieslovani, User currentUser)
+        public async Task TakeAsync(string idDieslovani, User currentUser)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(currentUser.Id))
-                {
-                    return HandleResult.Error("ID aktuálního uživatele není platné.");
-                }
-                var technik = await _technikService.GetTechnikByUserIdAsync(currentUser.Id);
+          
+                var technik = await _technikService.GetTechnik(GetTechnikEnum.ByUserId, currentUser.Id);
                 var dieslovaniTaken = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
-
-                if (dieslovaniTaken == null)
-                {
-                    return HandleResult.Error("Záznam dieslování nebyl nalezen.");
-                }
-                if (technik == null)
-                {
-                    return HandleResult.Error("Technik nebyl nalezen.");
-                }
                 var pohotovostTechnik = await _technikService.IsTechnikOnDutyAsync(technik.ID);
                 if (!pohotovostTechnik)
                 {
-                    return HandleResult.Error("Nejste zapsán v pohotovosti.");
-                }
+                    throw new InvalidOperationException("Technik není v pohotovosti.");
+                }        
                 dieslovaniTaken.Technik = technik;
                 dieslovaniTaken.Technik.Taken = true;
                 await _technikService.UpdateTechnikAsync(dieslovaniTaken.Technik);
                 await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
-                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovaniTaken.ID, $"Technik {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni} si převzal lokalitu.");
-
-               return HandleResult.OK($"Lokalitu si převzal: {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni}");
-            }
-            catch (Exception ex)
-            {
-                return HandleResult.Error($"Chyba při převzetí: {ex.Message}");
-            }
+                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovaniTaken.ID, $"Technik {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni} si převzal lokalitu.");  
         }
 
         // ----------------------------------------
         // Delete a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> DeleteDieslovaniAsync(string id)
+        public async Task DeleteDieslovaniAsync(string id)
         {
-            try
+            var dieslovani = await _dieslovaniRepository.GetByIdAsync(id);
+            if (dieslovani == null)
             {
-                var dieslovani = await _dieslovaniRepository.GetByIdAsync(id);
-                if (dieslovani == null)
-                {
-                    return HandleResult.Error("Dieslovani nebyla nalezena.");
-                }
-
-                bool deleted = await _dieslovaniRepository.DeleteAsync(id);
-
-                if (!deleted)
-                {
-                    return HandleResult.Error("Dieslovani se nepodařilo smazat.");
-                }
-
-                return HandleResult.OK("Dieslovani byla úspěšně smazána.");
+                throw new InvalidOperationException($"Dieslovani with id {id} not found.");
             }
-            catch (Exception ex)
+            bool deleted = await _dieslovaniRepository.DeleteAsync(id);
+            if (!deleted)
             {
-                return HandleResult.Error($"Chyba při mazání dieslovani: {ex.Message}");
+                throw new InvalidOperationException($"Failed to delete Dieslovani with id {id}.");
             }
         }
 
         // ----------------------------------------
         // Change the time for a dieslovani record.
         // ----------------------------------------
-        public async Task<HandleResult> ChangeTimeAsync(string idDieslovani, DateTime time, string type)
+        public async Task ChangeTimeAsync(string idDieslovani, DateTime time, ActionFilter type)
         {
-
-            try
+            var dieslovani = await _dieslovaniRepository.GetByIdAsync(idDieslovani) ?? throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
+            switch (type)
             {
-                var dieslovani = await _dieslovaniRepository.GetByIdAsync(idDieslovani);
-                if (dieslovani == null)
-                {
-                    return HandleResult.Error("Dieslovani nebyla nalezena.");
-                }
-
-                if (type == "vstup")
-                {
+                case ActionFilter.Vstup:
                     if (time.Date != dieslovani.Odstavka.Od.Date)
                     {
-                        return HandleResult.Error("Nelze zadat vstup mimo den odstávky.");
+                        throw new InvalidOperationException("Vstup musí být v den odstávky.");
                     }
-
-                    dieslovani.Vstup = time;
-                }
-                else if (type == "odchod")
-                {
+                    dieslovani.Nastav(DieslovaniFieldEnum.Vstup, time);
+                    break;
+                case ActionFilter.Odchod:
                     if (dieslovani.Vstup == DateTime.MinValue)
                     {
-                        return HandleResult.Error("Nejprve musíte zadat vstup.");
+                        throw new InvalidOperationException("Nejprve musíte zadat vstup.");
                     }
-                    dieslovani.Odchod = time;
-                }
-                else
-                {
-                    return HandleResult.Error("Neznámý typ času.");
-                }
-
-                await _dieslovaniRepository.UpdateAsync(dieslovani);
-
-                await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Byl změnen čas {type}, na {time}.");
-                return HandleResult.OK($"Čas {type} byl úspěšně změněn na {time}.");
+                    dieslovani.Nastav(DieslovaniFieldEnum.Odchod, time);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
-
-            catch (Exception ex)
-            {
-                return HandleResult.Error($"Chyba při změně času: {ex.Message}");
-            }
+            await _dieslovaniRepository.UpdateAsync(dieslovani);
+            await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Byl změnen čas na {time}.");
         }
+            
+        
     }
 }

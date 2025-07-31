@@ -44,15 +44,13 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         public async Task<HandleResult> ZapisPohotovostAsync(DateTime zacatek, DateTime konec, User currentUser)
         {
-            var result = new HandleResult();
             bool isEngineer = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Engineer");
             bool isAdmin = currentUser != null && await _userService.IsUserInRoleAsync(currentUser.Id, "Admin");
 
             if (!isEngineer && !isAdmin)
             {
-                result.Success = false;
-                result.Message = "Nemáte oprávnění zapsat pohotovost.";
-                return result;
+                
+                return HandleResult.OK()
             }
 
             if (zacatek.Date > konec.Date)

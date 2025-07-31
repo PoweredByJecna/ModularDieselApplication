@@ -9,7 +9,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     public class TablePohotovost
     {
         [Key]
-        public string ID { get; set; } = GenerateCustomId();
+        public string ID { get; set; } = default!;
         public DateTime Zacatek { get; set; }
         public DateTime Konec { get; set; }
         
@@ -17,14 +17,5 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         public required string IdTechnik { get; set; }
         public virtual required TableTechnik Technik { get; set; }       
         
-        private static string GenerateCustomId()
-        {
-            var random = new Random();
-            var number = random.Next(0, 99999).ToString("D5");
-            return $"PN-{number}";
-        }   
-
-
-
     }
 }

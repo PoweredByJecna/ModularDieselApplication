@@ -53,37 +53,6 @@ namespace ModularDieselApplication.Api.Controllers
             });
 
         }
-        // -------------------------------
-        // Zobrazení detailu Dieslovani
-        // -------------------------------
-        [HttpGet]
-        public async Task<IActionResult> DetailDieslovani(string id)
-        {
-            var detail = await _dieslovaniService.DetailDieslovaniAsync(id);
-            if (detail == null)
-                return NotFound();
-            return View(detail);
-        }
-        // ----------------------------------------
-        // Detail - načítá data pro dané Dieslovani
-        // ----------------------------------------
-        [HttpGet]
-        public async Task<IActionResult> DetailDieslovaniJson(string id)
-        {
-            var detailDieslovani = await _dieslovaniService.DetailDieslovaniJsonAsync(id);
-            if (detailDieslovani == null)
-            {
-                return Json(new
-                {
-                    error = "null"
-                });
-            }
-            return Json(
-            new
-            {
-                data = detailDieslovani
-            });
-        }
         // ----------------------------------------
         // Vstup - volá metodu ze servisu
         // ----------------------------------------

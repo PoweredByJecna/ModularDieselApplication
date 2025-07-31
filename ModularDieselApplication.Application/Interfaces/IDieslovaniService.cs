@@ -9,20 +9,9 @@ namespace ModularDieselApplication.Application.Interfaces.Services
 {
     public interface IDieslovaniService
     {
-
         Task<HandleResult<Dieslovani>> HandleOdstavkyDieslovani(Odstavka? newOdstavka);
-        Task<HandleResult> VstupAsync(string idDieslovani);
-        Task<HandleResult> OdchodAsync(string idDieslovani);
-        Task<HandleResult> TakeAsync(string idDieslovani, User user);
-        Task<HandleResult> ChangeTimeAsync(string idDieslovani, DateTime time, string type);
-        Task<HandleResult> CallDieslovaniAsync(string odstavky);
-        Task<HandleResult> DeleteDieslovaniAsync(string iDdieslovani);
-        Task<Dieslovani?> DetailDieslovaniAsync(string id);
-        Task<object> DetailDieslovaniJsonAsync(string id);
-        Task<Dieslovani> GetDieslovaniByOdstavkaId(string id);
-        Task<string> GetOdstavkaIDbyDieselId(string idDieslovani);
-        Task<List<object>> GetTableDataDetailJsonAsync(string id);
         Task<List<Dieslovani>> GetTableData(DieslovaniFilterEnum filter, User currentUser, bool isEngineer);
         Task<bool> AnotherDieselRequestAsync(string idTechnika);  
+        Task<HandleResult> ActioOnDieslovani(ActionFilter filter, string Id, DateTime time  = default);
     }
 }

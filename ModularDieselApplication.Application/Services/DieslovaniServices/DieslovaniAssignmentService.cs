@@ -173,7 +173,7 @@ namespace ModularDieselApplication.Application.Services.DieslovaniServices.Diesl
         // ----------------------------------------
         // Call dieslovani for an odstávka.
         // ----------------------------------------
-        public async Task<HandleResult> CallDieslovaniAsync(string idodstavky)
+        public async Task CallDieslovaniAsync(string idodstavky)
         {
             try
             {

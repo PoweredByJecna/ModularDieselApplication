@@ -6,7 +6,7 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
     public class TableLokalita
     {
         [Key]
-        public string ID { get; set; } = GenerateCustomId();
+        public string ID { get; set; } = default!;
         public required string Nazev { get; set; }
         public required string Klasifikace { get; set; }
         public required string Adresa { get; set; }
@@ -20,11 +20,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Entities.Models
         [ForeignKey("Zdroj")]
         public string? ZdrojId { get; set; }
         public virtual TableZdroj? Zdroj { get; set; }
-        private static string GenerateCustomId()
-        {
-            var random = new Random();
-            var number = random.Next(1, 1000000).ToString("D5");
-            return $"LN-{number}";
-        }
+      
     }
 }

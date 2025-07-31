@@ -47,5 +47,16 @@ namespace ModularDieselApplication.Domain.Enum
         fitkivniTechnik
     }
 
-   
+    public enum ActionFilter
+    {
+        Vstup,
+        Odchod,
+        Delete,
+        CallDA,
+        ChangeTime,
+    }
+
+
+
 }
+

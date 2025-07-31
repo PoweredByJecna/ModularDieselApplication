@@ -10,15 +10,10 @@ using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
-    public class DieslovaniRepository : IDieslovaniRepository
+    public class DieslovaniRepository : RepositoriesBaseClass, IDieslovaniRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public DieslovaniRepository(ApplicationDbContext context, IMapper mapper)
+        public DieslovaniRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
-            _mapper = mapper;
         }
 
         // ----------------------------------------
@@ -58,9 +53,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             efEntity.Technik = existingTechnik;
             _context.DieslovaniS.Add(efEntity);
             await _context.SaveChangesAsync();
-
-            dieslovani.ID = efEntity.ID;
-
             return HandleResult.OK("Dieslovani bylo úspěšně přidáno.");
         }
 
@@ -114,7 +106,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // Get Dieslovani query
         // ----------------------------------------
         public IQueryable<Dieslovani> GetDieslovaniQuery(User? currentUser = null, bool isEngineer = false)
-        {
+        {            
             var query = _context.DieslovaniS
                 .Include(d => d.Odstavka)
                 .Include(d => d.Technik)
@@ -128,6 +120,8 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             }
             return query;
         }
+
+
 
         // ----------------------------------------
         // Get Dieslovani data
