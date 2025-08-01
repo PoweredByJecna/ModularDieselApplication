@@ -9,9 +9,9 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     {
         Task<List<string>> SuggestLokalitaAsync(string query);
         Task<Odstavka> GetOdstavka(GetOdstavka filter, object value);
-        Task DeleteOdstavkaAsync(string idodstavky);
-        Task ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, ActionFilter filter);
         Task<HandleResult> CreateNewOdstavka(string lokalita, DateTime od, DateTime do_, string popis);
+        Task<HandleResult> ActionMethods(ServiceFilterEnum serviceFilter, ActionFilter filter, string Id, DateTime time = default, User? currentUser = null);
+        Task<List<Odstavka>> GetTableData();
 
     }
 }

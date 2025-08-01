@@ -50,7 +50,6 @@ builder.Services.AddIdentity<TableUser, IdentityRole>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IServiceBaseClass, ServiceBaseClass>();
 builder.Services.AddScoped<IDieslovaniRepository, DieslovaniRepository>();
 builder.Services.AddScoped<IOdstavkyRepository, OdstavkyRepository>();
 builder.Services.AddScoped<IPohotovostiRepository, PohotovostiRepository>();

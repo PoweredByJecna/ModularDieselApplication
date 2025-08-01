@@ -1,37 +1,42 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj": {}
+    "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {}
   },
   "projects": {
-    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj": {
+    "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
         "projectName": "ModularDieselApplication.Api",
-        "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Api/ModularDieselApplication.Api.csproj",
-        "packagesPath": "/Users/jirichroust/.nuget/packages/",
-        "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Api/obj/",
+        "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Api\\ModularDieselApplication.Api.csproj",
+        "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
-                "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
+              "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+                "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
               },
-              "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj": {
-                "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj"
+              "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj"
               }
             }
           }
@@ -45,8 +50,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -98,20 +102,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.osx-arm64",
-              "version": "[8.0.14, 8.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -120,35 +110,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
+    "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
         "projectName": "ModularDieselApplication.Application",
-        "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj",
-        "packagesPath": "/Users/jirichroust/.nuget/packages/",
-        "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/",
+        "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj",
+        "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {
-                "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj"
+              "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
+                "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj"
               }
             }
           }
@@ -162,8 +157,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -213,42 +207,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj": {
+    "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
         "projectName": "ModularDieselApplication.Domain",
-        "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/ModularDieselApplication.Domain.csproj",
-        "packagesPath": "/Users/jirichroust/.nuget/packages/",
-        "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Domain/obj/",
+        "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\ModularDieselApplication.Domain.csproj",
+        "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -266,8 +255,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -283,50 +271,45 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj": {
+    "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
         "projectName": "ModularDieselApplication.Infrastructure",
-        "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/ModularDieselApplication.Infrastructure.csproj",
-        "packagesPath": "/Users/jirichroust/.nuget/packages/",
-        "outputPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Infrastructure/obj/",
+        "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\ModularDieselApplication.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\jirka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/jirichroust/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jirka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj": {
-                "projectPath": "/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/ModularDieselApplication.Application.csproj"
+              "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj": {
+                "projectPath": "C:\\Users\\jirka\\New folder (3)\\ModularDieselApplication\\ModularDieselApplication.Application\\ModularDieselApplication.Application.csproj"
               }
             }
           }
@@ -340,8 +323,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -393,22 +375,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.14, 8.0.14]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

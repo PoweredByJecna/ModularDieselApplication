@@ -42,12 +42,7 @@ Global
 		{CCE7F5AD-4368-4CAE-AFFD-9A3F55AC0A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE7F5AD-4368-4CAE-AFFD-9A3F55AC0A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCE7F5AD-4368-4CAE-AFFD-9A3F55AC0A74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{024CA84D-1403-42C0-B6B2-01B31A6740D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{024CA84D-1403-42C0-B6B2-01B31A6740D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{024CA84D-1403-42C0-B6B2-01B31A6740D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{024CA84D-1403-42C0-B6B2-01B31A6740D5}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{024CA84D-1403-42C0-B6B2-01B31A6740D5} = {8EE6A465-8ABA-4056-863C-E40786429CA2}
-	EndGlobalSection
+	
 EndGlobal

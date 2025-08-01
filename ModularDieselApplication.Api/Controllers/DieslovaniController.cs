@@ -16,40 +16,27 @@ namespace ModularDieselApplication.Api.Controllers
         public class DieslovaniController(
             IDieslovaniService _dieslovaniService,
             UserManager<TableUser> _userManager,
-            IMapper _mapper,
-            IServiceBaseClass _serviceBaseClass
+            IMapper _mapper
         ) : Controller
         {
         [HttpGet] public IActionResult Index() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> Vstup(string IdDieslovani)=>
-        JsonResult(await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Dieslovani, ActionFilter.Vstup,IdDieslovani));
-
+        [HttpPost]public async Task<IActionResult> Vstup(string IdDieslovani)=>JsonResult(await _dieslovaniService.ActionMethods(ActionFilter.Vstup,IdDieslovani));
+        [HttpPost]public async Task<IActionResult> Odchod(string IdDieslovani)=>JsonResult(await _dieslovaniService.ActionMethods(ActionFilter.Odchod,IdDieslovani));
         [HttpPost]
         public async Task<IActionResult> Take(string IdDieslovani)
         {
             var domainUser = _mapper.Map<User>(await _userManager.GetUserAsync(User));
-            return JsonResult(await _dieslovaniService.TakeAsync(IdDieslovani, domainUser));
-        }
-        [HttpPost]
-        public async Task<IActionResult> Odchod(string IdDieslovani)
-        {
-            var result = await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Dieslovani,ActionFilter.Odchod,IdDieslovani);
-            return JsonResult(result);
+            return JsonResult(await _dieslovaniService.ActionMethods(ActionFilter.take, IdDieslovani, DateTime.Now, domainUser));
         }
         [HttpGet] public async Task<IActionResult> GetTableDataRunningTable()=>await InfoDataTable(DieslovaniOdstavkaFilterEnum.RunningTable);
         [HttpGet] public async Task<IActionResult> GetTableDataAllTable() =>  await InfoDataTable(DieslovaniOdstavkaFilterEnum.AllTable);
         [HttpGet] public async Task<IActionResult> GetTableUpcomingTable() => await InfoDataTable(DieslovaniOdstavkaFilterEnum.UpcomingTable);    
         [HttpGet] public async Task<IActionResult> GetTableDataEndTable() => await InfoDataTable(DieslovaniOdstavkaFilterEnum.EndTable);
         [HttpGet] public async Task<IActionResult> GetTableDatathrashTable()=> await InfoDataTable(DieslovaniOdstavkaFilterEnum.TrashTable);
-        [HttpPost] [Authorize(Roles = "Admin")] public async Task<IActionResult> Delete(string id) => JsonResult(await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Dieslovani, ActionFilter.Delete, id));
-        [HttpPost] public async Task<IActionResult> ChangeTime(string dieslovaniId, DateTime time)=> JsonResult(await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Dieslovani,ActionFilter.ChangeTimeZactek,dieslovaniId, time));
-        [HttpPost] public async Task<IActionResult> CallDieslovani(string odstavkaId)=> JsonResult( await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Dieslovani, ActionFilter.CallDA, odstavkaId));
-        
-        private JsonResult JsonResult(HandleResult result) =>
-        Json(new { success = result.Success, message = result.Message });
-
+        [HttpPost] [Authorize(Roles = "Admin")] public async Task<IActionResult> Delete(string id) => JsonResult(await _dieslovaniService.ActionMethods(ActionFilter.Delete, id));
+        [HttpPost] public async Task<IActionResult> ChangeTime(string dieslovaniId, DateTime time)=> JsonResult(await _dieslovaniService.ActionMethods(ActionFilter.ChangeTimeZactek,dieslovaniId, time));
+        [HttpPost] public async Task<IActionResult> CallDieslovani(string odstavkaId)=> JsonResult( await _dieslovaniService.ActionMethods(ActionFilter.CallDA, odstavkaId));
+        private JsonResult JsonResult(HandleResult result) =>Json(new { success = result.Success, message = result.Message });
         private async Task<IActionResult> InfoDataTable(DieslovaniOdstavkaFilterEnum filter)
         {
             var currentUser = await _userManager.GetUserAsync(User);

@@ -3,6 +3,7 @@ using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Objects;
+using Microsoft.EntityFrameworkCore;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -15,9 +16,22 @@ namespace ModularDieselApplication.Application.Services
         public OdstavkyService(IOdstavkyRepository odstavkaRepository, ILokalityService lokalityService, ILogService logService)
         {
             _odstavkaRepository = odstavkaRepository;
-            _lokalityService = lokalityService;
-            _logService = logService;
+                _lokalityService = lokalityService;
+                _logService = logService;
         }
+
+        public async Task<HandleResult> ActionMethods(ServiceFilterEnum serviceFilter, ActionFilter filter, string Id, DateTime time = default, User? currentUser = null)
+        {
+            return filter switch
+                {
+                    ActionFilter.ChangeTimeZactek => await ChangeTimeOdstavkyAsync(Id, time, ActionFilter.zacatek),
+                    ActionFilter.ChangeTimeKonec => await ChangeTimeOdstavkyAsync(Id, time, ActionFilter.konec),
+                    ActionFilter.Delete => await DeleteOdstavkaAsync(Id),
+                    _ => throw new NotImplementedException("Odstavky action filter is not implemented yet.")
+                };
+        }
+        public async Task<List<Odstavka>> GetTableData() => await _odstavkaRepository.GetOdstavkaQuery().ToListAsync();
+
         public async Task<List<string>> SuggestLokalitaAsync(string query)
         {
             var lokalities = await _lokalityService.GetAllLokalityAsync();
@@ -32,16 +46,17 @@ namespace ModularDieselApplication.Application.Services
             var odstavka = await _odstavkaRepository.GetOdstavkaAsync(filter, value);
             return odstavka;
         }
-        public async Task DeleteOdstavkaAsync(string idodstavky)
+        private async Task<HandleResult> DeleteOdstavkaAsync(string idodstavky)
         {
             var odstavka = await _odstavkaRepository.GetOdstavkaAsync(Domain.Enum.GetOdstavka.ById, idodstavky);
             if (odstavka == null)
             {
-                throw new InvalidOperationException("Záznam nebyl nalezen");
+                return HandleResult.Error("Záznam nebyl nalezen");
             }
             await _odstavkaRepository.DeleteAsync(idodstavky);
+            return HandleResult.OK("Záznam byl úspěšně smazán.");
         }
-        public async Task ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, ActionFilter filter)
+        private async Task<HandleResult> ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, ActionFilter filter)
         {
             var odstavka = await _odstavkaRepository.GetOdstavkaAsync(Domain.Enum.GetOdstavka.ById, idodstavky);
             switch (filter)
@@ -49,31 +64,31 @@ namespace ModularDieselApplication.Application.Services
                 case ActionFilter.zacatek:
                     if (odstavka.Od.Date < DateTime.Today.Date)
                     {
-                        throw new InvalidOperationException("Nelze měnit čas již ukončené odstávky.");
+                        return HandleResult.Error("Nelze měnit čas již ukončené odstávky.");
                     }
                     else if (odstavka.Do.Date < time.Date)
                     {
-                        throw new InvalidOperationException("Začátek odstávky nesmí být později než konec.");
+                        return HandleResult.Error("Začátek odstávky nesmí být později než konec.");
                     }
                     odstavka.Od = time;
                     await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změněn čas začátku odstávky na: {odstavka.Od}");
                     await _odstavkaRepository.UpdateAsync(odstavka);
+                    return HandleResult.OK("Čas začátku byl úspěšně změněn.");
 
-                    break;
                 case ActionFilter.konec:
                     if (odstavka.Do.Date < DateTime.Today.Date)
                     {
-                        throw new InvalidOperationException("Nelze měnit čas již ukončené odstávky.");
+                        return HandleResult.Error("Nelze měnit čas již ukončené odstávky.");
                     }
                     else if (odstavka.Od.Date > time.Date)
                     {
-                        throw new InvalidOperationException("Konec odstávky nesmí být dříve než začátek.");
+                        return HandleResult.Error("Konec odstávky nesmí být dříve než začátek.");
                     }
                     odstavka.Do = time;
                     await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", odstavka.ID, $"Byl změněn čas konce odstávky na: {odstavka.Do}");
                     await _odstavkaRepository.UpdateAsync(odstavka);
+                    return HandleResult.OK("Čas konce byl úspěšně změněn.");
 
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
             }
