@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using System;
@@ -22,18 +23,20 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        // ----------------------------------------
-        // Get the count of Lokality records.
-        // ----------------------------------------
-        public async Task<int> GetLokalitaCountAsync()
+        public async Task<Odstavka> GetOdstavkaAsync(GetOdstavka filter, object value)
         {
-            return await _context.LokalityS.CountAsync();
+            switch (filter)
+            {
+                case GetOdstavka.ById:
+                    return await GetByIdAsync(value as string);
+                default:
+                    throw new InvalidDataException();
+            }
         }
-
         // ----------------------------------------
         // Get an Odstavka record by its ID.
         // ----------------------------------------
-        public async Task<Odstavka> GetByIdAsync(string id)
+        private async Task<Odstavka> GetByIdAsync(string id)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -42,7 +45,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<Odstavka>(entity);
         }
-
         // ----------------------------------------
         // Get all Lokality records.
         // ----------------------------------------
@@ -54,7 +56,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<List<Lokalita>>(entities);
         }
-
         // ----------------------------------------
         // Add a new Odstavka record.
         // ----------------------------------------
@@ -74,7 +75,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             odstavka.ID = efEntity.ID;
         }
-
         // ----------------------------------------
         // Update an existing Odstavka record.
         // ----------------------------------------
@@ -84,44 +84,29 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             _context.OdstavkyS.Update(entity);
             await _context.SaveChangesAsync();
         }
-
         // ----------------------------------------
         // Get another Odstavka record by Lokalita ID and date.
         // ----------------------------------------
-        public async Task<Odstavka?> AnotherOdsatvkaAsync(string LokalitaId, DateTime od)
+        public async Task<Odstavka> AnotherOdsatvkaAsync(string LokalitaId, DateTime od)
         {
             var entity = await _context.OdstavkyS
                 .Include(o => o.Lokality)
                 .Where(o => o.Lokality.ID == LokalitaId && o.Od == od)
                 .FirstOrDefaultAsync();
-
-            return _mapper.Map<Odstavka?>(entity);
+            return _mapper.Map<Odstavka>(entity);
         }
-
         // ----------------------------------------
         // Delete an Odstavka record by its ID.
         // ----------------------------------------
-        public async Task<bool> DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
             var entity = await _context.OdstavkyS.FindAsync(id);
             if (entity != null)
             {
                 _context.OdstavkyS.Remove(entity);
                 await _context.SaveChangesAsync();
-                return true;
             }
-            return false;
-        }
-
-        // ----------------------------------------
-        // Get a Lokalita record by its name.
-        // ----------------------------------------
-        public async Task<Lokalita?> GetByNameAsync(string name)
-        {
-            var lokalita = await _context.LokalityS
-                .Include(l => l.Region)
-                .FirstOrDefaultAsync(l => l.Nazev == name);
-            return lokalita != null ? _mapper.Map<Lokalita>(lokalita) : null;
+            else throw new InvalidDataException("Chyba při mazání");
         }
         // ----------------------------------------
         // Get a queryable collection of Odstavka records.
@@ -134,47 +119,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.ProjectTo<Odstavka>(entities);
         }
-
-        // ----------------------------------------
-        // Get Odstavka data based on a query.
-        // ----------------------------------------
-        public async Task<List<object>> GetOdstavkaDataAsync(IQueryable<Odstavka> query)
-        {
-            var odstavkaList = await query
-                .Select(l => new
-                {
-                    id = l.ID,
-                    Distributor = l.Distributor,
-                    NazevLokality = l.Lokality.Nazev,
-                    Klasifikace = l.Lokality.Klasifikace,
-                    ZacatekOdstavky = l.Od,
-                    KonecOdstavky = l.Do,
-                    Adresa = l.Lokality.Adresa,
-                    VydrzBaterie = l.Lokality.Baterie,
-                    Popis = l.Popis,
-                    Zasuvka = l.Lokality.Zasuvka,
-                    Dieslovani = _context.DieslovaniS.Include(o => o.Technik).FirstOrDefault(d => d.IdOdstavky == l.ID)
-                })
-                .ToListAsync();
-
-            var result = odstavkaList.Select(l => new
-            {
-                l.id,
-                l.Distributor,
-                l.NazevLokality,
-                l.Klasifikace,
-                l.ZacatekOdstavky,
-                l.KonecOdstavky,
-                l.Adresa,
-                l.VydrzBaterie,
-                l.Popis,
-                l.Zasuvka,
-                idTechnika = l.Dieslovani?.Technik?.Id,
-                zadanVstup = l.Dieslovani?.Vstup,
-                zadanOdchod = l.Dieslovani?.Odchod
-            }).ToList();
-
-            return _mapper.Map<List<object>>(result);
-        }
+        
     }
 }

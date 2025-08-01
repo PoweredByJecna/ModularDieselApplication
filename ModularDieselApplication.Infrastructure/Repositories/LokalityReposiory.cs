@@ -20,7 +20,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get all lokalita records.
         // ----------------------------------------
-        public async Task<List<object>> GetAllLokalityAsync()
+        public async Task<List<Lokalita>> GetAllLokalityAsync()
         {
             var entities = await _context.LokalityS
                 .Include(l => l.Region)
@@ -37,7 +37,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 })
                 .ToListAsync();
 
-            return _mapper.Map<List<object>>(entities);
+            return _mapper.Map<List<Lokalita>>(entities);
         }
 
         // ----------------------------------------
@@ -70,7 +70,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // ----------------------------------------
         // Get dieslovani records for a specific lokalita.
         // ----------------------------------------
-        public async Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev)
+        public async Task<List<Dieslovani>> GetDieslovaniNaLokaliteAsync(string nazev)
         {
             var entities = await _context.DieslovaniS
                 .Include(d => d.Odstavka)
@@ -94,13 +94,13 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 })
                 .ToListAsync();
 
-            return _mapper.Map<List<object>>(entities);
+            return _mapper.Map<List<Dieslovani>>(entities);
         }
 
         // ----------------------------------------
         // Get odstávky records for a specific lokalita.
         // ----------------------------------------
-        public async Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev)
+        public async Task<List<Odstavka>> GetOdstavkynaLokaliteAsync(string nazev)
         {
             var entities = await _context.OdstavkyS
                 .Include(o => o.Lokality)
@@ -121,7 +121,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 })
                 .ToListAsync();
 
-            return _mapper.Map<List<object>>(entities);
+            return _mapper.Map<List<Odstavka>>(entities);
         }
     }
 }

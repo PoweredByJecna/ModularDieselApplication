@@ -1,21 +1,15 @@
 using ModularDieselApplication.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ModularDieselApplication.Domain.Objects;
-using static ModularDieselApplication.Application.Services.OdstavkyService;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
 {
     public interface IOdstavkyService
     {
         Task<List<string>> SuggestLokalitaAsync(string query);
-        Task<HandleResult> CreateOdstavkaAsync(string lokalita, DateTime od, DateTime @do, string popis, string option);
-        Task<object> DetailOdstavkyAsync(string id);
-        Task<object> DetailOdstavkyJsonAsync(string id);
-        Task<HandleResult> DeleteOdstavkaAsync(string idodstavky);
-        Task<List<object>> GetTableDataAsync();
-        Task<List<object>> GetTableDataOdDetailAsync(string dieslovaniId);
-        Task<HandleResult> ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, string type);
+        Task<Odstavka> GetOdstavka(GetOdstavka filter, object value);
+        Task DeleteOdstavkaAsync(string idodstavky);
+        Task ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, ActionFilter filter);
+        Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis);
+
     }
 }

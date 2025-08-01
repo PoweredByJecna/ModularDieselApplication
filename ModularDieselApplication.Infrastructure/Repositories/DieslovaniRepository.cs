@@ -4,6 +4,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Objects;
 using ModularDieselApplication.Infrastructure.Persistence;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
@@ -16,17 +17,31 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
         }
 
+        public async Task<Dieslovani> GetDaAsync(GetDA filter, object value)
+        {
+            switch (filter)
+            {
+                case GetDA.ById:
+                    return await GetByIdAsync(value as string);
+                case GetDA.ByOdstavkaId:
+                    return await GetDAbyOdstavkaAsync(value as string);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
         // ----------------------------------------
         // Get Dieslovani by ID
-        // ----------------------------------------
-        public async Task<Dieslovani?> GetByIdAsync(string id)
+        // ---------------------------------------- 
+        private async Task<Dieslovani> GetByIdAsync(string id)
         {
             var entity = await _context.DieslovaniS
                 .Include(d => d.Odstavka)
-                .ThenInclude(d=>d.Lokality)
-                .ThenInclude(d=>d.Region)
+                .ThenInclude(d => d.Lokality)
+                .ThenInclude(d => d.Region)
                 .Include(d => d.Technik)
-                .ThenInclude(d=>d.User)
+                .ThenInclude(d => d.User)
                 .FirstOrDefaultAsync(d => d.ID == id);
 
             return entity == null ? null : _mapper.Map<Dieslovani>(entity);
@@ -65,7 +80,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             var existingEntity = await _context.DieslovaniS.FindAsync(dieslovani.ID);
             if (existingEntity == null)
             {
-            throw new Exception($"Záznam s ID {dieslovani.ID} neexistuje.");
+                throw new Exception($"Záznam s ID {dieslovani.ID} neexistuje.");
             }
 
             _mapper.Map(dieslovani, existingEntity);
@@ -86,7 +101,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 _context.DieslovaniS.Remove(dieslovani);
                 await _context.SaveChangesAsync();
 
-               
+
 
                 var anotherDieselRequest = await AnotherDieselRequest(technik);
                 if (!anotherDieselRequest)
@@ -96,7 +111,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 }
                 await _context.SaveChangesAsync();
                 return true;
-               
+
             }
             return false;
         }
@@ -106,7 +121,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         // Get Dieslovani query
         // ----------------------------------------
         public IQueryable<Dieslovani> GetDieslovaniQuery(User? currentUser = null, bool isEngineer = false)
-        {            
+        {
             var query = _context.DieslovaniS
                 .Include(d => d.Odstavka)
                 .Include(d => d.Technik)
@@ -121,84 +136,19 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return query;
         }
 
-
-
-        // ----------------------------------------
-        // Get Dieslovani data
-        // ----------------------------------------
-        public async Task<List<object>> GetDieslovaniDataAsync(IQueryable<Dieslovani> query)
-        {
-            var dieslovanList = await query
-                .OrderBy(o => o.Odstavka.Od)
-                .Select(l => new
-                {
-                    id = l.ID,
-                    distributor = l.Odstavka.Distributor,
-                    lokalitaNazev = l.Odstavka.Lokality.Nazev,
-                    klasifikace = l.Odstavka.Lokality.Klasifikace,
-                    adresa = l.Odstavka.Lokality.Adresa,
-                    technikFirma = l.Technik.Firma.Nazev,
-                    jmenoTechnika = l.Technik.User.Jmeno,
-                    prijmeniTechnika = l.Technik.User.Prijmeni,
-                    zadanVstup = l.Vstup,
-                    zadanOdchod = l.Odchod,
-                    Idtechnika = l.Technik.ID,
-                    NazevRegionu = l.Odstavka.Lokality.Region.Nazev,
-                    OdstavkaZacatek = l.Odstavka.Od,
-                    OdstavkaKonec = l.Odstavka.Do,
-                    Popis = l.Odstavka.Popis,
-                    VydrzBaterie = l.Odstavka.Lokality.Baterie,
-                    Zasuvka = l.Odstavka.Lokality.Zasuvka,
-                    User = l.Technik.User.Id
-                })
-                .ToListAsync();
-            return dieslovanList.Cast<object>().ToList();
-        }
-
         // Check if another diesel request exists
         // ----------------------------------------
         public async Task<bool> AnotherDieselRequest(string idTechnika)
         {
             return await _context.DieslovaniS
-                .Include(o=>o.Odstavka)
+                .Include(o => o.Odstavka)
                 .AnyAsync(o => o.Technik.Id == idTechnika && o.Odchod == DateTime.MinValue.Date);
-        }
-
-        // ----------------------------------------
-        // Get Dieslovani with Technik by Firma ID
-        // ----------------------------------------
-        public async Task<Dieslovani?> GetDieslovaniWithTechnikAsync(string firmaId)
-        {
-            var entity = await _context.DieslovaniS
-                .Include(p => p.Technik)
-                .ThenInclude(P=>P.User)
-                .Include(p => p.Odstavka)
-                .ThenInclude(p => p.Lokality)
-                .Where(p => p.Technik.Firma.ID == firmaId && p.Technik.Taken == true)
-                .FirstOrDefaultAsync();
-
-            return _mapper.Map<Dieslovani?>(entity);
-        }
-
-        // ----------------------------------------
-        // Update Dieslovani
-        // ----------------------------------------
-        public async Task UpdateDieslovaniAsync(Dieslovani dieslovani)
-        {
-            var existingEntity = await _context.DieslovaniS.FindAsync(dieslovani.ID);
-            if (existingEntity == null)
-            {
-            throw new Exception($"Technik s ID {dieslovani.ID} nebyl nalezen.");
-            }
-            _mapper.Map(dieslovani, existingEntity);
-
-            await _context.SaveChangesAsync();
         }
 
         // ----------------------------------------
         // Get Dieslovani by Odstavka ID
         // ----------------------------------------
-        public async Task<Dieslovani> GetDAbyOdstavkaAsync(string idOdstavky)
+        private async Task<Dieslovani> GetDAbyOdstavkaAsync(string idOdstavky)
         {
             var entity = await _context.DieslovaniS
                 .Include(o => o.Odstavka)
@@ -210,33 +160,16 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<Dieslovani>(entity);
         }
-
-        // ----------------------------------------
-        // Get the ID of an Odstavka associated with a specific Dieslovani.
-        // ----------------------------------------
-        public async Task<string> GetIDbyDieselId(string idDieslovani)
-        {
-            var entity = await _context.DieslovaniS
-                .Include(d => d.Odstavka) 
-                .FirstOrDefaultAsync(d => d.ID == idDieslovani); 
-            if (entity == null)
-            {
-                throw new Exception($"Dieslovani with ID {idDieslovani} not found.");
-            }    
-            return entity.Odstavka.ID; 
-        }
-
-        // ----------------------------------------
-        // Get an Odstavka entity by its ID.
-        // ----------------------------------------
-        public async Task<Odstavka> GetByOdstavkaByIdAsync(string idodstavky)
-        {
-            var entity = await _context.OdstavkyS
-                .Include(d => d.Lokality) 
-                .ThenInclude(d => d.Region) 
-                .FirstOrDefaultAsync(d => d.ID == idodstavky); 
-
-            return _mapper.Map<Odstavka>(entity);
+        public async Task<List<Dieslovani>> GetAnotherDA(Dieslovani dieslovani)
+        { 
+            var anotherDieslovani = await _context.DieslovaniS
+                .Include(d => d.Odstavka)
+                .ThenInclude(d => d.Lokality)
+                .ThenInclude(d => d.Region)
+                .Include(d => d.Technik)
+                .Where(d=> d.ID != dieslovani.ID && d.Odstavka.Lokality.Region.ID == dieslovani.Odstavka.Lokality.Region.ID )
+                .ToListAsync();
+            return _mapper.Map<List<Dieslovani>>(anotherDieslovani);
         }
 
     }

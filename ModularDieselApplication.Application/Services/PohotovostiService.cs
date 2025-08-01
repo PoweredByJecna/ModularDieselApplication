@@ -158,7 +158,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get active technik by firm ID within a time range.
         // ----------------------------------------
-        public async Task<Technik> GetTechnikActivTechnikByIdFirmaAsync(string idFirma, DateTime OD, DateTime DO)
+        public async Task<Technik> GetTechnikAsync(string idFirma, DateTime OD, DateTime DO)
         {
             return await _pohotovostiRepository.GetTechnikVPohotovostiAsnyc(idFirma, OD, DO);
         }

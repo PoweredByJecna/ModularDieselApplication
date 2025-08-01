@@ -1,14 +1,16 @@
 
 namespace ModularDieselApplication.Domain.Enum
 {
-    public enum DieslovaniFilterEnum
+    public enum DieslovaniOdstavkaFilterEnum
     {
         AllTable,
         RunningTable,
         UpcomingTable,
         EndTable,
-        TrashTable
+        TrashTable,
+        OD
     }
+
 
     public enum RegionyFilterEnum
     {
@@ -53,7 +55,43 @@ namespace ModularDieselApplication.Domain.Enum
         Odchod,
         Delete,
         CallDA,
-        ChangeTime,
+        ChangeTimeOdchod,
+        ChangeTimeVstup,
+        ChangeTimeZactek,
+        ChangeTimeKonec,
+        take,
+        zacatek,
+        konec,
+        Create
+    }
+
+    public enum TechnikFilterEnum
+    {
+        taken,
+        ID
+    }
+    public enum ServiceFilterEnum
+    {
+        Dieslovani,
+        Odstavka
+    }
+    public enum OdstavkaOption
+    {
+        now,
+        time,
+        classic,
+    }
+    public enum GetDA
+    {
+        ById,
+        BYRegion,
+        ByLokalita,
+        ByOdstavkaId
+    }
+    public enum GetOdstavka
+    {
+        ById,
+        ByDaId,
     }
 
 

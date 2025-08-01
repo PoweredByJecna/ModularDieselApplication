@@ -3,10 +3,10 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
 {
     public interface ILokalityRepository
     {
-        Task<List<object>> GetAllLokalityAsync();
+        Task<List<Lokalita>> GetAllLokalityAsync();
         Task<Lokalita> GetLokalitaByName(string nazev);
         Task<Lokalita> DetailLokalityAsync(string nazev);
-        Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev);
-        Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev);
+        Task<List<Dieslovani>> GetDieslovaniNaLokaliteAsync(string nazev);
+        Task<List<Odstavka>> GetOdstavkynaLokaliteAsync(string nazev);
     }
 }
