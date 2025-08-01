@@ -1,8 +1,9 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Application.Interfaces.Services;
-
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Api.Controllers
@@ -10,10 +11,12 @@ namespace ModularDieselApplication.Api.Controllers
     public class OdstavkyController : Controller
     {
         private readonly IOdstavkyService _odstavkyService;
+        private readonly IServiceBaseClass _serviceBaseClass;
 
-        public OdstavkyController(IOdstavkyService odstavkyService)
+        public OdstavkyController(IOdstavkyService odstavkyService, IServiceBaseClass serviceBaseClass)
         {
             _odstavkyService = odstavkyService;
+            _serviceBaseClass = serviceBaseClass;
         }
         // ----------------------------------------
         // Render the main view for Odstavky.
@@ -39,26 +42,26 @@ namespace ModularDieselApplication.Api.Controllers
         public async Task<IActionResult> Create(string lokalita, DateTime od, DateTime DO, string popis, string daOption)
         {
             
-            var result = await _odstavkyService.CreateOdstavkaAsync(lokalita, od, DO, popis, daOption);
+            var result = await _odstavkyService.CreateNewOdstavka(lokalita, od, DO, popis);
             return JsonResult(result);
 
         }
         // ----------------------------------------
         // Delete an Odstavka by ID.
-        // ----------------------------------------
+        // ---------------------------------------- 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            var result = await _odstavkyService.DeleteOdstavkaAsync(id);
+            var result = await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Odstavka,ActionFilter.Delete, id);
             return JsonResult(result);
-d        }
+        }
         // ----------------------------------------
         // Fetch Odstavky data for a table.
         // ----------------------------------------
         [HttpPost]
         public async Task<IActionResult> GetTableData()
         {
-            var data = await _odstavkyService.GetTableDataAsync();
+            var data = await _serviceBaseClass.GetTableData(ServiceFilterEnum.Odstavka, DieslovaniOdstavkaFilterEnum.OD);
             return Json(new { data });
         }
         // ----------------------------------------
@@ -67,7 +70,7 @@ d        }
         [HttpPost]
         public async Task<IActionResult> ChangeTimeOdstavky(string odstavkaId, DateTime time, string type)
         {
-            var result = await _odstavkyService.ChangeTimeOdstavkyAsync(odstavkaId, time, type);
+            var result = await _serviceBaseClass.ActionMethods(ServiceFilterEnum.Odstavka,ActionFilter.ChangeTimeZactek, odstavkaId, time);
             return JsonResult(result);
         }
         private JsonResult JsonResult(HandleResult result)

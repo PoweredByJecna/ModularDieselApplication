@@ -73,7 +73,7 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                 {
                     foreach (var odstavka in outdatedRecordsOdstavky)
                     {
-                        var odstavkaDieslovani = await _dieslovaniRepository.GetDAbyOdstavkaAsync(odstavka.ID);
+                        var odstavkaDieslovani = await _dieslovaniRepository.GetDaAsync(Domain.Enum.GetDA.ByOdstavkaId,odstavka.ID);
                         if (odstavkaDieslovani != null)
                         {
                             var technikId = odstavkaDieslovani.Technik.ID;
@@ -86,7 +86,7 @@ namespace ModularDieselApplication.Infrastructure.CleaningDatabase
                                 var technik = await _techniciRepository.GetByIdAsync(technikId);
                                 if (!anotherDA)
                                 {
-                                    technik.Taken = false;
+                                    technik.Nastav(Domain.Enum.TechnikFilterEnum.taken, false);
                                     await _techniciRepository.UpdateAsync(technik);
                                     await _context.SaveChangesAsync();
                                 }

@@ -11,7 +11,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // ----------------------------------------
@@ -42,7 +41,6 @@ namespace ModularDieselApplication.Infrastructure.Persistence
             builder.Entity<TablePohotovost>().ToTable("TablePohotovost", schema: "Data");
             builder.Entity<TableTechnik>().ToTable("TableTechnik", schema: "Data");
             builder.Entity<DebugLogModel>().ToTable("DebugModel", schema: "Data");
-            builder.Entity<TableZdroj>().ToTable("TableZdroj", schema: "Data");  
         }
 
         // ----------------------------------------

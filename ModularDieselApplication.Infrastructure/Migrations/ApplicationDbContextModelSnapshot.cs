@@ -162,28 +162,26 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdDieslovani")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IdOdstavky")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LogMessage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OdstavkyID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("odstavkyID")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdLog");
 
                     b.HasIndex("IdDieslovani");
 
-                    b.HasIndex("odstavkyID");
+                    b.HasIndex("OdstavkyID");
 
                     b.ToTable("DebugModel", "Data");
                 });
@@ -457,7 +455,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("TableZdroj", "Data");
+                    b.ToTable("TableZdroj", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -515,23 +513,21 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 {
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", "Dieslovani")
                         .WithMany()
-                        .HasForeignKey("IdDieslovani")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdDieslovani");
 
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", "odstavky")
+                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", "Odstavky")
                         .WithMany()
-                        .HasForeignKey("odstavkyID");
+                        .HasForeignKey("OdstavkyID");
 
                     b.Navigation("Dieslovani");
 
-                    b.Navigation("odstavky");
+                    b.Navigation("Odstavky");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableDieslovani", b =>
                 {
                     b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", "Odstavka")
-                        .WithMany("DieslovaniList")
+                        .WithMany()
                         .HasForeignKey("IdOdstavky")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -619,11 +615,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableLokalita", b =>
                 {
                     b.Navigation("OdstavkyList");
-                });
-
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>
-                {
-                    b.Navigation("DieslovaniList");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", b =>

@@ -25,7 +25,6 @@ namespace ModularDieselApplication.Infrastructure.Mappings
                 .ForMember(dest => dest.ID, opt => opt.Ignore())
                 .ForMember(dest => dest.LokalitaID, opt => opt.MapFrom(src => src.Lokality.ID))
                 .ForMember(dest => dest.Lokality, opt => opt.Ignore())
-                .ForMember(dest => dest.DieslovaniList, opt => opt.Ignore())
                 .ReverseMap();
 
             // ----------------------------------------
@@ -64,7 +63,11 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             // ----------------------------------------
             // Map between TableUser and User.
             // ----------------------------------------
-            CreateMap<TableUser, User>().ReverseMap();
+          CreateMap<TableUser, User>()
+            .ForMember(dest => dest.Password, opt => opt.Ignore())
+            .ForMember(dest => dest.Role, opt => opt.Ignore())
+            .ReverseMap()
+            .ForPath(src => src.PasswordHash, opt => opt.Ignore());
 
             // ----------------------------------------
             // Map between TableZdroj and Zdroj.

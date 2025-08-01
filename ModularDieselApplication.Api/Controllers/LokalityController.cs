@@ -36,21 +36,11 @@ namespace ModularDieselApplication.Api.Controllers
         // ----------------------------------------
         // Fetch Lokality details as JSON.
         // ----------------------------------------
-        [HttpGet]
-        public async Task<IActionResult> DetailLokalityJson(string Nazev)
-        {
-            var lokality = await _lokalityService.DetailLokalityJsonAsync(Nazev);
-            return Json(new { data = lokality });
-        }
+
 
         // ----------------------------------------
         // Render the detail view for a specific Lokality.
         // ----------------------------------------
-        public async Task<IActionResult> DetailLokality(string nazev)
-        {
-            var lokality = await _lokalityService.DetailLokalityAsync(nazev);
-            return View(lokality);
-        }
 
         // ----------------------------------------
         // Fetch diesel-related data for a specific Lokality.

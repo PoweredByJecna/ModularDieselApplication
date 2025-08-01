@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication;
 using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Domain.Enum;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
 {
@@ -9,7 +11,7 @@ namespace ModularDieselApplication.Application.Interfaces.Services
         Task<Odstavka> GetOdstavka(GetOdstavka filter, object value);
         Task DeleteOdstavkaAsync(string idodstavky);
         Task ChangeTimeOdstavkyAsync(string idodstavky, DateTime time, ActionFilter filter);
-        Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis);
+        Task<HandleResult> CreateNewOdstavka(string lokalita, DateTime od, DateTime do_, string popis);
 
     }
 }

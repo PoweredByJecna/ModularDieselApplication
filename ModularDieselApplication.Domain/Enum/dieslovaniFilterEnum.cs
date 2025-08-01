@@ -93,6 +93,13 @@ namespace ModularDieselApplication.Domain.Enum
         ById,
         ByDaId,
     }
+    public enum GetLokalita
+    {
+        ById,
+        ByNazev,
+        ByRegion
+    }
+
 
 
 

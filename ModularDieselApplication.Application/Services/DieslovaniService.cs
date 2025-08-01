@@ -9,45 +9,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ModularDieselApplication.Application.Services
 {
-    public class DieslovaniService : IDieslovaniService
+    public class DieslovaniService(
+        IDieslovaniRepository _dieslovaniRepository,
+        IOdstavkyService _odstavkyService,
+        ITechnikService _technikService,
+        ILogService _logService,
+        IPohotovostiRepository _pohotovostiService,
+        DieslovaniRules _dieslovaniRules
+        ) : IDieslovaniService
     {
-        private readonly IDieslovaniRepository _dieslovaniRepository;
-        private readonly ITechnikService _technikService;
-        private readonly ILogService _logService;
-        private readonly IPohotovostiRepository _pohotovostiService;
-        private readonly DieslovaniRules _dieslovaniRules;
-        private readonly IOdstavkyService _odstavkyService;
-
-        public DieslovaniService(
-            IDieslovaniRepository dieslovaniRepository,
-            IOdstavkyService odstavkyService,
-            ITechnikService technikService,
-            ILogService logService,
-            IPohotovostiRepository pohotovostiService,
-            DieslovaniRules dieslovaniRules
-        )
-        {
-            _dieslovaniRepository = dieslovaniRepository;
-            _technikService = technikService;
-            _logService = logService;
-            _pohotovostiService = pohotovostiService;
-            _dieslovaniRules = dieslovaniRules;
-            _odstavkyService = odstavkyService;
-        }
-        public async Task<bool> AnotherDieselRequestAsync(string idTechnika)
-        {
-            return await _dieslovaniRepository.AnotherDieselRequest(idTechnika);
-        }
-        public async Task<Dieslovani> GetDieslovani(GetDA filter, object value)
-        {
-            Dieslovani dieslovani = await _dieslovaniRepository.GetDaAsync(filter,value);
-            return dieslovani;
-        } 
-
+        public async Task<bool> AnotherDieselRequestAsync(string idTechnika) => await _dieslovaniRepository.AnotherDieselRequest(idTechnika);
+        public async Task<Dieslovani> GetDieslovani(GetDA filter, object value) => await _dieslovaniRepository.GetDaAsync(filter, value);
         public async Task VstupAsync(string idDieslovani)
         {
             var dis = await _dieslovaniRepository.GetDaAsync(GetDA.ById, idDieslovani);
-
             if (dis != null)
             {
                 dis.Nastav(DieslovaniFieldEnum.Vstup, DateTime.Now);
@@ -55,27 +30,19 @@ namespace ModularDieselApplication.Application.Services
                 await _dieslovaniRepository.UpdateAsync(dis);
                 await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " vstoupil na lokalitu.");
             }
-            else
-            {
-                throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
-            }
+            else throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
         }
-        // ----------------------------------------
-        // Record exit from a location.
-        // ----------------------------------------
         public async Task OdchodAsync(string idDieslovani)
         {
-            var dis = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId,idDieslovani);
+            var dis = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId, idDieslovani);
             if (dis != null)
             {
                 var anotherDiesel = await _dieslovaniRepository.AnotherDieselRequest(dis.Technik.ID);
-
                 if (!anotherDiesel)
                 {
                     dis.Technik.Nastav(TechnikFilterEnum.taken, false);
                     await _technikService.UpdateTechnikAsync(dis.Technik);
                 }
-
                 dis.Nastav(DieslovaniFieldEnum.Odchod, DateTime.Now);
                 await _dieslovaniRepository.UpdateAsync(dis);
                 await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dis.ID, "Technik " + dis.Technik.User.Jmeno + " " + dis.Technik.User.Prijmeni + " zadal odchod z lokality.");
@@ -85,49 +52,27 @@ namespace ModularDieselApplication.Application.Services
                 throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
             }
         }
-        // ----------------------------------------
-        // Assign a technician to a location.
-        // ----------------------------------------
-        public async Task TakeAsync(string idDieslovani, User currentUser)
+        private async Task TakeAsync(string idDieslovani, User currentUser)
         {
-
             var technik = await _technikService.GetTechnik(GetTechnikEnum.ByUserId, currentUser.Id);
-            var dieslovaniTaken = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId,idDieslovani);
+            var dieslovaniTaken = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId, idDieslovani);
             var pohotovostTechnik = await _technikService.IsTechnikOnDutyAsync(technik.ID);
-            if (!pohotovostTechnik)
-            {
-                throw new InvalidOperationException("Technik není v pohotovosti.");
-            }
+            if (!pohotovostTechnik) throw new InvalidOperationException("Technik není v pohotovosti.");
             dieslovaniTaken.Technik = technik;
             dieslovaniTaken.Technik.Nastav(TechnikFilterEnum.taken, true);
             await _technikService.UpdateTechnikAsync(dieslovaniTaken.Technik);
             await _dieslovaniRepository.UpdateAsync(dieslovaniTaken);
             await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovaniTaken.ID, $"Technik {dieslovaniTaken.Technik.User.Jmeno} {dieslovaniTaken.Technik.User.Prijmeni} si převzal lokalitu.");
         }
-
-        // ----------------------------------------
-        // Delete a dieslovani record.
-        // ----------------------------------------
         public async Task DeleteDieslovaniAsync(string id)
         {
-            var dieslovani = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId,id);
-            if (dieslovani == null)
-            {
-                throw new InvalidOperationException($"Dieslovani with id {id} not found.");
-            }
+            _ = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId, id) ?? throw new InvalidOperationException($"Dieslovani with id {id} not found.");
             bool deleted = await _dieslovaniRepository.DeleteAsync(id);
-            if (!deleted)
-            {
-                throw new InvalidOperationException($"Failed to delete Dieslovani with id {id}.");
-            }
+            if (!deleted) throw new InvalidOperationException($"Failed to delete Dieslovani with id {id}.");
         }
-
-        // ----------------------------------------
-        // Change the time for a dieslovani record.
-        // ----------------------------------------
         public async Task ChangeTimeAsync(string idDieslovani, DateTime time, ActionFilter type)
         {
-            var dieslovani = await _dieslovaniRepository.GetDaAsync(GetDA.ById,idDieslovani) ?? throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
+            var dieslovani = await _dieslovaniRepository.GetDaAsync(GetDA.ById, idDieslovani) ?? throw new InvalidOperationException($"Dieslovani with id {idDieslovani} not found.");
             switch (type)
             {
                 case ActionFilter.Vstup:
@@ -150,7 +95,6 @@ namespace ModularDieselApplication.Application.Services
             await _dieslovaniRepository.UpdateAsync(dieslovani);
             await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Byl změnen čas na {time}.");
         }
-
         public async Task<HandleResult<Dieslovani>> HandleOdstavkyDieslovani(Odstavka newOdstavka)
         {
             var technik = await _technikService.GetTechnik(GetTechnikEnum.fitkivniTechnik);
@@ -175,19 +119,13 @@ namespace ModularDieselApplication.Application.Services
                     case IsDieselRequiredEnum.Baterie:
                         await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Dieslování je částečně potřeba: na lokalitě jsou baterie, které vydrží po dobu odstávky.");
                         return HandleResult<Dieslovani>.Error($"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nDieslování je částečně potřeba: na lokalitě jsou baterie, které vydrží po dobu odstávky.");
-
                     default:
                         var dieslovani = await CreateNewDieslovaniAsync(newOdstavka, technik);
                         await _logService.ZapisDoLogu(DateTime.Now.Date, "Odstávka", newOdstavka.ID, $"Bylo vytvořeno nové dieslování č.{dieslovani.ID}.");
                         return HandleResult<Dieslovani>.OK(dieslovani, $"Odstávka č. {newOdstavka.ID}, byla vytvořena.\nBylo vytvořeno nové dieslování č.{dieslovani.ID}.\nTechnik: {dieslovani.Technik.User.Jmeno} {dieslovani.Technik.User.Jmeno}.");
                 }
             }
-
         }
-
-        // ----------------------------------------
-        // Assign a technician to dieslovani.
-        // ----------------------------------------
         public async Task<Technik> AssignTechnikAsync(Dieslovani dieslovani)
         {
             var techniksearch = await _pohotovostiService.GetTechnikVPohotovostiAsnyc(dieslovani.Odstavka.Lokality.Region.ID, dieslovani.Odstavka.Od, dieslovani.Odstavka.Do);
@@ -213,9 +151,6 @@ namespace ModularDieselApplication.Application.Services
                 }
             }
         }
-        // ----------------------------------------
-        // Create a new dieslovani record.
-        // ----------------------------------------
         public async Task<Dieslovani> CreateNewDieslovaniAsync(Odstavka newOdstavka, Technik technik)
         {
             Dieslovani newDieslovani = new()
@@ -228,54 +163,23 @@ namespace ModularDieselApplication.Application.Services
             await _logService.ZapisDoLogu(DateTime.Now, "Dieslovaní", newDieslovani.ID, $"Nové dieslování č.{newDieslovani.ID} bylo vytvořeno.");
             return newDieslovani;
         }
-
-        // ----------------------------------------
-        // Save technician and dieslovani details.
-        // ----------------------------------------
+        public async Task CallDieslovaniAsync(string idodstavky)
+        {
+            var existingDieslovani = await AnotherDieselRequest(idodstavky);
+            if (existingDieslovani) throw new InvalidOperationException($"Dieslovani for Odstavka with ID {idodstavky} already exists.");
+            var odstavka = await _odstavkyService.GetOdstavka(GetOdstavka.ById, idodstavky);
+            if (odstavka.Do.Date < DateTime.Now.Date) throw new InvalidOperationException($"Odstávka s ID {idodstavky} již skončila.");
+            var technik = await _technikService.GetTechnik(GetTechnikEnum.ByUserId, FiktivniTechnik.Id);
+            if (technik == null) throw new InvalidOperationException("Technik nebyl nalezen.");
+            await CreateNewDieslovaniAsync(odstavka, technik);
+        }
         private async Task SaveTechnikAndDieslovani(Dieslovani newdieslovani)
         {
             newdieslovani.Technik.Nastav(TechnikFilterEnum.taken, true);
             await _technikService.UpdateTechnikAsync(newdieslovani.Technik);
             await _dieslovaniRepository.UpdateAsync(newdieslovani);
         }
-
-        // ----------------------------------------
-        // Call dieslovani for an odstávka.
-        // ----------------------------------------
-        public async Task CallDieslovaniAsync(string idodstavky)
-        {
-            var existingDieslovani = await AnotherDieselRequest(idodstavky);
-            if (existingDieslovani)
-            {
-                throw new InvalidOperationException($"Dieslovani for Odstavka with ID {idodstavky} already exists.");
-            }
-            var odstavka = await _odstavkyService.GetOdstavka(GetOdstavka.ById,idodstavky);
-
-            if (odstavka.Do.Date < DateTime.Now.Date)
-            {
-                throw new InvalidOperationException($"Odstávka s ID {idodstavky} již skončila.");
-            }
-            var technik = await _technikService.GetTechnik(GetTechnikEnum.ByUserId, FiktivniTechnik.Id);
-
-            if (technik == null)
-            {
-                throw new InvalidOperationException("Technik nebyl nalezen.");
-            }
-            await CreateNewDieslovaniAsync(odstavka, technik);
-        }
-
-        // ----------------------------------------
-        // Check if another dieslovani request exists.
-        // ----------------------------------------
-        private async Task<bool> AnotherDieselRequest(string odstavka)
-        {
-            var dieslovani = await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId, odstavka);
-            return dieslovani != null;
-        }
-
-          // ----------------------------------------
-        // Check for a technician replacement.
-        // ----------------------------------------
+        private async Task<bool> AnotherDieselRequest(string odstavka) => await _dieslovaniRepository.GetDaAsync(GetDA.ByOdstavkaId, odstavka) is not null;
         private async Task<Technik> CheckTechnikReplacementAsync(Dieslovani dieslovani)
         {
             List<Dieslovani> anotherDieslovani = await _dieslovaniRepository.GetAnotherDA(dieslovani);
@@ -307,9 +211,55 @@ namespace ModularDieselApplication.Application.Services
             }
             return dieslovani.Technik;
         }
-        
-        
-            
+        public async Task<List<Dieslovani>> GetTableData(DieslovaniOdstavkaFilterEnum filter, User currentUser = null, bool isEngineer = default)
+        {
+            return filter switch
+            {
+                DieslovaniOdstavkaFilterEnum.AllTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).ToListAsync(),
+                DieslovaniOdstavkaFilterEnum.RunningTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup != DateTime.MinValue && i.Odchod == DateTime.MinValue).ToListAsync(),
+                DieslovaniOdstavkaFilterEnum.UpcomingTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID != FiktivniTechnik.Id).ToListAsync(),
+                DieslovaniOdstavkaFilterEnum.EndTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date <= DateTime.Today).ToListAsync(),
+                DieslovaniOdstavkaFilterEnum.TrashTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID == FiktivniTechnik.Id).ToListAsync(),
+                _ => throw new ArgumentOutOfRangeException(nameof(filter), filter, null)
+            };
+        }
+        public async Task<HandleResult> ActionMethods(ActionFilter filter, string Id, DateTime time = default, User? currentUser = null)
+        {
+            try
+            {
+                switch(filter)
+                {
+                    case ActionFilter.Vstup:
+                        await VstupAsync(Id);
+                        return HandleResult.OK("Vstup byl úspěšně zaznamenán.");
+                    case ActionFilter.Odchod:
+                        await OdchodAsync(Id);
+                        return HandleResult.OK("Odchod byl úspěšně zaznamenán.");
+                    case ActionFilter.Delete:
+                        await DeleteDieslovaniAsync(Id);
+                        return HandleResult.OK("Dieslovani byla úspěšně smazána.");
+                    case ActionFilter.CallDA:
+                        await CallDieslovaniAsync(Id);
+                        return HandleResult.OK("Dieslovani bylo úspěšně objednáno.");
+                    case ActionFilter.ChangeTimeVstup:
+                        await ChangeTimeAsync(Id, time, ActionFilter.Vstup);
+                        return HandleResult.OK("Čas byl úspěšně změněn.");
+                    case ActionFilter.ChangeTimeOdchod:
+                        await ChangeTimeAsync(Id, time, ActionFilter.Odchod);
+                        return HandleResult.OK("Čas byl úspěšně změněn.");
+                    case ActionFilter.take:
+                        await TakeAsync(Id, currentUser);
+                        return HandleResult.OK("Dieslovani bylo úspěšně převzato.");
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(filter), filter, null);
+                }
+            }
+            catch 
+            {
+
+            }
+        }
+
 
     }
 }

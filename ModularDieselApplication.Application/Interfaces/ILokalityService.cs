@@ -1,4 +1,5 @@
 using ModularDieselApplication.Application.Interfaces.Repositories;
+using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Entities;
 
 namespace ModularDieselApplication.Application.Interfaces.Services
@@ -6,10 +7,9 @@ namespace ModularDieselApplication.Application.Interfaces.Services
     public interface ILokalityService
     {
         Task<List<Lokalita>> GetAllLokalityAsync();
-        Task<Lokalita> DetailLokalityAsync(string nazev);
-        Task<object> DetailLokalityJsonAsync(string nazev);
-        Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev);
-        Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev);
+        Task<List<Dieslovani>> GetDieslovaniNaLokaliteAsync(string nazev);
+        Task<List<Odstavka>> GetOdstavkynaLokaliteAsync(string nazev);
+        Task<Lokalita> GetLokalita(GetLokalita filter, object value);
 
     }
 }

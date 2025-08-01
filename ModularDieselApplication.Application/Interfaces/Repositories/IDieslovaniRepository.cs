@@ -13,6 +13,5 @@ namespace ModularDieselApplication.Application.Interfaces.Repositories
         Task UpdateAsync(Dieslovani dieslovani);
         Task<bool> DeleteAsync(string id);
         Task<List<Dieslovani>> GetAnotherDA(Dieslovani dieslovani);
-
     }
 }

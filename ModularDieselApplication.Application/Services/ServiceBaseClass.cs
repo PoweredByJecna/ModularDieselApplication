@@ -4,7 +4,6 @@ using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Domain.Objects;
 using Microsoft.EntityFrameworkCore;
-using ModularDieselApplication.Application.Services;
 using ModularDieselApplication.Application.Interfaces.Services;
 
 public class ServiceBaseClass : IServiceBaseClass
@@ -20,7 +19,7 @@ public class ServiceBaseClass : IServiceBaseClass
         _odstavkaRepository = odstavkaRepository;
         _odstavkaService = odstavkaService;
     }
-    public async Task<List<Object>> GetTableData(ServiceFilterEnum serviceFilter, DieslovaniOdstavkaFilterEnum filter, User currentUser, bool isEngineer)
+    public async Task<List<Object>> GetTableData(ServiceFilterEnum serviceFilter, DieslovaniOdstavkaFilterEnum filter, User currentUser =null, bool isEngineer =default)
     {
         switch (serviceFilter)
         {

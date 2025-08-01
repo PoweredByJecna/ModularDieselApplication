@@ -24,14 +24,6 @@ namespace ModularDieselApplication.Application.Services
         }
 
         // ----------------------------------------
-        // Get all pohotovosti records.
-        // ----------------------------------------
-        public async Task<List<Pohotovosti>> GetAllPohotovostiAsync()
-        {
-            return await _pohotovostiRepository.GetAllPohotovostiAsync();
-        }
-
-        // ----------------------------------------
         // Check if pohotovosti exist in a specific region within a time range.
         // ----------------------------------------
         public async Task<bool> PohovostiVRegionuAsync(string idRegionu, DateTime OD, DateTime DO)
@@ -49,91 +41,55 @@ namespace ModularDieselApplication.Application.Services
 
             if (!isEngineer && !isAdmin)
             {
-                
-                return HandleResult.OK()
+
+                return HandleResult.Error("Nemáš oprávnění");
             }
 
             if (zacatek.Date > konec.Date)
             {
-                result.Success = false;
-                result.Message = "Neplatný interval pohotovosti.";
-                return result;
+                return HandleResult.Error("Neplatný interval pohotvosti");
             }
 
             if (isEngineer)
             {
-                if (currentUser == null)
-                {
-                    result.Success = false;
-                    result.Message = "Aktuální uživatel je null.";
-                    return result;
-                }
-
-                var technikSearch = await _technikRepository.GetTechnikByUserIdAsync(currentUser.Id);
-
-                if (technikSearch == null)
-                {
-                    result.Success = false;
-                    result.Message = "Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli.";
-                    return result;
-                }
-
-                var zapis = new Pohotovosti
-                {
-                    ID = Guid.NewGuid().ToString(),
-                    IdUser = technikSearch.User.Id,
-                    User = technikSearch.User,
-                    Zacatek = zacatek,
-                    Konec = konec,
-                    IdTechnik = technikSearch.ID,
-                    Technik = technikSearch
-                };
-
-                await _pohotovostiRepository.AddPohotovostAsync(zapis);
-
-                result.Success = true;
-                result.Message = "Pohotovost byla úspěšně zapsána.";
-                return result;
+                await pohotovost(currentUser, zacatek, konec);
             }
-
             if (isAdmin)
             {
-                if (currentUser == null)
-                {
-                    result.Success = false;
-                    result.Message = "Aktuální uživatel je null.";
-                    return result;
-                }
-                
-                var technikSearch = await _technikRepository.GetTechnikByUserIdAsync(currentUser.Id);
-
-                if (technikSearch == null)
-                {
-                    result.Success = false;
-                    result.Message = "Nepodařilo se najít technika podle zadaného IdTechnika.";
-                    return result;
-                }
-
-                var zapis = new Pohotovosti
-                {
-                    IdUser = technikSearch.User.Id,
-                    Zacatek = zacatek,
-                    Konec = konec,
-                    User = technikSearch.User,
-                    Technik = technikSearch,
-                    IdTechnik = technikSearch.ID
-                };
-
-                await _pohotovostiRepository.AddPohotovostAsync(zapis);
-
-                result.Success = true;
-                result.Message = "Pohotovost byla úspěšně zapsána.";
-                return result;
+                await pohotovost(currentUser, zacatek, konec);
             }
 
-            result.Success = false;
-            result.Message = "Nepodařilo se provést zápis pohotovosti.";
-            return result;
+            return HandleResult.Error("Nepodařilo se provést zápis pohotovosti");
+         
+        }
+        private async Task<HandleResult> pohotovost(User currentUser,DateTime zacatek, DateTime konec)
+        {
+        if (currentUser == null)
+            {
+                return HandleResult.Error("Neplatný uživatel");
+            }
+
+            var technikSearch = await _technikRepository.GetTechnik(Domain.Enum.GetTechnikEnum.ByUserId, currentUser.Id);
+
+            if (technikSearch == null)
+            {
+                return HandleResult.Error("Nepodařilo se najít technika přiřazeného k aktuálnímu uživateli");
+            }
+
+            var zapis = new Pohotovosti
+            {
+                ID = Guid.NewGuid().ToString(),
+                IdUser = technikSearch.User.Id,
+                User = technikSearch.User,
+                Zacatek = zacatek,
+                Konec = konec,
+                IdTechnik = technikSearch.ID,
+                Technik = technikSearch
+            };
+
+            await _pohotovostiRepository.AddPohotovostAsync(zapis);
+
+            return HandleResult.OK("Pohotovost byla zapsána");
         }
 
         // ----------------------------------------

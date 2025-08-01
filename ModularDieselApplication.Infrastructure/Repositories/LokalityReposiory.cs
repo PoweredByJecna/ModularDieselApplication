@@ -3,6 +3,7 @@ using ModularDieselApplication.Application.Interfaces.Repositories;
 using AutoMapper;
 using ModularDieselApplication.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
@@ -39,7 +40,16 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<List<Lokalita>>(entities);
         }
-
+        public async Task<Lokalita> GetLokalitaAsync(GetLokalita filter, object value)
+        {
+            switch (filter)
+            {
+                case GetLokalita.ByNazev:
+                    return await GetLokalitaByName(value as string);
+                default:
+                    throw new InvalidDataException();
+            }
+        }
         // ----------------------------------------
         // Get a lokalita record by its name.
         // ----------------------------------------

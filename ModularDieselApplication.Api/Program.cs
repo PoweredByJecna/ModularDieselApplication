@@ -11,9 +11,7 @@ using ModularDieselApplication.Api.Middleware;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Infrastructure.Persistence.Repositories;
 using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
-using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniActionService;
-using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniAssignmentService;
-using ModularDieselApplication.Application.Services.DieslovaniServices.DieslovaniQueryService;
+
 using AutoMapper;
 using ModularDieselApplication.Domain.Rules;
 using ModularDieselApplication.Infrastructure.CleaningDatabase;
@@ -52,7 +50,7 @@ builder.Services.AddIdentity<TableUser, IdentityRole>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IServiceBaseClass, ServiceBaseClass>();
 builder.Services.AddScoped<IDieslovaniRepository, DieslovaniRepository>();
 builder.Services.AddScoped<IOdstavkyRepository, OdstavkyRepository>();
 builder.Services.AddScoped<IPohotovostiRepository, PohotovostiRepository>();
@@ -76,16 +74,11 @@ builder.Services.AddScoped<ILogService, LogService>();
 
 
 builder.Services.AddScoped<DieslovaniRules>();
-builder.Services.AddScoped<DieslovaniActionService>();
-builder.Services.AddScoped<DieslovaniAssignmentService>();
-builder.Services.AddScoped<DieslovaniQueryService>();
+
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<SignInManager<TableUser>>();
 builder.Services.AddScoped<UserManager<TableUser>>();
-builder.Services.AddScoped<OdstavkaAssignmentService>();
-builder.Services.AddScoped<OdstavkyActionService>();
-builder.Services.AddScoped<OdstavkyQueryService>();
 builder.Services.AddScoped<OdstavkyRules>();
 
 builder.Services.AddScoped<IDatabaseCleaner, DatabaseCleaner>();

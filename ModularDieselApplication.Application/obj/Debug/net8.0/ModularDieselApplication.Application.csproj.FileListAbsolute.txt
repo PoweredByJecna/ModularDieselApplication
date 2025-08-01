@@ -462,44 +462,60 @@ C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-17/ModularDiese
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Application/obj/Debug/net8.0/refint/ModularDieselApplication.Application.dll
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.pdb
 /Users/jirichroust/ModularDieselApp/ModularDieselApplication-7/ModularDieselApplication.Application/obj/Debug/net8.0/ref/ModularDieselApplication.Application.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.deps.json
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.pdb
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Domain.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Domain.pdb
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.AssemblyReference.cache
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfoInputs.cache
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfo.cs
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.sourcelink.json
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularD.03165995.Up2Date
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\refint\ModularDieselApplication.Application.dll
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.pdb
-C:\Users\jirka\ModularDieselApplication\ModularDieselApplication-18\ModularDieselApplication.Application\obj\Debug\net8.0\ref\ModularDieselApplication.Application.dll
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.deps.json
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Application.pdb
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Domain.dll
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\bin\Debug\net8.0\ModularDieselApplication.Domain.pdb
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.AssemblyReference.cache
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfoInputs.cache
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfo.cs
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.sourcelink.json
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularD.03165995.Up2Date
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\refint\ModularDieselApplication.Application.dll
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.pdb
-C:\Users\jirka\New folder (2)\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ref\ModularDieselApplication.Application.dll
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.AssemblyReference.cache
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfoInputs.cache
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.AssemblyInfo.cs
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.sourcelink.json
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.dll
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\refint\ModularDieselApplication.Application.dll
-C:\Users\jirka\Da-Modular-Application\ModularDieselApplication\ModularDieselApplication.Application\obj\Debug\net8.0\ModularDieselApplication.Application.pdb
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.deps.json
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.dll
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.pdb
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.dll
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.pdb
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.AssemblyReference.cache
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfoInputs.cache
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfo.cs
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.sourcelink.json
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularD.03165995.Up2Date
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.dll
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/refint/ModularDieselApplication.Application.dll
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.pdb
+C:/Users/jirka/ModularDieselApplication/ModularDieselApplication-18/ModularDieselApplication.Application/obj/Debug/net8.0/ref/ModularDieselApplication.Application.dll
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.deps.json
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.dll
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.pdb
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.dll
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.pdb
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.AssemblyReference.cache
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfoInputs.cache
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfo.cs
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.sourcelink.json
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularD.03165995.Up2Date
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.dll
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/refint/ModularDieselApplication.Application.dll
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.pdb
+C:/Users/jirka/New folder (2)/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ref/ModularDieselApplication.Application.dll
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.AssemblyReference.cache
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfoInputs.cache
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfo.cs
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.sourcelink.json
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.dll
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/refint/ModularDieselApplication.Application.dll
+C:/Users/jirka/Da-Modular-Application/ModularDieselApplication/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.pdb
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.AssemblyReference.cache
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfoInputs.cache
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.AssemblyInfo.cs
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.csproj.CoreCompileInputs.cache
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.sourcelink.json
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.dll
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/refint/ModularDieselApplication.Application.dll
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularDieselApplication.Application.pdb
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.deps.json
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.dll
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Application.pdb
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.dll
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/bin/Debug/net8.0/ModularDieselApplication.Domain.pdb
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ModularD.03165995.Up2Date
+/Users/jirichroust/ModularDieselApplication/ModularDieselApplication-1/ModularDieselApplication.Application/obj/Debug/net8.0/ref/ModularDieselApplication.Application.dll

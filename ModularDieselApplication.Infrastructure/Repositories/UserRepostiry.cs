@@ -37,17 +37,12 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             var result = await _userManager.CreateAsync(tableUser, user.Password);
             if (result.Succeeded)
             {
-                return new HandleResult
-                {
-                    Success = true,
-                    Message = "Uživatel byl úspěšně vytvořen."
-                };
+
+                return HandleResult.OK("Uživatel byl úspěšně vytvořen.");
+          
             }
-            return new HandleResult
-            {
-                Success = false,
-                Message = "Uživatel nebyl vytvořen: "
-            };
+            else return HandleResult.Error("Uživatel nebyl vytvořen.");
+
         }
 
         // ----------------------------------------
@@ -174,22 +169,22 @@ namespace ModularDieselApplication.Infrastructure.Persistence.Repositories
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return new HandleResult { Success = false, Message = "Uživatel nebyl nalezen" };
+                return HandleResult.Error("Uživatel nebyl nalezen" );
             }
             if (string.IsNullOrEmpty(user.PasswordHash))
             {
-                return new HandleResult { Success = false, Message = "Aktuální heslo nesmí být prázdné" };
+                return HandleResult.Error ("Aktuální heslo nesmí být prázdné" );
             }
             if (string.IsNullOrEmpty(newPassword))
             {
-                return new HandleResult { Success = false, Message = "Nové heslo nesmí být prázdné" };
+                return HandleResult.Error( "Nové heslo nesmí být prázdné" );
             }
             var result = await _userManager.ChangePasswordAsync(user, user.PasswordHash, newPassword);
             if (result.Succeeded)
             {
-                return new HandleResult { Success = true };
+                return  HandleResult.OK ("Heslo změněno");
             }
-            return new HandleResult { Success = false, Message = string.Join(", ", result.Errors.Select(e => e.Description)) };
+            return  HandleResult.Error () ;
         }
     }
 }

@@ -2,6 +2,8 @@ using System.Reflection.Metadata;
 using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Domain.Entities;
+using ModularDieselApplication.Domain.Enum;
+
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -14,26 +16,24 @@ namespace ModularDieselApplication.Application.Services
             _lokalityRepository = lokalityRepository;
         }
 
+        public async Task<Lokalita> GetLokalita(GetLokalita filter, object value)
+        {
+            return await _lokalityRepository.GetLokalitaAsync(filter, value);
+        }
+
+
         // ----------------------------------------
         // Get all lokalita records.
         // ----------------------------------------
-        public async Task<List<object>> GetAllLokalityAsync()
+        public async Task<List<Lokalita>> GetAllLokalityAsync()
         {
             return await _lokalityRepository.GetAllLokalityAsync();
         }
 
         // ----------------------------------------
-        // Get details of a specific lokalita by name.
-        // ----------------------------------------
-        public async Task<Lokalita> DetailLokalityAsync(string nazev)
-        {
-            return await _lokalityRepository.GetLokalitaByName(nazev);
-        }
-
-        // ----------------------------------------
         // Get dieslovani records for a specific lokalita.
         // ----------------------------------------
-        public async Task<List<object>> GetDieslovaniNaLokaliteAsync(string nazev)
+        public async Task<List<Dieslovani>> GetDieslovaniNaLokaliteAsync(string nazev)
         {
             var detail = _lokalityRepository.GetDieslovaniNaLokaliteAsync(nazev);
             return await detail;
@@ -42,28 +42,9 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Get odstávky records for a specific lokalita.
         // ----------------------------------------
-        public async Task<List<object>> GetOdstavkynaLokaliteAsync(string nazev)
+        public async Task<List<Odstavka>> GetOdstavkynaLokaliteAsync(string nazev)
         {
             return await _lokalityRepository.GetOdstavkynaLokaliteAsync(nazev);
-        }
-
-        // ----------------------------------------
-        // Get details of a specific lokalita as JSON.
-        // ----------------------------------------
-        public async Task<object> DetailLokalityJsonAsync(string nazev)
-        {
-            var detialLokality = await _lokalityRepository.DetailLokalityAsync(nazev);
-            return new
-            {
-                Id = detialLokality.ID,
-                Lokalita = detialLokality.Nazev,
-                klasifikace = detialLokality.Klasifikace,
-                adresa = detialLokality.Adresa,
-                baterie = detialLokality.Baterie,
-                zasuvka = detialLokality.Zasuvka,
-                region = detialLokality.Region.Nazev,
-                zdroj = detialLokality.Zdroj?.Nazev,
-            };
         }
     }
 }

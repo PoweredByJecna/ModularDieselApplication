@@ -2,6 +2,7 @@ using ModularDieselApplication.Domain.Entities;
 using ModularDieselApplication.Application.Interfaces.Services;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Domain.Enum;
+using ModularDieselApplication.Domain.Objects;
 
 namespace ModularDieselApplication.Application.Services
 {
@@ -88,7 +89,7 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Determine the distributor based on the region name.
         // ----------------------------------------
-        public string DetermineDistributor(string NazevRegionu)
+        private string DetermineDistributor(string NazevRegionu)
         {
             return NazevRegionu switch
             {
@@ -101,11 +102,12 @@ namespace ModularDieselApplication.Application.Services
         // ----------------------------------------
         // Create a new odstávka record.
         // ----------------------------------------
-        public async Task<Odstavka> CreateNewOdstavka(Lokalita lokalitaSearch, string distrib, DateTime od, DateTime do_, string popis)
+        public async Task<HandleResult> CreateNewOdstavka(string lokalita, DateTime od, DateTime do_, string popis)
         {
+            var lokalitaSearch = await _lokalityService.GetLokalita(GetLokalita.ByNazev,lokalita);
             var newOdstavka = new Odstavka
             {
-                Distributor = distrib,
+                Distributor = DetermineDistributor(lokalitaSearch.Region.Nazev),
                 Od = od,
                 Do = do_,
                 Popis = popis,
@@ -116,9 +118,7 @@ namespace ModularDieselApplication.Application.Services
             await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Nová odstávka č.{newOdstavka.ID} bylo vytvořeno.");
             await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Vytvřáření odstávky s parametry: Lokalita: {newOdstavka.Lokality.Nazev}, Klasifikace: {newOdstavka.Lokality.Klasifikace}, Od: {newOdstavka.Od}, Do: {newOdstavka.Do}");
             await _logService.ZapisDoLogu(DateTime.Now, "Odstávka", newOdstavka.ID, $"Baterie: {newOdstavka.Lokality.Baterie} min");
-            return newOdstavka;
-        
-           
+            return HandleResult.OK("");
         }
         
 
