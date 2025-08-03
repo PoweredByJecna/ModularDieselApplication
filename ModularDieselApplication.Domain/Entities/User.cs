@@ -9,6 +9,6 @@ namespace ModularDieselApplication.Domain.Entities
         public string Role { get; set; } = null!;
         public string Jmeno { get; set; } = null!;
         public string Prijmeni { get; set; } = null!;
-        public string PhoneNumber { get; set; } = null!;
+  
     }
 }

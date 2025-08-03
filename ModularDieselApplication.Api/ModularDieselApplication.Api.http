@@ -1,8 +1,11 @@
-@ModularDieselApplication.Api_HostAddress = http://localhost:5004
+@Host = http://localhost:5004
 
-POST http://localhost:5004/
-Accept: application/json
-
+POST {{{Host}}}/api/Login
+Content-Type: application/json
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
 
 
 

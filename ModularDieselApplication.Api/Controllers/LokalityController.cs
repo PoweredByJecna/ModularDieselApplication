@@ -33,18 +33,6 @@ namespace ModularDieselApplication.Api.Controllers
             return Json(new { data = lokality });
         }
 
-        // ----------------------------------------
-        // Fetch Lokality details as JSON.
-        // ----------------------------------------
-
-
-        // ----------------------------------------
-        // Render the detail view for a specific Lokality.
-        // ----------------------------------------
-
-        // ----------------------------------------
-        // Fetch diesel-related data for a specific Lokality.
-        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> GetDieslovaniNaLokalite(string nazev)
         {

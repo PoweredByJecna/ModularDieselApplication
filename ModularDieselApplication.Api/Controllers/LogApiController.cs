@@ -4,10 +4,6 @@ using ModularDieselApplication.Interfaces;
 public class LogApiController(ILogService logService) : ControllerBase
     {
         private readonly ILogService _logService = logService;
-
-        // ----------------------------------------
-        // Poslani logu pro dieslování do ajax
-        // ----------------------------------------
         [HttpGet]
         public async Task<IActionResult> GetLogByEntity(string entityId)
         {

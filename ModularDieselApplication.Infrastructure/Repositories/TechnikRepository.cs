@@ -1,14 +1,8 @@
 using AutoMapper;
-using ModularDieselApplication.Application.Interfaces.Repositories;
 using ModularDieselApplication.Domain.Entities;
-using ModularDieselApplication.Infrastructure.Persistence.Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using ModularDieselApplication.Infrastructure.Persistence;
-using System.Collections.Generic;
-using System.Linq;
 using ModularDieselApplication.Interfaces.Repositories;
-using ModularDieselApplication.Domain.Enum;
 
 namespace ModularDieselApplication.Infrastructure.Repositories
 {
