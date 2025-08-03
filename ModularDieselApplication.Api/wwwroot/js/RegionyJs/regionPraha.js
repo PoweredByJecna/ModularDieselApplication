@@ -10,10 +10,8 @@ $(document).ready(function() {
         return;
       }
 
-      // Vezmeme první region
       const firstRegion = regiony[0];
       
-      // Zavoláme univerzální funkci
       processRegionData(firstRegion, {
         distributor: '#psc-distributor',
         firma: '#psc-firma',

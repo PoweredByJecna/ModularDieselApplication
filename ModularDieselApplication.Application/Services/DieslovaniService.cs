@@ -6,6 +6,7 @@ using ModularDieselApplication.Domain.Enum;
 using ModularDieselApplication.Domain.Rules;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace ModularDieselApplication.Application.Services
@@ -125,15 +126,7 @@ namespace ModularDieselApplication.Application.Services
         }
         public async Task<List<Dieslovani>> GetTableData(DieslovaniOdstavkaFilterEnum filter, User currentUser = null, bool isEngineer = default)
         {
-            return filter switch
-            {
-                DieslovaniOdstavkaFilterEnum.AllTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).ToListAsync(),
-                DieslovaniOdstavkaFilterEnum.RunningTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup != DateTime.MinValue && i.Odchod == DateTime.MinValue).ToListAsync(),
-                DieslovaniOdstavkaFilterEnum.UpcomingTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID != FiktivniTechnik.Id).ToListAsync(),
-                DieslovaniOdstavkaFilterEnum.EndTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Odchod != DateTime.MinValue.Date && i.Odstavka.Do.Date <= DateTime.Today).ToListAsync(),
-                DieslovaniOdstavkaFilterEnum.TrashTable => await _dieslovaniRepository.GetDieslovaniQuery(currentUser, isEngineer).Where(i => i.Vstup == DateTime.MinValue.Date && i.Odstavka.Od.Date == DateTime.Today && i.Technik.ID == FiktivniTechnik.Id).ToListAsync(),
-                _ => throw new ArgumentOutOfRangeException(nameof(filter), filter, null)
-            };
+            return await _dieslovaniRepository.GetDieslovaniQuery(filter, currentUser, isEngineer).ToListAsync();
         }
         public async Task<HandleResult> ActionMethods(ActionFilter filter, string Id, DateTime time = default, User? currentUser = null)
         {
@@ -254,7 +247,6 @@ namespace ModularDieselApplication.Application.Services
             await _logService.ZapisDoLogu(DateTime.Now, "Dieslovani", dieslovani.ID, $"Byl změnen čas na {time}.");
             return HandleResult.OK($"Čas byl úspěšně změněn na {time}.");
         }
-
     }
 }
 

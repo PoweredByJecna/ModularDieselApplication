@@ -116,24 +116,45 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             return false;
         }
 
-
         // ----------------------------------------
         // Get Dieslovani query
         // ----------------------------------------
-        public IQueryable<Dieslovani> GetDieslovaniQuery(User? currentUser = null, bool isEngineer = false)
+        public IQueryable<Dieslovani> GetDieslovaniQuery(DieslovaniOdstavkaFilterEnum filter, User? currentUser = null, bool isEngineer = false)
+        {
+            var query = GetDieslovaniQueryEF(currentUser, isEngineer);
+            query = ApplyFilter(query, filter, currentUser);
+            return query.ProjectTo<Dieslovani>(_mapper.ConfigurationProvider);
+        }
+
+        private IQueryable<TableDieslovani> GetDieslovaniQueryEF(User? currentUser = null, bool isEngineer = false)
         {
             var query = _context.DieslovaniS
                 .Include(d => d.Odstavka)
+                .ThenInclude(d => d.Lokality)
+                .ThenInclude(d => d.Region)
                 .Include(d => d.Technik)
-                .ThenInclude(d => d.User)
-                .ProjectTo<Dieslovani>(_mapper.ConfigurationProvider);
+                .ThenInclude(t => t.User)
+                .AsQueryable();
 
             if (isEngineer)
             {
                 var userId = currentUser?.Id;
                 query = query.Where(d => d.Technik.User.Id == userId);
             }
+
             return query;
+        }
+        private IQueryable<TableDieslovani> ApplyFilter(IQueryable<TableDieslovani> query, DieslovaniOdstavkaFilterEnum filter, User? currentUser = null)
+        {
+            return filter switch
+            {
+                DieslovaniOdstavkaFilterEnum.AllTable => query,
+                DieslovaniOdstavkaFilterEnum.RunningTable => query.Where(d => d.Vstup != DateTime.MinValue.Date && d.Odchod == DateTime.MinValue.Date),
+                DieslovaniOdstavkaFilterEnum.UpcomingTable => query.Where(d => d.Vstup == DateTime.MinValue.Date && d.Odstavka.Od.Date == DateTime.Today && d.Technik.Id != FiktivniTechnik.Id),
+                DieslovaniOdstavkaFilterEnum.EndTable => query.Where(d => d.Odchod != DateTime.MinValue.Date && d.Odstavka.Do.Date <= DateTime.Today),
+                DieslovaniOdstavkaFilterEnum.TrashTable => query.Where(d => d.Vstup == DateTime.MinValue.Date && d.Odstavka.Od.Date == DateTime.Today && d.Technik.Id == FiktivniTechnik.Id),
+                _ => throw new ArgumentOutOfRangeException(nameof(filter), filter, null),
+            };
         }
 
         // Check if another diesel request exists

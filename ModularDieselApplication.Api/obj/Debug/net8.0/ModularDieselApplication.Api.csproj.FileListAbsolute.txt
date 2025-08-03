@@ -6751,3 +6751,5 @@ C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.
 C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.pdb
 C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ModularDieselApplication.Api.genruntimeconfig.cache
 C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.Api\obj\Debug\net8.0\ref\ModularDieselApplication.Api.dll
+C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\jirka\New folder (3)\ModularDieselApplication\ModularDieselApplication.Api\bin\Debug\net8.0\appsettings.json

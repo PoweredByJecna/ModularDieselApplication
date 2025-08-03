@@ -11,7 +11,6 @@
 
 
 $(document).ready(function () {
-    // Získání parametru "id" z query stringu (např. ?id=156587)
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");    
     

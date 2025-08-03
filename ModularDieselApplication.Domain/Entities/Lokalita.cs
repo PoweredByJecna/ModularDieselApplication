@@ -10,6 +10,5 @@ namespace ModularDieselApplication.Domain.Entities
         public bool DA{get; set;}
         public bool Zasuvka{get; set;}
         public required Region Region {get; set;}
-        public Zdroj? Zdroj {get; set;}
     }
 }

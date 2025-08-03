@@ -34,7 +34,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     baterie = l.Baterie,
                     zasuvka = l.Zasuvka,
                     region = l.Region.Nazev,
-                    zdroj = l.Zdroj != null ? l.Zdroj.Nazev : "N/A"
                 })
                 .ToListAsync();
 
@@ -57,7 +56,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.LokalityS
                 .Include(l => l.Region)
-                .Include(l => l.Zdroj)
                 .FirstOrDefaultAsync(l => l.Nazev == nazev);
 
             return _mapper.Map<Lokalita>(entity);
@@ -70,7 +68,6 @@ namespace ModularDieselApplication.Infrastructure.Repositories
         {
             var entity = await _context.LokalityS
                 .Include(l => l.Region)
-                .Include(l => l.Zdroj)
                 .Where(l => l.Nazev == nazev)
                 .FirstOrDefaultAsync();
 

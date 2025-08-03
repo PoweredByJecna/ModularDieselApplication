@@ -12,8 +12,8 @@ using ModularDieselApplication.Infrastructure.Persistence;
 namespace ModularDieselApplication.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250801155725_ZdrojId")]
-    partial class ZdrojId
+    [Migration("20250803084428_NewDatabase")]
+    partial class NewDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,24 +140,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.ToTable("UserRoles", "Identity");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("UserTokens", "Identity");
-                });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.DebugLogModel", b =>
                 {
@@ -261,12 +243,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<bool>("Zasuvka")
                         .HasColumnType("bit");
 
-              
-
                     b.HasKey("ID");
 
                     b.HasIndex("RegionID");
-
 
                     b.ToTable("TableLokalita", "Data");
                 });
@@ -322,26 +301,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.HasIndex("IdTechnik");
 
                     b.ToTable("TablePohotovost", "Data");
-                });
-
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableRegion", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FirmaID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Nazev")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("FirmaID");
-
-                    b.ToTable("TableRegion", "Data");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableTechnik", b =>
@@ -442,7 +401,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.ToTable("User", "Identity");
                 });
 
-  
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -536,9 +494,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-               
                     b.Navigation("Region");
-
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>

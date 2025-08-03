@@ -69,10 +69,7 @@ namespace ModularDieselApplication.Infrastructure.Mappings
             .ReverseMap()
             .ForPath(src => src.PasswordHash, opt => opt.Ignore());
 
-            // ----------------------------------------
-            // Map between TableZdroj and Zdroj.
-            // ----------------------------------------
-            CreateMap<TableZdroj, Zdroj>().ReverseMap();
+         
         }
     }
 }

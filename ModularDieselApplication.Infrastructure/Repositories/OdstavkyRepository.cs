@@ -1,4 +1,5 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ModularDieselApplication.Application.Interfaces;
 using ModularDieselApplication.Domain.Entities;
@@ -33,9 +34,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                     throw new InvalidDataException();
             }
         }
-        // ----------------------------------------
-        // Get an Odstavka record by its ID.
-        // ----------------------------------------
+
         private async Task<Odstavka> GetByIdAsync(string id)
         {
             var entity = await _context.OdstavkyS
@@ -45,9 +44,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<Odstavka>(entity);
         }
-        // ----------------------------------------
-        // Get all Lokality records.
-        // ----------------------------------------
+
         public async Task<List<Lokalita>> GetAllAsync()
         {
             var entities = await _context.LokalityS
@@ -56,9 +53,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             return _mapper.Map<List<Lokalita>>(entities);
         }
-        // ----------------------------------------
-        // Add a new Odstavka record.
-        // ----------------------------------------
+
         public async Task AddAsync(Odstavka odstavka)
         {
             var efEntity = _mapper.Map<TableOdstavka>(odstavka);
@@ -75,18 +70,14 @@ namespace ModularDieselApplication.Infrastructure.Repositories
 
             odstavka.ID = efEntity.ID;
         }
-        // ----------------------------------------
-        // Update an existing Odstavka record.
-        // ----------------------------------------
+
         public async Task UpdateAsync(Odstavka odstavka)
         {
             var entity = _mapper.Map<TableOdstavka>(odstavka);
             _context.OdstavkyS.Update(entity);
             await _context.SaveChangesAsync();
         }
-        // ----------------------------------------
-        // Get another Odstavka record by Lokalita ID and date.
-        // ----------------------------------------
+
         public async Task<Odstavka> AnotherOdsatvkaAsync(string LokalitaId, DateTime od)
         {
             var entity = await _context.OdstavkyS
@@ -95,9 +86,7 @@ namespace ModularDieselApplication.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
             return _mapper.Map<Odstavka>(entity);
         }
-        // ----------------------------------------
-        // Delete an Odstavka record by its ID.
-        // ----------------------------------------
+
         public async Task DeleteAsync(string id)
         {
             var entity = await _context.OdstavkyS.FindAsync(id);
@@ -108,17 +97,22 @@ namespace ModularDieselApplication.Infrastructure.Repositories
             }
             else throw new InvalidDataException("Chyba při mazání");
         }
-        // ----------------------------------------
-        // Get a queryable collection of Odstavka records.
-        // ----------------------------------------
         public IQueryable<Odstavka> GetOdstavkaQuery()
         {
-            var entities = _context.OdstavkyS
-                .Include(o => o.Lokality)
-                .AsQueryable();
-
-            return _mapper.ProjectTo<Odstavka>(entities);
+            IQueryable<TableOdstavka> query = GetOdstavkaQueryEF();
+            return query.ProjectTo<Odstavka>(_mapper.ConfigurationProvider);
         }
+
+        private IQueryable<TableOdstavka> GetOdstavkaQueryEF()
+        {
+            var query = _context.OdstavkyS
+                .Include(o => o.Lokality)
+                .ThenInclude(l => l.Region)
+                .AsQueryable();
+            return query;
+        }
+
+    
         
     }
 }

@@ -1,12 +1,10 @@
 ﻿
-// Přidej event listener na všechny inputy s třídou 'InputSearching'
 document.querySelectorAll('.InputSearching').forEach(input => {
     input.addEventListener('input', function () {
-        let query = this.value; // Získej hodnotu z aktuálního inputu
-        let inputId = this.id; // Získej ID aktuálního inputu
-        let endpoint = ''; // Nastav endpoint na základě ID inputu
+        let query = this.value; 
+        let inputId = this.id; 
+        let endpoint = ''; 
         
-        // Urči endpoint podle ID (přizpůsob si podle potřeby)
         if (inputId === 'search') {
             endpoint = '/Odstavky/Search';
         } else if (inputId === 'search-lokality') {
@@ -16,17 +14,15 @@ document.querySelectorAll('.InputSearching').forEach(input => {
             return;
         }
         
-        // Fetch výsledků
         fetch(`${endpoint}?query=${query}`)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('table-body').innerHTML = data; // Aktualizuj tabulku
+                document.getElementById('table-body').innerHTML = data; 
                 
-                // Fetch pro stránkování
                 fetch(`${endpoint.replace('Search', 'Paging')}?query=${query}`)
                     .then(pagingResponse => pagingResponse.text())
                     .then(pagingData => {
-                        document.getElementById('paging-controls').innerHTML = pagingData; // Aktualizuj stránkování
+                        document.getElementById('paging-controls').innerHTML = pagingData;
                     });
             })
             .catch(error => console.error('Chyba při načítání dat:', error));

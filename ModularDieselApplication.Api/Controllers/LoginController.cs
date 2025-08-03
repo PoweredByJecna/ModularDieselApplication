@@ -9,29 +9,10 @@ using ModularDieselApplication.Application.Interfaces;
 namespace ModularDieselApplication.Api.Controllers
 {
     [AllowAnonymous]
-    public class LoginController : Controller
+    public class LoginController(SignInManager<TableUser> _signInManager, IAuthService _authService) : Controller
     {
-        private readonly SignInManager<TableUser> _signInManager;
-        private readonly IAuthService _authService;
+        [HttpGet]public IActionResult Index() => View(new LoginViewModel());
 
-        public LoginController(SignInManager<TableUser> signInManager,  IAuthService authService)
-        {
-            _signInManager = signInManager;
-            _authService = authService;
-        }
-    
-        // ----------------------------------------
-        // GET: /Login/Index
-        // ----------------------------------------
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View(new LoginViewModel());
-        }
-
-        // ----------------------------------------
-        // POST: /Login/Index
-        // ----------------------------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -50,9 +31,7 @@ namespace ModularDieselApplication.Api.Controllers
             }
             return RedirectToAction("Index", "Dieslovani");
         }
-        // ----------------------------------------
-        // GET: /Login/Logout
-        // ----------------------------------------
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

@@ -10,10 +10,8 @@ $(document).ready(function() {
           return;
         }
   
-        // Vezmeme první region
         const firstRegion = regiony[0];
         
-        // Třeba máme jiné ID prvků pro Severní Moravu
         processRegionData(firstRegion, {
           distributor: '#sm-distributor',
           firma: '#sm-firma',

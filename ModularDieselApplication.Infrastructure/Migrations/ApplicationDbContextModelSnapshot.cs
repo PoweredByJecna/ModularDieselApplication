@@ -258,14 +258,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.Property<bool>("Zasuvka")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ZdrojId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
 
                     b.HasIndex("RegionID");
-
-                    b.HasIndex("ZdrojId");
 
                     b.ToTable("TableLokalita", "Data");
                 });
@@ -441,23 +436,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     b.ToTable("User", "Identity");
                 });
 
-            modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableZdroj", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Nazev")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Odber")
-                        .HasColumnType("float");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TableZdroj", "Identity");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -551,13 +529,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableZdroj", "Zdroj")
-                        .WithMany()
-                        .HasForeignKey("ZdrojId");
-
                     b.Navigation("Region");
-
-                    b.Navigation("Zdroj");
                 });
 
             modelBuilder.Entity("ModularDieselApplication.Infrastructure.Persistence.Entities.Models.TableOdstavka", b =>

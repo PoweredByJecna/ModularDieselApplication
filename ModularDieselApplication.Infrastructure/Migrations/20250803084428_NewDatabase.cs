@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ModularDieselApplication.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ZdrojId : Migration
+    public partial class NewDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,13 +17,9 @@ namespace ModularDieselApplication.Infrastructure.Migrations
             migrationBuilder.EnsureSchema(
                 name: "Identity");
 
+
            
-         
 
-          
-         
-
-            
             migrationBuilder.CreateTable(
                 name: "TableLokalita",
                 schema: "Data",
@@ -36,7 +32,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                     Baterie = table.Column<int>(type: "int", nullable: false),
                     DA = table.Column<bool>(type: "bit", nullable: false),
                     Zasuvka = table.Column<bool>(type: "bit", nullable: false),
-                    RegionID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RegionID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,10 +43,31 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         principalSchema: "Data",
                         principalTable: "TableRegion",
                         principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TablePohotovost",
+                schema: "Data",
+                columns: table => new
+                {
+                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Zacatek = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Konec = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdTechnik = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TablePohotovost", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_TablePohotovost_TableTechnik_IdTechnik",
+                        column: x => x.IdTechnik,
+                        principalSchema: "Data",
+                        principalTable: "TableTechnik",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-          
             migrationBuilder.CreateTable(
                 name: "TableOdstavka",
                 schema: "Data",
@@ -72,7 +89,7 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                         principalSchema: "Data",
                         principalTable: "TableLokalita",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,8 +163,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 table: "DebugModel",
                 column: "OdstavkyID");
 
-        
-
 
             migrationBuilder.CreateIndex(
                 name: "IX_TableDieslovani_IdOdstavky",
@@ -167,19 +182,17 @@ namespace ModularDieselApplication.Infrastructure.Migrations
                 table: "TableLokalita",
                 column: "RegionID");
 
-
             migrationBuilder.CreateIndex(
                 name: "IX_TableOdstavka_LokalitaID",
                 schema: "Data",
                 table: "TableOdstavka",
                 column: "LokalitaID");
 
-         
-
-
-
-
-            
+            migrationBuilder.CreateIndex(
+                name: "IX_TablePohotovost_IdTechnik",
+                schema: "Data",
+                table: "TablePohotovost",
+                column: "IdTechnik");
 
         }
 
@@ -241,7 +254,6 @@ namespace ModularDieselApplication.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "TableRegion",
                 schema: "Data");
-
 
             migrationBuilder.DropTable(
                 name: "TableFirma",

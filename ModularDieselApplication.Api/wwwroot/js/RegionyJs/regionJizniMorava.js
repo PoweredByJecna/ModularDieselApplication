@@ -9,10 +9,8 @@ $(document).ready(function() {
               return;
           }
 
-          // Vezmeme první region
           const firstRegion = regiony[0];
 
-          // Naplníme data – předáme selektory pro jednotlivé prvky
           processRegionData(firstRegion, {
               distributor: '#jm-distributor',
               firma: '#jm-firma',
