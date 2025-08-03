@@ -2,11 +2,12 @@ using ModularDieselApplication.Domain.Entities;
 
 namespace ModularDieselApplication.Domain.Objects
 {
-    public class HandleResult<T>(bool success, string message)
+    public class HandleResult<T>(bool success, string message, string? Url = null)
 
     {
         public bool Success { get; set; } = success;
         public string Message { get; set; } = message;
+        public string RedirectUrl { get; set; }
         public Dieslovani<T> Dieslovani { get; set; }
         public Odstavka? Odstavka { get; set; }
         public string EmailResult { get; set; } = "";
@@ -22,24 +23,10 @@ namespace ModularDieselApplication.Domain.Objects
     public class HandleResult : HandleResult<object>
 
     {
-        public HandleResult(bool success, string message = "") : base(success, message) { }
+        public HandleResult(bool success, string message = "", string? v = null) : base(success, message) { }
         public static HandleResult OK(string message = "") => new(true, message);
         public static new HandleResult Error(string message = "") => new(false, message);
     }
     
-    public static class HandleResultExtensions
-    {
-        public static HandleResult<T> WithData<T>(this HandleResult<T> result, T data)
-        {
-            result.Data = data;
-            return result;
-        }
-
-        public static HandleResult WithMessage(this HandleResult result, string message)
-        {
-            result.Message = message;
-            return result;
-        }
-    }
 
 }

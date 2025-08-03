@@ -11,6 +11,7 @@ namespace ModularDieselApplication.Api.Controllers
     {
         [HttpGet] public IActionResult Index() => View(new LoginViewModel());
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("api/Login")]
         [IgnoreAntiforgeryToken]
@@ -23,12 +24,9 @@ namespace ModularDieselApplication.Api.Controllers
 
             var result = await _authService.LoginAsync(model.Input.UserName, model.Input.Password, model.Input.RememberMe);
 
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError(string.Empty, "Špatné uživatelské jméno nebo heslo.");
-                return View("Index", model);
-            }
-            return RedirectToAction("Index", "Dieslovani");
+            if (!result.Succeeded) return JsonResult(new HandleResult(false, "špatné heslo nebo username"));
+            return JsonResult(new HandleResult(true, "Úspěně přihlášeno", Url.Action("Index", "Dieslovani")));
+
         }
 
         [HttpGet]
@@ -39,14 +37,13 @@ namespace ModularDieselApplication.Api.Controllers
         }
         private JsonResult JsonResult(HandleResult result)
         {
-            if (!result.Success)
+            return Json (new
             {
-                return Json(new { success = false, message = result.Message });
-            }
-            else
-            {
-                return Json(new { success = true, message = result.Message });
-            }
+                succes = result.Success,
+                message = result.Message,
+                redirectURL = result.RedirectUrl,
+            });
+            
         }
         
         

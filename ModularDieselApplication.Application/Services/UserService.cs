@@ -71,7 +71,6 @@ namespace ModularDieselApplication.Application.Services
                 region = region?.Nazev ?? "Neznámý",
                 jmeno = pohotovost?.Technik?.User.Jmeno,
                 prijmeni = pohotovost?.Technik?.User.Prijmeni,
-                tel = userDetail.PhoneNumber,
                 Role = role,
                 PohotovostZacatek = pohotovost?.Zacatek,
                 PohotovostKonec = pohotovost?.Konec,

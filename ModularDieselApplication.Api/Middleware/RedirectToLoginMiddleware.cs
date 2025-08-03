@@ -16,9 +16,11 @@
         {
             bool isAuthenticated = context.User?.Identity?.IsAuthenticated ?? false;
             bool isLoginPath = context.Request.Path.StartsWithSegments("/Login", StringComparison.OrdinalIgnoreCase);
+            bool isApiRequest = context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase);
 
-            if (!isAuthenticated && !isLoginPath)
+            if (!isAuthenticated && !isLoginPath && !isApiRequest)
             {
+        
                 context.Response.Redirect("/Login/Index");
                 return;
             }
